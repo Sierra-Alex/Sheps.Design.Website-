@@ -11,6 +11,8 @@ let defs = null, uid = 0;
 const allEls = new Set();
 const exited = [];
 function liquify(el, delay, duration, out) {
+  // phones: the per-frame SVG displacement is too heavy, so the fade runs without it
+  if (matchMedia('(max-width: 807px), (pointer: coarse)').matches) return;
   if (!defs) {
     const svg = document.createElementNS(NS, 'svg');
     svg.setAttribute('aria-hidden', 'true');
@@ -140,7 +142,9 @@ if (typeof window !== 'undefined' && !window.__revealExitWired) {
     e.preventDefault();
     leaving = true;
     const vh = window.innerHeight;
-    const els = Array.from(new Set([...allEls, ...document.querySelectorAll('nav[aria-label="Main"], footer')]))
+    // images/videos that never went through reveal (hero shots, tiles) exit too
+    const media = Array.from(document.querySelectorAll('img,video,canvas,picture,[role="img"],image-slot')).filter((m) => !m.closest('[role="dialog"]'));
+    const els = Array.from(new Set([...allEls, ...media, ...document.querySelectorAll('nav[aria-label="Main"], footer')]))
       .filter((el) => { const r = el.getBoundingClientRect(); return r.bottom > 0 && r.top < vh && r.width > 0; });
     const tops = els.filter((el) => !els.some((o) => o !== el && o.contains(el)));
     const D = 520;

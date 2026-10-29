@@ -125,14 +125,16 @@
     const o = document.createElement('div');
     o.style.cssText = "position:fixed;inset:0;z-index:1000;display:flex;align-items:center;justify-content:center;padding:16px;background:rgba(19,19,19,0.4);backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);font-family:'Inter',sans-serif;";
     const P = "margin:0;color:#6F6F6F;font-size:16px;font-weight:400;line-height:150%;letter-spacing:0.01em;text-wrap:pretty;";
-    o.innerHTML = '<div role="dialog" aria-modal="true" aria-labelledby="about-title" style="position:relative;width:100%;max-width:1200px;max-height:calc(100vh - 32px);overflow:auto;padding:40px;border-radius:8px;background:#F7F3F1;box-shadow:0 24px 64px rgba(19,19,19,0.2);">'
+    const MP = /\.dc\.html$/.test(decodeURIComponent(location.pathname)) ? 'Case Study - Mixpanel.dc.html' : '/mixpanel';
+    const LNK = (href, txt, ext) => '<a href="' + href + '"' + (ext ? ' target="_blank" rel="noopener"' : '') + ' style="color:#131313;text-decoration:underline dotted #131313;text-decoration-thickness:1.5px;text-underline-offset:4px;" onmouseenter="this.style.textDecorationStyle=\'solid\'" onmouseleave="this.style.textDecorationStyle=\'dotted\'">' + txt + '</a>';
+    o.innerHTML = '<div role="dialog" aria-modal="true" aria-label="About Alex Shepherd" style="position:relative;width:100%;max-width:1200px;max-height:calc(100vh - 32px);overflow:auto;padding:40px;border-radius:8px;background:#F7F3F1;box-shadow:0 24px 64px rgba(19,19,19,0.2);">'
       + '<button type="button" data-about-close aria-label="Close" style="position:absolute;z-index:2;top:6px;right:6px;display:flex;align-items:center;justify-content:center;width:32px;height:32px;padding:0;border:0;background:transparent;color:#6F6F6F;cursor:pointer;"><svg width="10" height="10" viewBox="0 0 14 14" fill="none"><path d="M1 1 L13 13 M13 1 L1 13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"></path></svg></button>'
       + '<div style="display:grid;grid-template-columns:repeat(auto-fit, minmax(min(100%, 340px), 1fr));gap:40px;align-items:stretch;">'
-      + '<div style="display:flex;flex-direction:column;gap:16px;min-width:0;">'
-      + '<h2 id="about-title" style="margin:0;color:#131313;font-family:\'Inter\',sans-serif;font-size:20px;font-weight:600;line-height:140%;letter-spacing:0.02em;text-wrap:balance;">A creative director who still builds.</h2>'
-      + '<p style="' + P + '">I\'m Alex Shepherd. For 15+ years I\'ve worked across brand, product and design systems, from Mixpanel and Highfive to early-stage teams finding their voice.</p>'
-      + '<p style="' + P + '">That range shaped how I work. <span style="color:#131313;font-weight:600;">I set the direction and I make the thing: the brand, the product, and the agentic systems that let a team scale it with AI.</span></p>'
-      + '<p style="' + P + '">One person, start to finish.</p>'
+      + '<div data-about-copy style="display:flex;flex-direction:column;gap:16px;min-width:0;">'
+      + '<p style="' + P + 'color:#131313;font-weight:600;">I’m Alex Shepherd, an interactive designer and creative director. For&nbsp;the past 15 years I’ve worked across in-house teams and external projects, partnering with companies like ' + LNK(MP, 'Mixpanel') + ', ' + LNK('https://www.pagerduty.com', 'PagerDuty', 1) + ', ' + LNK('https://www.mattel.com', 'Mattel', 1) + ' and ' + LNK('https://www.unilever.com', 'Unilever', 1) + ', and helping startups build and scale their brands and&nbsp;products.</p>'
+      + '<p style="' + P + '">My focus is creating memorable brand moments and building customer loyalty through consistent, meaningful engagement. That only works when the foundation is strong. A well-crafted system is what lets a brand scale without losing what makes it&nbsp;unique.</p>'
+      + '<p style="' + P + '">In the age of AI, that foundation matters more than ever. That’s why I founded ' + LNK('https://sheps.studio', 'Sheps.Studio', 1) + ', a consultancy that builds agentic design systems and AI tooling so teams can scale&nbsp;consistently.</p>'
+      + '<p style="' + P + '">AI speeds up production, but it doesn’t replace design thinking. Design and craft are still at the heart of my practice. I believe the best work comes from pairing strong design fundamentals with tools that let teams move&nbsp;faster.</p>'
       + '<div style="display:flex;flex-direction:column;margin-top:16px;"><div style="padding:0 0 8px;color:#131313;font-size:14px;font-weight:500;line-height:140%;">Experience</div>'
       + ROWS.map(([a, b]) => '<div style="display:flex;flex-wrap:wrap;justify-content:space-between;gap:2px 16px;padding:8px 0;border-top:1px solid #E1DDDC;"><span style="color:#131313;font-size:14px;line-height:140%;">' + a + '</span><span style="color:#6F6F6F;font-size:14px;line-height:140%;">' + b + '</span></div>').join('')
       + '</div>'
@@ -142,6 +144,12 @@
       + '</div></div>';
     document.body.appendChild(o);
     open = o;
+    // wide screens: copy column scrolls on its own, photo stays put
+    if (matchMedia('(min-width: 808px)').matches) {
+      const dlg = o.querySelector('[role="dialog"]'), copy = o.querySelector('[data-about-copy]');
+      dlg.style.overflow = 'hidden';
+      copy.style.cssText += 'max-height:calc(100vh - 112px);overflow-y:auto;overscroll-behavior:contain;padding-right:16px;margin-right:-16px;scrollbar-width:thin;scrollbar-color:#C9C4C2 transparent;';
+    }
     document.documentElement.style.overflow = 'hidden';
     o.addEventListener('click', (e) => { if (e.target === o || e.target.closest('[data-about-close]')) close(); });
     const btn = o.querySelector('[data-about-close]');
