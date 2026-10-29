@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  @keyframes wfdash { to { background-position-x: 14px; } }
+</style>
+</helmet>
+<div style="width:100%; box-sizing:border-box; padding:0; display:flex; justify-content:center; font-family:'Inter', system-ui, sans-serif">
+  <div style="width:100%; max-width:none; container-type:inline-size; position:relative; box-sizing:border-box; background:#F7F3F1; border-radius:8px; padding:3.05cqw">
+
+    <div style="display:flex; align-items:center; justify-content:center; gap:1.14cqw">
+
+      <div style="flex:0 0 auto; min-width:0; display:flex; flex-direction:column; align-items:center; gap:1.14cqw">
+        <div onClick="{{ cycleHue }}" onMouseEnter="{{ hoverOn }}" onMouseLeave="{{ hoverOff }}" title="Click to change the value" style="cursor:pointer; user-select:none; display:flex; align-items:center; gap:0.76cqw; padding:0.76cqw 0.95cqw 0.76cqw 0.76cqw; border-radius:8px; background:#F7F3F1; border:1px solid {{ stroke0 }}; transition:border-color 420ms ease 0ms" style-hover="background:#FBF8F6">
+          <span style="flex:none; width:1.81cqw; height:1.81cqw; border-radius:50%; background:{{ accent0 }}; transition:background-color 420ms ease 0ms"></span>
+          <span style="width:6.4cqw; flex:none; font-size:1.144cqw; font-weight:400; letter-spacing:0.02em; color:#171717; white-space:nowrap">{{ primitiveName }}</span>
+        </div>
+        <sc-if value="{{ showLabels }}" hint-placeholder-val="{{ true }}">
+          <span style="font-size:1.144cqw; font-weight:400; letter-spacing:0.02em; color:rgba(23,23,23,0.7); text-align:center">Primitive token</span>
+        </sc-if>
+      </div>
+
+      <div style="flex:0 1 7.5cqw; min-width:2.5cqw; height:1.2px; background-image:repeating-linear-gradient(to right, {{ lineInk }} 0 6px, transparent 6px 14px); background-size:14px 100%; animation:{{ lineSpeed0 }}; transition:background-image 200ms ease"></div>
+
+      <div style="flex:0 0 auto; min-width:0; display:flex; flex-direction:column; align-items:center; gap:1.14cqw">
+        <div style="display:flex; align-items:center; gap:0.76cqw; padding:0.76cqw 0.95cqw 0.76cqw 0.76cqw; border-radius:8px; background:#F7F3F1; border:1px solid {{ stroke1 }}; transition:border-color 420ms ease 140ms">
+          <span style="flex:none; width:1.81cqw; height:1.81cqw; border-radius:50%; background:{{ accent1 }}; transition:background-color 420ms ease 140ms"></span>
+          <span style="font-size:1.144cqw; font-weight:400; letter-spacing:0.02em; color:#171717; white-space:nowrap">primary-action</span>
+        </div>
+        <sc-if value="{{ showLabels }}" hint-placeholder-val="{{ true }}">
+          <span style="font-size:1.144cqw; font-weight:400; letter-spacing:0.02em; color:rgba(23,23,23,0.7); text-align:center">Semantic token</span>
+        </sc-if>
+      </div>
+
+      <div style="flex:0 1 7.5cqw; min-width:2.5cqw; height:1.2px; background-image:repeating-linear-gradient(to right, {{ lineInk }} 0 6px, transparent 6px 14px); background-size:14px 100%; animation:{{ lineSpeed1 }}; transition:background-image 200ms ease"></div>
+
+      <div style="flex:0 0 auto; min-width:0; display:flex; flex-direction:column; align-items:center; gap:1.14cqw">
+        <div style="display:flex; align-items:center; justify-content:center; padding:1.14cqw 3.43cqw; border-radius:100px; background:{{ accent2 }}; transition:background-color 420ms ease 280ms">
+          <span style="font-size:1.144cqw; font-weight:400; letter-spacing:0.02em; color:#171717; white-space:nowrap">Button</span>
+        </div>
+        <sc-if value="{{ showLabels }}" hint-placeholder-val="{{ true }}">
+          <span style="font-size:1.144cqw; font-weight:400; letter-spacing:0.02em; color:rgba(23,23,23,0.7); text-align:center">Component</span>
+        </sc-if>
+      </div>
+
+      <div style="flex:0 1 7.5cqw; min-width:2.5cqw; height:1.2px; background-image:repeating-linear-gradient(to right, {{ lineInk }} 0 6px, transparent 6px 14px); background-size:14px 100%; animation:{{ lineSpeed2 }}; transition:background-image 200ms ease"></div>
+
+      <div style="flex:0 0 auto; min-width:0; display:flex; flex-direction:column; align-items:center; gap:1.14cqw">
+        <div style="width:12.24cqw; aspect-ratio:9 / 16; box-sizing:border-box; display:flex; flex-direction:column; align-items:center; gap:0.76cqw; padding:0.76cqw; border-radius:8px; background:{{ tint3 }}; border:0; transition:background-color 420ms ease 420ms">
+          <span style="box-sizing:border-box; width:3.02cqw; height:0.82cqw; border-radius:100px; background:{{ tint3 }}; border:1px solid {{ stroke3 }}; transition:background-color 420ms ease 420ms, border-color 420ms ease 420ms"></span>
+          <div style="margin-top:auto; display:flex; align-items:center; justify-content:center; padding:1.14cqw 3.43cqw; border-radius:100px; background:{{ accent3 }}; transition:background-color 420ms ease 420ms">
+            <span style="font-size:1.144cqw; font-weight:400; letter-spacing:0.02em; color:#171717; white-space:nowrap">Button</span>
+          </div>
+        </div>
+        <sc-if value="{{ showLabels }}" hint-placeholder-val="{{ true }}">
+          <span style="font-size:1.144cqw; font-weight:400; letter-spacing:0.02em; color:rgba(23,23,23,0.7); text-align:center">Product surface</span>
+        </sc-if>
+      </div>
+    </div>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;palette&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;pastel&quot;,&quot;muted&quot;,&quot;taupe&quot;,&quot;slate&quot;,&quot;sage&quot;,&quot;bold&quot;,&quot;signal&quot;],&quot;default&quot;:&quot;signal&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Colour&quot;},&quot;showLabels&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Content&quot;}}">
+const PALETTES = [
+  { id: 'pastel', name: 'Pastel', token: 'mint-100',   tint: '#EAF6F1', stroke: '#9CD3C1' },
+  { id: 'muted',  name: 'Muted',  token: 'moss-100',   tint: '#EDF0EB', stroke: '#A9B7A0' },
+  { id: 'taupe',  name: 'Taupe',  token: 'taupe-100',  tint: '#F3EAE2', stroke: '#C6AE97' },
+  { id: 'slate',  name: 'Slate',  token: 'slate-100',  tint: '#E9EEF3', stroke: '#9DB0BF' },
+  { id: 'sage',   name: 'Sage',   token: 'sage-100',   tint: '#E4F0EA', stroke: '#9CC3B2' },
+  { id: 'bold',   name: 'Bold',   token: 'jade-100',   tint: '#E3F7EE', stroke: '#4FC0A1' },
+  { id: 'signal', name: 'Signal', token: 'orange-100', tint: '#F8E8D7', stroke: '#FDBB6F' }
+];
+
+// clicking the primitive walks these in order — the change cascades right
+const HUES = [
+  { token: 'blue-100',   stroke: '#6F9CFD', tint: '#DCE2F3' },
+  { token: 'green-100',  stroke: '#5DC456', tint: '#D8EAD2' },
+  { token: 'violet-100', stroke: '#B98FFD', tint: '#E8DDF6' },
+  { token: 'rose-100',   stroke: '#FD8FA8', tint: '#F8DDE2' }
+];
+
+class Component extends DCLogic {
+  state = { palette: 0, picked: false, propAt: null, hue: -1, pulse: false, auto: true };
+
+  componentDidMount() {
+    // idle demo: keep cycling the value until the visitor takes over
+    this._auto = setInterval(() => this.step(), 10000);
+  }
+
+  componentWillUnmount() {
+    clearInterval(this._auto);
+    clearTimeout(this._p);
+  }
+
+  step() {
+    this.setState((s) => ({ hue: s.hue + 1 >= HUES.length ? -1 : s.hue + 1, pulse: true }));
+    clearTimeout(this._p);
+    this._p = setTimeout(() => this.setState({ pulse: false }), 1500);
+  }
+
+  renderVals() {
+    const propId = this.props.palette ?? 'signal';
+    const wanted = (this.state.picked && this.state.propAt === propId) ? PALETTES[this.state.palette].id : propId;
+    const pIndex = Math.max(0, PALETTES.findIndex((p) => p.id === wanted));
+    const base = PALETTES[pIndex];
+    const h = this.state.hue;
+    const skin = h < 0 ? base : { token: HUES[h].token, stroke: HUES[h].stroke, tint: HUES[h].tint };
+
+    return {
+      cycleHue: () => {
+        clearInterval(this._auto);
+        this.setState({ auto: false });
+        this.step();
+      },
+      hoverOn: () => this.setState({ hover: true }),
+      hoverOff: () => this.setState({ hover: false }),
+      lineInk: (this.state.pulse || this.state.hover) ? '#9A9792' : '#D9D9D6',
+      lineSpeed0: (this.state.pulse || this.state.hover) ? 'wfdash 620ms linear infinite' : 'wfdash 900ms linear infinite',
+      lineSpeed1: (this.state.pulse || this.state.hover) ? 'wfdash 620ms linear infinite -0.12s' : 'wfdash 900ms linear infinite -0.12s',
+      lineSpeed2: (this.state.pulse || this.state.hover) ? 'wfdash 620ms linear infinite -0.24s' : 'wfdash 900ms linear infinite -0.24s',
+      primitiveName: skin.token,
+      accent0: skin.stroke, accent1: skin.stroke, accent2: skin.stroke, accent3: skin.stroke,
+      stroke0: skin.stroke, stroke1: skin.stroke, stroke3: skin.stroke,
+      tint3: skin.tint,
+      showLabels: (this.props.showLabels ?? false) ? true : null,
+      swatches: PALETTES.map((p, i) => ({
+        name: p.name,
+        dot: p.stroke,
+        ink: i === pIndex ? 'rgb(23,23,23)' : 'rgba(23,23,23,0.6)',
+        line: i === pIndex ? 'rgb(23,23,23)' : 'transparent',
+        pick: () => this.setState({ palette: i, picked: true, propAt: propId })
+      }))
+    };
+  }
+}
+</script>
+</body>
+</html>

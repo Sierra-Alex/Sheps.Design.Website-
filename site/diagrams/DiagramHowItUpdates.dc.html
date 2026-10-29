@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  @keyframes wfdash { to { background-position-x: 14px; } }
+  @keyframes wfdashy { to { background-position-y: 14px; } }
+</style>
+</helmet>
+<div style="width:100%; box-sizing:border-box; padding:0; display:flex; justify-content:center; font-family:'Inter', system-ui, sans-serif">
+  <div ref="{{ rootRef }}" style="width:100%; container-type:inline-size; position:relative; box-sizing:border-box; background:transparent; border-radius:4px; padding:0">
+    <sc-if value="{{ compact }}" hint-placeholder-val="{{ false }}">
+      <div style="display:flex; flex-direction:column; align-items:center">
+        <div style="display:flex; justify-content:center; gap:8px; font-size:12px; line-height:130%; letter-spacing:0.02em; color:#F7F3F1">
+          <div style="display:flex; flex-direction:column; align-items:center; min-width:0">
+            <div onClick="{{ cycleHue }}" style="cursor:pointer; user-select:none; display:flex; align-items:center; gap:8px; min-width:0; padding:8px; border-radius:4px; border:1px solid {{ stroke0 }}; transition:border-color 420ms ease">
+              <span style="flex:none; width:16px; height:16px; border-radius:50%; background:{{ accent0 }}; transition:background-color 420ms ease"></span>
+              <span style="min-width:0; overflow-wrap:anywhere">{{ primitiveName }}</span>
+            </div>
+            <div aria-hidden="true" style="width:1.2px; height:16px; background-image:repeating-linear-gradient(to bottom, {{ inkColor }} 0 6px, transparent 6px 14px); background-size:100% 14px; animation:{{ speedY }}"></div>
+            <div style="display:flex; align-items:center; gap:8px; min-width:0; padding:8px; border-radius:4px; border:1px solid {{ stroke1 }}; transition:border-color 420ms ease 140ms">
+              <span style="flex:none; width:16px; height:16px; border-radius:50%; background:{{ accent1 }}; transition:background-color 420ms ease 140ms"></span>
+              <span style="min-width:0; overflow-wrap:anywhere">primary-action</span>
+            </div>
+          </div>
+        </div>
+        <div aria-hidden="true" style="width:1.2px; height:24px; background-image:repeating-linear-gradient(to bottom, {{ inkAny }} 0 6px, transparent 6px 14px); background-size:100% 14px; animation:{{ speedY }}"></div>
+        <div onMouseEnter="{{ btnOn }}" onMouseLeave="{{ btnOff }}" style="cursor:pointer; padding:12px 32px; border-radius:{{ btnRadius }}; background:{{ btnFill }}; font-size:12px; letter-spacing:0.02em; color:#F7F3F1; transition:background-color 260ms ease, border-radius 420ms ease 280ms">Button</div>
+        <div aria-hidden="true" style="width:1.2px; height:24px; background-image:repeating-linear-gradient(to bottom, {{ inkAny }} 0 6px, transparent 6px 14px); background-size:100% 14px; animation:{{ speedY }}"></div>
+        <div style="width:112px; aspect-ratio:9 / 16; box-sizing:border-box; display:flex; flex-direction:column; align-items:center; padding:8px; border-radius:4px; background:{{ tint3 }}; transition:background-color 420ms ease 420ms">
+          <span style="box-sizing:border-box; width:28px; height:8px; border-radius:100px; border:1px solid {{ stroke3 }}; opacity:0.5"></span>
+          <div style="margin-top:auto; padding:8px 20px; border-radius:{{ btnRadius }}; background:{{ btnFill }}; font-size:12px; letter-spacing:0.02em; color:#F7F3F1; transition:background-color 260ms ease 120ms, border-radius 420ms ease 420ms">Button</div>
+        </div>
+      </div>
+    </sc-if>
+    <sc-if value="{{ wide }}" hint-placeholder-val="{{ true }}">
+
+    <div style="display:grid; grid-template-columns:auto minmax(2cqw,1fr) auto minmax(2cqw,0.6fr) minmax(2cqw,0.6fr) auto minmax(2cqw,1fr) auto; grid-template-rows:repeat(3, 1fr) auto; row-gap:1.48cqw; align-items:center">
+
+      <!-- row 1: colour -->
+      <div onClick="{{ cycleHue }}" onMouseEnter="{{ hoverOn }}" onMouseLeave="{{ hoverOff }}" title="Click to change the value" style="grid-column:1; grid-row:1; cursor:pointer; user-select:none; display:flex; align-items:center; gap:0.99cqw; padding:0.99cqw 1.23cqw 0.99cqw 0.99cqw; border-radius:4px; background:transparent; border:1px solid {{ stroke0 }}; transition:border-color 420ms ease 0ms" style-hover="background:#F7F3F108">
+        <span style="flex:none; width:2.35cqw; height:2.35cqw; border-radius:50%; background:{{ accent0 }}; transition:background-color 420ms ease 0ms"></span>
+        <span style="font-size:1.49cqw; font-weight:400; letter-spacing:0.02em; color:#F7F3F1; white-space:nowrap">{{ primitiveName }}</span>
+      </div>
+      <div style="grid-column:2; grid-row:1; height:1.2px; background-image:repeating-linear-gradient(to right, {{ inkColor }} 0 6px, transparent 6px 14px); background-size:14px 100%; animation:{{ speed0 }}"></div>
+      <div style="grid-column:3; grid-row:1; display:flex; align-items:center; gap:0.99cqw; padding:0.99cqw 1.23cqw 0.99cqw 0.99cqw; border-radius:4px; border:1px solid {{ stroke1 }}; transition:border-color 420ms ease 140ms">
+        <span style="flex:none; width:2.35cqw; height:2.35cqw; border-radius:50%; background:{{ accent1 }}; transition:background-color 420ms ease 140ms"></span>
+        <span style="font-size:1.49cqw; font-weight:400; letter-spacing:0.02em; color:#F7F3F1; white-space:nowrap">primary-action</span>
+      </div>
+      <div style="grid-column:4; grid-row:1; height:1.2px; background-image:repeating-linear-gradient(to right, {{ inkColor }} 0 6px, transparent 6px 14px); background-size:14px 100%; animation:{{ speed1 }}"></div>
+
+      <!-- row 2: radius -->
+      <div onClick="{{ cycleRadius }}" title="Click to change the value" style-hover="background:#F7F3F108" style="grid-column:1; grid-row:2; cursor:pointer; user-select:none; display:flex; align-items:center; gap:0.99cqw; padding:0.99cqw 1.23cqw 0.99cqw 0.99cqw; border-radius:4px; border:1px solid {{ stroke0 }}; transition:border-color 420ms ease 0ms">
+        <span style="flex:none; box-sizing:border-box; width:2.35cqw; height:2.35cqw; border-top:2px solid {{ accent0 }}; border-left:2px solid {{ accent0 }}; border-top-left-radius:{{ iconRadius }}; transition:border-color 420ms ease 0ms, border-radius 420ms ease 0ms"></span>
+        <span style="font-size:1.49cqw; font-weight:400; letter-spacing:0.02em; color:#F7F3F1; white-space:nowrap">{{ radiusName }}</span>
+      </div>
+      <div style="grid-column:2; grid-row:2; height:1.2px; background-image:repeating-linear-gradient(to right, {{ inkRadius }} 0 6px, transparent 6px 14px); background-size:14px 100%; animation:{{ speed0 }}"></div>
+      <div style="grid-column:3; grid-row:2; display:flex; align-items:center; gap:0.99cqw; padding:0.99cqw 1.23cqw 0.99cqw 0.99cqw; border-radius:4px; border:1px solid {{ stroke1 }}; transition:border-color 420ms ease 140ms">
+        <span style="flex:none; box-sizing:border-box; width:2.35cqw; height:2.35cqw; border-top:2px solid {{ accent1 }}; border-left:2px solid {{ accent1 }}; border-top-left-radius:{{ iconRadius }}; transition:border-color 420ms ease 140ms, border-radius 420ms ease 140ms"></span>
+        <span style="font-size:1.49cqw; font-weight:400; letter-spacing:0.02em; color:#F7F3F1; white-space:nowrap">radius-action</span>
+      </div>
+      <div style="grid-column:4; grid-row:2; height:1.2px; background-image:repeating-linear-gradient(to right, {{ inkRadius }} 0 6px, transparent 6px 14px); background-size:14px 100%; animation:{{ speed1 }}"></div>
+
+      <!-- row 3: hover colour -->
+      <div onClick="{{ cycleHover }}" title="Click to change the value" style-hover="background:#F7F3F108" style="grid-column:1; grid-row:3; cursor:pointer; user-select:none; display:flex; align-items:center; gap:0.99cqw; padding:0.99cqw 1.23cqw 0.99cqw 0.99cqw; border-radius:4px; border:1px solid {{ strokeHover }}; transition:border-color 420ms ease 0ms">
+        <span style="flex:none; width:2.35cqw; height:2.35cqw; border-radius:50%; background:{{ hoverColor }}; transition:background-color 420ms ease 0ms"></span>
+        <span style="font-size:1.49cqw; font-weight:400; letter-spacing:0.02em; color:#F7F3F1; white-space:nowrap">{{ hoverName }}</span>
+      </div>
+      <div style="grid-column:2; grid-row:3; height:1.2px; background-image:repeating-linear-gradient(to right, {{ inkHover }} 0 6px, transparent 6px 14px); background-size:14px 100%; animation:{{ speed0 }}"></div>
+      <div style="grid-column:3; grid-row:3; display:flex; align-items:center; gap:0.99cqw; padding:0.99cqw 1.23cqw 0.99cqw 0.99cqw; border-radius:4px; border:1px solid {{ strokeHover }}; transition:border-color 420ms ease 140ms">
+        <span style="flex:none; width:2.35cqw; height:2.35cqw; border-radius:50%; background:{{ hoverColor }}; transition:background-color 420ms ease 140ms"></span>
+        <span style="font-size:1.49cqw; font-weight:400; letter-spacing:0.02em; color:#F7F3F1; white-space:nowrap">primary-action-hover</span>
+      </div>
+      <div style="grid-column:4; grid-row:3; height:1.2px; background-image:repeating-linear-gradient(to right, {{ inkHover }} 0 6px, transparent 6px 14px); background-size:14px 100%; animation:{{ speed1 }}"></div>
+
+      <!-- joiner -->
+      <div style="grid-column:4; grid-row:1 / 4; align-self:stretch; position:relative; pointer-events:none">
+        <div style="position:absolute; right:0; top:{{ joinInset }}; bottom:{{ joinInset }}; width:1.2px; background-image:repeating-linear-gradient(to bottom, {{ inkAny }} 0 6px, transparent 6px 14px); background-size:100% 14px; animation:{{ speedY }}"></div>
+      </div>
+      <div style="grid-column:5; grid-row:1 / 4; height:1.2px; background-image:repeating-linear-gradient(to right, {{ inkAny }} 0 6px, transparent 6px 14px); background-size:14px 100%; animation:{{ speed2 }}"></div>
+
+      <!-- component -->
+      <div onMouseEnter="{{ btnOn }}" onMouseLeave="{{ btnOff }}" style="grid-column:6; grid-row:1 / 4; cursor:pointer; display:flex; align-items:center; justify-content:center; padding:1.48cqw 4.46cqw; border-radius:{{ btnRadius }}; background:{{ btnFill }}; transition:background-color 260ms ease, border-radius 420ms ease 280ms">
+        <span style="font-size:1.49cqw; font-weight:400; letter-spacing:0.02em; color:#F7F3F1; white-space:nowrap">Button</span>
+      </div>
+      <div style="grid-column:7; grid-row:1 / 4; height:1.2px; background-image:repeating-linear-gradient(to right, {{ inkAny }} 0 6px, transparent 6px 14px); background-size:14px 100%; animation:{{ speed3 }}"></div>
+
+      <!-- surface -->
+      <div style="grid-column:8; grid-row:1 / 4; width:12.24cqw; aspect-ratio:9 / 16; box-sizing:border-box; display:flex; flex-direction:column; align-items:center; gap:0.76cqw; padding:0.76cqw; border-radius:4px; background:{{ tint3 }}; transition:background-color 420ms ease 420ms">
+        <span style="box-sizing:border-box; width:3.02cqw; height:0.82cqw; border-radius:100px; border:1px solid {{ stroke3 }}; transition:border-color 420ms ease 420ms"></span>
+        <div style="margin-top:auto; display:flex; align-items:center; justify-content:center; padding:1.14cqw 3.43cqw; border-radius:{{ btnRadius }}; background:{{ btnFill }}; transition:background-color 260ms ease 120ms, border-radius 420ms ease 420ms">
+          <span style="font-size:1.144cqw; font-weight:400; letter-spacing:0.02em; color:#F7F3F1; white-space:nowrap">Button</span>
+        </div>
+      </div>
+
+      <sc-if value="{{ showLabels }}" hint-placeholder-val="{{ true }}">
+        <span style="grid-column:1; grid-row:4; font-size:1.144cqw; color:#949191; text-align:center">Primitive tokens</span>
+        <span style="grid-column:3; grid-row:4; font-size:1.144cqw; color:#949191; text-align:center">Semantic tokens</span>
+        <span style="grid-column:6; grid-row:4; font-size:1.144cqw; color:#949191; text-align:center">Component</span>
+        <span style="grid-column:8; grid-row:4; font-size:1.144cqw; color:#949191; text-align:center">Product surface</span>
+      </sc-if>
+    </div>
+    </sc-if>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;palette&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;pastel&quot;,&quot;muted&quot;,&quot;taupe&quot;,&quot;slate&quot;,&quot;sage&quot;,&quot;bold&quot;,&quot;signal&quot;],&quot;default&quot;:&quot;signal&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Colour&quot;},&quot;showLabels&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Content&quot;}}">
+const PALETTES = [
+  { id: 'pastel', token: 'mint-100',   tint: '#9CD3C11F', stroke: '#9CD3C1', hover: '#7DB8A5' },
+  { id: 'muted',  token: 'moss-100',   tint: '#A9B7A01F', stroke: '#A9B7A0', hover: '#8C9A83' },
+  { id: 'taupe',  token: 'taupe-100',  tint: '#C6AE971F', stroke: '#C6AE97', hover: '#A8907A' },
+  { id: 'slate',  token: 'slate-100',  tint: '#9DB0BF1F', stroke: '#9DB0BF', hover: '#7F93A3' },
+  { id: 'sage',   token: 'sage-100',   tint: '#9CC3B21F', stroke: '#9CC3B2', hover: '#7EA695' },
+  { id: 'bold',   token: 'jade-100',   tint: '#4FC0A11F', stroke: '#4FC0A1', hover: '#33A385' },
+  { id: 'signal', token: 'orange-100', tint: '#FDBB6F1F', stroke: '#FDBB6F', hover: '#E69C4F' }
+];
+const HUES = [
+  { token: 'blue-100',   stroke: '#6F9CFD', tint: '#6F9CFD1F', hover: '#4F7FE6' },
+  { token: 'green-100',  stroke: '#5DC456', tint: '#5DC4561F', hover: '#3FA63A' },
+  { token: 'violet-100', stroke: '#B98FFD', tint: '#B98FFD1F', hover: '#9A6FE6' },
+  { token: 'rose-100',   stroke: '#FD8FA8', tint: '#FD8FA81F', hover: '#E66F8C' }
+];
+const RADII = [
+  { token: 'radius-full', btn: '100px',  icon: '1.6cqw' },
+  { token: 'radius-lg',   btn: '1.2cqw', icon: '1.1cqw' },
+  { token: 'radius-md',   btn: '0.6cqw', icon: '0.6cqw' },
+  { token: 'radius-sm',   btn: '0.25cqw', icon: '0.25cqw' },
+  { token: 'radius-none', btn: '0',      icon: '0' }
+];
+const HOVERS = [
+  { step: '-200', mix: null },
+  { step: '-300', mix: 'black 38%' },
+  { step: '-50',  mix: 'white 35%' }
+];
+const DIM = '#F7F3F133', LIT = '#9A9792';
+
+class Component extends DCLogic {
+  __standaloneBg = (() => { try { if (decodeURIComponent(location.pathname).includes('DiagramHowItUpdates')) { document.documentElement.style.background = '#131313'; document.body.style.background = '#131313'; } } catch (e) {} })();
+  rootRef = React.createRef();
+  state = { compact: typeof window !== 'undefined' && window.innerWidth < 808, radius: 0, hoverStep: 0, pulseR: false, hue: -1, pulse: false, hoverDemo: false, btnHover: false, hover: false };
+
+  componentDidMount() {
+    this._tick = 0;
+    if (typeof ResizeObserver !== 'undefined' && this.rootRef.current) {
+      this._wro = new ResizeObserver((es) => { const w = es[0].contentRect.width, c = w < 760, n = w < 520; if (c !== !!this.state.compact || n !== !!this.state.narrow) this.setState({ compact: c, narrow: n }); });
+      this._wro.observe(this.rootRef.current);
+    }
+    // alternate: change the colour, then demo the hover state
+    this._auto = setInterval(() => this.step(), 10000);
+  }
+  componentWillUnmount() { if (this._wro) this._wro.disconnect(); clearInterval(this._auto); clearTimeout(this._p); clearTimeout(this._h); clearTimeout(this._r); }
+
+  step() {
+    this.setState((s) => ({ hue: s.hue + 1 >= HUES.length ? -1 : s.hue + 1, pulse: true }));
+    clearTimeout(this._p);
+    this._p = setTimeout(() => this.setState({ pulse: false }), 1500);
+  }
+  stepRadius() {
+    this.setState((s) => ({ radius: (s.radius + 1) % RADII.length, pulseR: true }));
+    clearTimeout(this._r);
+    this._r = setTimeout(() => this.setState({ pulseR: false }), 1500);
+  }
+  demoHover() {
+    this.setState({ hoverDemo: true });
+    clearTimeout(this._h);
+    this._h = setTimeout(() => this.setState({ hoverDemo: false }), 1800);
+  }
+
+  renderVals() {
+    const base = PALETTES.find((p) => p.id === (this.props.palette ?? 'signal')) || PALETTES[6];
+    const h = this.state.hue;
+    const skin = h < 0 ? base : HUES[h];
+    const hv = HOVERS[this.state.hoverStep];
+    const hoverFill = hv.mix ? `color-mix(in oklch, ${skin.stroke}, ${hv.mix})` : skin.hover;
+    const rad = RADII[this.state.radius];
+    const colourLit = this.state.pulse || this.state.hover;
+    const hoverLit = colourLit || this.state.hoverDemo || this.state.btnHover;
+    const hovering = this.state.btnHover;
+    const fast = colourLit || hoverLit || this.state.pulseR;
+    const sp = (d, y) => `${y ? 'wfdashy' : 'wfdash'} ${fast ? 620 : 900}ms linear infinite -${d}s`;
+    return {
+      rootRef: this.rootRef,
+      compact: this.state.compact ? true : null,
+      wide: this.state.compact ? null : true,
+      showHover: this.state.narrow ? null : true,
+      cycleHue: () => { clearInterval(this._auto); this.step(); },
+      cycleRadius: () => { clearInterval(this._auto); this.stepRadius(); },
+      cycleHover: () => { clearInterval(this._auto); this.setState((s) => ({ hoverStep: (s.hoverStep + 1) % HOVERS.length })); this.demoHover(); },
+      radiusName: rad.token, btnRadius: rad.btn, iconRadius: rad.icon,
+      hoverOn: () => this.setState({ hover: true }),
+      hoverOff: () => this.setState({ hover: false }),
+      btnOn: () => this.setState({ btnHover: true }),
+      btnOff: () => this.setState({ btnHover: false }),
+      inkColor: colourLit ? LIT : DIM,
+      inkRadius: (this.state.pulse || this.state.pulseR) ? LIT : DIM,
+      inkHover: hoverLit ? LIT : DIM,
+      inkAny: (hoverLit || this.state.pulseR) ? LIT : DIM,
+      speed0: sp(0), speed1: sp(0.12), speed2: sp(0.24), speed3: sp(0.36), speedY: sp(0.12, true),
+      joinInset: 'calc(16.67% - 0.49cqw)',
+      primitiveName: skin.token,
+      hoverName: skin.token.replace('-100', hv.step),
+      accent0: skin.stroke, accent1: skin.stroke,
+      stroke0: skin.stroke, stroke1: skin.stroke, stroke3: skin.stroke,
+      hoverColor: hoverFill, strokeHover: hoverFill,
+      btnFill: hovering ? hoverFill : skin.stroke,
+      tint3: skin.tint,
+      showLabels: (this.props.showLabels ?? false) ? true : null
+    };
+  }
+}
+</script>
+</body>
+</html>
