@@ -1,0 +1,142 @@
+{
+  "version": 1,
+  "media": "media/hero.mp4",
+  "mediaType": "video/mp4",
+  "settings": {
+    "cols": 282,
+    "fontSize": 12,
+    "aspect": 2.5,
+    "ramp": "standard",
+    "customRamp": "",
+    "brightness": 0,
+    "contrast": 0.15,
+    "gamma": 1,
+    "invert": false,
+    "dither": false,
+    "edges": false,
+    "edgeThreshold": 0.18,
+    "edgeOnly": false,
+    "revealOn": true,
+    "revealCount": 3,
+    "revealSize": 0.2,
+    "revealSeed": 7,
+    "windows": [
+      {
+        "nx": 0.591,
+        "ny": 0.317,
+        "nw": 0.195,
+        "nh": 0.382,
+        "z": 1
+      },
+      {
+        "nx": 0.233,
+        "ny": 0.195,
+        "nw": 0.144,
+        "nh": 0.247,
+        "z": 0.35
+      },
+      {
+        "nx": 0.29,
+        "ny": 0.706,
+        "nw": 0.152,
+        "nh": 0.158,
+        "z": 0.05
+      }
+    ],
+    "strokeOn": true,
+    "strokeColor": "#FFFFFF",
+    "strokeWidth": 1,
+    "strokeStyle": "dashed",
+    "strokeInset": 0,
+    "flareOn": false,
+    "flareCount": 5,
+    "flareSize": 60,
+    "flareColor": "#FFFFFF",
+    "flareColorB": "#5AC8FF",
+    "flarePoints": 4,
+    "flareSpike": 3.4,
+    "flareGlow": true,
+    "flareOpacity": 1,
+    "flareSeed": 11,
+    "flarePlace": "bright",
+    "flareThin": 0.1,
+    "flareHue": 0.5,
+    "flareCore": 0.35,
+    "flares": [
+      {
+        "nx": 0.5392857142857143,
+        "ny": 0.506578947368421,
+        "s": 0.7986774928169326,
+        "rot": -3,
+        "hue": 0.07504692277871072
+      },
+      {
+        "nx": 0.45357142857142857,
+        "ny": 0.8618421052631579,
+        "s": 1.3119643226498738,
+        "rot": -8,
+        "hue": 0.7177181884180754
+      },
+      {
+        "nx": 0.575,
+        "ny": 0.5328947368421053,
+        "s": 0.7423578777583316,
+        "rot": 6,
+        "hue": 0.27049946575425565
+      },
+      {
+        "nx": 0.625,
+        "ny": 0.34868421052631576,
+        "s": 0.8695988970110193,
+        "rot": 0,
+        "hue": 0.6417982045095414
+      },
+      {
+        "nx": 0.5892857142857143,
+        "ny": 0.5328947368421053,
+        "s": 0.9809907566057519,
+        "rot": 3,
+        "hue": 0.3992663917597383
+      }
+    ],
+    "glowOn": false,
+    "glowAmount": 8,
+    "glowColor": "#FFFFFF",
+    "glowUseInk": true,
+    "dataOn": false,
+    "dataCount": 18,
+    "dataSeed": 42,
+    "dataColor": "#FFFFFF",
+    "dataSize": 9,
+    "dataOpacity": 0.9,
+    "dataBoxes": true,
+    "dataLinks": 2,
+    "dataScope": "windows",
+    "dataTrack": true,
+    "dataEase": 0.18,
+    "dataRadius": 6,
+    "dataLive": true,
+    "tiltOn": true,
+    "tiltMax": 10,
+    "tiltDepth": 900,
+    "parallax": 14,
+    "tiltEase": 0.12,
+    "zSpread": 40,
+    "defocus": 0,
+    "colorMode": "source",
+    "stops": [
+      "#D2A078",
+      "#7898B0",
+      "#3C6078"
+    ],
+    "bgMode": "transparent",
+    "bgColor": "#0A0B0A",
+    "fontFamily": "JetBrains Mono",
+    "fontWeight": "500",
+    "loopMode": "loop",
+    "gifFps": 12,
+    "gifMax": 900,
+    "panX": -2,
+    "panY": -19
+  }
+}

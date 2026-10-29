@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  body { margin: 0; background: #F7F3F1; font-family: "Inter", system-ui, sans-serif; }
+  a { color: #3B6FA8; text-decoration: none; }
+  a:hover { color: #111315; }
+  @keyframes wfflow { to { stroke-dashoffset: -14; } }
+  @keyframes wfliftA { 0% { filter: brightness(1); } 34% { filter: brightness(0.965); } 100% { filter: brightness(1); } }
+  @keyframes wfliftB { 0% { filter: brightness(1); } 34% { filter: brightness(0.965); } 100% { filter: brightness(1); } }
+</style>
+</helmet>
+<div style="width:100%; box-sizing:border-box; padding:2.5rem 1.25rem; display:flex; justify-content:center; font-family:'Inter', system-ui, sans-serif">
+  <div ref="{{ canvasRef }}" style="width:100%; max-width:1180px; container-type:inline-size; position:relative; aspect-ratio:1049 / 624; background:#F7F3F1; border:1px solid #E4E4E1; border-radius:1.15cqw; overflow:hidden; box-sizing:border-box">
+
+    <svg viewBox="0 0 1049 624" preserveAspectRatio="none" style="position:absolute; inset:0; width:100%; height:100%; pointer-events:none">
+      <sc-for list="{{ grid }}" as="g" hint-placeholder-count="8">
+        <path d="{{ g.d }}" stroke="#E8E4E1" strokeWidth="1" strokeDasharray="4 5" fill="none"></path>
+      </sc-for>
+    </svg>
+
+    <div style="position:absolute; top:3.2%; left:3.24%; display:flex; gap:20px; align-items:center; z-index:5">
+      <button type="button" onClick="{{ showHuman }}" style="appearance:none; cursor:pointer; font-family:inherit; font-size:13px; font-weight:400; letter-spacing:-0.005em; padding:0 0 4px; border:0; border-bottom:1px solid {{ humanLine }}; background:none; color:{{ humanInk }}">Human</button>
+      <button type="button" onClick="{{ showAgent }}" style="appearance:none; cursor:pointer; font-family:inherit; font-size:13px; font-weight:400; letter-spacing:-0.005em; padding:0 0 4px; border:0; border-bottom:1px solid {{ agentLine }}; background:none; color:{{ agentInk }}">Agent</button>
+    </div>
+
+    <div style="position:absolute; top:3.2%; right:2.3cqw; display:flex; gap:16px; align-items:center; z-index:5">
+      <sc-for list="{{ swatches }}" as="p" hint-placeholder-count="6">
+        <button type="button" onClick="{{ p.pick }}" style="appearance:none; cursor:pointer; font-family:inherit; display:flex; align-items:center; gap:6px; font-size:13px; font-weight:400; letter-spacing:-0.005em; padding:0 0 4px; border:0; border-bottom:1px solid {{ p.line }}; background:none; color:{{ p.ink }}">
+          <span style="display:flex; gap:2px">
+            <span style="width:8px; height:8px; border-radius:50%; background:{{ p.dotA }}"></span>
+            <span style="width:8px; height:8px; border-radius:50%; background:{{ p.dotB }}"></span>
+            <span style="width:8px; height:8px; border-radius:50%; background:{{ p.dotC }}"></span>
+          </span>
+          {{ p.name }}
+        </button>
+      </sc-for>
+    </div>
+
+    <svg viewBox="0 0 1049 624" style="position:absolute; inset:0; width:100%; height:100%; pointer-events:none; overflow:visible">
+      <sc-for list="{{ edges }}" as="e" hint-placeholder-count="28">
+        <path d="{{ e.d }}" fill="none" stroke="{{ e.stroke }}" strokeWidth="1.3" strokeLinecap="round" strokeDasharray="{{ e.dash }}" opacity="{{ e.opacity }}" style="animation:{{ e.anim }}"></path>
+      </sc-for>
+    </svg>
+
+    <sc-for list="{{ nodes }}" as="n" hint-placeholder-count="31">
+      <div ref="{{ n.ref }}" onMouseEnter="{{ n.enter }}" onMouseLeave="{{ n.leave }}" onPointerDown="{{ n.down }}" title="{{ n.tip }}" style="cursor:{{ n.cursor }}; touch-action:none; user-select:none; position:absolute; left:{{ n.left }}; top:{{ n.top }}; width:{{ n.width }}; box-sizing:border-box; display:flex; flex-direction:column; align-items:stretch; gap:0.53cqw; padding:0.86cqw 1.15cqw; border-radius:8px; background:{{ n.cardBg }}; border:1px solid {{ n.cardStroke }}; animation:{{ n.anim }}; opacity:{{ n.opacity }}; transition:opacity 200ms ease; z-index:2">
+        <div style="display:flex; align-items:center; justify-content:{{ n.justify }}; gap:0.48cqw">
+        <sc-if value="{{ n.hasTile }}" hint-placeholder-val="{{ true }}">
+          <div style="flex:none; width:1.43cqw; height:1.43cqw; display:flex; align-items:center; justify-content:center; color:{{ n.mark }}">
+            <sc-if value="{{ n.isSquare }}" hint-placeholder-val="{{ true }}">
+              <div style="width:0.86cqw; height:0.86cqw; border-radius:0.19cqw; border:0.19cqw solid {{ n.mark }}; box-sizing:border-box"></div>
+            </sc-if>
+            <sc-if value="{{ n.isDiamond }}" hint-placeholder-val="{{ true }}">
+              <svg viewBox="0 0 14 15" fill="none" style="width:0.91cqw; height:0.98cqw; display:block">
+                <path d="M5.34148 0.600098C6.06888 -0.200035 7.32721 -0.200033 8.05461 0.600105L12.9193 5.95131C13.5551 6.65058 13.5551 7.71851 12.9193 8.41771L8.05461 13.7689C7.32727 14.569 6.06888 14.569 5.34148 13.7689L0.476782 8.41771C-0.158918 7.71851 -0.158932 6.65058 0.476768 5.95131L5.34148 0.600098Z" fill="currentColor"></path>
+              </svg>
+            </sc-if>
+            <sc-if value="{{ n.isComponent }}" hint-placeholder-val="{{ true }}">
+              <svg viewBox="0 0 16 16" fill="none" style="width:1.15cqw; height:1.15cqw; display:block">
+                <path d="M7.3084 4.04844C7.66813 3.61667 8.3314 3.61667 8.69113 4.04844L11.5038 7.4236C11.7819 7.7574 11.7819 8.2422 11.5039 8.57593L8.6912 11.9511C8.3314 12.3829 7.66813 12.3829 7.3084 11.9511L4.49564 8.57593C4.21753 8.2422 4.21763 7.7574 4.49573 7.4236L7.3084 4.04844Z" fill="currentColor"></path>
+                <path fillRule="evenodd" clipRule="evenodd" d="M8 12.8333C8.27613 12.8333 8.5 13.0572 8.5 13.3333V14.6666C8.5 14.9428 8.27613 15.1666 8 15.1666C7.72387 15.1666 7.5 14.9428 7.5 14.6666V13.3333C7.5 13.0572 7.72387 12.8333 8 12.8333Z" fill="currentColor"></path>
+                <path fillRule="evenodd" clipRule="evenodd" d="M8 0.833313C8.27613 0.833313 8.5 1.05717 8.5 1.33331V2.66665C8.5 2.94279 8.27613 3.16665 8 3.16665C7.72387 3.16665 7.5 2.94279 7.5 2.66665V1.33331C7.5 1.05717 7.72387 0.833313 8 0.833313Z" fill="currentColor"></path>
+                <path fillRule="evenodd" clipRule="evenodd" d="M0.833984 8C0.833984 7.72387 1.05784 7.5 1.33398 7.5H2.66732C2.94346 7.5 3.16732 7.72387 3.16732 8C3.16732 8.27613 2.94346 8.5 2.66732 8.5H1.33398C1.05784 8.5 0.833984 8.27613 0.833984 8Z" fill="currentColor"></path>
+                <path fillRule="evenodd" clipRule="evenodd" d="M12.834 8C12.834 7.72387 13.0579 7.5 13.334 7.5H14.6673C14.9435 7.5 15.1673 7.72387 15.1673 8C15.1673 8.27613 14.9435 8.5 14.6673 8.5H13.334C13.0579 8.5 12.834 8.27613 12.834 8Z" fill="currentColor"></path>
+              </svg>
+            </sc-if>
+            <sc-if value="{{ n.isSection }}" hint-placeholder-val="{{ true }}">
+              <svg viewBox="0 0 16 16" fill="none" style="width:1.15cqw; height:1.15cqw; display:block">
+                <path fillRule="evenodd" clipRule="evenodd" d="M6.71347 3.48417L9.60847 6.79269C10.2133 7.48389 10.2133 8.51609 9.60847 9.20722L6.71354 12.5158C5.98309 13.3506 4.68447 13.3506 3.95405 12.5158L1.05909 9.20722C0.454266 8.51609 0.454263 7.48389 1.05907 6.79269L3.95405 3.48417C4.68447 2.6494 5.98308 2.6494 6.71347 3.48417Z" fill="currentColor"></path>
+                <path d="M8.66602 12.6666L11.9223 8.86771C12.3502 8.36838 12.3502 7.63158 11.9223 7.13225L8.66602 3.33331" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round"></path>
+                <path d="M11.334 12.6666L14.5903 8.86771C15.0182 8.36838 15.0182 7.63158 14.5903 7.13225L11.334 3.33331" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round"></path>
+              </svg>
+            </sc-if>
+            <sc-if value="{{ n.isAi }}" hint-placeholder-val="{{ true }}">
+              <svg viewBox="0 0 16 16" fill="none" style="width:1.15cqw; height:1.15cqw; display:block">
+                <rect x="1.4" y="1.4" width="13.2" height="13.2" rx="1.6" stroke="currentColor" strokeWidth="1.6"></rect>
+                <circle cx="5" cy="5" r="1.25" fill="currentColor"></circle>
+                <circle cx="11" cy="5" r="1.25" fill="currentColor"></circle>
+                <circle cx="5" cy="11" r="1.25" fill="currentColor"></circle>
+                <circle cx="11" cy="11" r="1.25" fill="currentColor"></circle>
+              </svg>
+            </sc-if>
+          </div>
+        </sc-if>
+        <span style="font-size:{{ n.size }}; font-weight:{{ n.weight }}; letter-spacing:-0.01em; color:{{ n.ink }}; white-space:nowrap; overflow:hidden; text-overflow:ellipsis">{{ n.label }}</span>
+        </div>
+        <sc-if value="{{ n.caption }}" hint-placeholder-val="{{ true }}">
+          <div style="font-size:1.02cqw; font-weight:400; line-height:1.4; letter-spacing:-0.006em; color:#6B6F73; text-wrap:pretty">{{ n.caption }}</div>
+        </sc-if>
+      </div>
+    </sc-for>
+
+    <svg viewBox="0 0 1049 624" style="position:absolute; inset:0; width:100%; height:100%; pointer-events:none; overflow:visible; z-index:4">
+      <sc-for list="{{ ports }}" as="p" hint-placeholder-count="60">
+        <circle cx="{{ p.x }}" cy="{{ p.y }}" r="4.2" fill="#FFFFFF" stroke="#D9D9D6" strokeWidth="1.1" opacity="{{ p.opacity }}"></circle>
+      </sc-for>
+    </svg>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;palette&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;pastel&quot;,&quot;muted&quot;,&quot;taupe&quot;,&quot;slate&quot;,&quot;sage&quot;,&quot;bold&quot;,&quot;signal&quot;],&quot;default&quot;:&quot;signal&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Colour&quot;},&quot;dimOpacity&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:0.3,&quot;min&quot;:0.05,&quot;max&quot;:1,&quot;step&quot;:0.01,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Interaction&quot;},&quot;showGrid&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Canvas&quot;}}">
+const W = 1049, H = 624;
+const FIELD_L = 300, FIELD_R = 1016;
+const LEGEND_X = 34, LEGEND_W = 232;
+const ROW_TOP = 78, ROW_GAP = 90;
+
+
+const PALETTES = [
+  { id: 'pastel', name: 'Pastel', sets: [
+    ['#FFFFFF','#E2DCD6','#8A8F92'], ['#F0FBF6','#BFE6D6','#2E8B7A'], ['#F1F6FD','#C7DCF3','#3B6FA8'],
+    ['#FCF2FB','#EAC8E8','#9B4FA0'], ['#FDF2F4','#F2C8D1','#B8556A'], ['#F8FCEB','#DCE8B8','#79893B'] ] },
+  { id: 'muted', name: 'Muted', sets: [
+    ['#FBF8F6','#E6DFD8','#8C857E'], ['#F1F3EE','#D8E0D2','#5F7355'], ['#EDF0F2','#D4DDE3','#4F6B7A'],
+    ['#F2EEF1','#DFD4DD','#75596C'], ['#F4EEEB','#E3D3CC','#8A6353'], ['#F1F1EA','#DDE0CE','#6E7250'] ] },
+  { id: 'taupe', name: 'Taupe', sets: [
+    ['#FEFCFB','#EBE3DC','#8A7E74'], ['#FBF7F4','#E4DAD1','#877B71'], ['#F8F2ED','#DED2C7','#83776D'],
+    ['#F5EDE7','#D8CABD','#7C7066'], ['#F2E8E1','#D2C2B3','#75695F'], ['#EFE3DB','#CCBAA9','#6E6258'] ] },
+  { id: 'slate', name: 'Slate', sets: [
+    ['#FBFCFD','#E3E8EC','#5F6C76'], ['#F6F8FA','#DAE1E6','#5C6972'], ['#F1F4F7','#D1DAE1','#5A6670'],
+    ['#ECF0F4','#C8D3DB','#54606A'], ['#E7ECF1','#BFCCD6','#4F5A64'], ['#E2E8EE','#B6C5D0','#4A555E'] ] },
+  { id: 'sage', name: 'Sage', sets: [
+    ['#FBFDFC','#DFEBE7','#4C635B'], ['#F4FAF8','#D1E3DD','#496057'], ['#EDF6F3','#C3DCD3','#455C53'],
+    ['#E6F1ED','#B5D2C8','#41574E'], ['#DFECE7','#A7C8BC','#3D5249'], ['#D8E7E1','#99BEB0','#394D44'] ] },
+  { id: 'bold', name: 'Bold', sets: [
+    ['#FFFFFF','#D8CFC7','#6E6A62'], ['#E3F7EE','#8FD9C2','#1E7A66'], ['#E4EFFB','#A7C8EF','#2A5F96'],
+    ['#F8E7F6','#DDA8D9','#8A3D90'], ['#FBE6EA','#EFAEBB','#A8425A'], ['#F3FADD','#C9DE95','#65762C'] ] },
+  { id: 'signal', name: 'Signal', sets: [
+    ['#FBF8F6','#E2DCD6','#6E6A62'], ['#F8E8D7','#FDBB6F','#8A5210'], ['#F8E8D7','#FDBB6F','#8A5210'],
+    ['#DCE2F3','#6F9CFD','#23509E'], ['#DCE2F3','#6F9CFD','#23509E'], ['#D8EAD2','#5DC456','#2C6E27'] ] }
+];
+
+const LAYERS = [
+  { id: 'value',      name: 'Value',            shape: 'square',    tile: '#EFEAE6', mark: '#8A8F92', card: '#FFFFFF', stroke: '#E2DCD6', human: 'A fact.', agent: 'Raw. No intent to read.' },
+  { id: 'primitives', name: 'Primitive tokens', shape: 'diamond',   tile: '#D5F0E6', mark: '#2E8B7A', card: '#F0FBF6', stroke: '#BFE6D6', human: 'A named fact.', agent: 'Named, but still generic.' },
+  { id: 'semantics',  name: 'Semantic tokens',  shape: 'diamond',   tile: '#DAE7F7', mark: '#3B6FA8', card: '#F1F6FD', stroke: '#C7DCF3', human: 'A job.', agent: 'Intent is explicit.' },
+  { id: 'components', name: 'Components',       shape: 'section', tile: '#F2DCF1', mark: '#9B4FA0', card: '#FCF2FB', stroke: '#EAC8E8', human: 'Assembled parts.', agent: 'Composed from stated intent.' },
+  { id: 'sections',   name: 'Sections',         shape: 'section',   tile: '#F8DBE1', mark: '#B8556A', card: '#FDF2F4', stroke: '#F2C8D1', human: 'Page regions.', agent: 'Whole layouts, inferable.' },
+  { id: 'ai',         name: 'AI tooling',       shape: 'component',        tile: '#E9F2CE', mark: '#79893B', card: '#F8FCEB', stroke: '#DCE8B8', human: 'Generated output.', agent: 'Can build unattended.' }
+];
+
+const ROWS = [
+  [['v-hex', '{#2BA3FF}'], ['v-999', '{999}'], ['v-24', '{24}'], ['v-face', '{Garnett}'], ['v-80', '{80}'], ['v-12', '{12}']],
+  [['p-blue', 'color/blue-100'], ['p-radius', 'radius/pill'], ['p-space', 'space/24'], ['p-h1', 'type/h1'], ['p-grid', 'grid/12-col']],
+  [['s-surface', 'surface/action'], ['s-radius', 'radius/control'], ['s-space', 'space/section'], ['s-text', 'text/heading'], ['s-layout', 'layout/page']],
+  [['c-button', 'button'], ['c-toggle', 'toggle'], ['c-card', 'card'], ['c-nav', 'nav']],
+  [['x-hero', 'hero'], ['x-feature', 'feature row'], ['x-footer', 'footer']],
+  [['a-landing', 'Landing page builder'], ['a-deck', 'Deck builder']]
+];
+
+const ALTS = {
+  'v-hex': ['{#2BA3FF}', '{#0B7FD4}', '{#7CC9FF}'],
+  'v-999': ['{999}', '{8}', '{0}'],
+  'v-24': ['{24}', '{16}', '{48}'],
+  'v-face': ['{Garnett}', '{Inter}', '{Söhne}'],
+  'v-80': ['{80}', '{56}', '{40}'],
+  'v-12': ['{12}', '{6}', '{4}'],
+  'p-blue': ['color/blue-100', 'color/blue-200', 'color/blue-050'],
+  'p-radius': ['radius/pill', 'radius/md', 'radius/sharp'],
+  'p-space': ['space/24', 'space/16', 'space/48'],
+  'p-h1': ['type/h1', 'type/h2', 'type/display'],
+  'p-grid': ['grid/12-col', 'grid/6-col', 'grid/4-col'],
+  's-surface': ['surface/action', 'surface/raised', 'surface/inverse'],
+  's-radius': ['radius/control', 'radius/container', 'radius/none'],
+  's-space': ['space/section', 'space/stack', 'space/inline'],
+  's-text': ['text/heading', 'text/body', 'text/muted'],
+  's-layout': ['layout/page', 'layout/split', 'layout/stack'],
+  'c-button': ['button', 'icon button', 'link'],
+  'c-toggle': ['toggle', 'switch', 'checkbox'],
+  'c-card': ['card', 'tile', 'panel'],
+  'c-nav': ['nav', 'tabs', 'breadcrumb'],
+  'x-hero': ['hero', 'title slide', 'masthead'],
+  'x-feature': ['feature row', 'content row', 'two-column'],
+  'x-footer': ['footer', 'endcap', 'sitemap'],
+  'a-landing': ['Landing page builder', 'Case study builder', 'Portfolio builder'],
+  'a-deck': ['Deck builder', 'Pitch builder', 'Report builder']
+};
+
+// every link reads as a real dependency: the value a primitive holds,
+// the primitive a semantic names, the semantics a component consumes.
+const LINKS = [
+  ['v-hex', 'p-blue'], ['v-999', 'p-radius'], ['v-24', 'p-space'],
+  ['v-face', 'p-h1'], ['v-80', 'p-h1'], ['v-12', 'p-grid'],
+  ['p-blue', 's-surface'], ['p-radius', 's-radius'], ['p-space', 's-space'],
+  ['p-h1', 's-text'], ['p-grid', 's-layout'],
+  ['s-surface', 'c-button'], ['s-radius', 'c-button'], ['s-radius', 'c-toggle'],
+  ['s-text', 'c-card'], ['s-space', 'c-card'], ['s-layout', 'c-nav'],
+  ['c-button', 'x-hero'], ['c-toggle', 'x-feature'], ['c-card', 'x-feature'],
+  ['c-card', 'x-footer'], ['c-nav', 'x-footer'],
+  ['x-hero', 'a-landing'], ['x-hero', 'a-deck'],
+  ['x-feature', 'a-landing'], ['x-feature', 'a-deck'],
+  ['x-footer', 'a-landing']
+];
+
+const pctX = (v) => (v / W * 100) + '%';
+const pctY = (v) => (v / H * 100) + '%';
+// width estimate in viewBox units: glyph run + padding (+ tile for legend cards)
+const widthOf = (label, tile) => label.length * 7.9 + 28 + (tile ? 34 : 0);
+
+class Component extends DCLogic {
+  state = { palette: 0, lens: 'human', hover: null, fired: null, seq: 0, alt: {}, pos: {}, dragging: null, cardPx: 0, nodePx: 0, canvasPx: 0 };
+
+  constructor(props) {
+    super(props);
+    this.canvasRef = React.createRef();
+    this.cardRef = React.createRef();
+    this.nodeRef = React.createRef();
+  }
+
+  componentDidMount() {
+    this.measure();
+    if (typeof ResizeObserver !== 'undefined') {
+      this._ro = new ResizeObserver(() => this.measure());
+      if (this.canvasRef.current) this._ro.observe(this.canvasRef.current);
+      if (this.cardRef.current) this._ro.observe(this.cardRef.current);
+      if (this.nodeRef.current) this._ro.observe(this.nodeRef.current);
+    }
+  }
+
+  measure() {
+    const card = this.cardRef.current, canvas = this.canvasRef.current;
+    if (!card || !canvas) return;
+    const cardPx = card.getBoundingClientRect().height;
+    const nodeEl = this.nodeRef.current;
+    const nodePx = nodeEl ? nodeEl.getBoundingClientRect().height : cardPx;
+    const canvasPx = canvas.getBoundingClientRect().width;
+    if (Math.abs(cardPx - this.state.cardPx) > 0.5 || Math.abs(nodePx - this.state.nodePx) > 0.5 || Math.abs(canvasPx - this.state.canvasPx) > 0.5) {
+      this.setState({ cardPx, nodePx, canvasPx });
+    }
+  }
+
+  componentWillUnmount() {
+    clearTimeout(this._t);
+    if (this._ro) this._ro.disconnect();
+    this.detach();
+  }
+
+  detach() {
+    if (!this._onMove) return;
+    window.removeEventListener('pointermove', this._onMove);
+    window.removeEventListener('pointerup', this._onUp);
+    this._onMove = null;
+    this._onUp = null;
+  }
+
+  startDrag(e, id, bounds) {
+    if (e.button !== undefined && e.button !== 0) return;
+    const base = this.state.pos[id] || { dx: 0, dy: 0 };
+    const scale = this.state.canvasPx ? this.state.canvasPx / W : 1;
+    const sx = e.clientX, sy = e.clientY;
+    let moved = false;
+    this.setState({ dragging: id });
+
+    this._onMove = (ev) => {
+      if (!moved && Math.abs(ev.clientX - sx) + Math.abs(ev.clientY - sy) > 3) moved = true;
+      if (!moved) return;
+      const dx = Math.min(Math.max(base.dx + (ev.clientX - sx) / scale, bounds.minDx), bounds.maxDx);
+      const dy = Math.min(Math.max(base.dy + (ev.clientY - sy) / scale, bounds.minDy), bounds.maxDy);
+      this.setState((st) => ({ pos: Object.assign({}, st.pos, { [id]: { dx, dy } }) }));
+    };
+
+    this._onUp = () => {
+      this.detach();
+      this.setState({ dragging: null });
+      if (!moved) this.knock(id);
+    };
+
+    window.addEventListener('pointermove', this._onMove);
+    window.addEventListener('pointerup', this._onUp);
+  }
+
+  knock(id) {
+    const n = (ALTS[id] || []).length;
+    this.setState((s) => ({
+      alt: n ? Object.assign({}, s.alt, { [id]: ((s.alt[id] || 0) + 1) % n }) : s.alt,
+      fired: id,
+      seq: s.seq + 1
+    }));
+    clearTimeout(this._t);
+    this._t = setTimeout(() => this.setState({ fired: null }), 1500);
+  }
+
+  depths(from, out) {
+    const d = { [from]: 0 };
+    let frontier = [from];
+    while (frontier.length) {
+      const next = [];
+      frontier.forEach((id) => {
+        (out[id] || []).forEach((nx) => {
+          if (d[nx] === undefined) { d[nx] = d[id] + 1; next.push(nx); }
+        });
+      });
+      frontier = next;
+    }
+    return d;
+  }
+
+  closure(hover, out, inc) {
+    const set = { up: {}, down: {} };
+    const walk = (id, map, bucket) => {
+      if (bucket[id]) return;
+      bucket[id] = true;
+      (map[id] || []).forEach((nx) => walk(nx, map, bucket));
+    };
+    walk(hover, inc, set.up);
+    walk(hover, out, set.down);
+    return set;
+  }
+
+  renderVals() {
+    const dim = this.props.dimOpacity ?? 0.3;
+    const showGrid = this.props.showGrid ?? false;
+
+    const scale = this.state.canvasPx ? this.state.canvasPx / W : 0;
+    const legendH = scale ? this.state.cardPx / scale : 46;
+    const nodeH = scale ? this.state.nodePx / scale : 40;
+    const hOf = (n) => (n.legend ? legendH : nodeH);
+    const cardH = nodeH;
+    const lens = this.state.lens;
+    // the in-canvas picker wins once used; the prop seeds the starting scheme
+    const propId = this.props.palette ?? 'signal';
+    const wanted = (this.state.picked && this.state.propAt === propId) ? PALETTES[this.state.palette].id : propId;
+    const pIndex = Math.max(0, PALETTES.findIndex((p) => p.id === wanted));
+    const scheme = PALETTES[pIndex].sets;
+    const skin = (row) => scheme[row] || scheme[scheme.length - 1];
+
+    const pos = this.state.pos;
+    const off = (id) => pos[id] || { dx: 0, dy: 0 };
+
+    // build every card with its base slot, then apply any drag offset
+    const byId = {};
+    const all = [];
+    LAYERS.forEach((layer, r) => {
+      const baseY = ROW_TOP + r * ROW_GAP;
+      const legend = {
+        id: 'L' + r, label: layer.name, layer: layer, row: r, legend: true,
+        baseX: LEGEND_X, baseY: baseY, w: LEGEND_W
+      };
+      all.push(legend);
+      byId[legend.id] = legend;
+
+      const row = ROWS[r];
+      const widths = row.map(([, label]) => widthOf(label, false));
+      const total = widths.reduce((a, b) => a + b, 0);
+      const gap = widths.length > 1 ? (FIELD_R - FIELD_L - total) / (widths.length - 1) : 0;
+      let pen = FIELD_L;
+      row.forEach(([id, label], i) => {
+        const node = {
+          id: id, label: label, layer: layer, row: r, legend: false,
+          baseX: pen, baseY: baseY, w: widths[i]
+        };
+        pen += widths[i] + gap;
+        all.push(node);
+        byId[id] = node;
+      });
+    });
+
+    const xOf = (n) => n.baseX + off(n.id).dx;
+    const yOf = (n) => n.baseY + off(n.id).dy;
+    const PAD = 10;
+    const boundsFor = (n) => ({
+      minDx: PAD - n.baseX,
+      maxDx: W - PAD - n.w - n.baseX,
+      minDy: PAD - n.baseY,
+      maxDy: H - PAD - hOf(n) - n.baseY
+    });
+
+    const out = {}, inc = {};
+    const links = LINKS.slice();
+    for (let r = 0; r < LAYERS.length - 1; r++) links.push(['L' + r, 'L' + (r + 1)]);
+    links.forEach(([a, b]) => {
+      (out[a] = out[a] || []).push(b);
+      (inc[b] = inc[b] || []).push(a);
+    });
+
+    const hover = this.state.hover;
+    const fired = this.state.fired;
+    const cl = fired
+      ? { up: { [fired]: true }, down: this.depths(fired, out) }
+      : (hover ? this.closure(hover, out, inc) : null);
+    const lit = (id) => !cl || cl.up[id] || cl.down[id] !== undefined;
+    const hovering = !!hover && !fired;
+    const knockDepth = fired
+      ? this.depths(fired, out)
+      : (hover ? this.depths(hover, out) : {});
+    const phase = this.state.seq % 2 ? 'wfliftA' : 'wfliftB';
+
+    const nodes = all.map((n) => {
+      const alts = ALTS[n.id];
+      const depth = knockDepth[n.id];
+      return {
+        id: n.id,
+        label: alts ? alts[this.state.alt[n.id] || 0] : n.label,
+        ref: n.id === 'L0' ? this.cardRef : (n.id === 'v-hex' ? this.nodeRef : null),
+        hasTile: n.legend ? true : null,
+        cardBg: skin(n.row)[0],
+        cardStroke: skin(n.row)[1],
+        mark: n.legend ? '#111315' : skin(n.row)[2],
+        isSquare: n.legend && n.layer.shape === 'square' ? true : null,
+        isDiamond: n.legend && n.layer.shape === 'diamond' ? true : null,
+        isComponent: n.legend && n.layer.shape === 'component' ? true : null,
+        isSection: n.legend && n.layer.shape === 'section' ? true : null,
+        isAi: n.legend && n.layer.shape === 'ai' ? true : null,
+        justify: n.legend ? 'flex-start' : 'center',
+        size: n.legend ? '1.24cqw' : '1.15cqw',
+        weight: n.legend ? 600 : 400,
+        ink: n.legend ? '#111315' : '#42464A',
+        caption: n.legend ? (lens === 'agent' ? n.layer.agent : n.layer.human) : null,
+        left: pctX(xOf(n)),
+        top: pctY(n.legend ? yOf(n) : yOf(n) + (legendH - nodeH) / 2),
+        width: pctX(n.w),
+        opacity: lit(n.id) ? 1 : dim,
+        anim: (depth === undefined || hovering)
+          ? 'none'
+          : phase + ' 620ms ease-in-out ' + (depth * 120) + 'ms both',
+        cursor: this.state.dragging === n.id ? 'grabbing' : 'grab',
+        tip: alts ? 'Click to swap · drag to move' : 'Click to trace · drag to move',
+        enter: () => { if (!this.state.dragging) this.setState({ hover: n.id }); },
+        leave: () => this.setState({ hover: null }),
+        down: (e) => this.startDrag(e, n.id, boundsFor(n))
+      };
+    });
+
+    const edges = links.map(([a, b], i) => {
+      const s = byId[a], t = byId[b];
+      const sy = s.legend ? yOf(s) : yOf(s) + (legendH - nodeH) / 2;
+      const ty = t.legend ? yOf(t) : yOf(t) + (legendH - nodeH) / 2;
+      const x1 = xOf(s) + s.w / 2, y1 = sy + hOf(s);
+      const x2 = xOf(t) + t.w / 2, y2 = ty;
+      const k = Math.max((y2 - y1) * 0.55, 18);
+      const on = !!(cl && (
+        (cl.up[a] && cl.up[b]) ||
+        (cl.down[a] !== undefined && cl.down[b] !== undefined) ||
+        (cl.up[a] && cl.down[b] !== undefined)
+      ));
+      return {
+        d: 'M ' + x1 + ' ' + y1 + ' C ' + x1 + ' ' + (y1 + k) + ', ' + x2 + ' ' + (y2 - k) + ', ' + x2 + ' ' + y2,
+        stroke: on ? '#8E9499' : '#DCD8D5',
+        dash: on ? '6 8' : 'none',
+        opacity: !cl ? 1 : (on ? 1 : dim * 0.8),
+        anim: on ? 'wfflow 620ms linear infinite ' + (s.row * -0.1) + 's' : 'none'
+      };
+    });
+
+    const ports = [];
+    all.forEach((n) => {
+      const o = lit(n.id) ? 1 : dim;
+      const cx = xOf(n) + n.w / 2;
+      const ny = n.legend ? yOf(n) : yOf(n) + (legendH - nodeH) / 2;
+      if (inc[n.id]) ports.push({ x: cx, y: ny, opacity: o });
+      if (out[n.id]) ports.push({ x: cx, y: ny + hOf(n), opacity: o });
+    });
+
+    const grid = [];
+    if (showGrid) {
+      for (let x = 131; x < W; x += 131) grid.push({ d: 'M ' + x + ' 0 L ' + x + ' ' + H });
+    }
+
+    return {
+      nodes, edges, ports, grid,
+      canvasRef: this.canvasRef,
+      swatches: PALETTES.map((p, i) => ({
+        id: p.id,
+        name: p.name,
+        dotA: p.sets[1][2],
+        dotB: p.sets[3][2],
+        dotC: p.sets[5][2],
+        ink: i === pIndex ? '#42464A' : '#54595C',
+        line: i === pIndex ? '#8A8F92' : 'transparent',
+        pick: () => this.setState({ palette: i, picked: true, propAt: propId })
+      })),
+      humanLine: lens === 'human' ? '#8A8F92' : 'transparent',
+      humanInk: lens === 'human' ? '#42464A' : '#54595C',
+      agentLine: lens === 'agent' ? '#8A8F92' : 'transparent',
+      agentInk: lens === 'agent' ? '#42464A' : '#54595C',
+      showHuman: () => this.setState({ lens: 'human' }),
+      showAgent: () => this.setState({ lens: 'agent' })
+    };
+  }
+}
+</script>
+</body>
+</html>

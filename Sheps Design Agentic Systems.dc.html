@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="icon" href="assets/favicon/favicon-orange-32.svg" type="image/svg+xml">
+<link rel="icon" href="assets/favicon/favicon-48.png" type="image/png" sizes="48x48">
+<link rel="icon" href="assets/favicon/favicon-192.png" type="image/png" sizes="192x192">
+<link rel="apple-touch-icon" href="assets/favicon/favicon-180.png" sizes="180x180">
+
+<title>Agent-ready design systems · Sheps.Design</title>
+<link rel="preload" href="src/assets/fonts/Inter-Variable.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<style>
+@font-face{font-family:'Inter';font-style:normal;font-weight:100 900;font-display:block;src:url('src/assets/fonts/Inter-Variable.woff2') format('woff2');}
+@font-face{font-family:'Space Grotesk';font-style:normal;font-weight:500;font-display:block;src:url('src/assets/fonts/SpaceGrotesk-Medium.woff2') format('woff2');}
+html{font-optical-sizing:none;font-synthesis:none;}
+*,*::before,*::after{box-sizing:border-box;}
+html,body{overflow-x:clip;}
+body{margin:0;background:#131313;color:#949191;font-family:'Inter',sans-serif;font-size:14px;line-height:130%;-webkit-font-smoothing:antialiased;}
+a{color:#FDBB6F;}
+a:hover{color:#CAE9DF;}
+a:focus-visible,button:focus-visible{outline:2px solid #FDBB6F;outline-offset:2px;}
+::selection{background:#CAE9DF;color:#131313;}
+html{scrollbar-gutter:stable;}
+</style>
+<script src="./analytics.js"></script>
+<script src="./copy-email.js"></script>
+<script src="./about-popup.js"></script>
+</helmet>
+
+<div style="max-width:1520px;margin:0 auto;padding:8px clamp(clamp(8px, calc((100vw - 807px) * 999), 24px), calc((100vw - 1439px) * 999), 40px);display:flex;flex-direction:column;align-items:center;">
+  <nav aria-label="Main" style="position:sticky;top:8px;z-index:50;display:flex;align-items:center;justify-content:space-between;gap:8px;width:calc(100% + 2 * clamp(clamp(8px, calc((100vw - 807px) * 999), 24px), calc((100vw - 1439px) * 999), 40px) - 16px);max-width:1504px;height:60px;padding:8px;border:1px solid #F7F3F11A;border-radius:8px;background:#131313B3;backdrop-filter:blur(8px);">
+    <a href="Sheps Design Home.dc.html" style="display:inline-flex;"><img src="assets/logo/nav-logo-slate.svg" alt="Sheps.Design" width="32" height="32" style="display:block;"></img></a>
+    <div style="display:flex;align-items:center;gap:16px;align-self:stretch;">
+        <a href="Sheps Design Home.dc.html#work" style="flex:none;min-width:32px;text-align:center;color:#949191;font-size:12px;font-weight:400;line-height:130%;letter-spacing:0.02em;text-decoration:none;white-space:nowrap;padding-bottom:2px;background:linear-gradient(currentColor, currentColor) no-repeat 50% 100% / 0% 1px;transition:color 0.2s ease, background-size 0.3s ease;" style-hover="color:#FDBB6F;background-image:linear-gradient(#FDBB6F, #FDBB6F);background-size:100% 1px;">Work</a>
+        <a href="Sheps Design Agentic Systems.dc.html" aria-current="page" style="flex:none;min-width:32px;text-align:center;color:#FDBB6F;font-size:12px;font-weight:400;line-height:130%;letter-spacing:0.02em;text-decoration:none;white-space:nowrap;padding-bottom:2px;background:linear-gradient(currentColor, currentColor) no-repeat 50% 100% / 0% 1px;transition:color 0.2s ease, background-size 0.3s ease;" style-hover="color:#FDBB6F;background-image:linear-gradient(#FDBB6F, #FDBB6F);background-size:100% 1px;">Systems</a>
+        <a href="#about" data-about="" style="flex:none;min-width:32px;text-align:center;color:#949191;font-size:12px;font-weight:400;line-height:130%;letter-spacing:0.02em;text-decoration:none;white-space:nowrap;padding-bottom:2px;background:linear-gradient(currentColor, currentColor) no-repeat 50% 100% / 0% 1px;transition:color 0.2s ease, background-size 0.3s ease;" style-hover="color:#FDBB6F;background-image:linear-gradient(#FDBB6F, #FDBB6F);background-size:100% 1px;">About</a>
+        <a data-cta="nav-lets-chat" data-cta-tier="primary" data-cta-location="nav" href="mailto:alex@sheps.studio" data-copy-email="alex@sheps.studio" data-copy-theme="dark" title="Copy email address" style="display:inline-flex;align-items:center;justify-content:center;flex:none;padding:12px 16px;border:0;border-radius:4px;background:#FDBB6F;color:#131313;font-family:'Inter',sans-serif;font-size:14px;font-weight:500;line-height:130%;letter-spacing:0.02em;text-decoration:none;white-space:nowrap;cursor:pointer;" style-hover="background:#CAE9DF;color:#131313;" style-active="background:#CAE9DF;color:#131313;opacity:0.8;">Let's Chat</a>
+    </div>
+  </nav>
+
+  <header data-screen-label="Header" style="display:flex;flex-direction:column;gap:24px;width:100%;padding:40px 0;">
+    <nav aria-label="Breadcrumb" style="font-size:12px;line-height:130%;letter-spacing:0.02em;">
+      <ol style="display:flex;flex-wrap:wrap;align-items:center;margin:0;padding:0;list-style:none;">
+        <li style="display:flex;align-items:center;"><a href="Sheps Design Home.dc.html" style="color:#949191;font-weight:400;text-decoration:none;" style-hover="color:#F7F3F1;">Home</a><img src="assets/icons/sys-caret-slate-muted.svg" alt="" width="16" height="16"></img></li>
+        <li style="display:flex;align-items:center;"><span aria-current="page" style="color:#FDBB6F;font-weight:600;">Agentic systems</span></li>
+      </ol>
+    </nav>
+    <div style="display:flex;flex-direction:column;gap:16px;max-width:800px;">
+      <h1 style="margin:0;max-width:660px;color:#CAE9DF;font-family:'Space Grotesk',sans-serif;font-size:clamp(clamp(24px, calc((100vw - 807px) * 999), 24px), calc((100vw - 1439px) * 999), 36px);font-weight:500;line-height:120%;letter-spacing:-0.04em;text-wrap:balance;">Design systems, explained.</h1>
+      <p style="margin:0;color:#949191;font-size:16px;font-weight:400;line-height:140%;letter-spacing:0.02em;text-wrap:pretty;">A design system stored as code, with tokens, components and rules in one repo that people and agents both read. From it you can build skills that produce on-brand decks, landing pages, documents and more.</p>
+    </div>
+  </header>
+
+  <div aria-hidden="true" style="width:100%;height:40px;background:url('assets/patterns/plus-slate.svg') 0 0 / 8px 10px repeat;"></div>
+
+  <main style="display:flex;flex-wrap:wrap;gap:40px;align-items:flex-start;width:100%;padding:40px 0;">
+    <nav aria-label="Contents" style="position:sticky;top:min(84px, calc((100vw - 807px) * 999));flex:0 0 257px;display:flex;flex-direction:column;gap:8px;max-width:100%;padding:8px;border:1px solid #F7F3F11A;border-radius:8px;background:#F7F3F108;">
+      <p style="margin:0;color:#949191;font-size:14px;line-height:140%;letter-spacing:0.02em;">Contents</p>
+      <span aria-hidden="true" style="display:block;width:100%;height:1px;background:#F7F3F11A;"></span>
+      <ul role="list" style="display:flex;flex-direction:column;gap:8px;margin:0;padding:0;list-style:none;">
+        <sc-for list="{{ menu }}" as="m" hint-placeholder-count="6">
+          <li>
+            <a href="{{ m.href }}" onClick="{{ m.go }}" aria-current="{{ m.current }}" style="display:inline-flex;align-items:center;gap:8px;color:{{ m.color }};text-decoration:none;font-size:14px;font-weight:{{ m.weight }};line-height:130%;letter-spacing:0.02em;" style-hover="color:#FDBB6F;">
+              <span>{{ m.label }}</span>
+            </a>
+          </li>
+        </sc-for>
+      </ul>
+    </nav>
+
+    <article style="flex:1 1 calc((808px - 100vw) * 999);display:flex;flex-direction:column;gap:40px;min-width:0;">
+      <section id="foundation" data-screen-label="The cascade" style="display:flex;flex-direction:column;gap:16px;">
+        <div style="display:flex;flex-direction:column;gap:16px;max-width:800px;">
+          <div style="display:flex;align-items:center;flex-wrap:wrap;gap:4px 8px;font-size:14px;line-height:130%;letter-spacing:0.02em;">
+            <h2 style="margin:0;color:#FDBB6F;font:inherit;font-weight:600;">The cascade</h2>
+            <span aria-hidden="true" style="flex:none;width:clamp(0px, calc((100vw - 807px) * 999), 1px);height:11px;background:#F7F3F11A;"></span>
+            <p style="margin:0;flex:1 1 clamp(0px, calc((808px - 100vw) * 999), 100%);min-width:0;color:#949191;text-wrap:balance;">One system, built to hold together</p>
+          </div>
+          <p style="margin:0;color:#949191;font-size:16px;font-weight:400;line-height:140%;letter-spacing:0.02em;text-wrap:pretty;">A design system isn't a list of colors and button styles, it's an architecture. Every piece connects to the one above it: tokens feed components, components arrange into sections, sections assemble into full pages. Change something at the foundation, and everything built on top of it can follow, without needing to be rebuilt by hand. That's what makes a system maintainable long after launch, and what lets it scale alongside your team.</p>
+        </div>
+        <div style="padding:24px 0;"><dc-import name="diagrams/DiagramTokenArchitecture" hint-size="100%,480px"></dc-import></div>
+        <ul role="list" style="display:flex;flex-direction:column;gap:16px;margin:0;padding:0;list-style:none;font-size:14px;line-height:130%;letter-spacing:0.02em;">
+          <sc-for list="{{ tiers }}" as="l" hint-placeholder-count="5">
+            <li style="display:flex;flex-wrap:wrap;align-items:flex-start;gap:4px 6px;padding-bottom:8px;border-bottom:1px solid #F7F3F11A;">
+              <strong style="flex:none;color:#CAE9DF;font-weight:600;white-space:pre;">{{ l.lead }}: </strong>
+              <span style="flex:1 1 20rem;min-width:0;color:#949191;">{{ l.body }}</span>
+            </li>
+          </sc-for>
+        </ul>
+        <aside style="display:flex;align-items:flex-start;gap:8px;padding:8px;border:1px solid #F7F3F11A;border-radius:8px;background:#F7F3F108;color:#949191;font-size:14px;line-height:130%;letter-spacing:0.02em;">
+          <p style="margin:0;"><strong style="color:#F7F3F1;font-weight:600;">Quick definitions: </strong>A component is one part, reusable anywhere. A section is parts arranged for a purpose, it only makes sense in one position. A template is sections stacked into a whole page. Rule of thumb: if it could move to another page unchanged, it's a component. If it only makes sense in one spot, it's a section.</p>
+        </aside>
+      </section>
+
+      <div aria-hidden="true" style="height:40px;background:url('assets/patterns/plus-slate.svg') 0 0 / 8px 10px repeat;"></div>
+
+      <section id="cascade" data-screen-label="Why two token layers?" style="display:flex;flex-direction:column;gap:16px;">
+        <div style="display:flex;flex-direction:column;gap:16px;max-width:800px;">
+          <div style="display:flex;align-items:center;flex-wrap:wrap;gap:4px 8px;font-size:14px;line-height:130%;letter-spacing:0.02em;">
+            <h2 style="margin:0;color:#FDBB6F;font:inherit;font-weight:600;">Why two token layers?</h2>
+            <span aria-hidden="true" style="flex:none;width:clamp(0px, calc((100vw - 807px) * 999), 1px);height:11px;background:#F7F3F11A;"></span>
+            <p style="margin:0;flex:1 1 clamp(0px, calc((808px - 100vw) * 999), 100%);min-width:0;color:#949191;text-wrap:balance;">One says what it is. The other says what it’s for.</p>
+          </div>
+          <p style="margin:0;color:#949191;font-size:16px;font-weight:400;line-height:140%;letter-spacing:0.02em;text-wrap:pretty;">A primitive is a value: #150040, 16px, a font weight. It doesn't know where it's used or why. A semantic token takes that value and gives it a job: “surface-dark,” “text-on-light,” “spacing-lg.” That's context a primitive can never carry on its own.</p>
+          <p style="margin:0;color:#949191;font-size:16px;font-weight:400;line-height:140%;letter-spacing:0.02em;text-wrap:pretty;">This distinction matters even more once AI enters the picture. An AI reading raw values has to guess at intent: is this hex code the brand's primary color, an error state, or a one-off? A semantic token removes the guesswork: it tells an agent exactly what a value is <em>for</em>, not just what it <em>is</em>. That's a large part of what “agent-ready” actually means in practice, not a separate technology, just a naming layer that turns facts into instructions an AI agent can follow correctly.</p>
+        </div>
+        <div style="padding:24px 0;"><dc-import name="diagrams/DiagramTokenRelationship" hint-size="100%,304px"></dc-import></div>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,18rem),1fr));gap:16px 40px;">
+          <div style="display:flex;flex-direction:column;gap:8px;padding-bottom:8px;border-bottom:1px solid #F7F3F11A;font-size:14px;line-height:130%;letter-spacing:0.02em;">
+            <h3 style="margin:0;color:#CAE9DF;font:inherit;font-weight:600;">Primitives — the raw values</h3>
+            <p style="margin:0;color:#949191;text-wrap:pretty;">The bottom of the cascade. A hex code, a pixel value, a font size: a fact, not a decision. Primitives don't carry meaning on their own; they're just what's available to build with.</p>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:8px;padding-bottom:8px;border-bottom:1px solid #F7F3F11A;font-size:14px;line-height:130%;letter-spacing:0.02em;">
+            <h3 style="margin:0;color:#CAE9DF;font:inherit;font-weight:600;">Semantic tokens — the decisions</h3>
+            <p style="margin:0;color:#949191;text-wrap:pretty;">A semantic token points to a primitive and gives it a job: "surface-dark," "text-on-light." This is where meaning enters the system, and where a brand decision lives separately from the raw value behind it.</p>
+          </div>
+        </div>
+      </section>
+
+      <div aria-hidden="true" style="height:40px;background:url('assets/patterns/plus-slate.svg') 0 0 / 8px 10px repeat;"></div>
+
+      <section id="contract" data-screen-label="The agent contract" style="display:flex;flex-direction:column;gap:16px;">
+        <div style="display:flex;flex-direction:column;gap:16px;max-width:800px;">
+          <div style="display:flex;align-items:center;flex-wrap:wrap;gap:4px 8px;font-size:14px;line-height:130%;letter-spacing:0.02em;">
+            <h2 style="margin:0;color:#FDBB6F;font:inherit;font-weight:600;">The agent contract</h2>
+            <span aria-hidden="true" style="flex:none;width:clamp(0px, calc((100vw - 807px) * 999), 1px);height:11px;background:#F7F3F11A;"></span>
+            <p style="margin:0;flex:1 1 clamp(0px, calc((808px - 100vw) * 999), 100%);min-width:0;color:#949191;text-wrap:balance;">The knowledge layer that lets AI actually use your system</p>
+          </div>
+          <p style="margin:0;color:#949191;font-size:16px;font-weight:400;line-height:140%;letter-spacing:0.02em;text-wrap:pretty;">Most of what makes a design system usable never gets written down, it lives with your design team. Which pattern to reach for, when to bend a rule, what “on-brand” actually feels like is a judgment call. An AI can't access any of that unless it's captured somewhere it can read. This layer is the rules of the road: it tells an agent how to read your system and what to do with it, the same context that normally lives in your design team's heads, made available to machines.</p>
+        </div>
+        <div style="padding:24px 0;"><dc-import name="diagrams/DiagramAgentContract" hint-size="100%,304px"></dc-import></div>
+        <aside style="display:flex;align-items:flex-start;gap:8px;padding:8px;border:1px solid #F7F3F11A;border-radius:8px;background:#F7F3F108;color:#949191;font-size:14px;line-height:130%;letter-spacing:0.02em;">
+          <p style="margin:0;">Without this layer, a design system is just a resource sitting there, unread. With it, an agent can actually work inside your brand instead of guessing at it.</p>
+        </aside>
+      </section>
+
+      <div aria-hidden="true" style="height:40px;background:url('assets/patterns/plus-slate.svg') 0 0 / 8px 10px repeat;"></div>
+
+      <section id="pieces" data-screen-label="What's inside it" style="display:flex;flex-direction:column;gap:16px;">
+        <div style="display:flex;flex-direction:column;gap:16px;max-width:800px;">
+          <div style="display:flex;align-items:center;flex-wrap:wrap;gap:4px 8px;font-size:14px;line-height:130%;letter-spacing:0.02em;">
+            <h2 style="margin:0;color:#FDBB6F;font:inherit;font-weight:600;">What's inside it</h2>
+            <span aria-hidden="true" style="flex:none;width:clamp(0px, calc((100vw - 807px) * 999), 1px);height:11px;background:#F7F3F11A;"></span>
+            <p style="margin:0;flex:1 1 clamp(0px, calc((808px - 100vw) * 999), 100%);min-width:0;color:#949191;text-wrap:balance;">What you’re actually getting</p>
+          </div>
+          <p style="margin:0;color:#949191;font-size:16px;font-weight:400;line-height:140%;letter-spacing:0.02em;text-wrap:pretty;">Every system we build looks a little different, the right setup depends on your brand, your team, and what you're already working with. This is a general idea of what tends to be in place, not a fixed checklist.</p>
+          <p style="margin:0;color:#949191;font-size:16px;font-weight:400;line-height:140%;letter-spacing:0.02em;text-wrap:pretty;">This is exactly why it isn't a click-of-a-button process. There's no one-size-fits-all template to drop in, what's actually needed shifts with the business, the team, and what already exists. The pieces below are a general shape, not a fixed order.</p>
+        </div>
+        <div style="padding:24px 0;"><dc-import name="diagrams/DiagramWhatsInside" hint-size="100%,598px"></dc-import></div>
+      </section>
+
+      <div aria-hidden="true" style="height:40px;background:url('assets/patterns/plus-slate.svg') 0 0 / 8px 10px repeat;"></div>
+
+      <section id="library" data-screen-label="How it evolves" style="display:flex;flex-direction:column;gap:16px;">
+        <div style="display:flex;flex-direction:column;gap:16px;max-width:800px;">
+          <div style="display:flex;align-items:center;flex-wrap:wrap;gap:4px 8px;font-size:14px;line-height:130%;letter-spacing:0.02em;">
+            <h2 style="margin:0;color:#FDBB6F;font:inherit;font-weight:600;">How it evolves</h2>
+            <span aria-hidden="true" style="flex:none;width:clamp(0px, calc((100vw - 807px) * 999), 1px);height:11px;background:#F7F3F11A;"></span>
+            <p style="margin:0;flex:1 1 clamp(0px, calc((808px - 100vw) * 999), 100%);min-width:0;color:#949191;text-wrap:balance;">Not a one off quick fix, a new way to maintain your brand</p>
+          </div>
+          <p style="margin:0;color:#949191;font-size:16px;font-weight:400;line-height:140%;letter-spacing:0.02em;text-wrap:pretty;">A well-built system changes how your brand gets maintained going forward: update the foundation, and everything built on it updates too. Nobody has to hunt down every place it needs to change by hand.</p>
+          <p style="margin:0;color:#949191;font-size:16px;font-weight:400;line-height:140%;letter-spacing:0.02em;text-wrap:pretty;">That easy upkeep isn't just there for when something breaks. It grows with you as your brand naturally evolves.</p>
+        </div>
+        <div style="padding:24px 0;"><dc-import name="diagrams/DiagramHowItUpdates" hint-size="100%,304px"></dc-import></div>
+      </section>
+
+      <div aria-hidden="true" style="height:40px;background:url('assets/patterns/plus-slate.svg') 0 0 / 8px 10px repeat;"></div>
+
+      <section id="practice" data-screen-label="What you can build" style="display:flex;flex-direction:column;gap:16px;">
+        <div style="display:flex;flex-direction:column;gap:16px;max-width:800px;">
+          <div style="display:flex;align-items:center;flex-wrap:wrap;gap:4px 8px;font-size:14px;line-height:130%;letter-spacing:0.02em;">
+            <h2 style="margin:0;color:#FDBB6F;font:inherit;font-weight:600;">What you can build</h2>
+            <span aria-hidden="true" style="flex:none;width:clamp(0px, calc((100vw - 807px) * 999), 1px);height:11px;background:#F7F3F11A;"></span>
+            <p style="margin:0;flex:1 1 clamp(0px, calc((808px - 100vw) * 999), 100%);min-width:0;color:#949191;text-wrap:balance;">The real win: production without losing quality</p>
+          </div>
+          <p style="margin:0;color:#949191;font-size:16px;font-weight:400;line-height:140%;letter-spacing:0.02em;text-wrap:pretty;">This is the payoff everything else is building toward: your team using AI tooling to open up production, without losing what keeps the brand unique. Marketing can generate on-brand assets without waiting on design. Product can prototype without drifting off-pattern. Output scales without a bottleneck, and without a mess to clean up after.</p>
+          <p style="margin:0;color:#949191;font-size:16px;font-weight:400;line-height:140%;letter-spacing:0.02em;text-wrap:pretty;">That's what skills make possible: small, focused instructions that teach an AI how to use your specific system for a specific job (a landing-page builder, a deck builder, a marketing-asset generator), each one inheriting the same tokens, components, and brand rules instead of reinventing them.</p>
+          <p style="margin:0;color:#949191;font-size:16px;font-weight:400;line-height:140%;letter-spacing:0.02em;text-wrap:pretty;">This is also where the cost savings show up, concretely. An AI agent working from a connected system doesn't have to guess at your brand or have it explained in every request. It reads the structure once and gets it right. That means fewer tokens spent per request, higher first-pass accuracy, and less custom code getting generated and re-reviewed. Over dozens or hundreds of requests, that compounds: the foundation is what makes every use after it cheaper.</p>
+        </div>
+        <div style="padding:24px 0;"><dc-import name="diagrams/DiagramSkillStack" hint-size="100%,240px"></dc-import></div>
+        <aside style="display:flex;align-items:flex-start;gap:8px;padding:8px;border:1px solid #F7F3F11A;border-radius:8px;background:#F7F3F108;color:#949191;font-size:14px;line-height:130%;letter-spacing:0.02em;">
+          <p style="margin:0;">The better the foundation, the less every future request has to work to get it right.</p>
+        </aside>
+      </section>
+    </article>
+  </main>
+
+
+</div>
+<div style="max-width:1520px;margin:0 auto;">
+  <dc-import name="SiteFooter" footer-theme="dark" bio-variant="cta" hint-size="100%,1900px" style="display:block;width:100%;"></dc-import>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { active: 'foundation' };
+  nav = [
+    ['foundation', 'The cascade', 'services'],
+    ['cascade', 'Why two token layers?', 'services'],
+    ['contract', 'The agent contract', 'services'],
+    ['pieces', "What's inside it", 'services'],
+    ['library', 'How it evolves', 'services'],
+    ['practice', 'What you can build', 'services'],
+  ];
+  componentDidMount() {
+    import('./reveal.js').then((m) => { const run = () => m.reveal("[data-screen-label]:not([data-screen-label=\"Hero\"]) > *:not(canvas), [data-reveal-group] > *, [data-reveal], nav[aria-label=\"Contents\"]"); run(); setTimeout(run, 600); setTimeout(run, 2000); }).catch(() => {});
+    this.onScroll = () => {
+      let cur = this.nav[0][0];
+      for (const [id] of this.nav) {
+        const el = document.getElementById(id);
+        if (el && el.getBoundingClientRect().top < 160) cur = id;
+      }
+      if (cur !== this.state.active) this.setState({ active: cur });
+    };
+    window.addEventListener('scroll', this.onScroll, { passive: true });
+  }
+  componentWillUnmount() { window.removeEventListener('scroll', this.onScroll); }
+  renderVals() {
+    const a = this.state.active;
+    return {
+      tiers: [
+        { lead: 'Primitives', body: 'the raw values. A hex code, a number, a font size. Nothing means anything yet.' },
+        { lead: 'Semantic tokens', body: 'a value with a job. A primitive becomes “surface-dark” or “text-on-light,” a decision, not just a fact.' },
+        { lead: 'Components', body: 'built only from semantic tokens, never raw values. A button, a card, reusable anywhere.' },
+        { lead: 'Sections', body: 'components arranged for a purpose. A hero, a footer. Makes sense in one place, not everywhere.' },
+        { lead: 'Templates', body: 'sections assembled into a full page.' },
+      ],
+      contractPieces: [
+        { lead: 'The rules', body: 'hard constraints on how tokens and components get used, so AI-generated work stays on-system by default, not by luck.' },
+        { lead: 'The guidelines', body: 'the visual and UX judgment calls the rules can’t cover. Where AI, and people, need context instead of just constraints.' },
+        { lead: 'The skill', body: 'a short file that teaches AI when and how to use the system at all. Without it, even a perfectly built system is invisible to an AI trying to work with your brand.' },
+      ],
+      pieces: [
+        { name: 'Token file', what: 'Every color, size, spacing, and type value, in one place', why: 'Change it once, it flows everywhere' },
+        { name: 'Component library', what: 'The reusable pieces — buttons, cards, and so on — built from tokens', why: 'What your team and your AI tools actually build with' },
+        { name: 'Design guidelines', what: 'The judgment calls — voice, layout, usage rules', why: "Covers what pure rules can't" },
+        { name: 'Agent contract', what: 'The rules and skill file that teach AI how to use the system safely', why: 'Keeps AI-generated work on-brand automatically' },
+        { name: 'Living library', what: 'A browsable, always-current view of every token and component', why: "If it's not here, it doesn't exist in the system yet" },
+      ],
+      menu: this.nav.map(([id, label, ic]) => ({
+        href: '#' + id, label, current: a === id ? 'true' : undefined,
+        color: a === id ? '#FDBB6F' : '#949191',
+        weight: a === id ? 600 : 400,
+        icon: a === id ? `assets/icons/brand-${ic}-slate.svg` : `assets/icons/nav-${ic}-slate.svg`,
+        go: (e) => {
+          e.preventDefault();
+          const el = document.getElementById(id);
+          if (el) window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - 84, behavior: 'smooth' });
+          this.setState({ active: id });
+        },
+      })),
+    };
+  }
+}
+</script>
+</body>
+</html>

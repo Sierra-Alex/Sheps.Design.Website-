@@ -1,0 +1,3234 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script>(function(){try{var q=new URLSearchParams(location.search),p=q.get('project');if(!p||q.get('embed')!=='1')return;var base=new URL(p,location.href);window.__asciiVids={};window.__asciiPre=fetch(p).then(function(r){return r.json()}).then(function(j){(j.composite?j.composite.map(function(k){return k.media}):j.media?[j.media]:[]).forEach(function(u){var h=new URL(u,base).href,v=document.createElement('video');v.muted=true;v.loop=true;v.playsInline=true;v.preload='auto';v.src=h;window.__asciiVids[h]=v});return j});window.__asciiPre.catch(function(){window.__asciiPre=null})}catch(e){}})();</script>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&family=IBM+Plex+Mono:wght@300;400;500;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  html, body { margin: 0; padding: 0; background: transparent; }
+  a { color: #00E599; text-decoration: none; }
+  a:hover { color: #6BFFC9; }
+  input[type=range] { -webkit-appearance: none; appearance: none; height: 2px; background: #262A26; border-radius: 2px; outline: none; }
+  input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 11px; height: 11px; border-radius: 50%; background: #00E599; cursor: pointer; }
+  input[type=range]::-moz-range-thumb { width: 11px; height: 11px; border: 0; border-radius: 50%; background: #00E599; cursor: pointer; }
+  select { -webkit-appearance: none; appearance: none; }
+  ::-webkit-scrollbar { width: 8px; height: 8px; }
+  ::-webkit-scrollbar-thumb { background: #23271F; border-radius: 8px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+</style>
+</helmet>
+
+<div style="display:flex; height:100vh; min-height:0; background:{{ rootBg }}; color:#E6E8E6; font-family:'JetBrains Mono', ui-monospace, monospace; font-size:12px; overflow:hidden">
+
+  <sc-if value="{{ notEmbed }}" hint-placeholder-val="{{ true }}">
+  <aside style="width:326px; flex:0 0 326px; border-right:1px solid #191C19; display:flex; flex-direction:column; overflow:hidden">
+    <div style="padding:18px 18px 14px; border-bottom:1px solid #191C19; display:flex; align-items:baseline; gap:8px">
+      <span style="font-size:13px; font-weight:700; letter-spacing:0.02em">ASCII</span>
+      <span style="font-size:13px; font-weight:300; color:#00E599">FILTER</span>
+      <span style="margin-left:auto; font-size:9px; letter-spacing:0.14em; color:#5A625A">v1.0</span>
+    </div>
+
+    <div style="flex:1; overflow-y:auto; padding:4px 0 40px">
+
+      <div style="padding:16px 18px 6px; font-size:9px; letter-spacing:0.16em; color:#5A625A">SOURCE</div>
+      <div style="padding:0 18px 18px; display:flex; flex-direction:column; gap:8px">
+        <label style="display:flex; align-items:center; justify-content:center; gap:8px; height:34px; border:1px dashed #2C312C; border-radius:3px; cursor:pointer; color:#A9B2A9" style-hover="border-color:#00E599; color:#00E599">
+          <span style="font-size:11px">Upload image or video</span>
+          <input type="file" accept="image/*,video/*" onChange="{{ h.file }}" style="display:none">
+        </label>
+        <div style="font-size:10px; color:#5A625A; white-space:nowrap; overflow:hidden; text-overflow:ellipsis">{{ fileLabel }}</div>
+        <div style="font-size:9px; color:#4E554E; white-space:nowrap; overflow:hidden; text-overflow:ellipsis">{{ saveMsg }}</div>
+      </div>
+
+      <div style="padding:10px 18px 6px; font-size:9px; letter-spacing:0.16em; color:#5A625A; border-top:1px solid #141714">PRESETS</div>
+      <div style="padding:0 18px 18px; display:flex; flex-direction:column; gap:8px">
+        <div style="display:flex; gap:6px">
+          <input type="text" value="{{ s.presetName }}" onChange="{{ h.presetName }}" onInput="{{ h.presetName }}" placeholder="name this look" style="flex:1; height:30px; background:#101310; color:#E6E8E6; border:1px solid #23271F; border-radius:3px; padding:0 10px; font-family:inherit; font-size:11px">
+          <button onClick="{{ h.savePreset }}" style="height:30px; padding:0 12px; border-radius:3px; cursor:pointer; font-family:inherit; font-size:11px; background:#0B2A20; color:#00E599; border:1px solid #00E599">Save</button>
+        </div>
+        <sc-if value="{{ hasPresets }}" hint-placeholder-val="{{ false }}">
+          <div style="display:flex; flex-direction:column; gap:4px; max-height:168px; overflow-y:auto">
+            <sc-for list="{{ presetList }}" as="p" hint-placeholder-count="0">
+              <div style="display:flex; align-items:center; gap:6px; height:28px; padding:0 4px 0 8px; background:#101310; border:1px solid #23271F; border-radius:3px">
+                <button onClick="{{ p.load }}" style="flex:1; height:100%; text-align:left; background:none; border:0; cursor:pointer; font-family:inherit; font-size:11px; color:#E6E8E6; padding:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap" style-hover="color:#00E599">{{ p.name }}</button>
+                <span style="font-size:9px; color:#5A625A">{{ p.meta }}</span>
+                <button onClick="{{ p.del }}" title="Delete" style="width:20px; height:20px; border-radius:2px; cursor:pointer; background:none; border:0; color:#5A625A; font-family:inherit; font-size:12px; padding:0" style-hover="color:#FF6B6B">×</button>
+              </div>
+            </sc-for>
+          </div>
+        </sc-if>
+        <div style="display:flex; gap:6px">
+          <label style="flex:1; display:flex; align-items:center; justify-content:center; height:26px; border:1px solid #23271F; border-radius:3px; cursor:pointer; font-size:10px; color:#A9B2A9" style-hover="border-color:#00E599; color:#00E599">
+            Import
+            <input type="file" accept="application/json,.json" onChange="{{ h.importPresets }}" style="display:none">
+          </label>
+          <button onClick="{{ h.exportPresets }}" style="flex:1; height:26px; border-radius:3px; cursor:pointer; font-family:inherit; font-size:10px; background:#101310; color:#A9B2A9; border:1px solid #23271F" style-hover="border-color:#00E599; color:#00E599">Export all</button>
+        </div>
+        <div style="font-size:9px; color:#828C82">{{ s.presetMsg }}</div>
+      </div>
+
+      <div style="padding:10px 18px 6px; font-size:9px; letter-spacing:0.16em; color:#5A625A; border-top:1px solid #141714">REVEAL WINDOWS</div>
+      <div style="padding:0 18px 16px; display:flex; flex-direction:column; gap:14px">
+        <button onClick="{{ h.revealOn }}" style="height:30px; border-radius:3px; cursor:pointer; font-family:inherit; font-size:11px; text-align:left; padding:0 10px; background:{{ revealBg }}; color:{{ revealFg }}; border:1px solid {{ revealBorder }}">Original punch-through — {{ revealState }}</button>
+        <div style="display:flex; flex-direction:column; gap:5px">
+          <div style="display:flex; justify-content:space-between"><span style="color:#A9B2A9">Count</span><span style="color:#00E599">{{ s.revealCount }}</span></div>
+          <input type="range" min="1" max="8" step="1" value="{{ s.revealCount }}" onInput="{{ h.revealCount }}">
+        </div>
+        <div style="display:flex; flex-direction:column; gap:5px">
+          <div style="display:flex; justify-content:space-between"><span style="color:#A9B2A9">Size</span><span style="color:#00E599">{{ revealSizeLabel }}</span></div>
+          <input type="range" min="0.05" max="0.5" step="0.01" value="{{ s.revealSize }}" onInput="{{ h.revealSize }}">
+        </div>
+        <div style="display:flex; gap:6px">
+          <button onClick="{{ h.shuffle }}" style="flex:1; height:28px; border-radius:3px; cursor:pointer; font-family:inherit; font-size:11px; background:#101310; color:#00E599; border:1px solid #23271F" style-hover="border-color:#00E599">Shuffle</button>
+          <button onClick="{{ h.addWin }}" style="width:34px; height:28px; border-radius:3px; cursor:pointer; font-family:inherit; font-size:13px; background:#101310; color:#00E599; border:1px solid #23271F" style-hover="border-color:#00E599">+</button>
+          <button onClick="{{ h.delWin }}" style="width:34px; height:28px; border-radius:3px; cursor:pointer; font-family:inherit; font-size:13px; background:#101310; color:#A9B2A9; border:1px solid #23271F" style-hover="border-color:#FF6B6B; color:#FF6B6B">−</button>
+        </div>
+        <div style="font-size:9px; color:#828C82">Drag a box to move it, corner to resize (hold Shift to keep it square)</div>
+        <div style="display:flex; flex-direction:column; gap:5px; opacity:{{ zRowDim }}">
+          <div style="display:flex; justify-content:space-between"><span style="color:#A9B2A9">Selected depth</span><span style="color:#00E599">{{ activeZLabel }}</span></div>
+          <input type="range" min="-1" max="1" step="0.05" value="{{ activeZ }}" onInput="{{ h.winZ }}">
+        </div>
+
+        <div style="height:1px; background:#191C19"></div>
+
+        <button onClick="{{ h.strokeOn }}" style="height:30px; border-radius:3px; cursor:pointer; font-family:inherit; font-size:11px; text-align:left; padding:0 10px; background:{{ strokeBg }}; color:{{ strokeFg }}; border:1px solid {{ strokeBorder }}">Outline stroke — {{ strokeState }}</button>
+        <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:6px">
+          <sc-for list="{{ strokeStyles }}" as="st" hint-placeholder-count="3">
+            <button onClick="{{ st.on }}" style="height:26px; border-radius:3px; cursor:pointer; font-family:inherit; font-size:10px; background:{{ st.bg }}; color:{{ st.fg }}; border:1px solid {{ st.border }}">{{ st.label }}</button>
+          </sc-for>
+        </div>
+        <div style="display:flex; gap:10px; align-items:center">
+          <span style="color:#A9B2A9; flex:1">Stroke color</span>
+          <div style="position:relative">
+            <button onClick="{{ strokeField.toggle }}" style="width:52px; height:26px; border-radius:3px; cursor:pointer; padding:0; background:{{ s.strokeColor }}; border:1px solid {{ strokeField.chipBorder }}"></button>
+            <sc-if value="{{ strokeField.open }}" hint-placeholder-val="{{ false }}">
+              <div style="position:absolute; z-index:20; top:30px; right:0; width:150px; padding:8px; background:#101310; border:1px solid #2C312C; border-radius:4px; box-shadow:0 8px 24px rgba(0,0,0,0.6); display:flex; flex-direction:column; gap:8px">
+                <div style="display:grid; grid-template-columns:repeat(6,1fr); gap:4px">
+                  <sc-for list="{{ strokeField.swatches }}" as="sw" hint-placeholder-count="12">
+                    <button onClick="{{ sw.pick }}" style="height:18px; border-radius:2px; cursor:pointer; padding:0; background:{{ sw.hex }}; border:1px solid {{ sw.border }}"></button>
+                  </sc-for>
+                </div>
+                <input type="text" value="{{ strokeField.hexDraft }}" onChange="{{ strokeField.onHex }}" onInput="{{ strokeField.onHex }}" placeholder="#RRGGBB" style="height:24px; background:#0A0B0A; color:#E6E8E6; border:1px solid #23271F; border-radius:3px; padding:0 6px; font-family:inherit; font-size:10px">
+              </div>
+            </sc-if>
+          </div>
+        </div>
+        <div style="display:flex; flex-direction:column; gap:5px">
+          <div style="display:flex; justify-content:space-between"><span style="color:#A9B2A9">Weight</span><span style="color:#00E599">{{ strokeWidthLabel }}</span></div>
+          <input type="range" min="0" max="8" step="0.5" value="{{ s.strokeWidth }}" onInput="{{ h.strokeWidth }}">
+        </div>
+        <div style="display:flex; flex-direction:column; gap:5px">
+          <div style="display:flex; justify-content:space-between"><span style="color:#A9B2A9">Inset</span><span style="color:#00E599">{{ strokeInsetLabel }}</span></div>
+          <input type="range" min="-8" max="16" step="1" value="{{ s.strokeInset }}" onInput="{{ h.strokeInset }}">
+        </div>
+        <div style="font-size:9px; color:#828C82">Strokes render into PNG, GIF, WebM and SVG exports</div>
+      </div>
+
+      <div style="padding:10px 18px 6px; font-size:9px; letter-spacing:0.16em; color:#5A625A; border-top:1px solid #141714">STAR FLARES</div>
+      <div style="padding:0 18px 16px; display:flex; flex-direction:column; gap:14px">
+        <button onClick="{{ h.flareOn }}" style="height:30px; border-radius:3px; cursor:pointer; font-family:inherit; font-size:11px; text-align:left; padding:0 10px; background:{{ flareBg }}; color:{{ flareFg }}; border:1px solid {{ flareBorder }}">Star flares — {{ flareState }}</button>
+        <div style="display:flex; flex-direction:column; gap:5px">
+          <div style="display:flex; justify-content:space-between"><span style="color:#A9B2A9">Count</span><span style="color:#00E599">{{ s.flareCount }}</span></div>
+          <input type="range" min="1" max="24" step="1" value="{{ s.flareCount }}" onInput="{{ h.flareCount }}">
+        </div>
+        <div style="display:flex; flex-direction:column; gap:5px">
+          <div style="display:flex; justify-content:space-between"><span style="color:#A9B2A9">Size</span><span style="color:#00E599">{{ flareSizeLabel }}</span></div>
+          <input type="range" min="12" max="260" step="2" value="{{ s.flareSize }}" onInput="{{ h.flareSize }}">
+        </div>
+        <div style="display:flex; flex-direction:column; gap:5px">
+          <div style="display:flex; justify-content:space-between"><span style="color:#A9B2A9">Spike length</span><span style="color:#00E599">{{ flareSpikeLabel }}</span></div>
+          <input type="range" min="0.3" max="14" step="0.1" value="{{ s.flareSpike }}" onInput="{{ h.flareSpike }}">
+        </div>
+        <div style="display:flex; flex-direction:column; gap:5px">
+          <div style="display:flex; justify-content:space-between"><span style="color:#A9B2A9">Spike thickness</span><span style="color:#00E599">{{ flareThinLabel }}</span></div>
+          <input type="range" min="0.02" max="1" step="0.02" value="{{ s.flareThin }}" onInput="{{ h.flareThin }}">
+        </div>
+        <div style="display:flex; flex-direction:column; gap:5px">
+          <div style="display:flex; justify-content:space-between"><span style="color:#A9B2A9">Core burn</span><span style="color:#00E599">{{ flareCoreLabel }}</span></div>
+          <input type="range" min="0.1" max="2" step="0.05" value="{{ s.flareCore }}" onInput="{{ h.flareCore }}">
+        </div>
+        <div style="display:flex; flex-direction:column; gap:5px">
+          <div style="display:flex; justify-content:space-between"><span style="color:#A9B2A9">Chromatic mix</span><span style="color:#00E599">{{ flareHueLabel }}</span></div>
+          <input type="range" min="0" max="1" step="0.02" value="{{ s.flareHue }}" onInput="{{ h.flareHue }}">
+        </div>
+        <div style="display:flex; flex-direction:column; gap:5px">
+          <div style="display:flex; justify-content:space-between"><span style="color:#A9B2A9">Opacity</span><span style="color:#00E599">{{ flareOpacityLabel }}</span></div>
+          <input type="range" min="0.1" max="1" step="0.01" value="{{ s.flareOpacity }}" onInput="{{ h.flareOpacity }}">
+        </div>
+        <div style="display:flex; gap:10px; align-items:center">
+          <span style="color:#A9B2A9; flex:1">Warm / cool</span>
+          <div style="position:relative">
+            <button onClick="{{ flareFieldB.toggle }}" style="width:34px; height:26px; border-radius:3px; cursor:pointer; padding:0; background:{{ s.flareColorB }}; border:1px solid {{ flareFieldB.chipBorder }}"></button>
+            <sc-if value="{{ flareFieldB.open }}" hint-placeholder-val="{{ false }}">
+              <div style="position:absolute; z-index:20; top:30px; right:0; width:150px; padding:8px; background:#101310; border:1px solid #2C312C; border-radius:4px; box-shadow:0 8px 24px rgba(0,0,0,0.6); display:flex; flex-direction:column; gap:8px">
+                <div style="display:grid; grid-template-columns:repeat(6,1fr); gap:4px">
+                  <sc-for list="{{ flareFieldB.swatches }}" as="sw" hint-placeholder-count="12">
+                    <button onClick="{{ sw.pick }}" style="height:18px; border-radius:2px; cursor:pointer; padding:0; background:{{ sw.hex }}; border:1px solid {{ sw.border }}"></button>
+                  </sc-for>
+                </div>
+                <input type="text" value="{{ flareFieldB.hexDraft }}" onChange="{{ flareFieldB.onHex }}" onInput="{{ flareFieldB.onHex }}" placeholder="#RRGGBB" style="height:24px; background:#0A0B0A; color:#E6E8E6; border:1px solid #23271F; border-radius:3px; padding:0 6px; font-family:inherit; font-size:10px">
+              </div>
+            </sc-if>
+          </div>
+          <div style="position:relative">
+            <button onClick="{{ flareField.toggle }}" style="width:34px; height:26px; border-radius:3px; cursor:pointer; padding:0; background:{{ s.flareColor }}; border:1px solid {{ flareField.chipBorder }}"></button>
+            <sc-if value="{{ flareField.open }}" hint-placeholder-val="{{ false }}">
+              <div style="position:absolute; z-index:20; top:30px; right:0; width:150px; padding:8px; background:#101310; border:1px solid #2C312C; border-radius:4px; box-shadow:0 8px 24px rgba(0,0,0,0.6); display:flex; flex-direction:column; gap:8px">
+                <div style="display:grid; grid-template-columns:repeat(6,1fr); gap:4px">
+                  <sc-for list="{{ flareField.swatches }}" as="sw" hint-placeholder-count="12">
+                    <button onClick="{{ sw.pick }}" style="height:18px; border-radius:2px; cursor:pointer; padding:0; background:{{ sw.hex }}; border:1px solid {{ sw.border }}"></button>
+                  </sc-for>
+                </div>
+                <input type="text" value="{{ flareField.hexDraft }}" onChange="{{ flareField.onHex }}" onInput="{{ flareField.onHex }}" placeholder="#RRGGBB" style="height:24px; background:#0A0B0A; color:#E6E8E6; border:1px solid #23271F; border-radius:3px; padding:0 6px; font-family:inherit; font-size:10px">
+              </div>
+            </sc-if>
+          </div>
+        </div>
+        <div style="display:flex; gap:6px">
+          <button onClick="{{ h.flarePoints }}" style="flex:1; height:28px; border-radius:3px; cursor:pointer; font-family:inherit; font-size:10px; background:#101310; color:#A9B2A9; border:1px solid #23271F">{{ flarePointsLabel }}</button>
+          <button onClick="{{ h.flareGlow }}" style="flex:1; height:28px; border-radius:3px; cursor:pointer; font-family:inherit; font-size:10px; background:#101310; color:#A9B2A9; border:1px solid #23271F">{{ flareGlowLabel }}</button>
+        </div>
+        <button onClick="{{ h.flarePlace }}" style="height:28px; border-radius:3px; cursor:pointer; font-family:inherit; font-size:10px; background:#101310; color:#A9B2A9; border:1px solid #23271F">{{ flarePlaceLabel }}</button>
+        <div style="display:flex; gap:6px">
+          <button onClick="{{ h.flareShuffle }}" style="flex:1; height:28px; border-radius:3px; cursor:pointer; font-family:inherit; font-size:10px; background:#101310; color:#00E599; border:1px solid #23271F">Shuffle</button>
+          <button onClick="{{ h.addFlare }}" style="width:34px; height:28px; border-radius:3px; cursor:pointer; font-family:inherit; font-size:13px; background:#101310; color:#00E599; border:1px solid #23271F">+</button>
+          <button onClick="{{ h.delFlare }}" style="width:34px; height:28px; border-radius:3px; cursor:pointer; font-family:inherit; font-size:13px; background:#101310; color:#A9B2A9; border:1px solid #23271F">−</button>
+        </div>
+        <div style="font-size:9px; color:#828C82">Drag a flare's dot on the canvas to reposition it</div>
+      </div>
+
+      <div style="padding:10px 18px 6px; font-size:9px; letter-spacing:0.16em; color:#5A625A; border-top:1px solid #141714">3D HOVER</div>
+      <div style="padding:0 18px 16px; display:flex; flex-direction:column; gap:14px">
+        <button onClick="{{ h.tiltOn }}" style="height:30px; border-radius:3px; cursor:pointer; font-family:inherit; font-size:11px; text-align:left; padding:0 10px; background:{{ tiltBg }}; color:{{ tiltFg }}; border:1px solid {{ tiltBorder }}">Pointer tilt — {{ tiltState }}</button>
+        <div style="display:flex; flex-direction:column; gap:5px">
+          <div style="display:flex; justify-content:space-between"><span style="color:#A9B2A9">Tilt</span><span style="color:#00E599">{{ tiltMaxLabel }}</span></div>
+          <input type="range" min="0" max="30" step="0.5" value="{{ s.tiltMax }}" onInput="{{ h.tiltMax }}">
+        </div>
+        <div style="display:flex; flex-direction:column; gap:5px">
+          <div style="display:flex; justify-content:space-between"><span style="color:#A9B2A9">Depth</span><span style="color:#00E599">{{ tiltDepthLabel }}</span></div>
+          <input type="range" min="200" max="2400" step="50" value="{{ s.tiltDepth }}" onInput="{{ h.tiltDepth }}">
+        </div>
+        <div style="display:flex; flex-direction:column; gap:5px">
+          <div style="display:flex; justify-content:space-between"><span style="color:#A9B2A9">Layer parallax</span><span style="color:#00E599">{{ parallaxLabel }}</span></div>
+          <input type="range" min="0" max="60" step="1" value="{{ s.parallax }}" onInput="{{ h.parallax }}">
+        </div>
+        <div style="display:flex; flex-direction:column; gap:5px">
+          <div style="display:flex; justify-content:space-between"><span style="color:#A9B2A9">Ease</span><span style="color:#00E599">{{ tiltEaseLabel }}</span></div>
+          <input type="range" min="0.02" max="1" step="0.01" value="{{ s.tiltEase }}" onInput="{{ h.tiltEase }}">
+        </div>
+        <div style="display:flex; flex-direction:column; gap:5px">
+          <div style="display:flex; justify-content:space-between"><span style="color:#A9B2A9">Z spread</span><span style="color:#00E599">{{ zSpreadLabel }}</span></div>
+          <input type="range" min="0" max="140" step="2" value="{{ s.zSpread }}" onInput="{{ h.zSpread }}">
+        </div>
+        <div style="display:flex; flex-direction:column; gap:5px">
+          <div style="display:flex; justify-content:space-between"><span style="color:#A9B2A9">Defocus</span><span style="color:#00E599">{{ defocusLabel }}</span></div>
+          <input type="range" min="0" max="6" step="0.1" value="{{ s.defocus }}" onInput="{{ h.defocus }}">
+        </div>
+        <div style="font-size:9px; color:#828C82">Move your pointer over the canvas. Per-window depth lives under Reveal windows.</div>
+      </div>
+
+      <div style="padding:10px 18px 6px; font-size:9px; letter-spacing:0.16em; color:#5A625A; border-top:1px solid #141714">GLYPHS</div>
+      <div style="padding:0 18px 16px; display:flex; flex-direction:column; gap:14px">
+        <div style="display:flex; flex-direction:column; gap:6px">
+          <div style="display:flex; justify-content:space-between; color:#A9B2A9"><span>Ramp</span></div>
+          <select value="{{ s.ramp }}" onChange="{{ h.ramp }}" style="height:30px; background:#101310; color:#E6E8E6; border:1px solid #23271F; border-radius:3px; padding:0 10px; font-family:inherit; font-size:11px">
+            <sc-for list="{{ ramps }}" as="r" hint-placeholder-count="6">
+              <option value="{{ r.k }}">{{ r.label }}</option>
+            </sc-for>
+          </select>
+          <input type="text" value="{{ s.customRamp }}" onChange="{{ h.customRamp }}" onInput="{{ h.customRamp }}" placeholder="custom ramp — dark to light" style="height:30px; background:#101310; color:#00E599; border:1px solid #23271F; border-radius:3px; padding:0 10px; font-family:inherit; font-size:11px">
+          <div style="color:#4E554E; font-size:10px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap">{{ rampPreview }}</div>
+        </div>
+
+        <div style="display:flex; flex-direction:column; gap:5px">
+          <div style="display:flex; justify-content:space-between"><span style="color:#A9B2A9">Columns</span><span style="color:#00E599">{{ s.cols }}</span></div>
+          <input type="range" min="20" max="360" step="1" value="{{ s.cols }}" onInput="{{ h.cols }}">
+        </div>
+
+        <div style="display:flex; flex-direction:column; gap:5px">
+          <div style="display:flex; justify-content:space-between"><span style="color:#A9B2A9">Glyph size</span><span style="color:#00E599">{{ s.fontSize }}px</span></div>
+          <input type="range" min="4" max="40" step="1" value="{{ s.fontSize }}" onInput="{{ h.fontSize }}">
+        </div>
+
+        <div style="display:flex; flex-direction:column; gap:5px">
+          <div style="display:flex; justify-content:space-between"><span style="color:#A9B2A9">Cell aspect</span><span style="color:#00E599">{{ aspectLabel }}</span></div>
+          <input type="range" min="1" max="3" step="0.05" value="{{ s.aspect }}" onInput="{{ h.aspect }}">
+        </div>
+
+        <div style="display:flex; flex-direction:column; gap:6px">
+          <span style="color:#A9B2A9">Typeface</span>
+          <div style="display:flex; gap:6px">
+            <select value="{{ s.fontFamily }}" onChange="{{ h.fontFamily }}" style="flex:1; height:30px; background:#101310; color:#E6E8E6; border:1px solid #23271F; border-radius:3px; padding:0 8px; font-family:inherit; font-size:11px">
+              <sc-for list="{{ fonts }}" as="f" hint-placeholder-count="4">
+                <option value="{{ f }}">{{ f }}</option>
+              </sc-for>
+            </select>
+            <select value="{{ s.fontWeight }}" onChange="{{ h.fontWeight }}" style="width:78px; height:30px; background:#101310; color:#E6E8E6; border:1px solid #23271F; border-radius:3px; padding:0 8px; font-family:inherit; font-size:11px">
+              <option value="300">300</option>
+              <option value="400">400</option>
+              <option value="500">500</option>
+              <option value="700">700</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <div style="padding:10px 18px 6px; font-size:9px; letter-spacing:0.16em; color:#5A625A; border-top:1px solid #141714">TONE</div>
+      <div style="padding:0 18px 16px; display:flex; flex-direction:column; gap:14px">
+        <div style="display:flex; flex-direction:column; gap:5px">
+          <div style="display:flex; justify-content:space-between"><span style="color:#A9B2A9">Brightness</span><span style="color:#00E599">{{ brightnessLabel }}</span></div>
+          <input type="range" min="-0.5" max="0.5" step="0.01" value="{{ s.brightness }}" onInput="{{ h.brightness }}">
+        </div>
+        <div style="display:flex; flex-direction:column; gap:5px">
+          <div style="display:flex; justify-content:space-between"><span style="color:#A9B2A9">Contrast</span><span style="color:#00E599">{{ contrastLabel }}</span></div>
+          <input type="range" min="-1" max="1" step="0.02" value="{{ s.contrast }}" onInput="{{ h.contrast }}">
+        </div>
+        <div style="display:flex; flex-direction:column; gap:5px">
+          <div style="display:flex; justify-content:space-between"><span style="color:#A9B2A9">Gamma</span><span style="color:#00E599">{{ gammaLabel }}</span></div>
+          <input type="range" min="0.3" max="3" step="0.05" value="{{ s.gamma }}" onInput="{{ h.gamma }}">
+        </div>
+        <div style="display:flex; gap:8px">
+          <button onClick="{{ h.invert }}" style="flex:1; height:30px; border-radius:3px; cursor:pointer; font-family:inherit; font-size:11px; background:{{ invertBg }}; color:{{ invertFg }}; border:1px solid {{ invertBorder }}">Invert</button>
+          <button onClick="{{ h.dither }}" style="flex:1; height:30px; border-radius:3px; cursor:pointer; font-family:inherit; font-size:11px; background:{{ ditherBg }}; color:{{ ditherFg }}; border:1px solid {{ ditherBorder }}">Dither</button>
+        </div>
+      </div>
+
+      <div style="padding:10px 18px 6px; font-size:9px; letter-spacing:0.16em; color:#5A625A; border-top:1px solid #141714">COLOR</div>
+      <div style="padding:0 18px 24px; display:flex; flex-direction:column; gap:14px">
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:6px">
+          <button onClick="{{ h.modeMono }}" style="height:28px; border-radius:3px; cursor:pointer; font-family:inherit; font-size:10px; background:{{ monoBg }}; color:{{ monoFg }}; border:1px solid {{ monoBorder }}">Mono</button>
+          <button onClick="{{ h.modeSource }}" style="height:28px; border-radius:3px; cursor:pointer; font-family:inherit; font-size:10px; background:{{ sourceBg }}; color:{{ sourceFg }}; border:1px solid {{ sourceBorder }}">Source</button>
+          <button onClick="{{ h.modeDuo }}" style="height:28px; border-radius:3px; cursor:pointer; font-family:inherit; font-size:10px; background:{{ duoBg }}; color:{{ duoFg }}; border:1px solid {{ duoBorder }}">Duotone</button>
+          <button onClick="{{ h.modeTri }}" style="height:28px; border-radius:3px; cursor:pointer; font-family:inherit; font-size:10px; background:{{ triBg }}; color:{{ triFg }}; border:1px solid {{ triBorder }}">Tritone</button>
+        </div>
+        <div style="display:flex; flex-direction:column; gap:6px">
+          <div style="display:flex; gap:6px">
+            <sc-for list="{{ stopSlots }}" as="slot" hint-placeholder-count="3">
+              <div draggable="true" onDragStart="{{ slot.onDragStart }}" onDragOver="{{ slot.onDragOver }}" onDragLeave="{{ slot.onDragLeave }}" onDrop="{{ slot.onDrop }}" onDragEnd="{{ slot.onDragEnd }}" style="flex:1; display:flex; flex-direction:column; gap:4px; cursor:grab; opacity:{{ slot.dim }}">
+                <span style="font-size:9px; color:#6E786E; letter-spacing:0.08em; display:flex; align-items:center; gap:4px">
+                  <span style="color:#3E453E">⠿</span>{{ slot.label }}
+                </span>
+                <div style="position:relative">
+                  <button onClick="{{ slot.field.toggle }}" style="width:100%; height:26px; border-radius:3px; cursor:pointer; padding:0; background:{{ slot.color }}; border:1px solid {{ slot.field.chipBorder }}"></button>
+                  <sc-if value="{{ slot.field.open }}" hint-placeholder-val="{{ false }}">
+                    <div style="position:absolute; z-index:20; top:30px; left:0; width:150px; padding:8px; background:#101310; border:1px solid #2C312C; border-radius:4px; box-shadow:0 8px 24px rgba(0,0,0,0.6); display:flex; flex-direction:column; gap:8px">
+                      <div style="display:grid; grid-template-columns:repeat(6,1fr); gap:4px">
+                        <sc-for list="{{ slot.field.swatches }}" as="sw" hint-placeholder-count="12">
+                          <button onClick="{{ sw.pick }}" style="height:18px; border-radius:2px; cursor:pointer; padding:0; background:{{ sw.hex }}; border:1px solid {{ sw.border }}"></button>
+                        </sc-for>
+                      </div>
+                      <input type="text" value="{{ slot.field.hexDraft }}" onChange="{{ slot.field.onHex }}" onInput="{{ slot.field.onHex }}" placeholder="#RRGGBB" style="height:24px; background:#0A0B0A; color:#E6E8E6; border:1px solid #23271F; border-radius:3px; padding:0 6px; font-family:inherit; font-size:10px">
+                    </div>
+                  </sc-if>
+                </div>
+              </div>
+            </sc-for>
+          </div>
+          <div style="font-size:9px; color:#5A625A">Drag a swatch to reorder the tonal ramp</div>
+        </div>
+        <div style="display:flex; gap:10px; align-items:center">
+          <span style="color:#A9B2A9; flex:1">Background</span>
+          <button onClick="{{ h.bgMode }}" style="height:26px; padding:0 10px; border-radius:3px; cursor:pointer; font-family:inherit; font-size:10px; background:#101310; color:#00E599; border:1px solid #23271F">{{ bgLabel }}</button>
+          <div style="position:relative">
+            <button onClick="{{ bgField.toggle }}" style="width:40px; height:26px; border-radius:3px; cursor:pointer; padding:0; background:{{ s.bgColor }}; border:1px solid {{ bgField.chipBorder }}"></button>
+            <sc-if value="{{ bgField.open }}" hint-placeholder-val="{{ false }}">
+              <div style="position:absolute; z-index:20; bottom:30px; right:0; width:150px; padding:8px; background:#101310; border:1px solid #2C312C; border-radius:4px; box-shadow:0 8px 24px rgba(0,0,0,0.6); display:flex; flex-direction:column; gap:8px">
+                <div style="display:grid; grid-template-columns:repeat(6,1fr); gap:4px">
+                  <sc-for list="{{ bgField.swatches }}" as="sw" hint-placeholder-count="12">
+                    <button onClick="{{ sw.pick }}" style="height:18px; border-radius:2px; cursor:pointer; padding:0; background:{{ sw.hex }}; border:1px solid {{ sw.border }}"></button>
+                  </sc-for>
+                </div>
+                <input type="text" value="{{ bgField.hexDraft }}" onChange="{{ bgField.onHex }}" onInput="{{ bgField.onHex }}" placeholder="#RRGGBB" style="height:24px; background:#0A0B0A; color:#E6E8E6; border:1px solid #23271F; border-radius:3px; padding:0 6px; font-family:inherit; font-size:10px">
+              </div>
+            </sc-if>
+          </div>
+        </div>
+      </div>
+    </div>
+  </aside>
+  </sc-if>
+
+  <main style="flex:1; display:flex; flex-direction:column; min-width:0">
+
+    <sc-if value="{{ notEmbed }}" hint-placeholder-val="{{ true }}">
+    <div style="min-height:52px; flex:0 0 auto; border-bottom:1px solid #191C19; display:flex; align-items:center; gap:8px; padding:8px 16px; flex-wrap:wrap">
+      <span style="font-size:10px; color:#5A625A; letter-spacing:0.1em">EXPORT</span>
+      <div style="display:flex; gap:6px; margin-left:6px; flex-wrap:wrap">
+        <button onClick="{{ h.exportPng }}" style="height:28px; padding:0 12px; border-radius:3px; cursor:pointer; font-family:inherit; font-size:11px; background:#101310; color:#E6E8E6; border:1px solid #23271F" style-hover="border-color:#00E599; color:#00E599">PNG</button>
+        <button onClick="{{ h.exportSvg }}" style="height:28px; padding:0 12px; border-radius:3px; cursor:pointer; font-family:inherit; font-size:11px; background:#101310; color:#E6E8E6; border:1px solid #23271F" style-hover="border-color:#00E599; color:#00E599">SVG</button>
+        <button onClick="{{ h.exportGif }}" style="height:28px; padding:0 12px; border-radius:3px; cursor:pointer; font-family:inherit; font-size:11px; background:#101310; color:#E6E8E6; border:1px solid #23271F" style-hover="border-color:#00E599; color:#00E599">GIF</button>
+        <button onClick="{{ h.exportWebm }}" style="height:28px; padding:0 12px; border-radius:3px; cursor:pointer; font-family:inherit; font-size:11px; background:#101310; color:#E6E8E6; border:1px solid #23271F" style-hover="border-color:#00E599; color:#00E599">WebM</button>
+        <button onClick="{{ h.exportSnippet }}" style="height:28px; padding:0 12px; border-radius:3px; cursor:pointer; font-family:inherit; font-size:11px; background:#101310; color:#E6E8E6; border:1px solid #23271F" style-hover="border-color:#00E599; color:#00E599">Snippet</button>
+        <button onClick="{{ h.exportReact }}" style="height:28px; padding:0 12px; border-radius:3px; cursor:pointer; font-family:inherit; font-size:11px; background:#0B2A20; color:#00E599; border:1px solid #00E599">React / Framer</button>
+        <button onClick="{{ h.exportEmbed }}" style="height:28px; padding:0 12px; border-radius:3px; cursor:pointer; font-family:inherit; font-size:11px; background:#0B2A20; color:#00E599; border:1px solid #00E599">Embed code</button>
+        <button onClick="{{ h.exportSource }}" title="Editable source: code + raw media + current settings, for Claude Code" style="height:28px; padding:0 12px; border-radius:3px; cursor:pointer; font-family:inherit; font-size:11px; background:#00E599; color:#0A0B0A; border:1px solid #00E599; font-weight:700">Source package</button>
+        <button onClick="{{ h.exportPackage }}" style="height:28px; padding:0 12px; border-radius:3px; cursor:pointer; font-family:inherit; font-size:11px; background:#0B2A20; color:#00E599; border:1px solid #00E599">Video package</button>
+      </div>
+      <div style="margin-left:auto; display:flex; align-items:center; gap:14px">
+        <span style="font-size:10px; color:#00E599">{{ statusMsg }}</span>
+        <sc-if value="{{ dlUrl }}" hint-placeholder-val="{{ false }}">
+          <a href="{{ dlUrl }}" download="{{ dlName }}" style="font-size:10px; color:#101310; background:#00E599; text-decoration:none; padding:4px 10px; border-radius:3px; white-space:nowrap">Save file</a>
+        </sc-if>
+        <span style="font-size:10px; color:#5A625A">{{ dimsLabel }}</span>
+      </div>
+    </div>
+    </sc-if>
+
+    <div ref="{{ refStage }}" onDragOver="{{ h.dragOver }}" onDrop="{{ h.drop }}" onDoubleClick="{{ h.stageDbl }}" onPointerDown="{{ h.stageClick }}" onPointerMove="{{ h.stageMove }}" onPointerLeave="{{ h.stageLeave }}" style="cursor:{{ panCursor }}; touch-action:none; position:relative; flex:1; min-height:0; display:flex; align-items:center; justify-content:center; padding:{{ stagePad }}; overflow:hidden; background-color:{{ stageBg }}; background-image:linear-gradient(45deg,#131613 25%,transparent 25%),linear-gradient(-45deg,#131613 25%,transparent 25%),linear-gradient(45deg,transparent 75%,#131613 75%),linear-gradient(-45deg,transparent 75%,#131613 75%); background-size:{{ checkerSize }}; background-position:0 0,0 9px,9px -9px,-9px 0">
+      <canvas ref="{{ refOut }}" style="max-width:100%; max-height:100%; object-fit:contain; image-rendering:auto; transform:{{ canvasTransform }}"></canvas>
+      <sc-if value="{{ notEmbed }}" hint-placeholder-val="{{ true }}">
+      <div style="position:absolute; inset:0; pointer-events:none; transform-origin:center; transform-style:preserve-3d; transform:{{ overlayTransform }}">
+      <sc-for list="{{ winBoxes }}" as="box" hint-placeholder-count="0">
+        <div onPointerDown="{{ box.onPointerDown }}" style="pointer-events:auto; position:absolute; left:{{ box.left }}; top:{{ box.top }}; width:{{ box.width }}; height:{{ box.height }}; border:{{ box.border }}; cursor:move; touch-action:none; transform:{{ box.zTransform }}">
+          <span style="position:absolute; top:-16px; left:0; font-size:9px; color:#00E599; letter-spacing:0.08em">{{ box.label }}</span>
+          <div onPointerDown="{{ box.onHandleDown }}" style="position:absolute; right:-5px; bottom:-5px; width:10px; height:10px; background:#00E599; border-radius:1px; cursor:nwse-resize; touch-action:none"></div>
+        </div>
+      </sc-for>
+      <sc-for list="{{ flareDots }}" as="dot" hint-placeholder-count="0">
+        <div onPointerDown="{{ dot.onPointerDown }}" style="pointer-events:auto; position:absolute; left:{{ dot.left }}; top:{{ dot.top }}; width:14px; height:14px; margin:-7px 0 0 -7px; border-radius:50%; border:{{ dot.border }}; cursor:move; touch-action:none"></div>
+      </sc-for>
+      </div>
+      </sc-if>
+      <sc-if value="{{ isEmbed }}" hint-placeholder-val="{{ false }}">
+      <div ref="{{ refEmbedLayer }}" style="position:absolute; inset:0; pointer-events:none; transform-origin:center; transform-style:preserve-3d; transform:{{ overlayTransform }}">
+      <sc-for list="{{ winBoxes }}" as="box" hint-placeholder-count="0">
+        <div data-win="1" onPointerEnter="{{ box.onEnter }}" onPointerLeave="{{ box.onLeave }}" onPointerDown="{{ box.onPointerDown }}" aria-hidden="true" style="pointer-events:auto; position:absolute; left:{{ box.eLeft }}; top:{{ box.eTop }}; width:{{ box.eWidth }}; height:{{ box.eHeight }}; outline:{{ box.embedOutline }}; outline-offset:-1px; cursor:{{ grabCursor }}; touch-action:none">
+          <sc-if value="{{ box.showGuides }}" hint-placeholder-val="{{ false }}">
+            <div aria-hidden="true" style="position:absolute; inset:0; pointer-events:none; z-index:0"><div style="position:absolute; top:-0.25px; left:-180px; width:calc(100% + 360px); height:0.5px; background:linear-gradient(90deg, transparent, rgba(202,233,223,0.45) 180px, rgba(202,233,223,0.45) calc(100% - 180px), transparent)"></div><div style="position:absolute; bottom:-0.25px; left:-180px; width:calc(100% + 360px); height:0.5px; background:linear-gradient(90deg, transparent, rgba(202,233,223,0.45) 180px, rgba(202,233,223,0.45) calc(100% - 180px), transparent)"></div><div style="position:absolute; left:-0.25px; top:-180px; height:calc(100% + 360px); width:0.5px; background:linear-gradient(180deg, transparent, rgba(202,233,223,0.45) 180px, rgba(202,233,223,0.45) calc(100% - 180px), transparent)"></div><div style="position:absolute; right:-0.25px; top:-180px; height:calc(100% + 360px); width:0.5px; background:linear-gradient(180deg, transparent, rgba(202,233,223,0.45) 180px, rgba(202,233,223,0.45) calc(100% - 180px), transparent)"></div></div>
+          </sc-if>
+          <div aria-hidden="true" style="position:absolute; inset:0; overflow:hidden; pointer-events:none"><div data-shimmer="1" style="position:absolute; inset:0; opacity:0; mix-blend-mode:screen; background:linear-gradient(115deg, transparent 28%, rgba(202,233,223,0.35) 42%, rgba(247,243,241,0.85) 50%, rgba(202,233,223,0.35) 58%, transparent 72%); background-size:300% 100%; background-position:120% 0"></div></div>
+          <sc-if value="{{ box.showMeasure }}" hint-placeholder-val="{{ false }}">
+            <div aria-hidden="true" style="position:absolute; inset:0; pointer-events:none; font:500 8px/1 'JetBrains Mono', ui-monospace, monospace; letter-spacing:0.04em; color:#CAE9DF; opacity:0.55">
+              <span style="position:absolute; left:50%; top:-13px; transform:translateX(-50%); white-space:nowrap">{{ box.wLabel }}</span>
+              <span style="position:absolute; top:50%; right:-9px; transform:translate(100%, -50%); white-space:nowrap">{{ box.hLabel }}</span>
+              <span style="position:absolute; left:50%; bottom:-13px; transform:translateX(-50%); white-space:nowrap">{{ box.wLabel }}</span>
+              <span style="position:absolute; top:50%; left:-9px; transform:translate(-100%, -50%); white-space:nowrap">{{ box.hLabel }}</span>
+            </div>
+          </sc-if>
+          <sc-if value="{{ box.showMeasure }}" hint-placeholder-val="{{ false }}">
+            <button data-eyedrop="1" type="button" aria-label="Pick a colour from the video" title="Pick a colour" onPointerDown="{{ startPick }}" style="position:absolute; right:4px; bottom:4px; z-index:3; display:flex; align-items:center; justify-content:center; width:18px; height:18px; padding:0; border:0.5px solid #CAE9DF; border-radius:4px; background:rgba(19,19,19,0.72); color:#CAE9DF; cursor:pointer; pointer-events:auto; backdrop-filter:blur(4px)"><svg width="10" height="10" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13.2 3.6a2.2 2.2 0 0 1 3.2 3.2L14.2 9l1 1-1.4 1.4-5.2-5.2L10 4.8l1 1z"></path><path d="M9.8 7.6 4 13.4V16h2.6l5.8-5.8"></path></svg></button>
+          </sc-if>
+          <sc-if value="{{ box.hoverCorners }}" hint-placeholder-val="{{ false }}">
+            <div aria-hidden="true" style="position:absolute; inset:0; pointer-events:none"><div style="position:absolute; left:-6px; top:-6px; width:11px; height:11px"><div style="position:absolute; left:5px; top:0; width:1px; height:11px; background:#CAE9DF; box-shadow:0 0 0 0.5px #131313"></div><div style="position:absolute; left:0; top:5px; width:11px; height:1px; background:#CAE9DF; box-shadow:0 0 0 0.5px #131313"></div><div style="position:absolute; left:-5px; top:-5px; width:21px; height:21px; box-sizing:border-box; border:0.5px solid #CAE9DF; border-radius:50%"></div></div><div style="position:absolute; right:-6px; top:-6px; width:11px; height:11px"><div style="position:absolute; left:5px; top:0; width:1px; height:11px; background:#CAE9DF; box-shadow:0 0 0 0.5px #131313"></div><div style="position:absolute; left:0; top:5px; width:11px; height:1px; background:#CAE9DF; box-shadow:0 0 0 0.5px #131313"></div><div style="position:absolute; left:-5px; top:-5px; width:21px; height:21px; box-sizing:border-box; border:0.5px solid #CAE9DF; border-radius:50%"></div></div><div style="position:absolute; left:-6px; bottom:-6px; width:11px; height:11px"><div style="position:absolute; left:5px; top:0; width:1px; height:11px; background:#CAE9DF; box-shadow:0 0 0 0.5px #131313"></div><div style="position:absolute; left:0; top:5px; width:11px; height:1px; background:#CAE9DF; box-shadow:0 0 0 0.5px #131313"></div><div style="position:absolute; left:-5px; top:-5px; width:21px; height:21px; box-sizing:border-box; border:0.5px solid #CAE9DF; border-radius:50%"></div></div><div style="position:absolute; right:-6px; bottom:-6px; width:11px; height:11px"><div style="position:absolute; left:5px; top:0; width:1px; height:11px; background:#CAE9DF; box-shadow:0 0 0 0.5px #131313"></div><div style="position:absolute; left:0; top:5px; width:11px; height:1px; background:#CAE9DF; box-shadow:0 0 0 0.5px #131313"></div><div style="position:absolute; left:-5px; top:-5px; width:21px; height:21px; box-sizing:border-box; border:0.5px solid #CAE9DF; border-radius:50%"></div></div></div>
+          </sc-if>
+          <sc-if value="{{ box.active }}" hint-placeholder-val="{{ false }}">
+            <div data-mode="n" onPointerDown="{{ box.onEdgeDown }}" aria-hidden="true" style="position:absolute; left:0; right:0; top:-5px; height:10px; z-index:1; cursor:ns-resize; touch-action:none"></div>
+            <div data-mode="s" onPointerDown="{{ box.onEdgeDown }}" aria-hidden="true" style="position:absolute; left:0; right:0; bottom:-5px; height:10px; z-index:1; cursor:ns-resize; touch-action:none"></div>
+            <div data-mode="w" onPointerDown="{{ box.onEdgeDown }}" aria-hidden="true" style="position:absolute; top:0; bottom:0; left:-5px; width:10px; z-index:1; cursor:ew-resize; touch-action:none"></div>
+            <div data-mode="e" onPointerDown="{{ box.onEdgeDown }}" aria-hidden="true" style="position:absolute; top:0; bottom:0; right:-5px; width:10px; z-index:1; cursor:ew-resize; touch-action:none"></div>
+            <div data-mode="nw" onPointerDown="{{ box.onEdgeDown }}" aria-hidden="true" style="position:absolute; left:-6px; top:-6px; width:11px; height:11px; z-index:2; cursor:nwse-resize; touch-action:none">
+              <div style="position:absolute; left:5px; top:0; width:1px; height:11px; background:#CAE9DF; box-shadow:0 0 0 0.5px #131313"></div>
+              <div style="position:absolute; left:0; top:5px; width:11px; height:1px; background:#CAE9DF; box-shadow:0 0 0 0.5px #131313"></div><div style="position:absolute; left:-5px; top:-5px; width:21px; height:21px; box-sizing:border-box; border:0.5px solid #CAE9DF; border-radius:50%"></div>
+            </div>
+            <div data-mode="ne" onPointerDown="{{ box.onEdgeDown }}" aria-hidden="true" style="position:absolute; right:-6px; top:-6px; width:11px; height:11px; z-index:2; cursor:nesw-resize; touch-action:none">
+              <div style="position:absolute; left:5px; top:0; width:1px; height:11px; background:#CAE9DF; box-shadow:0 0 0 0.5px #131313"></div>
+              <div style="position:absolute; left:0; top:5px; width:11px; height:1px; background:#CAE9DF; box-shadow:0 0 0 0.5px #131313"></div><div style="position:absolute; left:-5px; top:-5px; width:21px; height:21px; box-sizing:border-box; border:0.5px solid #CAE9DF; border-radius:50%"></div>
+            </div>
+            <div data-mode="sw" onPointerDown="{{ box.onEdgeDown }}" aria-hidden="true" style="position:absolute; left:-6px; bottom:-6px; width:11px; height:11px; z-index:2; cursor:nesw-resize; touch-action:none">
+              <div style="position:absolute; left:5px; top:0; width:1px; height:11px; background:#CAE9DF; box-shadow:0 0 0 0.5px #131313"></div>
+              <div style="position:absolute; left:0; top:5px; width:11px; height:1px; background:#CAE9DF; box-shadow:0 0 0 0.5px #131313"></div><div style="position:absolute; left:-5px; top:-5px; width:21px; height:21px; box-sizing:border-box; border:0.5px solid #CAE9DF; border-radius:50%"></div>
+            </div>
+            <div data-mode="se" onPointerDown="{{ box.onEdgeDown }}" aria-hidden="true" style="position:absolute; right:-6px; bottom:-6px; width:11px; height:11px; z-index:2; cursor:nwse-resize; touch-action:none">
+              <div style="position:absolute; left:5px; top:0; width:1px; height:11px; background:#CAE9DF; box-shadow:0 0 0 0.5px #131313"></div>
+              <div style="position:absolute; left:0; top:5px; width:11px; height:1px; background:#CAE9DF; box-shadow:0 0 0 0.5px #131313"></div><div style="position:absolute; left:-5px; top:-5px; width:21px; height:21px; box-sizing:border-box; border:0.5px solid #CAE9DF; border-radius:50%"></div>
+            </div>
+          </sc-if>
+        </div>
+      </sc-for>
+      <sc-for list="{{ swatchBoxes }}" as="sw" hint-placeholder-count="0">
+        <div data-swatch="1" onPointerDown="{{ sw.onDown }}" onDoubleClick="{{ sw.remove }}" title="Drag to move · double-click to remove" style="position:absolute; left:{{ sw.left }}; top:{{ sw.top }}; width:64px; height:64px; transform:translate(-50%, -50%); background:{{ sw.color }}; pointer-events:auto; cursor:{{ sw.cursor }}; touch-action:none; box-shadow:0 0 0 0.5px rgba(247,243,241,0.3)">
+          <span style="position:absolute; right:5px; bottom:5px; font:500 8px/1 'JetBrains Mono', ui-monospace, monospace; letter-spacing:0.04em; color:{{ sw.ink }}; white-space:nowrap; pointer-events:none">{{ sw.hex }}</span>
+        </div>
+      </sc-for>
+      <sc-for list="{{ swatchInverts }}" as="iv" hint-placeholder-count="0">
+        <div aria-hidden="true" style="position:absolute; left:{{ iv.left }}; top:{{ iv.top }}; width:{{ iv.width }}; height:{{ iv.height }}; background:#FFFFFF; mix-blend-mode:difference; pointer-events:none"></div>
+      </sc-for>
+      <sc-if value="{{ picking }}" hint-placeholder-val="{{ false }}">
+        <div onPointerMove="{{ pickMove }}" onPointerDown="{{ pickCommit }}" style="position:absolute; inset:0; pointer-events:auto; cursor:crosshair; touch-action:none">
+          <sc-if value="{{ hasPickColor }}" hint-placeholder-val="{{ false }}">
+            <div style="position:absolute; left:{{ pickLeft }}; top:{{ pickTop }}; display:flex; align-items:center; gap:4px; transform:translate(10px, 10px); pointer-events:none">
+              <span style="width:20px; height:20px; border-radius:50%; background:{{ pickColor }}; box-shadow:0 0 0 0.5px #CAE9DF, 0 0 0 2px rgba(19,19,19,0.6)"></span>
+              <span style="font:500 8px/1 'JetBrains Mono', ui-monospace, monospace; letter-spacing:0.04em; color:#CAE9DF">{{ pickHex }}</span>
+            </div>
+          </sc-if>
+        </div>
+      </sc-if>
+      <sc-for list="{{ winOverlaps }}" as="ov" hint-placeholder-count="0">
+        <div aria-hidden="true" style="position:absolute; left:{{ ov.left }}; top:{{ ov.top }}; width:{{ ov.width }}; height:{{ ov.height }}; pointer-events:none; box-sizing:border-box; border:0.5px dashed rgba(202,233,223,0.6); background:rgba(202,233,223,0.06); font:500 8px/1 'JetBrains Mono', ui-monospace, monospace; letter-spacing:0.04em; color:#CAE9DF">
+          <span style="position:absolute; left:50%; top:3px; transform:translateX(-50%); white-space:nowrap; opacity:0.7">{{ ov.wLabel }}</span>
+          <span style="position:absolute; top:50%; left:3px; transform:translateY(-50%); white-space:nowrap; opacity:0.7">{{ ov.hLabel }}</span>
+        </div>
+      </sc-for>
+      </div>
+      </sc-if>
+      <sc-if value="{{ pannedUi }}" hint-placeholder-val="{{ false }}">
+        <button onPointerDown="{{ h.stopProp }}" onClick="{{ h.recenter }}" style="position:absolute; right:14px; bottom:14px; height:28px; padding:0 12px; border-radius:3px; cursor:pointer; font-family:inherit; font-size:11px; background:#101310; color:#E6E8E6; border:1px solid #23271F" style-hover="border-color:#00E599; color:#00E599">Recenter</button>
+      </sc-if>
+      <sc-if value="{{ noSrcUi }}" hint-placeholder-val="{{ true }}">
+        <div style="position:absolute; text-align:center; color:#98A398; pointer-events:none">
+          <div style="font-size:11px; letter-spacing:0.2em">DROP AN IMAGE OR VIDEO</div>
+          <div style="font-size:10px; margin-top:8px; color:#828C82">nothing leaves your browser</div>
+        </div>
+      </sc-if>
+    </div>
+
+    <sc-if value="{{ notEmbed }}" hint-placeholder-val="{{ true }}">
+    <div style="min-height:54px; flex:0 0 auto; border-top:1px solid #191C19; display:flex; flex-wrap:wrap; align-items:center; column-gap:14px; row-gap:8px; padding:10px 16px">
+      <button onClick="{{ h.playPause }}" style="width:60px; height:28px; flex:0 0 auto; border-radius:3px; cursor:pointer; font-family:inherit; font-size:11px; background:#101310; color:#00E599; border:1px solid #23271F">{{ playLabel }}</button>
+      <input type="range" min="0" max="1000" step="1" value="{{ scrub }}" onInput="{{ h.seek }}" style="flex:1 1 90px; min-width:60px">
+      <span style="font-size:10px; color:#5A625A; min-width:82px; text-align:right">{{ timeLabel }}</span>
+      <button onClick="{{ h.loopMode }}" title="Playback + GIF loop behaviour" style="height:28px; white-space:nowrap; flex:0 0 auto; padding:0 12px; border-radius:3px; cursor:pointer; font-family:inherit; font-size:11px; background:{{ loopBg }}; color:{{ loopFg }}; border:1px solid {{ loopBorder }}">{{ loopLabel }}</button>
+      <div style="display:flex; align-items:center; gap:10px; flex:0 0 auto; margin-left:auto">
+        <span style="font-size:10px; color:#5A625A; white-space:nowrap">GIF {{ s.gifFps }}fps</span>
+        <input type="range" min="6" max="24" step="1" value="{{ s.gifFps }}" onInput="{{ h.gifFps }}" style="width:72px; flex:0 0 auto">
+        <button onClick="{{ h.gifMax }}" title="Longest edge of the exported GIF" style="height:28px; white-space:nowrap; flex:0 0 auto; padding:0 10px; border-radius:3px; cursor:pointer; font-family:inherit; font-size:11px; background:#101310; color:#E6E8E6; border:1px solid #2E332E">{{ gifMaxLabel }}</button>
+      </div>
+    </div>
+    </sc-if>
+  </main>
+
+  <sc-if value="{{ s.codeOpen }}" hint-placeholder-val="{{ false }}">
+    <div style="position:fixed; inset:0; z-index:60; background:rgba(4,6,4,0.82); display:flex; align-items:center; justify-content:center; padding:16px">
+      <div style="width:100%; max-width:820px; height:100%; display:flex; flex-direction:column; background:#0D0F0D; border:1px solid #23271F; border-radius:5px; overflow:hidden">
+        <div style="flex:0 0 auto; display:flex; align-items:center; gap:12px; padding:12px 16px; border-bottom:1px solid #191C19">
+          <span style="font-size:12px; color:#E6E8E6">{{ s.codeName }}</span>
+          <span style="font-size:10px; color:#5A625A">{{ codeSizeLabel }}</span>
+          <button onClick="{{ h.closeCode }}" style="margin-left:auto; height:26px; padding:0 10px; border-radius:3px; cursor:pointer; font-family:inherit; font-size:11px; background:#101310; color:#A9B2A9; border:1px solid #23271F">Close</button>
+        </div>
+        <div style="flex:0 0 auto; padding:12px 16px; font-size:11px; color:#A9B2A9; line-height:1.55; border-bottom:1px solid #191C19; display:flex; flex-direction:column; gap:6px">
+          <sc-if value="{{ codeIsEmbed }}" hint-placeholder-val="{{ false }}">
+            <span>Two parts: the <span style="color:#00E599">.webp</span> file that just downloaded, and this short tag. Drag the file into your other project first, then paste the tag (or ask Claude there to "use this image in the hero"). It scales to its container's width.</span>
+          </sc-if>
+          <sc-if value="{{ codeIsSource }}" hint-placeholder-val="{{ false }}">
+            <span>The <span style="color:#00E599">source .zip</span> just downloaded — the full tool code, your raw media, and every current setting. Unzip it, open the folder in Claude Code, and it'll read this README first.</span>
+          </sc-if>
+          <sc-if value="{{ codeIsPackage }}" hint-placeholder-val="{{ false }}">
+            <span>The <span style="color:#00E599">.zip</span> just downloaded — video, poster, embed.html and this README. In your website project, drag the whole zip (or the unzipped files) into the chat and say "add this video to the hero, per the README."</span>
+          </sc-if>
+          <sc-if value="{{ codeIsFramer }}" hint-placeholder-val="{{ true }}">
+            <span>If the download didn't start, copy the code below — in Framer, open the assets panel, choose <span style="color:#00E599">Code</span>, create a new code file and paste it in.</span>
+          </sc-if>
+          <sc-if value="{{ codeHeavy }}" hint-placeholder-val="{{ false }}">
+            <span style="color:#E8C07A">Over Framer's 1 MB code-file limit even after compression. Lower <span style="color:#FFFFFF">Columns</span> or raise <span style="color:#FFFFFF">Glyph size</span>, then export again.</span>
+          </sc-if>
+          <sc-if value="{{ copyFailed }}" hint-placeholder-val="{{ false }}">
+            <span style="color:#FF8A8A">The browser blocked clipboard access. Click into the code below, then press ⌘/Ctrl+A followed by ⌘/Ctrl+C.</span>
+          </sc-if>
+        </div>
+        <textarea data-code-box="1" ref="{{ refCode }}" readOnly="{{ true }}" value="{{ s.codeText }}" style="flex:1 1 0; min-height:0; overflow:auto; margin:0; padding:14px 16px; background:#0A0B0A; color:#8FA898; border:0; border-bottom:1px solid #191C19; font-family:inherit; font-size:10px; line-height:1.5; resize:none; outline:none"></textarea>
+        <div style="flex:0 0 auto; display:flex; gap:8px; padding:14px 16px">
+          <button onClick="{{ h.copyCode }}" style="flex:1; height:32px; border-radius:3px; cursor:pointer; font-family:inherit; font-size:11px; font-weight:500; background:{{ copyBg }}; color:{{ copyFg }}; border:1px solid {{ copyBorder }}">{{ copyLabel }}</button>
+          <button onClick="{{ h.retryDownload }}" style="height:32px; padding:0 14px; border-radius:3px; cursor:pointer; font-family:inherit; font-size:11px; background:#101310; color:#E6E8E6; border:1px solid #23271F">Try download again</button>
+        </div>
+      </div>
+    </div>
+  </sc-if>
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1280,&quot;height&quot;:820}}">
+const RAMPS = {
+  standard: { label: "Standard  .:-=+*#%@", v: " .:-=+*#%@" },
+  dense: { label: "Dense (70 levels)", v: " .'`^\",:;Il!i><~+_-?][}{1)(|\\/tfjrxnuvczXYUJCLQ0OZmwqpdbkhao*#MW&8%B@$" },
+  blocks: { label: "Blocks  ░▒▓█", v: " ░▒▓█" },
+  minimal: { label: "Minimal  .:*#", v: " .:*#" },
+  binary: { label: "Binary  01", v: " 01" },
+  dots: { label: "Dots  ·•●", v: " ·•●" },
+  hash: { label: "Hash  -+#", v: " -+#" },
+  custom: { label: "Custom…", v: " .:-=+*#%@" }
+};
+const FONTS = ["JetBrains Mono", "IBM Plex Mono", "Space Mono", "Courier New", "monospace"];
+const EDGE_CHARS = ["-", "/", "|", "\\"];
+const PALETTE = ["#D2A078", "#7898B0", "#3C6078", "#00E599", "#FFFFFF", "#E8E8E3",
+  "#0A0B0A", "#111111", "#FF4D00", "#3D5AFE", "#0B2B22", "#8A8F8A"];
+
+function hexToRgb(h) {
+  const m = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(h || "");
+  return m ? [parseInt(m[1], 16), parseInt(m[2], 16), parseInt(m[3], 16)] : [255, 255, 255];
+}
+function fmtTime(t) {
+  if (!isFinite(t)) return "0:00.0";
+  const m = Math.floor(t / 60), s = t - m * 60;
+  return m + ":" + (s < 10 ? "0" : "") + s.toFixed(1);
+}
+function download(blob, name) {
+  const u = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = u; a.download = name; a.rel = "noopener";
+  a.style.display = "none";
+  (document.body || document.documentElement).appendChild(a);
+  try { a.click(); } catch (e) { /* fall back to the manual save link */ }
+  setTimeout(() => a.remove(), 1000);
+  return u;
+}
+
+class Component extends DCLogic {
+  state = {
+    cols: 140, fontSize: 12, aspect: 1.85, letterSpacing: 0.385,
+    ramp: "standard", customRamp: "",
+    brightness: 0, contrast: 0.15, gamma: 1,
+    invert: false, dither: false,
+    edges: false, edgeThreshold: 0.18, edgeOnly: false,
+    revealOn: false, revealCount: 3, revealSize: 0.2, revealSeed: 7,
+    windows: [], rect: null, activeWin: -1,
+    strokeOn: true, strokeColor: "#00E599", strokeWidth: 1, strokeStyle: "dashed", strokeInset: 0,
+    picker: null, hexDraft: "", panX: 0, panY: 0, panning: false,
+    flareOn: false, flareCount: 5, flareSize: 60, flareColor: "#FFFFFF", flarePoints: 4,
+    flareSpike: 3.4, flareGlow: true, flareOpacity: 1, flareSeed: 11, flarePlace: "bright",
+    flareThin: 0.1, flareHue: 0.5, flareColorB: "#5AC8FF", flareCore: 0.35,
+    flares: [], activeFlare: -1,
+    codeOpen: false, codeText: "", codeName: "", copied: false,
+    presets: [], presetName: "", presetMsg: "",
+    saveMsg: "", restoring: false,
+    tiltOn: true, tiltMax: 10, tiltDepth: 900, parallax: 14, layerDepth: 1, tiltSplit: 1, tiltEase: 0.12, zSpread: 40, defocus: 0,
+    px: 0, py: 0, hovering: false,
+    repelForce: 13.2, repelRadius: 90,
+    glowOn: false, glowAmount: 8, glowColor: "#FFFFFF", glowUseInk: true,
+    dataOn: false, dataCount: 18, dataSeed: 42, dataColor: "#FFFFFF", dataSize: 9,
+    dataOpacity: 0.9, dataBoxes: true, dataLinks: 2, dataScope: "windows",
+    dataTrack: true, dataEase: 0.18, dataRadius: 6, dataLive: true,
+    colorMode: "source", stops: ["#D2A078", "#7898B0", "#3C6078"], dragFrom: -1, dragOver: -1,
+    bgMode: "transparent", bgColor: "#0A0B0A",
+    fontFamily: "JetBrains Mono", fontWeight: "500",
+    loopMode: "loop",
+    fileName: "", srcType: null, playing: false,
+    time: 0, duration: 0, outW: 0, outH: 0, status: "", cells: 0
+  };
+
+  constructor(p) {
+    super(p);
+    this.refOut = (el) => { this.out = el; if (el) this.schedule(); };
+    this.refStage = (el) => { this.stage = el; };
+    const num = (k) => (e) => this.set(k, parseFloat(e.target.value));
+    const str = (k) => (e) => this.set(k, e.target.value);
+    const tog = (k) => () => this.set(k, !this.state[k]);
+    this.h = {
+      file: (e) => this.loadFile(e.target.files && e.target.files[0]),
+      dragOver: (e) => { e.preventDefault(); },
+      drop: (e) => { e.preventDefault(); this.loadFile(e.dataTransfer.files && e.dataTransfer.files[0]); },
+      cols: num("cols"), fontSize: num("fontSize"), aspect: num("aspect"),
+      brightness: num("brightness"), contrast: num("contrast"), gamma: num("gamma"),
+      edgeThreshold: num("edgeThreshold"), gifFps: num("gifFps"),
+      revealCount: (e) => this.regen({ revealCount: parseFloat(e.target.value) }),
+      revealSize: (e) => this.regen({ revealSize: parseFloat(e.target.value) }),
+      revealOn: () => {
+        const on = !this.state.revealOn;
+        if (on && !this.state.windows.length) this.regen({ revealOn: true });
+        else this.set("revealOn", on);
+      },
+      shuffle: () => this.regen({ revealSeed: Math.floor(Math.random() * 100000) }),
+      stageDbl: (e) => {
+        const rect = this.state.rect;
+        if (!rect || !this.stage || !this.state.revealOn) return;
+        const sr = this.stage.getBoundingClientRect();
+        const cx = (e.clientX - sr.left - rect.left) / rect.w, cy = (e.clientY - sr.top - rect.top) / rect.h;
+        if (cx < 0 || cx > 1 || cy < 0 || cy > 1) return;
+        const nw = 0.15, nh = Math.min(0.9, this.squareH(nw));
+        const nx = Math.min(1 - nw, Math.max(0, cx - nw / 2)), ny = Math.min(1 - nh, Math.max(0, cy - nh / 2));
+        const wins = this.state.windows.concat([{ nx: nx, ny: ny, nw: nw, nh: nh, z: 0 }]);
+        this.setState({ windows: wins, revealCount: wins.length, activeWin: wins.length - 1 }, () => { this._wKey = null; this.schedule(); if (!this.embed) this.saveSession(); });
+      },
+      addWin: () => {
+        const wins = this.state.windows.concat([{ nx: 0.4, ny: 0.4, nw: 0.2, nh: this.squareH(0.2), z: 0 }]);
+        this.setState({ windows: wins, revealOn: true, revealCount: wins.length }, () => this.schedule());
+      },
+      delWin: () => {
+        const i = this.state.activeWin;
+        if (i < 0) return;
+        const wins = this.state.windows.slice();
+        wins.splice(i, 1);
+        this.setState({ windows: wins, activeWin: -1, revealCount: wins.length }, () => this.schedule());
+      },
+      stageClick: (e) => {
+        if (this.embed) { this.setRepelTarget(e.clientX, e.clientY, true); this.shock(); if (this.state.activeWin !== -1) this.setState({ activeWin: -1 }); return; }
+        if (e.target === e.currentTarget) this.setState({ activeWin: -1 });
+        if ((e.target === e.currentTarget || e.target === this.out) && this.state.srcType && e.button === 0) this.beginPan(e);
+      },
+      stopProp: (e) => e.stopPropagation(),
+      recenter: () => { this.setState({ panX: 0, panY: 0 }, () => this.schedule()); this.saveSession(); },
+      tiltOn: tog("tiltOn"), tiltMax: num("tiltMax"), tiltDepth: num("tiltDepth"),
+      parallax: num("parallax"), tiltEase: num("tiltEase"), zSpread: num("zSpread"), defocus: num("defocus"),
+      winZ: (e) => {
+        const i = this.state.activeWin;
+        if (i < 0) return;
+        const wins = this.state.windows.slice();
+        wins[i] = Object.assign({}, wins[i], { z: parseFloat(e.target.value) });
+        this.setState({ windows: wins }, () => this.schedule());
+      },
+      stageMove: (e) => {
+        this.setRepelTarget(e.clientX, e.clientY, true);
+        if (!this.state.tiltOn || !this.state.rect) return;
+        const r = this.stage.getBoundingClientRect();
+        this.target = {
+          x: ((e.clientX - r.left) / r.width - 0.5) * 2,
+          y: ((e.clientY - r.top) / r.height - 0.5) * 2
+        };
+        if (!this.state.hovering) this.setState({ hovering: true });
+      },
+      stageLeave: () => { this.setRepelTarget(0, 0, false); this.target = { x: 0, y: 0 }; this.setState({ hovering: false }); },
+      exportReact: () => this.exportReact(),
+      exportEmbed: () => this.exportEmbed(),
+      exportPackage: () => this.exportPackage(),
+      exportSource: () => this.exportSource(),
+      closeCode: () => this.setState({ codeOpen: false, copied: false }),
+      copyCode: async () => {
+        const txt = this.state.codeText;
+        const el = this.codeEl || document.querySelector("[data-code-box]");
+        let ok = false;
+        try { window.focus(); } catch (e) {}
+        if (el) { try { el.focus(); el.select(); } catch (e) {} }
+        try {
+          await navigator.clipboard.writeText(txt);
+          ok = true;
+        } catch (e) {
+          if (el) { try { ok = document.execCommand("copy") === true; } catch (e2) { ok = false; } }
+        }
+        this.setState({ copied: ok ? "yes" : "fail" });
+        if (ok) setTimeout(() => this.setState({ copied: false }), 2200);
+      },
+      retryDownload: () => {
+        if (this.state.codeKind === "source") { if (this._srcPkg) this.save(this._srcPkg, this.state.codeName); return; }
+        if (this.state.codeKind === "package") { if (this._pkgBlob) this.save(this._pkgBlob, this.state.codeName); return; }
+        if (this.state.codeKind === "embed" && this._embedBlob) download(this._embedBlob, this.state.codeName.replace(/\.html$/, ".webp"));
+        download(new Blob([this.state.codeText], { type: "text/plain" }), this.state.codeName);
+      },
+      refCode: (el) => { this.codeEl = el; },
+      presetName: (e) => this.setState({ presetName: e.target.value }),
+      savePreset: () => this.savePreset(),
+      exportPresets: () => {
+        download(new Blob([JSON.stringify(this.state.presets, null, 2)], { type: "application/json" }),
+          "ascii-filter-presets.json");
+        this.setState({ presetMsg: "presets file downloaded" });
+      },
+      importPresets: (e) => {
+        const f = e.target.files && e.target.files[0];
+        if (!f) return;
+        const r = new FileReader();
+        r.onload = () => {
+          try {
+            const list = JSON.parse(r.result);
+            if (!Array.isArray(list)) throw 0;
+            const merged = this.state.presets.slice();
+            for (const p of list) {
+              const i = merged.findIndex((m) => m.name === p.name);
+              if (i >= 0) merged[i] = p; else merged.push(p);
+            }
+            this.writePresets(merged, list.length + " preset(s) imported");
+          } catch (err) { this.setState({ presetMsg: "couldn't read that file" }); }
+        };
+        r.readAsText(f);
+      },
+      flareOn: () => {
+        const on = !this.state.flareOn;
+        if (on && !this.state.flares.length) this.regenFlares({ flareOn: true });
+        else this.set("flareOn", on);
+      },
+      flareCount: (e) => this.regenFlares({ flareCount: parseFloat(e.target.value) }),
+      flarePlace: () => {
+        const modes = ["bright", "windows", "random"];
+        const next = modes[(modes.indexOf(this.state.flarePlace) + 1) % modes.length];
+        this.regenFlares({ flarePlace: next });
+      },
+      flareShuffle: () => this.regenFlares({ flareSeed: Math.floor(Math.random() * 100000) }),
+      flareSize: num("flareSize"), flareSpike: num("flareSpike"),
+      flareThin: num("flareThin"), flareHue: num("flareHue"), flareCore: num("flareCore"),
+      flareOpacity: num("flareOpacity"), flareGlow: tog("flareGlow"),
+      flarePoints: () => this.set("flarePoints", this.state.flarePoints === 4 ? 6 : 4),
+      addFlare: () => {
+        const fl = this.state.flares.concat([{ nx: 0.5, ny: 0.5, s: 1, rot: 0, hue: 0.5 }]);
+        this.setState({ flares: fl, flareOn: true, flareCount: fl.length }, () => this.schedule());
+      },
+      delFlare: () => {
+        const i = this.state.activeFlare;
+        if (i < 0) return;
+        const fl = this.state.flares.slice();
+        fl.splice(i, 1);
+        this.setState({ flares: fl, activeFlare: -1, flareCount: fl.length }, () => this.schedule());
+      },
+      strokeOn: tog("strokeOn"),
+      strokeColor: str("strokeColor"),
+      strokeWidth: num("strokeWidth"),
+      strokeInset: num("strokeInset"),
+      strokeStyle: str("strokeStyle"),
+      dataOn: tog("dataOn"), dataBoxes: tog("dataBoxes"),
+      dataCount: num("dataCount"), dataSize: num("dataSize"),
+      dataOpacity: num("dataOpacity"), dataLinks: num("dataLinks"),
+      dataScope: () => this.set("dataScope", this.state.dataScope === "windows" ? "full" : "windows"),
+      dataShuffle: () => this.set("dataSeed", Math.floor(Math.random() * 100000)),
+      dataTrack: tog("dataTrack"), dataLive: tog("dataLive"),
+      dataEase: num("dataEase"), dataRadius: num("dataRadius"),
+      glowOn: tog("glowOn"), glowAmount: num("glowAmount"),
+      glowUseInk: tog("glowUseInk"),
+      ramp: str("ramp"), customRamp: (e) => this.set("customRamp", e.target.value, e.target.value ? "custom" : null),
+      fontFamily: str("fontFamily"), fontWeight: str("fontWeight"),
+      bgColor: str("bgColor"),
+      invert: tog("invert"), dither: tog("dither"), edges: tog("edges"), edgeOnly: tog("edgeOnly"),
+      modeMono: () => this.set("colorMode", "mono"),
+      modeSource: () => this.set("colorMode", "source"),
+      modeDuo: () => this.set("colorMode", "duotone"),
+      modeTri: () => this.set("colorMode", "tritone"),
+      bgMode: () => this.set("bgMode", this.state.bgMode === "transparent" ? "solid" : "transparent"),
+      playPause: () => this.playPause(),
+      loopMode: () => {
+        const order = ["once", "loop", "pingpong"];
+        const next = order[(order.indexOf(this.state.loopMode) + 1) % 3];
+        this.setState({ loopMode: next }, () => { if (this.video) this.video.loop = next === "loop"; });
+      },
+      seek: (e) => this.seek(parseFloat(e.target.value) / 1000),
+      exportPng: () => this.exportPng(),
+      exportSvg: () => this.exportSvg(),
+      gifMax: () => {
+        const steps = [600, 900, 1400, 2400];
+        const i = steps.indexOf(this.state.gifMax || 900);
+        this.setState({ gifMax: steps[(i + 1) % steps.length] });
+      },
+      exportGif: () => this.exportGif(),
+      exportWebm: () => this.exportWebm(),
+      exportSnippet: () => this.exportSnippet()
+    };
+    this.state.gifFps = 12;
+    this.state.gifMax = 900;
+    this.sampler = document.createElement("canvas");
+    this.grid = null;
+  }
+
+  // Swatch popover: native <input type=color> can be blocked in embedded frames,
+  // so colors are picked from a palette + hex field instead.
+  openPicker(id, current) {
+    this.setState({ picker: this.state.picker === id ? null : id, hexDraft: current });
+  }
+  applyColor(id, hex) {
+    if (!/^#[0-9a-f]{6}$/i.test(hex)) return;
+    if (id === "stroke") this.set("strokeColor", hex);
+    else if (id === "glow") this.set("glowColor", hex);
+    else if (id === "data") this.set("dataColor", hex);
+    else if (id === "flare") this.set("flareColor", hex);
+    else if (id === "flareB") this.set("flareColorB", hex);
+    else if (id === "bg") this.set("bgColor", hex);
+    else this.setStop(parseInt(id, 10), hex);
+  }
+  colorField(id, current) {
+    const open = this.state.picker === id;
+    return {
+      value: current,
+      open: open,
+      chipBorder: open ? "#00E599" : "#3A413A",
+      hexDraft: this.state.hexDraft,
+      swatches: PALETTE.map((p) => ({
+        hex: p,
+        border: p.toLowerCase() === (current || "").toLowerCase() ? "#FFFFFF" : "rgba(255,255,255,0.14)",
+        pick: () => { this.applyColor(id, p); this.setState({ hexDraft: p }); }
+      })),
+      toggle: () => this.openPicker(id, current),
+      onHex: (e) => {
+        let v = e.target.value.trim();
+        if (v && v[0] !== "#") v = "#" + v;
+        this.setState({ hexDraft: v });
+        this.applyColor(id, v);
+      }
+    };
+  }
+
+  setStop(i, v) {
+    const stops = this.state.stops.slice();
+    stops[i] = v;
+    this.setState({ stops: stops }, () => this.schedule());
+  }
+  moveStop(from, to) {
+    if (from < 0 || to < 0 || from === to) { this.setState({ dragFrom: -1, dragOver: -1 }); return; }
+    const stops = this.state.stops.slice();
+    stops.splice(to, 0, stops.splice(from, 1)[0]);
+    this.setState({ stops: stops, dragFrom: -1, dragOver: -1 }, () => this.schedule());
+  }
+
+  set(k, v, ramp) {
+    const patch = {}; patch[k] = v;
+    if (ramp) patch.ramp = ramp;
+    this.setState(patch, () => { this.schedule(); this.saveSession(); });
+  }
+
+  // Session persistence: settings in localStorage, the media Blob in IndexedDB
+  // (videos are far too large for localStorage). Restores on load.
+  idb() {
+    if (this._idb) return this._idb;
+    this._idb = new Promise((res, rej) => {
+      const r = indexedDB.open("asciiFilter", 1);
+      r.onupgradeneeded = () => {
+        if (!r.result.objectStoreNames.contains("media")) r.result.createObjectStore("media");
+      };
+      r.onsuccess = () => res(r.result);
+      r.onerror = () => rej(r.error);
+    });
+    return this._idb;
+  }
+
+  async idbPut(key, val) {
+    const db = await this.idb();
+    return new Promise((res, rej) => {
+      const tx = db.transaction("media", "readwrite");
+      tx.objectStore("media").put(val, key);
+      tx.oncomplete = res;
+      tx.onerror = () => rej(tx.error);
+    });
+  }
+
+  async idbGet(key) {
+    const db = await this.idb();
+    return new Promise((res, rej) => {
+      const tx = db.transaction("media", "readonly");
+      const q = tx.objectStore("media").get(key);
+      q.onsuccess = () => res(q.result);
+      q.onerror = () => rej(q.error);
+    });
+  }
+
+  _justRestored() {
+    if (!this._restoreAt) { this._restoreAt = Date.now(); return true; }
+    return Date.now() - this._restoreAt < 2500;
+  }
+
+  saveSession(note) {
+    clearTimeout(this._saveT);
+    this._saveT = setTimeout(() => {
+      const vals = {};
+      for (const k of this.presetKeys()) vals[k] = this.state[k];
+      vals.fileName = this.state.fileName;
+      vals.srcType = this.state.srcType;
+      vals.time = this.state.time;
+      vals.panX = this.state.panX || 0; vals.panY = this.state.panY || 0;
+      try {
+        localStorage.setItem("asciiFilter.session", JSON.stringify({ saved: Date.now(), vals: vals }));
+        this.setState({
+          saveMsg: note || (this._restoreStamp && this._justRestored()
+            ? "restored from " + new Date(this._restoreStamp).toLocaleString()
+            : this.state.srcType && this._mediaStored === false
+              ? "settings saved — clip not stored, re-drop it next time"
+              : "saved " + new Date().toLocaleTimeString())
+        });
+      } catch (e) { this.setState({ saveMsg: "couldn't save settings" }); }
+    }, 500);
+  }
+
+  async restoreSession() {
+    let sess = null;
+    try { sess = JSON.parse(localStorage.getItem("asciiFilter.session") || "null"); } catch (e) {}
+    if (!sess || !sess.vals) return;
+    this.setState({ restoring: true });
+    let file = null;
+    try { file = await this.idbGet("current"); } catch (e) {}
+    const hasMedia = !!(file && file.blob);
+    // srcType/fileName are only ever set by a successful load, never restored
+    // optimistically — otherwise a failed decode hides the empty state.
+    const apply = Object.assign({}, sess.vals, {
+      activeWin: -1, activeFlare: -1, playing: false, restoring: false,
+      srcType: null, fileName: "",
+      saveMsg: hasMedia
+        ? "restoring " + (sess.vals.fileName || "your file") + "…"
+        : "settings restored — re-drop " + (sess.vals.fileName || "your file")
+    });
+    this.setState(apply, () => {
+      this._wKey = null; this._dKey = null;
+      if (hasMedia) {
+        this._restoreStamp = sess.saved;
+        this.loadFile(file.blob, file.name, sess.vals.time || 0, true);
+      } else this.schedule();
+    });
+  }
+
+  // ?project=ascii-project.json boots settings + media from files on disk
+  // (used by the exported source package). ?embed=1 hides all tool chrome.
+  async loadProject(url) {
+    try {
+      const p = (this.embed && window.__asciiPre && await window.__asciiPre.catch(() => null)) || await (await fetch(url)).json();
+      const base = new URL(url, location.href);
+      const aw = parseInt(new URLSearchParams(location.search).get("active"), 10);
+      const startWin = Number.isFinite(aw) && p.settings && p.settings.windows && p.settings.windows[aw] ? aw : -1;
+      const noWin = new URLSearchParams(location.search).get("nowin") === "1";
+      const vals = Object.assign({}, p.settings, noWin ? { revealOn: false, tiltOn: false } : {}, { activeWin: startWin, activeFlare: -1, playing: false, srcType: null, fileName: "" });
+      this.setState(vals, async () => {
+        this._wKey = null; this._dKey = null;
+        if (p.composite) return this.loadComposite(p, base, startWin);
+        if (!p.media) return this.schedule();
+        const name = p.media.split("/").pop();
+        if (this.embed) {
+          // stream straight from the URL so playback starts on the first bytes, not after the full download
+          this.loadFile({ type: p.mediaType || "video/mp4", name }, name, 0, true, new URL(p.media, base).href);
+        } else {
+          const blob = await (await fetch(new URL(p.media, base))).blob();
+          const typed = blob.type ? blob : new Blob([blob], { type: p.mediaType || "" });
+          this.loadFile(typed, name, 0, true);
+        }
+        if (startWin >= 0) this.setState({ activeWin: startWin });
+        if (this.embed) {
+          let n = 0;
+          const rate = parseFloat(new URLSearchParams(location.search).get('rate')) || 1;
+          const kick = () => { if (this.video) { this.video.loop = true; (this.compVideos || [this.video]).forEach((v) => { if (v) { v.playbackRate = rate; v.defaultPlaybackRate = rate; if (v.requestVideoFrameCallback && !v._armed) { v._armed = true; this._rvfc = true; const tick = () => { this._vf = true; v.requestVideoFrameCallback(tick); }; v.requestVideoFrameCallback(tick); } } }); this.video.play().catch(() => {}); this.setState({ playing: true }); } else if (n++ < 80) setTimeout(kick, 150); };
+          kick();
+        }
+      });
+    } catch (e) { this.status("couldn't load project " + url); }
+  }
+
+  async exportSource() {
+    const s = this.state;
+    if (!this._srcBlob) return this.status("Load your original media first");
+    this.status("building source package…");
+    const get = async (u) => { const r = await fetch(u, { cache: "no-store" }); if (!r.ok) throw new Error(u); return r.text(); };
+    let html, support;
+    try {
+      html = await get(location.href.split("#")[0].split("?")[0]).catch(() => get("ASCII Filter.dc.html"));
+      if (html.indexOf("data-dc-script") < 0) html = await get("ASCII Filter.dc.html");
+      support = await get("support.js");
+    } catch (e) { return this.status("couldn't read tool source"); }
+    const settings = {};
+    for (const k of this.presetKeys()) settings[k] = s[k];
+    settings.panX = s.panX || 0; settings.panY = s.panY || 0;
+    settings.loopMode = s.loopMode;
+    const mediaName = (this._srcName || "media").replace(/[^\w.\-]+/g, "-");
+    const project = { version: 1, media: "media/" + mediaName, mediaType: this._srcBlob.type || "", settings: settings };
+    const W = this.out ? this.out.width : 16, H = this.out ? this.out.height : 9;
+    const embed = '<!doctype html>\n<meta charset="utf-8">\n<title>ASCII embed</title>\n' +
+      '<body style="margin:0; background:#0A0B0A">\n' +
+      '<!-- Live render: the tool in embed mode, driven by ascii-project.json -->\n' +
+      '<iframe src="ascii-filter.dc.html?project=ascii-project.json&embed=1" title="ASCII artwork" loading="lazy"\n' +
+      '  style="display:block; width:100%; aspect-ratio:' + W + ' / ' + H + '; border:0; background:transparent"></iframe>\n</body>\n';
+    const FENCE = "```";
+    const readme = [
+      "# ASCII Filter — source package",
+      "",
+      "Live, editable version of the ASCII effect. Nothing is baked: the filter renders from the raw media every frame.",
+      "",
+      "## Files",
+      "- ascii-filter.dc.html — the entire tool: UI template + render/export logic (class Component, in the <script data-dc-script> block).",
+      "- support.js — runtime that mounts the .dc.html file ({{ }} holes, <sc-if>, <sc-for>). Leave as-is unless changing the runtime.",
+      "- ascii-project.json — every current setting (settings) + path to the media (media).",
+      "- " + project.media + " — the original, unfiltered " + (s.srcType || "media") + ".",
+      "- embed.html — how to place the live render on a site (iframe of the tool in embed mode).",
+      "",
+      "## Run",
+      "Needs a local server (fetching the JSON/media fails on file://):",
+      FENCE,
+      "npx serve .      # or: python3 -m http.server",
+      FENCE,
+      "- Editor with this project loaded: /ascii-filter.dc.html?project=ascii-project.json",
+      "- Output only (no UI, autoplay loop): /ascii-filter.dc.html?project=ascii-project.json&embed=1",
+      "- Without ?project, the editor restores its last browser session instead.",
+      "",
+      "## Iterating",
+      "- Change the look: edit ascii-project.json → reload. Keys match the tool's state (cols, fontSize, ramp, stops, windows, flares, revealOn, tiltOn…).",
+      "- Or tweak in the editor UI, then hit Source package again to regenerate this folder.",
+      "- Swap media: drop a new file into media/ and update media in the JSON.",
+      "- Render pipeline: compute() (glyph grid) → paint() (canvas: glyphs, reveal windows, flares, data overlay) → draw().",
+      "- Embed mode: this.embed (from ?embed=1 in componentDidMount) and the notEmbed template flag.",
+      "",
+      "## Putting it on a website",
+      "Copy this folder into the site (e.g. /ascii/) and use the iframe from embed.html, adjusting the src path.",
+      "For a native (non-iframe) integration, port compute() + paint() into the site's own canvas component and feed it settings from the JSON.",
+      ""
+    ].join("\n");
+    const zip = await this.makeZip([
+      { name: "ascii-filter/README.md", data: readme },
+      { name: "ascii-filter/ascii-filter.dc.html", data: html },
+      { name: "ascii-filter/support.js", data: support },
+      { name: "ascii-filter/ascii-project.json", data: JSON.stringify(project, null, 2) },
+      { name: "ascii-filter/embed.html", data: embed },
+      { name: "ascii-filter/" + project.media, data: this._srcBlob }
+    ]);
+    this._srcPkg = zip;
+    const name = "ascii-filter-source.zip";
+    this.save(zip, name);
+    this.setState({ codeOpen: true, codeText: readme, codeName: name, copied: false, codeKind: "source" });
+    this.status("Source package saved · " + (zip.size / 1048576).toFixed(1) + " MB");
+  }
+
+  // Presets store every look-affecting setting (not the media, which lives on
+  // the user's disk) in localStorage.
+  presetKeys() {
+    return ["cols", "fontSize", "aspect", "letterSpacing", "ramp", "customRamp", "brightness", "contrast", "gamma",
+      "invert", "dither", "edges", "edgeThreshold", "edgeOnly",
+      "revealOn", "revealCount", "revealSize", "revealSeed", "windows",
+      "strokeOn", "strokeColor", "strokeWidth", "strokeStyle", "strokeInset",
+      "flareOn", "flareCount", "flareSize", "flareColor", "flareColorB", "flarePoints",
+      "flareSpike", "flareGlow", "flareOpacity", "flareSeed", "flarePlace",
+      "flareThin", "flareHue", "flareCore", "flares",
+      "glowOn", "glowAmount", "glowColor", "glowUseInk",
+      "dataOn", "dataCount", "dataSeed", "dataColor", "dataSize", "dataOpacity",
+      "dataBoxes", "dataLinks", "dataScope", "dataTrack", "dataEase", "dataRadius", "dataLive",
+      "tiltOn", "tiltMax", "tiltDepth", "parallax", "layerDepth", "tiltSplit", "tiltEase", "zSpread", "defocus",
+      "colorMode", "stops", "bgMode", "bgColor", "fontFamily", "fontWeight",
+      "loopMode", "gifFps", "gifMax"];
+  }
+
+  loadPresets() {
+    try {
+      const raw = localStorage.getItem("asciiFilter.presets");
+      const list = raw ? JSON.parse(raw) : [];
+      if (Array.isArray(list)) this.setState({ presets: list });
+    } catch (e) {}
+  }
+
+  writePresets(list, msg) {
+    this.setState({ presets: list, presetMsg: msg || "" });
+    try { localStorage.setItem("asciiFilter.presets", JSON.stringify(list)); }
+    catch (e) { this.setState({ presetMsg: "browser storage full" }); }
+  }
+
+  savePreset() {
+    const name = (this.state.presetName || "").trim() || "Preset " + (this.state.presets.length + 1);
+    const vals = {};
+    for (const k of this.presetKeys()) vals[k] = this.state[k];
+    const p = { name: name, saved: Date.now(), vals: vals };
+    const list = this.state.presets.slice();
+    const i = list.findIndex((m) => m.name === name);
+    if (i >= 0) list[i] = p; else list.unshift(p);
+    this.setState({ presetName: "" });
+    this.writePresets(list, "saved “" + name + "”");
+  }
+
+  applyPreset(p) {
+    this.setState(Object.assign({}, p.vals, {
+      activeWin: -1, activeFlare: -1, presetMsg: "loaded “" + p.name + "”"
+    }), () => { this._wKey = null; this._dKey = null; this.schedule(); });
+  }
+
+  deletePreset(name) {
+    this.writePresets(this.state.presets.filter((p) => p.name !== name), "deleted “" + name + "”");
+  }
+
+  componentDidMount() {
+    this.loadPresets();
+    const q = new URLSearchParams(location.search);
+    this.embed = q.get("embed") === "1";
+    this._guides = q.get("guides") === "1";
+    this.overlapsOf = (boxes, s) => {
+      const out = [], R = boxes.map((b) => { const l = parseFloat(b.eLeft) || 0, t = parseFloat(b.eTop) || 0; return [l, t, l + (parseFloat(b.eWidth) || 0), t + (parseFloat(b.eHeight) || 0)]; });
+      for (let i = 0; i < R.length; i++) for (let j = i + 1; j < R.length; j++) {
+        if (!(s.hoverWin === i || s.hoverWin === j || s.activeWin === i || s.activeWin === j)) continue;
+        const l = Math.max(R[i][0], R[j][0]), t = Math.max(R[i][1], R[j][1]), r = Math.min(R[i][2], R[j][2]), b = Math.min(R[i][3], R[j][3]);
+        if (r - l < 1 || b - t < 1) continue;
+        out.push({ key: i + "-" + j, left: l.toFixed(1) + "px", top: t.toFixed(1) + "px", width: (r - l).toFixed(1) + "px", height: (b - t).toFixed(1) + "px", wLabel: Math.round(r - l), hLabel: Math.round(b - t) });
+      }
+      return out;
+    };
+    this.refEmbedLayer = (el) => { this.embedLayer = el; };
+    const hex = (c) => "#" + c.slice(0, 3).map((v) => v.toString(16).padStart(2, "0")).join("").toUpperCase();
+    this.sampleAt = (cx, cy) => {
+      const o = this.out; if (!o) return null;
+      const r = o.getBoundingClientRect(); if (!r.width) return null;
+      const x = Math.floor((cx - r.left) / r.width * o.width), y = Math.floor((cy - r.top) / r.height * o.height);
+      if (x < 0 || y < 0 || x >= o.width || y >= o.height) return null;
+      try { const d = o.getContext("2d").getImageData(x, y, 1, 1).data; return d[3] < 8 ? null : [d[0], d[1], d[2]]; } catch (err) { return null; }
+    };
+    this.layerPt = (cx, cy) => { const r = this.embedLayer ? this.embedLayer.getBoundingClientRect() : { left: 0, top: 0, width: innerWidth, height: innerHeight }; return { nx: (cx - r.left) / r.width, ny: (cy - r.top) / r.height, r }; };
+    this.askBounds = () => { if (this.embed && window.parent !== window) window.parent.postMessage({ type: 'ascii-need-bounds' }, '*'); };
+    this.startPick = (e) => { e.preventDefault(); e.stopPropagation(); this.askBounds(); this.setState({ picking: true, pickRGB: null, hoverWin: -1 }); };
+    this.pickMove = (e) => { const c = this.sampleAt(e.clientX, e.clientY); const p = this.layerPt(e.clientX, e.clientY); this.setState({ pickRGB: c, pickN: [p.nx, p.ny] }); };
+    this.pickCommit = (e) => {
+      e.preventDefault(); e.stopPropagation();
+      const c = this.sampleAt(e.clientX, e.clientY) || this.state.pickRGB;
+      const p = this.layerPt(e.clientX, e.clientY);
+      if (!c) { this.setState({ picking: false }); return; }
+      const spot = this.freeSpot(p.nx, p.ny);
+      const sw = (this.state.swatches || []).concat([{ id: Date.now(), nx: spot[0], ny: spot[1], rgb: c }]);
+      this.setState({ picking: false, pickRGB: null, swatches: sw });
+    };
+    this.localBounds = () => {
+      const el = this.embedLayer, W = el ? el.offsetWidth : 0, H = el ? el.offsetHeight : 0;
+      let bx0 = 0, by0 = 0, bx1 = W, by1 = H;
+      if (this.hostBounds && el) {
+        const lr = el.getBoundingClientRect(), kx = W / (lr.width || W), ky = H / (lr.height || H), hb = this.hostBounds;
+        bx0 = Math.max(0, (hb[0] * innerWidth - lr.left) * kx); by0 = Math.max(0, (hb[1] * innerHeight - lr.top) * ky);
+        bx1 = Math.min(W, (hb[2] * innerWidth - lr.left) * kx); by1 = Math.min(H, (hb[3] * innerHeight - lr.top) * ky);
+      }
+      return [bx0, by0, bx1, by1, W, H];
+    };
+    this.freeSpot = (nx, ny) => {
+      const el = this.embedLayer, W = el ? el.offsetWidth : 0, H = el ? el.offsetHeight : 0;
+      if (!W || !H) return [nx, ny];
+      const S = 64, G = 16, px = nx * W, py = ny * H;
+      const wins = (this._lastBoxes || []).map((b) => { const l = parseFloat(b.eLeft) || 0, t = parseFloat(b.eTop) || 0; return [l, t, l + (parseFloat(b.eWidth) || 0), t + (parseFloat(b.eHeight) || 0)]; });
+      const sws = (this.state.swatches || []).map((x) => [x.nx * W - S / 2, x.ny * H - S / 2, x.nx * W + S / 2, x.ny * H + S / 2]);
+      const obst = wins.concat(sws);
+      const src = wins.find((r) => px >= r[0] && px <= r[2] && py >= r[1] && py <= r[3]) || [px, py, px, py];
+      const [bx0, by0, bx1, by1] = this.localBounds();
+      const free = (l, t) => l >= bx0 + G && t >= by0 + G && l + S <= bx1 - G && t + S <= by1 - G && !obst.some((r) => l < r[2] + G / 2 && l + S > r[0] - G / 2 && t < r[3] + G / 2 && t + S > r[1] - G / 2);
+      const cy = Math.max(src[1], Math.min(py - S / 2, src[3] - S)), cx = Math.max(src[0], Math.min(px - S / 2, src[2] - S));
+      const cands = [[src[2] + G, cy], [src[0] - G - S, cy], [cx, src[3] + G], [cx, src[1] - G - S], [src[2] + G, src[1]], [src[2] + G, src[3] - S], [src[0] - G - S, src[1]], [src[0] - G - S, src[3] - S]];
+      let best = cands.find(([l, t]) => free(l, t));
+      if (!best) {
+        let bd = Infinity;
+        for (let t = by0 + G; t + S <= by1 - G; t += 20) for (let l = bx0 + G; l + S <= bx1 - G; l += 20) if (free(l, t)) { const d = Math.hypot(l + S / 2 - px, t + S / 2 - py); if (d < bd) { bd = d; best = [l, t]; } }
+      }
+      if (!best) best = [Math.max(bx0 + G, Math.min(bx1 - S - G, px - S / 2)), Math.max(by0 + G, Math.min(by1 - S - G, py - S / 2))];
+      return [(best[0] + S / 2) / W, (best[1] + S / 2) / H];
+    };
+    this.dragSwatch = (id, e) => {
+      e.preventDefault(); e.stopPropagation();
+      const s0 = (this.state.swatches || []).find((x) => x.id === id); if (!s0) return;
+      const st = this.layerPt(e.clientX, e.clientY), ox = s0.nx - st.nx, oy = s0.ny - st.ny;
+      this.setState({ dragSw: id });
+      const move = (ev) => {
+        const p = this.layerPt(ev.clientX, ev.clientY), [b0, b1, b2, b3, W, H] = this.localBounds(), h = 32;
+        let nx = p.nx + ox, ny = p.ny + oy;
+        if (W && H) { nx = Math.max((b0 + h) / W, Math.min((b2 - h) / W, nx)); ny = Math.max((b1 + h) / H, Math.min((b3 - h) / H, ny)); }
+        this.setState((S) => ({ swatches: S.swatches.map((x) => x.id === id ? Object.assign({}, x, { nx, ny }) : x) }));
+      };
+      const up = () => { window.removeEventListener("pointermove", move); window.removeEventListener("pointerup", up); this.setState({ dragSw: null }); };
+      window.addEventListener("pointermove", move); window.addEventListener("pointerup", up);
+    };
+    this.swatchVals = (s) => ({
+      picking: !!s.picking,
+      hasPickColor: !!s.pickRGB,
+      pickColor: s.pickRGB ? "rgb(" + s.pickRGB.join(",") + ")" : "transparent",
+      pickHex: s.pickRGB ? hex(s.pickRGB) : "",
+      pickLeft: s.pickN ? (s.pickN[0] * 100).toFixed(3) + "%" : "0",
+      pickTop: s.pickN ? (s.pickN[1] * 100).toFixed(3) + "%" : "0",
+      startPick: this.startPick, pickMove: this.pickMove, pickCommit: this.pickCommit, refEmbedLayer: this.refEmbedLayer,
+      swatchInverts: (() => {
+        const el = this.embedLayer, W = el ? el.offsetWidth : 0, H = el ? el.offsetHeight : 0, S = 64;
+        if (!W || !(s.swatches || []).length) return [];
+        const sw = s.swatches.map((x) => [x.nx * W - S / 2, x.ny * H - S / 2, x.nx * W + S / 2, x.ny * H + S / 2]);
+        const wins = (this._lastBoxes || []).map((b) => { const l = parseFloat(b.eLeft) || 0, t = parseFloat(b.eTop) || 0; return [l, t, l + (parseFloat(b.eWidth) || 0), t + (parseFloat(b.eHeight) || 0)]; });
+        const out = [], add = (A, B, k) => { const l = Math.max(A[0], B[0]), t = Math.max(A[1], B[1]), r = Math.min(A[2], B[2]), b = Math.min(A[3], B[3]); if (r - l > 0.5 && b - t > 0.5) out.push({ key: k, left: l.toFixed(1) + "px", top: t.toFixed(1) + "px", width: (r - l).toFixed(1) + "px", height: (b - t).toFixed(1) + "px" }); };
+        sw.forEach((A, i) => { wins.forEach((B, j) => add(A, B, "w" + i + "-" + j)); for (let j = i + 1; j < sw.length; j++) add(A, sw[j], "s" + i + "-" + j); });
+        return out;
+      })(),
+      swatchBoxes: (s.swatches || []).map((x) => ({ key: x.id, left: (x.nx * 100).toFixed(3) + "%", top: (x.ny * 100).toFixed(3) + "%", color: "rgb(" + x.rgb.join(",") + ")", hex: hex(x.rgb), ink: (0.2126 * x.rgb[0] + 0.7152 * x.rgb[1] + 0.0722 * x.rgb[2]) > 140 ? "#131313" : "#F7F3F1", cursor: s.dragSw === x.id ? "grabbing" : "grab", onDown: (e) => this.dragSwatch(x.id, e), remove: () => this.setState((S) => ({ swatches: S.swatches.filter((y) => y.id !== x.id) })) })),
+    });
+    window.addEventListener("keydown", (e) => { if (e.key === "Escape" && this.state.picking) this.setState({ picking: false, pickRGB: null }); });
+    this.withMeasure = (b) => Object.assign(b, { wLabel: Math.round(parseFloat(b.eWidth) || 0), hLabel: Math.round(parseFloat(b.eHeight) || 0) });
+    this.shimmerWins = (entered) => {
+      const now = performance.now();
+      if (now - (this._shimT || 0) < (entered ? 900 : 3200) || matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+      this._shimT = now;
+      Array.from(document.querySelectorAll("[data-shimmer]")).forEach((el, i) => el.animate([{ opacity: 0, backgroundPosition: "120% 0" }, { opacity: 1, offset: 0.3 }, { opacity: 1, offset: 0.7 }, { opacity: 0, backgroundPosition: "-20% 0" }], { duration: 1500, delay: i * 120, easing: "cubic-bezier(0.16, 1, 0.3, 1)" }));
+    };
+    this.onHostMsg = (e) => {
+      const d = e.data;
+      if (!d || typeof d !== "object") return;
+      if (d.type === "ascii-pointer") {
+        if (d.inside) this.shimmerWins(!this._hostIn);
+        this._hostIn = !!d.inside;
+        if (!!d.inside !== !!this.state.hostHover) this.setState({ hostHover: !!d.inside });
+        this.setRepelTarget((d.x / 2 + 0.5) * window.innerWidth, (d.y / 2 + 0.5) * window.innerHeight, !!d.inside);
+        this.ptr = { x: d.x, y: d.y, inside: !!d.inside };
+        if (!this.state.tiltOn) return;
+        this.target = d.inside ? { x: Math.max(-1, Math.min(1, d.x)), y: Math.max(-1, Math.min(1, d.y)) } : { x: 0, y: 0 };
+        if (!!d.inside !== !!this.state.hovering) this.setState({ hovering: !!d.inside });
+      } else if (d.type === "ascii-press") {
+        if (this._hostIn) this.shock();
+      } else if (d.type === "ascii-bounds" && d.rect) {
+        this.hostBounds = d.rect;
+      } else if (d.type === "ascii-set" && d.settings) {
+        this.setState(d.settings, () => { this._wKey = null; this._dKey = null; this.schedule(); });
+      }
+    };
+    window.addEventListener("message", this.onHostMsg);
+    this.reportMetrics = () => {
+      if (!this.embed || window.parent === window) return;
+      const g = this.grid, out = this.out, s = this.state;
+      if (!g || !out || !out.offsetWidth) return;
+      const scale = out.offsetWidth / (g.cols * g.cellW);
+      const key = [g.cellW, g.cellH, s.fontSize, s.fontFamily, s.fontWeight, scale.toFixed(4)].join("|");
+      if (key === this._mKey) return;
+      this._mKey = key;
+      window.parent.postMessage({ type: "ascii-metrics", cellW: g.cellW, cellH: g.cellH, fontSize: s.fontSize, fontFamily: s.fontFamily, fontWeight: s.fontWeight, scale: scale }, "*");
+    };
+    this._mTimer = setInterval(() => this.reportMetrics(), 1000);
+    if (this.embed && window.parent !== window) this._wTimer = setInterval(() => {
+      const r = (this.state.picking ? [[0, 0, 1, 1]] : []).concat(Array.from(document.querySelectorAll('[data-win], [data-swatch], [data-eyedrop]')).map((el) => { const b = el.getBoundingClientRect(); return [b.left / innerWidth, b.top / innerHeight, b.right / innerWidth, b.bottom / innerHeight].map((v) => +v.toFixed(4)); }));
+      const k = JSON.stringify(r);
+      if (k !== this._wk) { this._wk = k; window.parent.postMessage({ type: 'ascii-wins', rects: r }, '*'); }
+    }, 300);
+    if (this.embed && window.parent !== window) {
+      let pr = 0, last = null;
+      window.addEventListener("pointermove", (e) => {
+        last = e;
+        if (pr) return;
+        pr = requestAnimationFrame(() => { pr = 0; window.parent.postMessage({ type: "ascii-child-pointer", x: last.clientX, y: last.clientY }, "*"); });
+      }, { passive: true });
+    }
+    const setOff = (off) => {
+      if (this._offscreen === off) return;
+      this._offscreen = off;
+      (this.compVideos || [this.video]).forEach((v) => { if (v && this.state.playing) { if (off) v.pause(); else v.play().catch(() => {}); } });
+    };
+    if (this.embed && "IntersectionObserver" in window) {
+      this._io = new IntersectionObserver((es) => setOff(!es[0].isIntersecting), { threshold: 0 });
+      requestAnimationFrame(() => { if (document.body) this._io.observe(document.body); });
+    }
+    document.addEventListener("visibilitychange", () => setOff(document.hidden));
+    if (this.embed) this.forceUpdate();
+    if (this.embed) { this.askBounds(); setTimeout(this.askBounds, 800); }
+    if (q.get("project")) this.loadProject(q.get("project"));
+    else this.restoreSession();
+    this.onLeaveSave = () => this.saveSession();
+    window.addEventListener("beforeunload", this.onLeaveSave);
+    this.dir = 1;
+    this.lastT = 0;
+    this.target = { x: 0, y: 0 };
+    this.loop = (now) => {
+      const dt = this.lastT ? Math.min(0.1, (now - this.lastT) / 1000) : 0;
+      this.lastT = now;
+      if (this._offscreen) { this.raf = requestAnimationFrame(this.loop); return; }
+      const repMoving = this.stepRepel(dt);
+      if (repMoving) this._repelDirty = true;
+      const s0 = this.state;
+      const N = Math.round(s0.tiltSplit || 1);
+      if (s0.tiltOn && N > 1) {
+        const e = s0.tiltEase, p = this.ptr || { x: 0, y: 0, inside: false };
+        if (!this.colP || this.colP.length !== N) this.colP = Array.from({ length: N }, () => ({ x: 0, y: 0 }));
+        let moved = false;
+        this.colP.forEach((c, i) => {
+          const lx = (p.x - (-1 + (2 * i + 1) / N)) * N;
+          const on = p.inside && Math.abs(lx) <= 1;
+          const tx = on ? Math.max(-1, Math.min(1, lx)) : 0, ty = on ? Math.max(-1, Math.min(1, p.y)) : 0;
+          const nx = c.x + (tx - c.x) * e, ny = c.y + (ty - c.y) * e;
+          if (Math.abs(nx - c.x) > 0.002 || Math.abs(ny - c.y) > 0.002) moved = true;
+          c.x = nx; c.y = ny;
+        });
+        if (s0.px || s0.py) this.setState({ px: 0, py: 0 });
+        if (moved && !s0.playing) this.schedule();
+      } else if (s0.tiltOn) {
+        const e = s0.tiltEase;
+        const nx = s0.px + (this.target.x - s0.px) * e;
+        const ny = s0.py + (this.target.y - s0.py) * e;
+        if (Math.abs(nx - s0.px) > 0.002 || Math.abs(ny - s0.py) > 0.002) {
+          this.setState({ px: nx, py: ny });
+          if (!s0.playing) this.schedule();
+        }
+      }
+      const v = this.video;
+      if (this.state.playing && v) {
+        if (this.state.loopMode === "pingpong") {
+          const d = v.duration || 0;
+          if (this.dir === 1) {
+            if (v.paused) v.play().catch(() => {});
+            if (d && v.currentTime >= d - 0.06) { this.dir = -1; v.pause(); }
+          } else {
+            if (!v.paused) v.pause();
+            const t = v.currentTime - dt;
+            if (t <= 0.02) { this.dir = 1; v.currentTime = 0; v.play().catch(() => {}); }
+            else v.currentTime = t;
+          }
+          this.draw();
+          this.setState({ time: v.currentTime });
+        } else if (!v.paused) {
+          if ((this._rvfc ? (this._vf || (now - (this._lastDrawT || 0) > 120 && v.currentTime !== this._lastVT)) : v.currentTime !== this._lastVT) || this._repelDirty) {
+            this._repelDirty = false; this._vf = false; this._lastDrawT = now;
+            this._lastVT = v.currentTime;
+            this.draw();
+            if (!this.embed || now - (this._lastTimeSet || 0) > 500) { this._lastTimeSet = now; this.setState({ time: v.currentTime }); }
+          }
+        } else if (this.state.loopMode === "once" && v.ended) {
+          this.setState({ playing: false });
+        }
+      }
+      if (this._repelDirty && !(this.state.playing && v)) { this._repelDirty = false; this.draw(); }
+      this.raf = requestAnimationFrame(this.loop);
+    };
+    this.raf = requestAnimationFrame(this.loop);
+    this.onResize = () => this.measure();
+    window.addEventListener("resize", this.onResize);
+    if (document.fonts) document.fonts.ready.then(() => this.schedule());
+  }
+  componentWillUnmount() {
+    cancelAnimationFrame(this.raf);
+    window.removeEventListener("resize", this.onResize);
+    window.removeEventListener("beforeunload", this.onLeaveSave);
+  }
+
+  setRepelTarget(clientX, clientY, inside) {
+    if (!this.rep) this.rep = { x: 0, y: 0, tx: 0, ty: 0, a: 0, ta: 0 };
+    const c = this.out;
+    if (!c || !inside) { this.rep.ta = 0; return; }
+    const r = c.getBoundingClientRect();
+    if (!r.width || !r.height) return;
+    this.rep.tx = (clientX - r.left) / r.width * c.width;
+    this.rep.ty = (clientY - r.top) / r.height * c.height;
+    if (this.rep.a < 0.01) { this.rep.x = this.rep.tx; this.rep.y = this.rep.ty; }
+    this.rep.ta = 1;
+  }
+  stepRepel(dt) {
+    const p = this.rep;
+    let moving = false;
+    if (p && !(p.a < 0.005 && p.ta === 0)) {
+      const e = 1 - Math.exp(-dt * 10), ea = 1 - Math.exp(-dt * (p.ta ? 6 : 3));
+      const before = p.x + p.y + p.a;
+      p.x += (p.tx - p.x) * e; p.y += (p.ty - p.y) * e; p.a += (p.ta - p.a) * ea;
+      if (p.ta === 0 && p.a < 0.005) p.a = 0;
+      moving = Math.abs(p.x + p.y + p.a - before) > 0.02 || p.a > 0.005;
+    }
+    return this.stepParticles(dt) || moving;
+  }
+  // Particle field (after Bencho's Particles, MIT): each glyph is a dot with a
+  // spring home. The pointer pushes nearby glyphs away, they spring back behind
+  // it; a press throws a shockwave. Frame-based dt, damping raised to dt so a
+  // dropped frame loses the same energy. Only displaced glyphs are simulated.
+  pfFor(g) {
+    const n = g.cols * g.rows;
+    let P = this.pf;
+    if (!P || P.n !== n || P.cols !== g.cols) P = this.pf = { n, cols: g.cols, ox: new Float32Array(n), oy: new Float32Array(n), vx: new Float32Array(n), vy: new Float32Array(n), on: new Uint8Array(n), list: [] };
+    return P;
+  }
+  stepParticles(dt) {
+    const g = this._pg, s = this.state;
+    if (!g) return false;
+    const P = this.pfFor(g);
+    const f = Math.min(2.5, dt * 60);
+    if (!f) return P.list.length > 0;
+    if (this._still === undefined) this._still = !!(window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches);
+    const rp = this.rep, F = s.repelForce || 0;
+    if (rp && rp.a > 0.01 && F > 0 && !this._still) {
+      const R = s.repelRadius || 90, S = F * 0.5 * rp.a, cw = g.cellW, chh = g.cellH, pad = g.padX || 0;
+      const x0 = Math.max(0, Math.floor((rp.x - R) / cw) - 1), x1 = Math.min(g.cols - 1, Math.ceil((rp.x + R) / cw) + 1);
+      const y0 = Math.max(0, Math.floor((rp.y - R) / chh) - 1), y1 = Math.min(g.rows - 1, Math.ceil((rp.y + R) / chh) + 1);
+      for (let y = y0; y <= y1; y++) for (let x = x0; x <= x1; x++) {
+        const i = y * g.cols + x;
+        if (g.chars[i] === " ") continue;
+        const dx = x * cw + pad + cw * 0.5 + P.ox[i] - rp.x, dy = y * chh + chh * 0.5 + P.oy[i] - rp.y, dd = Math.sqrt(dx * dx + dy * dy);
+        if (dd >= R || dd < 0.01) continue;
+        const q = 1 - dd / R, m = q * q * S * f / dd;
+        P.vx[i] += dx * m; P.vy[i] += dy * m;
+        if (!P.on[i]) { P.on[i] = 1; P.list.push(i); }
+      }
+    }
+    const L = P.list;
+    if (!L.length) return false;
+    const damp = Math.pow(0.84, f), k = 0.05 * f;
+    let w = 0;
+    for (let j = 0; j < L.length; j++) {
+      const i = L[j];
+      let vx = (P.vx[i] - P.ox[i] * k) * damp, vy = (P.vy[i] - P.oy[i] * k) * damp;
+      const ox = P.ox[i] + vx * f, oy = P.oy[i] + vy * f;
+      if (Math.abs(ox) < 0.05 && Math.abs(oy) < 0.05 && Math.abs(vx) < 0.02 && Math.abs(vy) < 0.02) {
+        P.ox[i] = 0; P.oy[i] = 0; P.vx[i] = 0; P.vy[i] = 0; P.on[i] = 0;
+      } else { P.ox[i] = ox; P.oy[i] = oy; P.vx[i] = vx; P.vy[i] = vy; L[w++] = i; }
+    }
+    L.length = w;
+    return true;
+  }
+  shock() {
+    const g = this._pg, rp = this.rep, s = this.state;
+    if (!g || !rp || this._still) return;
+    const P = this.pfFor(g);
+    const R = s.repelRadius || 90, Rs = R * 2.2, S = (0.4 + Math.min(1, (s.repelForce || 0) / 22) * 1.2) * (R / 80);
+    const cw = g.cellW, chh = g.cellH, pad = g.padX || 0, px = rp.tx, py = rp.ty;
+    const x0 = Math.max(0, Math.floor((px - Rs) / cw)), x1 = Math.min(g.cols - 1, Math.ceil((px + Rs) / cw));
+    const y0 = Math.max(0, Math.floor((py - Rs) / chh)), y1 = Math.min(g.rows - 1, Math.ceil((py + Rs) / chh));
+    for (let y = y0; y <= y1; y++) for (let x = x0; x <= x1; x++) {
+      const i = y * g.cols + x;
+      if (g.chars[i] === " ") continue;
+      const dx = x * cw + pad + cw * 0.5 + P.ox[i] - px, dy = y * chh + chh * 0.5 + P.oy[i] - py, dd = Math.sqrt(dx * dx + dy * dy);
+      if (dd > Rs || dd < 0.01) continue;
+      const m = (1 - dd / Rs) * 30 * S / dd;
+      P.vx[i] += dx * m; P.vy[i] += dy * m;
+      if (!P.on[i]) { P.on[i] = 1; P.list.push(i); }
+    }
+    this._repelDirty = true;
+  }
+
+  schedule() {
+    clearTimeout(this._t);
+    this._t = setTimeout(() => this.draw(), 8);
+  }
+
+  loadFile(f, forcedName, seekTo, skipStore, directUrl) {
+    if (!f) return;
+    const name = forcedName || f.name || "clip";
+    this._srcBlob = directUrl ? null : f; this._srcName = name;
+    const url = directUrl || URL.createObjectURL(f);
+    const token = (this._loadToken = (this._loadToken || 0) + 1);
+    let settled = false;
+    const fail = (why) => {
+      if (settled || token !== this._loadToken) return;
+      settled = true;
+      URL.revokeObjectURL(url);
+      this.video = null; this.image = null;
+      this.setState({
+        srcType: null, fileName: "", duration: 0, playing: false, status: "",
+        saveMsg: "couldn't " + why + " " + name + " — re-drop it"
+      }, () => this.schedule());
+    };
+    const ok = () => {
+      if (token !== this._loadToken) return false;
+      settled = true;
+      clearTimeout(timer);
+      return true;
+    };
+    const timer = setTimeout(() => fail("decode"), 12000);
+    if (!skipStore) {
+      this.idbPut("current", { blob: f, name: name })
+        .then(() => { this._mediaStored = true; })
+        .catch(() => {
+          this._mediaStored = false;
+          this.setState({ saveMsg: "settings saved — clip too large to store, re-drop it next time" });
+        });
+    }
+    if (/^video\//.test(f.type)) {
+      const pv = directUrl && window.__asciiVids && window.__asciiVids[url];
+      if (pv) delete window.__asciiVids[url];
+      const v = pv || document.createElement("video");
+      if (!pv) { v.preload = "auto"; v.src = url; }
+      v.muted = true; v.loop = this.state.loopMode === "loop"; v.playsInline = true;
+      v.onerror = () => fail("decode");
+      v.onloadeddata = () => {
+        if (!ok()) return;
+        this.video = v; this.image = null;
+        if (seekTo) { try { v.currentTime = Math.min(seekTo, v.duration - 0.05); } catch (e) {} }
+        this.setState({
+          srcType: "video", fileName: name, duration: v.duration,
+          time: v.currentTime, playing: !seekTo, status: ""
+        }, () => {
+          if (!seekTo) v.play().catch(() => {});
+          this.draw();
+          this.saveSession();
+          // A restore seeks before the first frame is decoded, so the initial
+          // draw can sample an empty video. Repaint once the frame lands.
+          const repaint = () => { if (this.video === v) this.draw(); };
+          v.addEventListener("seeked", repaint, { once: true });
+          if (v.requestVideoFrameCallback) v.requestVideoFrameCallback(repaint);
+          setTimeout(repaint, 120); setTimeout(repaint, 500);
+        });
+      };
+      if (pv && v.readyState >= 2) v.onloadeddata();
+    } else {
+      const im = new Image();
+      im.onerror = () => fail("read");
+      im.onload = () => {
+        if (!ok()) return;
+        this.image = im;
+        if (this.video) { this.video.pause(); this.video = null; }
+        this.setState({ srcType: "image", fileName: name, duration: 0, playing: false, status: "" },
+          () => { this.draw(); this.saveSession(); });
+      };
+      im.src = url;
+    }
+  }
+
+  playPause() {
+    if (!this.video) return;
+    if (this.video.paused) { this.video.play().catch(() => {}); this.setState({ playing: true }); }
+    else { this.video.pause(); this.setState({ playing: false }); }
+  }
+  seek(frac) {
+    if (!this.video) return;
+    this.video.currentTime = frac * (this.video.duration || 0);
+    this.setState({ time: this.video.currentTime }, () => this.schedule());
+  }
+
+  rampStr() {
+    const s = this.state;
+    const r = s.ramp === "custom" ? (s.customRamp || RAMPS.standard.v) : RAMPS[s.ramp].v;
+    return r.length > 1 ? r : RAMPS.standard.v;
+  }
+
+  // Normalized (0..1) reveal windows the user can then drag / resize.
+  squareH(nw) {
+    const s = this.state;
+    return s.outW && s.outH ? Math.min(0.95, nw * (s.outW / s.outH)) : nw;
+  }
+  regen(patch) {
+    const s = Object.assign({}, this.state, patch || {});
+    let sd = (s.revealSeed || 1) >>> 0;
+    const rnd = () => ((sd = (sd * 1664525 + 1013904223) >>> 0) / 4294967296);
+    const ar = s.outW && s.outH ? s.outW / s.outH : 1;
+    const out = [];
+    for (let i = 0; i < s.revealCount; i++) {
+      const nw = Math.min(0.9, s.revealSize * (0.7 + rnd() * 0.6));
+      const nh = Math.min(0.9, nw * ar);
+      let placed = null;
+      for (let a = 0; a < 40 && !placed; a++) {
+        const nx = rnd() * (1 - nw), ny = rnd() * (1 - nh);
+        const r = { nx: nx, ny: ny, nw: nw, nh: nh, z: Math.round((rnd() * 2 - 1) * 100) / 100 };
+        const clash = out.some((o) => nx < o.nx + o.nw && nx + nw > o.nx && ny < o.ny + o.nh && ny + nh > o.ny);
+        if (!clash || a > 30) placed = r;
+      }
+      out.push(placed);
+    }
+    this.setState(Object.assign({}, patch, { windows: out, activeWin: -1 }), () => this.schedule());
+  }
+
+  cellWindows(cols, rows) {
+    return this.state.windows.map((w) => {
+      const x = Math.round(w.nx * cols), y = Math.round(w.ny * rows);
+      return {
+        x: Math.max(0, x), y: Math.max(0, y),
+        w: Math.max(1, Math.min(cols - x, Math.round(w.nw * cols))),
+        h: Math.max(1, Math.min(rows - y, Math.round(w.nh * rows))),
+        z: w.z || 0
+      };
+    });
+  }
+
+  // A window's z (-1..1) scales both its parallax shift and its blur, so nearer
+  // planes travel further and farther planes fall out of focus.
+  zDepth(z) {
+    const s = this.state;
+    return {
+      px: s.parallax * (1 + (z || 0) * 1.6),
+      blur: Math.abs(z || 0) * s.defocus,
+      offset: (z || 0) * s.zSpread
+    };
+  }
+
+  measure() {
+    if (!this.out || !this.stage) return;
+    // Layout box, not getBoundingClientRect — the canvas carries a 3D transform.
+    const w = this.out.offsetWidth, hh = this.out.offsetHeight;
+    if (!w) return;
+    let left = 0, top = 0, el = this.out;
+    while (el && el !== this.stage) { left += el.offsetLeft; top += el.offsetTop; el = el.offsetParent; }
+    const next = { left: left, top: top, w: w, h: hh };
+    const p = this.state.rect;
+    if (!p || p.w !== w || p.h !== hh) requestAnimationFrame(() => this.schedule());
+    if (!p || Math.abs(p.left - next.left) > 0.5 || Math.abs(p.top - next.top) > 0.5 ||
+      Math.abs(p.w - next.w) > 0.5 || Math.abs(p.h - next.h) > 0.5) this.setState({ rect: next });
+  }
+
+  beginPan(e) {
+    e.preventDefault();
+    const ox = e.clientX, oy = e.clientY, sx = this.state.panX || 0, sy = this.state.panY || 0;
+    const r = this.stage.getBoundingClientRect();
+    const lx = r.width / 2, ly = r.height / 2;
+    let moved = false;
+    const move = (ev) => {
+      const dx = ev.clientX - ox, dy = ev.clientY - oy;
+      if (!moved && Math.abs(dx) + Math.abs(dy) < 3) return;
+      if (!moved) { moved = true; this.setState({ panning: true }); }
+      this.setState({
+        panX: Math.round(Math.max(-lx, Math.min(lx, sx + dx))),
+        panY: Math.round(Math.max(-ly, Math.min(ly, sy + dy)))
+      }, () => this.schedule());
+    };
+    const up = () => {
+      window.removeEventListener("pointermove", move);
+      window.removeEventListener("pointerup", up);
+      if (moved) { this.setState({ panning: false }); this.saveSession(); }
+    };
+    window.addEventListener("pointermove", move);
+    window.addEventListener("pointerup", up);
+  }
+
+  beginDrag(i, mode, e) {
+    this._dragIdx = i;
+    e.preventDefault();
+    e.stopPropagation();
+    const rect = this.state.rect;
+    if (!rect) return;
+    const start = this.state.windows[i];
+    const ox = e.clientX, oy = e.clientY;
+    this._dragging = true;
+    this.setState({ activeWin: i });
+    const move = (ev) => {
+      const dx = (ev.clientX - ox) / rect.w, dy = (ev.clientY - oy) / rect.h;
+      const wins = this.state.windows.slice();
+      let n;
+      if (mode === "move") {
+        n = {
+          nx: Math.min(1 - start.nw, Math.max(0, start.nx + dx)),
+          ny: Math.min(1 - start.nh, Math.max(0, start.ny + dy)),
+          nw: start.nw, nh: start.nh
+        };
+      } else if (mode === "resize" || mode === "se") {
+        const nw = Math.min(1 - start.nx, Math.max(0.02, start.nw + dx));
+        const nh = ev.shiftKey ? Math.min(1 - start.ny, this.squareH(nw)) : Math.min(1 - start.ny, Math.max(0.02, start.nh + dy));
+        n = Object.assign({}, start, { nx: start.nx, ny: start.ny, nw: nw, nh: nh });
+      } else {
+        let x0 = start.nx, y0 = start.ny, x1 = start.nx + start.nw, y1 = start.ny + start.nh;
+        if (mode.includes("w")) x0 = Math.max(0, Math.min(x1 - 0.02, x0 + dx));
+        if (mode.includes("e")) x1 = Math.min(1, Math.max(x0 + 0.02, x1 + dx));
+        if (mode.includes("n")) y0 = Math.max(0, Math.min(y1 - 0.02, y0 + dy));
+        if (mode.includes("s")) y1 = Math.min(1, Math.max(y0 + 0.02, y1 + dy));
+        n = Object.assign({}, start, { nx: x0, ny: y0, nw: x1 - x0, nh: y1 - y0 });
+      }
+      wins[i] = n;
+      this._pendingWins = wins;
+      if (!this._dragRaf) this._dragRaf = requestAnimationFrame(() => {
+        this._dragRaf = 0;
+        const pw = this._pendingWins; this._pendingWins = null;
+        if (pw) this.setState({ windows: pw }, () => { if (!this.state.playing) this.draw(); });
+      });
+    };
+    const up = () => {
+      window.removeEventListener("pointermove", move);
+      window.removeEventListener("pointerup", up);
+      this._dragging = false;
+      this.forceUpdate();
+      if (!this.embed) this.saveSession();
+    };
+    window.addEventListener("pointermove", move);
+    window.addEventListener("pointerup", up);
+  }
+
+  src() { return this.comp ? this.comp : (this.video || this.image); }
+  paintComp() {
+    const c = this.comp, x = c.getContext("2d");
+    x.globalCompositeOperation = "source-over"; x.fillStyle = "#000"; x.fillRect(0, 0, c.width, c.height);
+    x.globalCompositeOperation = "lighten";
+    this.compClips.forEach((k) => { if (k.v.readyState < 2) return; const X = k.x * c.width, Y = k.y * c.height, W = k.w * c.width, H = k.h * c.height; if (k.flipY || k.flipX) { x.save(); x.translate(X + (k.flipX ? W : 0), Y + (k.flipY ? H : 0)); x.scale(k.flipX ? -1 : 1, k.flipY ? -1 : 1); x.drawImage(k.v, 0, 0, W, H); x.restore(); } else x.drawImage(k.v, X, Y, W, H); });
+    x.globalCompositeOperation = "source-over";
+  }
+  async loadComposite(p, base, startWin) {
+    const vids = await Promise.all(p.composite.map(async (k) => {
+      const href = new URL(k.media, base).href, pv = this.embed && window.__asciiVids && window.__asciiVids[href];
+      if (pv) delete window.__asciiVids[href];
+      const v = pv || document.createElement("video");
+      if (pv) {}
+      else if (this.embed) { v.preload = "auto"; v.src = href; }
+      else { const blob = await (await fetch(new URL(k.media, base))).blob(); v.src = URL.createObjectURL(blob.type ? blob : new Blob([blob], { type: p.mediaType || "video/mp4" })); }
+      v.muted = true; v.loop = true; v.playsInline = true;
+      await new Promise((r) => { if (v.readyState >= 2) return r(); v.onloadeddata = r; v.onerror = r; setTimeout(r, 12000); });
+      return Object.assign({ v }, k);
+    }));
+    const ar = p.compositeAspect || [16, 9], W = p.compositeWidth || (vids.length === 1 ? Math.min(1280, vids[0].v.videoWidth || 1280) : 2048);
+    this.comp = document.createElement("canvas"); this.comp.width = W; this.comp.height = Math.round(W * ar[1] / ar[0]);
+    this.compClips = vids;
+    this.compVideos = vids.map((k) => k.v);
+    const main = vids[vids.length - 1].v;
+    this.video = main; this.image = null;
+    this.paintComp();
+    this.compVideos.forEach((v) => v.play().catch(() => {}));
+    this.setState({ srcType: "video", fileName: "composite", duration: main.duration || 0, time: 0, playing: true, status: "" }, () => { this._wKey = null; this._dKey = null; if (startWin >= 0) this.setState({ activeWin: startWin }); this.schedule(); });
+  }
+  srcSize() {
+    if (this.comp) return [this.comp.width, this.comp.height];
+    const s = this.src();
+    if (!s) return null;
+    const w = s.videoWidth || s.naturalWidth, hh = s.videoHeight || s.naturalHeight;
+    return w && hh ? [w, hh] : null;
+  }
+
+  // Builds the glyph grid: chars + colors. Returns null when there is no source.
+  compute() {
+    const s = this.state, size = this.srcSize();
+    if (!size) return null;
+    const out = this.out;
+    if (!out) return null;
+    const ctx = out.getContext("2d");
+    ctx.font = s.fontWeight + " " + s.fontSize + 'px "' + s.fontFamily + '", monospace';
+    const glyphW = Math.max(1, ctx.measureText("M").width);
+    const ls = Math.max(0, s.letterSpacing || 0);
+    const cellW = glyphW * (1 + ls);
+    const cellH = glyphW * s.aspect;
+    const cols = Math.max(1, Math.round(s.cols / (1 + ls)));
+    const rows = Math.max(1, Math.round(cols * (size[1] / size[0]) * (cellW / cellH)));
+
+    const sc = this.sampler;
+    sc.width = cols; sc.height = rows;
+    const sx = sc.getContext("2d", { willReadFrequently: true });
+    sx.clearRect(0, 0, cols, rows);
+    sx.drawImage(this.src(), 0, 0, cols, rows);
+    let data;
+    try { data = sx.getImageData(0, 0, cols, rows).data; } catch (e) { return null; }
+
+    const n = cols * rows;
+    const lum = new Float32Array(n), alpha = new Float32Array(n);
+    const cf = Math.pow(2, s.contrast * 2), ig = 1 / s.gamma;
+    for (let i = 0; i < n; i++) {
+      const p = i * 4;
+      let l = (0.2126 * data[p] + 0.7152 * data[p + 1] + 0.0722 * data[p + 2]) / 255;
+      alpha[i] = data[p + 3] / 255;
+      l = (l - 0.5) * cf + 0.5 + s.brightness;
+      l = Math.pow(Math.min(1, Math.max(0, l)), ig);
+      lum[i] = s.invert ? 1 - l : l;
+    }
+
+    let mag = null, ang = null;
+    if (s.edges) {
+      mag = new Float32Array(n); ang = new Int8Array(n);
+      const at = (x, y) => lum[Math.min(rows - 1, Math.max(0, y)) * cols + Math.min(cols - 1, Math.max(0, x))];
+      for (let y = 0; y < rows; y++) for (let x = 0; x < cols; x++) {
+        const gx = -at(x - 1, y - 1) - 2 * at(x - 1, y) - at(x - 1, y + 1) + at(x + 1, y - 1) + 2 * at(x + 1, y) + at(x + 1, y + 1);
+        const gy = -at(x - 1, y - 1) - 2 * at(x, y - 1) - at(x + 1, y - 1) + at(x - 1, y + 1) + 2 * at(x, y + 1) + at(x + 1, y + 1);
+        const i = y * cols + x;
+        mag[i] = Math.min(1, Math.hypot(gx, gy) / 4);
+        let a = Math.atan2(gy, gx) * 180 / Math.PI; if (a < 0) a += 180;
+        ang[i] = a < 22.5 || a >= 157.5 ? 0 : a < 67.5 ? 1 : a < 112.5 ? 2 : 3;
+      }
+    }
+
+    const ramp = this.rampStr(), L = ramp.length;
+    const idx = new Int16Array(n);
+    if (s.dither) {
+      const buf = Float32Array.from(lum);
+      for (let y = 0; y < rows; y++) for (let x = 0; x < cols; x++) {
+        const i = y * cols + x;
+        const old = buf[i], q = Math.round(Math.min(1, Math.max(0, old)) * (L - 1));
+        idx[i] = q;
+        const err = old - q / (L - 1);
+        if (x + 1 < cols) buf[i + 1] += err * 7 / 16;
+        if (y + 1 < rows) {
+          if (x > 0) buf[i + cols - 1] += err * 3 / 16;
+          buf[i + cols] += err * 5 / 16;
+          if (x + 1 < cols) buf[i + cols + 1] += err * 1 / 16;
+        }
+      }
+    } else {
+      for (let i = 0; i < n; i++) idx[i] = Math.round(lum[i] * (L - 1));
+    }
+
+    const inkRgb = hexToRgb(s.stops[0]), midRgb = hexToRgb(s.stops[1]), duoRgb = hexToRgb(s.stops[2]);
+    const mix = (a, b, t) => "rgb(" + Math.round(a[0] + (b[0] - a[0]) * t) + "," +
+      Math.round(a[1] + (b[1] - a[1]) * t) + "," + Math.round(a[2] + (b[2] - a[2]) * t) + ")";
+    const chars = new Array(n), colors = new Array(n);
+    for (let i = 0; i < n; i++) {
+      let ch;
+      const isEdge = s.edges && mag[i] >= s.edgeThreshold;
+      if (isEdge) ch = EDGE_CHARS[ang[i]];
+      else if (s.edges && s.edgeOnly) ch = " ";
+      else ch = ramp[idx[i]];
+      if (alpha[i] < 0.12) ch = " ";
+      chars[i] = ch;
+      if (ch === " ") { colors[i] = null; continue; }
+      if (s.colorMode === "source") {
+        const p = i * 4;
+        colors[i] = "rgb(" + data[p] + "," + data[p + 1] + "," + data[p + 2] + ")";
+      } else if (s.colorMode === "duotone") {
+        colors[i] = mix(duoRgb, inkRgb, Math.min(1, Math.max(0, lum[i])));
+      } else if (s.colorMode === "tritone") {
+        const t = Math.min(1, Math.max(0, lum[i]));
+        colors[i] = t < 0.5 ? mix(duoRgb, midRgb, t * 2) : mix(midRgb, inkRgb, (t - 0.5) * 2);
+      } else colors[i] = s.stops[0];
+    }
+    // Cheap saliency field the data points latch onto and follow frame to frame.
+    const sal = new Float32Array(n);
+    for (let y = 0; y < rows; y++) for (let x = 0; x < cols; x++) {
+      const i = y * cols + x;
+      const l = lum[i];
+      const dx = Math.abs(l - lum[y * cols + Math.min(cols - 1, x + 1)]);
+      const dy = Math.abs(l - lum[Math.min(rows - 1, y + 1) * cols + x]);
+      sal[i] = dx + dy + l * 0.25;
+    }
+    const windows = s.revealOn ? this.cellWindows(cols, rows) : [];
+    const floating = s.tiltOn && (s.layerDepth || 0) > 0;
+    if (!floating) for (const w of windows) {
+      for (let y = w.y; y < w.y + w.h; y++) for (let x = w.x; x < w.x + w.w; x++) {
+        const i = y * cols + x;
+        chars[i] = " "; colors[i] = null;
+      }
+    }
+    return { cols, rows, cellW, cellH, padX: (cellW - glyphW) / 2, chars, colors, windows, lum, sal };
+  }
+
+  dashPattern() {
+    const w = Math.max(1, this.state.strokeWidth);
+    const st = this.state.strokeStyle;
+    return st === "dashed" ? [w * 5, w * 4] : st === "dotted" ? [w, w * 2.5] : [];
+  }
+
+  // Deterministic telemetry-style annotation: nodes, leader lines, numeric labels.
+  genData(g, W, H) {
+    const s = this.state;
+    const key = [W, H, s.dataCount, s.dataSeed, s.dataLinks, s.dataScope, s.dataSize,
+      JSON.stringify(s.windows), s.revealOn].join("|");
+    if (this._dKey === key) return this._data;
+    let sd = (s.dataSeed || 1) >>> 0;
+    const rnd = () => ((sd = (sd * 1664525 + 1013904223) >>> 0) / 4294967296);
+    const inWindows = s.dataScope === "windows" && s.revealOn && g.windows && g.windows.length;
+    const nodes = [];
+    for (let i = 0; i < s.dataCount; i++) {
+      let x, y;
+      if (inWindows) {
+        const w = g.windows[Math.floor(rnd() * g.windows.length)];
+        x = (w.x + rnd() * w.w) * g.cellW;
+        y = (w.y + rnd() * w.h) * g.cellH;
+      } else { x = rnd() * W; y = rnd() * H; }
+      const big = rnd() < 0.18;
+      const v = big ? (rnd() * 2400).toFixed(3) : ((rnd() * 320) - 160).toFixed(rnd() < 0.5 ? 4 : 3);
+      const dist = s.dataSize * (3 + rnd() * 7);
+      const a = rnd() * Math.PI * 2;
+      nodes.push({
+        x: x, y: y,
+        lx: Math.max(4, Math.min(W - 4, x + Math.cos(a) * dist)),
+        ly: Math.max(10, Math.min(H - 4, y + Math.sin(a) * dist)),
+        label: v, boxed: rnd() < 0.6, bold: big,
+        gain: 0.6 + rnd() * 1.8, gainSign: rnd() < 0.5 ? -1 : 1, dec: rnd() < 0.5 ? 4 : 3
+      });
+    }
+    const edges = [];
+    for (let i = 0; i < nodes.length; i++) {
+      const d = nodes.map((n, j) => ({ j: j, d: Math.hypot(n.x - nodes[i].x, n.y - nodes[i].y) }))
+        .filter((o) => o.j !== i).sort((a, b) => a.d - b.d);
+      for (let k = 0; k < Math.min(s.dataLinks, d.length); k++) {
+        const pair = [Math.min(i, d[k].j), Math.max(i, d[k].j)];
+        if (!edges.some((e) => e[0] === pair[0] && e[1] === pair[1])) edges.push(pair);
+      }
+    }
+    this._dKey = key;
+    this._data = { nodes: nodes, edges: edges };
+    return this._data;
+  }
+
+  // Each node hunts the most salient cell in its neighbourhood and eases toward
+  // it, so the whole constellation drifts with the footage.
+  trackData(g, W, H, d) {
+    const s = this.state;
+    if (!s.dataTrack || !g.sal) return;
+    const r = Math.max(1, Math.round(s.dataRadius));
+    for (const nd of d.nodes) {
+      let cx = Math.round((nd.x / W) * g.cols), cy = Math.round((nd.y / H) * g.rows);
+      let bestV = -1, bx = cx, by = cy;
+      for (let y = Math.max(0, cy - r); y <= Math.min(g.rows - 1, cy + r); y++) {
+        for (let x = Math.max(0, cx - r); x <= Math.min(g.cols - 1, cx + r); x++) {
+          const v = g.sal[y * g.cols + x] - Math.hypot(x - cx, y - cy) * 0.012;
+          if (v > bestV) { bestV = v; bx = x; by = y; }
+        }
+      }
+      const tx = (bx + 0.5) * g.cellW, ty = (by + 0.5) * g.cellH;
+      const e = s.dataEase;
+      const px = nd.x, py = nd.y;
+      nd.x += (tx - nd.x) * e;
+      nd.y += (ty - nd.y) * e;
+      nd.lx += (nd.x - px) + (nd.ox === undefined ? 0 : 0);
+      nd.ly += (nd.y - py);
+      nd.lx = Math.max(4, Math.min(W - 4, nd.lx));
+      nd.ly = Math.max(10, Math.min(H - 4, nd.ly));
+      if (s.dataLive) {
+        const li = Math.min(g.lum.length - 1, by * g.cols + bx);
+        const v = (g.lum[li] * 1000 - 160) * (nd.gainSign || 1) * (nd.gain || 1);
+        nd.label = nd.bold ? (Math.abs(v) * 2.3).toFixed(3) : v.toFixed(nd.dec || 4);
+      }
+    }
+  }
+
+  paintData(ctx, g, W, H) {
+    const s = this.state, d = this.genData(g, W, H);
+    this.trackData(g, W, H, d);
+    ctx.save();
+    ctx.globalAlpha = s.dataOpacity;
+    ctx.strokeStyle = s.dataColor;
+    ctx.fillStyle = s.dataColor;
+    ctx.lineWidth = 0.8;
+    ctx.beginPath();
+    for (const [a, b] of d.edges) {
+      ctx.moveTo(d.nodes[a].x, d.nodes[a].y);
+      ctx.lineTo(d.nodes[b].x, d.nodes[b].y);
+    }
+    for (const n of d.nodes) { ctx.moveTo(n.x, n.y); ctx.lineTo(n.lx, n.ly); }
+    ctx.stroke();
+    for (const n of d.nodes) {
+      ctx.beginPath();
+      ctx.arc(n.x, n.y, 1.6, 0, Math.PI * 2);
+      ctx.fill();
+    }
+    ctx.textBaseline = "middle";
+    ctx.textAlign = "left";
+    for (const n of d.nodes) {
+      ctx.font = (n.bold ? "700 " : "400 ") + s.dataSize + 'px "' + s.fontFamily + '", monospace';
+      const tw = ctx.measureText(n.label).width;
+      const padX = s.dataSize * 0.5, padY = s.dataSize * 0.45;
+      if (n.boxed && s.dataBoxes) {
+        ctx.lineWidth = 0.8;
+        ctx.strokeRect(n.lx - padX, n.ly - s.dataSize / 2 - padY, tw + padX * 2, s.dataSize + padY * 2);
+      }
+      ctx.fillText(n.label, n.lx, n.ly);
+    }
+    ctx.restore();
+  }
+
+  svgData(g, W, H) {
+    const s = this.state, d = this.genData(g, W, H);
+    let out = '<g opacity="' + s.dataOpacity + '" stroke="' + s.dataColor + '" fill="none" stroke-width="0.8">';
+    for (const [a, b] of d.edges) {
+      out += '<line x1="' + d.nodes[a].x.toFixed(1) + '" y1="' + d.nodes[a].y.toFixed(1) +
+        '" x2="' + d.nodes[b].x.toFixed(1) + '" y2="' + d.nodes[b].y.toFixed(1) + '"/>';
+    }
+    for (const n of d.nodes) {
+      out += '<line x1="' + n.x.toFixed(1) + '" y1="' + n.y.toFixed(1) + '" x2="' + n.lx.toFixed(1) + '" y2="' + n.ly.toFixed(1) + '"/>';
+      out += '<circle cx="' + n.x.toFixed(1) + '" cy="' + n.y.toFixed(1) + '" r="1.6" fill="' + s.dataColor + '" stroke="none"/>';
+      const tw = n.label.length * s.dataSize * 0.6, padX = s.dataSize * 0.5, padY = s.dataSize * 0.45;
+      if (n.boxed && s.dataBoxes) {
+        out += '<rect x="' + (n.lx - padX).toFixed(1) + '" y="' + (n.ly - s.dataSize / 2 - padY).toFixed(1) +
+          '" width="' + (tw + padX * 2).toFixed(1) + '" height="' + (s.dataSize + padY * 2).toFixed(1) + '"/>';
+      }
+      out += '<text x="' + n.lx.toFixed(1) + '" y="' + n.ly.toFixed(1) + '" fill="' + s.dataColor +
+        '" stroke="none" font-family="' + s.fontFamily + ', monospace" font-size="' + s.dataSize +
+        '" font-weight="' + (n.bold ? 700 : 400) + '" dominant-baseline="middle">' + n.label + "</text>";
+    }
+    return out + "</g>";
+  }
+
+  // Flare placement: latch onto the brightest cells, sit inside reveal windows,
+  // or scatter freely. Stored normalized so they survive resolution changes.
+  regenFlares(patch) {
+    const s = Object.assign({}, this.state, patch || {});
+    let sd = (s.flareSeed || 1) >>> 0;
+    const rnd = () => ((sd = (sd * 1664525 + 1013904223) >>> 0) / 4294967296);
+    const g = this.grid;
+    const out = [];
+    let pool = null;
+    if (s.flarePlace === "bright" && g && g.lum) {
+      pool = [];
+      for (let i = 0; i < g.lum.length; i++) pool.push([g.lum[i], i]);
+      pool.sort((a, b) => b[0] - a[0]);
+      pool = pool.slice(0, Math.max(24, Math.round(pool.length * 0.04)));
+    }
+    for (let i = 0; i < s.flareCount; i++) {
+      let nx, ny;
+      if (pool && pool.length) {
+        const p = pool[Math.floor(rnd() * pool.length)][1];
+        nx = ((p % g.cols) + 0.5) / g.cols;
+        ny = (Math.floor(p / g.cols) + 0.5) / g.rows;
+      } else if (s.flarePlace === "windows" && s.windows.length) {
+        const w = s.windows[Math.floor(rnd() * s.windows.length)];
+        nx = w.nx + rnd() * w.nw;
+        ny = w.ny + rnd() * w.nh;
+      } else { nx = 0.1 + rnd() * 0.8; ny = 0.1 + rnd() * 0.8; }
+      out.push({ nx: nx, ny: ny, s: 0.55 + rnd() * 0.9, rot: Math.round(rnd() * 20 - 10), hue: rnd() });
+    }
+    this.setState(Object.assign({}, patch, { flares: out, activeFlare: -1 }), () => this.schedule());
+  }
+
+  beginFlareDrag(i, e) {
+    e.preventDefault();
+    e.stopPropagation();
+    const rect = this.state.rect;
+    if (!rect) return;
+    const start = this.state.flares[i];
+    const ox = e.clientX, oy = e.clientY;
+    this.setState({ activeFlare: i, activeWin: -1 });
+    const move = (ev) => {
+      const fl = this.state.flares.slice();
+      fl[i] = Object.assign({}, start, {
+        nx: Math.min(1, Math.max(0, start.nx + (ev.clientX - ox) / rect.w)),
+        ny: Math.min(1, Math.max(0, start.ny + (ev.clientY - oy) / rect.h))
+      });
+      this.setState({ flares: fl }, () => this.schedule());
+    };
+    const up = () => {
+      window.removeEventListener("pointermove", move);
+      window.removeEventListener("pointerup", up);
+      this.saveSession();
+    };
+    window.addEventListener("pointermove", move);
+    window.addEventListener("pointerup", up);
+  }
+
+  // Anamorphic star filter: needle-thin spikes that fade to nothing at the tips,
+  // a tight incandescent core, and a per-flare chromatic tint.
+  flareTint(f) {
+    const s = this.state;
+    const a = hexToRgb(s.flareColor), b = hexToRgb(s.flareColorB);
+    const t = Math.min(1, Math.max(0, (f && f.hue !== undefined ? f.hue : 0.5) * s.flareHue * 2 - (s.flareHue - 0.5)));
+    return [0, 1, 2].map((i) => Math.round(a[i] + (b[i] - a[i]) * Math.min(1, Math.max(0, t))));
+  }
+
+  paintFlare(ctx, cx, cy, size, rot, f) {
+    const s = this.state;
+    const half = size / 2;
+    const core = Math.max(0.4, size * 0.02 * s.flareCore);
+    const long = half * s.flareSpike, short = long * 0.22;
+    const angles = s.flarePoints === 6 ? [0, 60, 120, 180, 240, 300] : [0, 90, 180, 270];
+    const rgb = this.flareTint(f).join(",");
+    ctx.save();
+    ctx.translate(cx, cy);
+    ctx.rotate((rot * Math.PI) / 180);
+    ctx.globalCompositeOperation = "screen";
+    ctx.globalAlpha = s.flareOpacity;
+
+    if (s.flareGlow) {
+      const gr = ctx.createRadialGradient(0, 0, 0, 0, 0, half * 0.9);
+      gr.addColorStop(0, "rgba(255,255,255,0.85)");
+      gr.addColorStop(0.18, "rgba(" + rgb + ",0.42)");
+      gr.addColorStop(0.55, "rgba(" + rgb + ",0.1)");
+      gr.addColorStop(1, "rgba(" + rgb + ",0)");
+      ctx.fillStyle = gr;
+      ctx.beginPath();
+      ctx.arc(0, 0, half * 0.9, 0, Math.PI * 2);
+      ctx.fill();
+    }
+
+    // Each spike: a slim triangle whose fill fades along its length.
+    const spike = (deg, len, w, alpha) => {
+      const r = (deg * Math.PI) / 180, p = r + Math.PI / 2;
+      const tipX = Math.cos(r) * len, tipY = Math.sin(r) * len;
+      const gr = ctx.createLinearGradient(0, 0, tipX, tipY);
+      gr.addColorStop(0, "rgba(255,255,255," + alpha + ")");
+      gr.addColorStop(0.06, "rgba(" + rgb + "," + (alpha * 0.95) + ")");
+      gr.addColorStop(0.4, "rgba(" + rgb + "," + (alpha * 0.35) + ")");
+      gr.addColorStop(1, "rgba(" + rgb + ",0)");
+      ctx.fillStyle = gr;
+      ctx.beginPath();
+      ctx.moveTo(Math.cos(p) * -w, Math.sin(p) * -w);
+      ctx.lineTo(tipX, tipY);
+      ctx.lineTo(Math.cos(p) * w, Math.sin(p) * w);
+      ctx.closePath();
+      ctx.fill();
+    };
+
+    const w = Math.max(0.35, half * 0.06 * s.flareThin);
+    if (s.flarePoints === 4) for (const a of [45, 135, 225, 315]) spike(a, short, w * 0.55, 0.45);
+    for (const a of angles) spike(a, long, w, 1);
+
+    // Incandescent core.
+    const cg = ctx.createRadialGradient(0, 0, 0, 0, 0, core * 4);
+    cg.addColorStop(0, "rgba(255,255,255,1)");
+    cg.addColorStop(0.35, "rgba(255,255,255,0.7)");
+    cg.addColorStop(1, "rgba(" + rgb + ",0)");
+    ctx.fillStyle = cg;
+    ctx.beginPath();
+    ctx.arc(0, 0, core * 4, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.restore();
+  }
+
+  svgFlares(W, H) {
+    const s = this.state;
+    if (!s.flareOn || !s.flares.length) return "";
+    const angles = s.flarePoints === 6 ? [0, 60, 120, 180, 240, 300] : [0, 90, 180, 270];
+    let defs = "", groups = "";
+    s.flares.forEach((f, fi) => {
+      const rgb = this.flareTint(f).join(",");
+      const size = s.flareSize * (f.s || 1);
+      const half = size / 2;
+      const core = Math.max(0.4, size * 0.02 * s.flareCore);
+      const long = half * s.flareSpike, short = long * 0.22;
+      const w = Math.max(0.35, half * 0.06 * s.flareThin);
+      const hid = "fh" + fi, cid = "fc" + fi;
+      defs += '<radialGradient id="' + hid + '"><stop offset="0%" stop-color="#ffffff" stop-opacity="0.85"/>' +
+        '<stop offset="18%" stop-color="rgb(' + rgb + ')" stop-opacity="0.42"/>' +
+        '<stop offset="55%" stop-color="rgb(' + rgb + ')" stop-opacity="0.1"/>' +
+        '<stop offset="100%" stop-color="rgb(' + rgb + ')" stop-opacity="0"/></radialGradient>';
+      defs += '<radialGradient id="' + cid + '"><stop offset="0%" stop-color="#ffffff" stop-opacity="1"/>' +
+        '<stop offset="35%" stop-color="#ffffff" stop-opacity="0.7"/>' +
+        '<stop offset="100%" stop-color="rgb(' + rgb + ')" stop-opacity="0"/></radialGradient>';
+      let g = '<g transform="translate(' + (f.nx * W).toFixed(1) + "," + (f.ny * H).toFixed(1) +
+        ") rotate(" + (f.rot || 0) + ')">';
+      if (s.flareGlow) g += '<circle r="' + (half * 0.9).toFixed(1) + '" fill="url(#' + hid + ')"/>';
+      const spike = (deg, len, ww, alpha, idx) => {
+        const r = (deg * Math.PI) / 180, p = r + Math.PI / 2;
+        const tx = Math.cos(r) * len, ty = Math.sin(r) * len;
+        const sid = "fs" + fi + "_" + idx;
+        defs += '<linearGradient id="' + sid + '" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="' +
+          tx.toFixed(2) + '" y2="' + ty.toFixed(2) + '">' +
+          '<stop offset="0%" stop-color="#ffffff" stop-opacity="' + alpha + '"/>' +
+          '<stop offset="6%" stop-color="rgb(' + rgb + ')" stop-opacity="' + (alpha * 0.95) + '"/>' +
+          '<stop offset="40%" stop-color="rgb(' + rgb + ')" stop-opacity="' + (alpha * 0.35) + '"/>' +
+          '<stop offset="100%" stop-color="rgb(' + rgb + ')" stop-opacity="0"/></linearGradient>';
+        return '<polygon points="' + [[Math.cos(p) * -ww, Math.sin(p) * -ww], [tx, ty],
+          [Math.cos(p) * ww, Math.sin(p) * ww]].map((q) => q[0].toFixed(2) + "," + q[1].toFixed(2)).join(" ") +
+          '" fill="url(#' + sid + ')"/>';
+      };
+      let k = 0;
+      if (s.flarePoints === 4) for (const a of [45, 135, 225, 315]) g += spike(a, short, w * 0.55, 0.45, k++);
+      for (const a of angles) g += spike(a, long, w, 1, k++);
+      g += '<circle r="' + (core * 4).toFixed(2) + '" fill="url(#' + cid + ')"/></g>';
+      groups += g;
+    });
+    return "<defs>" + defs + '</defs><g style="mix-blend-mode:screen" opacity="' + s.flareOpacity + '">' +
+      groups + "</g>";
+  }
+
+  paintFlares(ctx, W, H) {
+    const s = this.state;
+    if (!s.flareOn) return;
+    for (const f of s.flares) {
+      this.paintFlare(ctx, f.nx * W, f.ny * H, s.flareSize * (f.s || 1), f.rot || 0, f);
+    }
+  }
+
+  paint(ctx, g, scale) {
+    const s = this.state;
+    const k = scale || 1;
+    ctx.save();
+    ctx.scale(k, k);
+    const W = g.cols * g.cellW, H = g.rows * g.cellH;
+    if (s.bgMode === "solid") { ctx.fillStyle = s.bgColor; ctx.fillRect(0, 0, W, H); }
+    if (s.glowOn && s.glowAmount > 0) {
+      ctx.shadowBlur = s.glowAmount;
+      ctx.shadowColor = s.glowUseInk ? s.stops[0] : s.glowColor;
+    } else { ctx.shadowBlur = 0; ctx.shadowColor = "transparent"; }
+    ctx.font = s.fontWeight + " " + s.fontSize + 'px "' + s.fontFamily + '", monospace';
+    ctx.textBaseline = "alphabetic";
+    ctx.textAlign = "left";
+    const baseY = g.cellH * 0.5 + s.fontSize * 0.36;
+    let last = null;
+    const L = s.tiltOn ? (s.layerDepth || 0) : 0;
+    const NS = s.tiltOn && Math.round(s.tiltSplit || 1) > 1 && this.colP ? this.colP.length : 1;
+    const P = (i) => NS > 1 ? this.colP[i] : { x: s.px, y: s.py };
+    const colOfW = (w) => NS > 1 ? Math.max(0, Math.min(NS - 1, Math.floor(((w.x + w.w / 2) / g.cols) * NS))) : 0;
+    const gOff = (i) => { const p = P(i); return [p.x * s.parallax * 0.5 * L, p.y * s.parallax * 0.5 * L]; };
+    const [gx, gy] = gOff(0);
+    const fOff = (z, i) => { const p = P(i || 0); const m = s.parallax * (0.4 + (z || 0) * 1.2) * L; return [-p.x * m, -p.y * m]; };
+    const W0 = g.cols * g.cellW;
+    for (let ci = 0; ci < NS; ci++) {
+    const xa = NS > 1 ? Math.floor((ci * g.cols) / NS) : 0, xb = NS > 1 ? Math.floor(((ci + 1) * g.cols) / NS) : g.cols;
+    if (L) { const o = gOff(ci); ctx.save(); if (NS > 1) { ctx.beginPath(); ctx.rect(xa * g.cellW, 0, (xb - xa) * g.cellW, g.rows * g.cellH); ctx.clip(); } ctx.translate(o[0], o[1]); }
+    if (k === 1) this._pg = g;
+    const PF = k === 1 && this.pf && this.pf.n === g.cols * g.rows && this.pf.list.length ? this.pf : null;
+    const capY = s.fontSize * 0.36;
+    for (let y = 0; y < g.rows; y++) for (let x = xa; x < xb; x++) {
+      const i = y * g.cols + x, ch = g.chars[i];
+      if (ch === " ") continue;
+      if (g.colors[i] !== last) { ctx.fillStyle = g.colors[i]; last = g.colors[i]; }
+      let px = x * g.cellW + (g.padX || 0), py = y * g.cellH + baseY;
+      if (PF && PF.on[i]) {
+        px += PF.ox[i]; py += PF.oy[i];
+        const vx = PF.vx[i], vy = PF.vy[i], sp = Math.sqrt(vx * vx + vy * vy);
+        if (sp > 0.3) {
+          // long along its path, a little thin across it
+          const st = Math.min(2.6, 1 + sp * 0.12), rot = Math.atan2(vy, vx), cx = px + g.cellW * 0.5, cy = py - capY;
+          ctx.save(); ctx.translate(cx, cy); ctx.rotate(rot); ctx.scale(st, 1 / Math.sqrt(st)); ctx.rotate(-rot);
+          ctx.fillText(ch, px - cx, py - cy); ctx.restore();
+          continue;
+        }
+      }
+      ctx.fillText(ch, px, py);
+    }
+    if (L) ctx.restore();
+    }
+    ctx.shadowBlur = 0; ctx.shadowColor = "transparent";
+    const size = this.srcSize();
+    // Recompute from live state so a cached grid never paints stale window coords.
+    const liveWins = g.windows && g.windows.length ? this.cellWindows(g.cols, g.rows) : [];
+    if (liveWins.length && size) {
+      const el = this.src();
+      // Reveal crops shift against the glyph plane for parallax depth.
+      const sorted = liveWins.slice().sort((a, b) => (a.z || 0) - (b.z || 0));
+      for (const w of sorted) {
+        const d = this.zDepth(w.z);
+        const wp = P(colOfW(w));
+        const ox = s.tiltOn ? -wp.x * d.px : 0;
+        const oy = s.tiltOn ? -wp.y * d.px : 0;
+        const dx = Math.round(w.x * g.cellW), dy = Math.round(w.y * g.cellH);
+        const dw = Math.round((w.x + w.w) * g.cellW) - dx, dh = Math.round((w.y + w.h) * g.cellH) - dy;
+        const m = Math.abs(d.px) + d.blur * 3 + 2;
+        const sxr = ((dx - m - ox) / (g.cols * g.cellW)) * size[0];
+        const syr = ((dy - m - oy) / (g.rows * g.cellH)) * size[1];
+        const swr = ((dw + m * 2) / (g.cols * g.cellW)) * size[0];
+        const shr = ((dh + m * 2) / (g.rows * g.cellH)) * size[1];
+        ctx.save();
+        if (L) {
+          const fo = fOff(w.z, colOfW(w));
+          const go = gOff(colOfW(w));
+          ctx.translate(fo[0], fo[1]);
+          ctx.save();
+          ctx.shadowColor = "rgba(0,0,0,0.6)";
+          ctx.shadowBlur = 28 * L;
+          ctx.shadowOffsetX = (fo[0] - go[0]) * 0.6;
+          ctx.shadowOffsetY = (fo[1] - go[1]) * 0.6 + 10 * L;
+          ctx.fillStyle = "#000";
+          ctx.fillRect(dx, dy, dw, dh);
+          ctx.restore();
+        }
+        ctx.beginPath();
+        ctx.rect(dx, dy, dw, dh);
+        ctx.clip();
+        if (d.blur > 0.2) ctx.filter = "blur(" + d.blur.toFixed(2) + "px)";
+        ctx.drawImage(el, sxr, syr, swr, shr, dx - m, dy - m, dw + m * 2, dh + m * 2);
+        ctx.restore();
+      }
+      // Where panels overlap, invert the overlapping area.
+      const px = liveWins.map((w) => { const o = L ? fOff(w.z, colOfW(w)) : [0, 0]; const x0 = Math.round(w.x * g.cellW + o[0]), y0 = Math.round(w.y * g.cellH + o[1]); return [x0, y0, Math.round((w.x + w.w) * g.cellW + o[0]), Math.round((w.y + w.h) * g.cellH + o[1])]; });
+      ctx.save();
+      ctx.globalCompositeOperation = "difference";
+      ctx.fillStyle = "#FFFFFF";
+      for (let i = 0; i < px.length; i++) for (let j = i + 1; j < px.length; j++) {
+        const A = px[i], B = px[j];
+        const ix0 = Math.max(A[0], B[0]), iy0 = Math.max(A[1], B[1]), ix1 = Math.min(A[2], B[2]), iy1 = Math.min(A[3], B[3]);
+        if (ix1 > ix0 && iy1 > iy0) ctx.fillRect(ix0, iy0, ix1 - ix0, iy1 - iy0);
+      }
+      ctx.restore();
+      if (s.strokeOn && s.strokeWidth > 0) {
+        ctx.strokeStyle = s.strokeColor;
+        ctx.lineWidth = s.strokeWidth;
+        ctx.setLineDash(this.dashPattern());
+        const odd = Math.round(s.strokeWidth) % 2 === 1 ? 0.5 : 0;
+        for (const w of liveWins) {
+          const o = L ? fOff(w.z, colOfW(w)) : [0, 0];
+          const x0 = Math.round(w.x * g.cellW + o[0]), y0 = Math.round(w.y * g.cellH + o[1]);
+          const x1 = Math.round((w.x + w.w) * g.cellW + o[0]), y1 = Math.round((w.y + w.h) * g.cellH + o[1]);
+          const i = s.strokeInset + odd;
+          ctx.strokeRect(x0 + i, y0 + i, x1 - x0 - i * 2, y1 - y0 - i * 2);
+        }
+        ctx.setLineDash([]);
+      }
+    }
+    if (s.dataOn) this.paintData(ctx, g, W, H);
+    this.paintFlares(ctx, W, H);
+    ctx.restore();
+  }
+
+  draw() {
+    if (this.comp) this.paintComp();
+    const g = this.compute();
+    if (!g || !this.out) return;
+    this.grid = g;
+    const w = Math.round(g.cols * g.cellW), hh = Math.round(g.rows * g.cellH);
+    if (this.out.width !== w || this.out.height !== hh) { this.out.width = w; this.out.height = hh; }
+    const ctx = this.out.getContext("2d");
+    ctx.clearRect(0, 0, w, hh);
+    this.paint(ctx, g, 1);
+    const sized = this.state.outW !== w || this.state.outH !== hh;
+    if (sized) this.setState({ outW: w, outH: hh, cells: g.cols * g.rows });
+    const t = performance.now();
+    if (sized || !this._lastMeasure || t - this._lastMeasure > 400) { this._lastMeasure = t; this.measure(); }
+  }
+
+  baseName(ext) {
+    const n = (this.state.fileName || "ascii").replace(/\.[^.]+$/, "");
+    return n + "-ascii." + ext;
+  }
+  status(m) { this.setState({ status: m }); }
+
+  save(blob, name) {
+    if (this._dlUrl) { try { URL.revokeObjectURL(this._dlUrl); } catch (e) {} }
+    this._dlUrl = download(blob, name);
+    this.setState({ dlUrl: this._dlUrl, dlName: name });
+  }
+
+  exportPng() {
+    if (!this.grid) return this.status("no source");
+    const g = this.grid, k = 2;
+    const c = document.createElement("canvas");
+    c.width = Math.round(g.cols * g.cellW * k); c.height = Math.round(g.rows * g.cellH * k);
+    this.paint(c.getContext("2d"), g, k);
+    c.toBlob((b) => { this.save(b, this.baseName("png")); this.status("PNG @2x saved"); }, "image/png");
+  }
+
+  exportSvg() {
+    if (!this.grid) return this.status("no source");
+    const s = this.state, g = this.grid;
+    const w = (g.cols * g.cellW).toFixed(1), hh = (g.rows * g.cellH).toFixed(1);
+    const esc = (t) => t.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+    let body = "";
+    if (s.bgMode === "solid") body += '<rect width="100%" height="100%" fill="' + s.bgColor + '"/>';
+    const baseY = g.cellH * 0.5 + s.fontSize * 0.36;
+    for (let y = 0; y < g.rows; y++) {
+      let runs = [], cur = null;
+      for (let x = 0; x < g.cols; x++) {
+        const i = y * g.cols + x, ch = g.chars[i];
+        if (ch === " ") { cur = null; continue; }
+        if (!cur || cur.color !== g.colors[i] || cur.end !== x) { cur = { x: x, end: x, color: g.colors[i], t: "" }; runs.push(cur); }
+        cur.t += ch; cur.end = x + 1;
+      }
+      if (!runs.length) continue;
+      body += '<text y="' + (y * g.cellH + baseY).toFixed(1) + '">';
+      for (const r of runs) body += '<tspan x="' + (r.x * g.cellW).toFixed(1) + '" fill="' + r.color + '" xml:space="preserve">' + esc(r.t) + "</tspan>";
+      body += "</text>";
+    }
+    const size = this.srcSize();
+    // Recompute from live state so a cached grid never paints stale window coords.
+    const liveWins = g.windows && g.windows.length ? this.cellWindows(g.cols, g.rows) : [];
+    if (liveWins.length && size) {
+      const el = this.src();
+      for (const w of g.windows) {
+        const c = document.createElement("canvas");
+        c.width = Math.round(w.w * g.cellW); c.height = Math.round(w.h * g.cellH);
+        c.getContext("2d").drawImage(el,
+          (w.x / g.cols) * size[0], (w.y / g.rows) * size[1],
+          (w.w / g.cols) * size[0], (w.h / g.rows) * size[1], 0, 0, c.width, c.height);
+        body += '<image x="' + (w.x * g.cellW).toFixed(1) + '" y="' + (w.y * g.cellH).toFixed(1) +
+          '" width="' + (w.w * g.cellW).toFixed(1) + '" height="' + (w.h * g.cellH).toFixed(1) +
+          '" href="' + c.toDataURL("image/png") + '"/>';
+      }
+      if (s.strokeOn && s.strokeWidth > 0) {
+        const dash = this.dashPattern();
+        const da = dash.length ? ' stroke-dasharray="' + dash.join(" ") + '"' : "";
+        for (const w of g.windows) {
+          const o = s.strokeInset + s.strokeWidth / 2;
+          body += '<rect x="' + (w.x * g.cellW + o).toFixed(1) + '" y="' + (w.y * g.cellH + o).toFixed(1) +
+            '" width="' + (w.w * g.cellW - o * 2).toFixed(1) + '" height="' + (w.h * g.cellH - o * 2).toFixed(1) +
+            '" fill="none" stroke="' + s.strokeColor + '" stroke-width="' + s.strokeWidth + '"' + da + "/>";
+        }
+      }
+    }
+    if (s.dataOn) body += this.svgData(g, parseFloat(w), parseFloat(hh));
+    body += this.svgFlares(parseFloat(w), parseFloat(hh));
+    const svg = '<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="' + w + '" height="' + hh + '" viewBox="0 0 ' + w + " " + hh + '">' +
+      '<g font-family="' + s.fontFamily + ', monospace" font-size="' + s.fontSize + '" font-weight="' + s.fontWeight + '" letter-spacing="0">' + body + "</g></svg>";
+    this.save(new Blob([svg], { type: "image/svg+xml" }), this.baseName("svg"));
+    this.status("SVG saved");
+  }
+
+  // Self-contained GIF89a encoder (no CDN, no workers) ------------------------
+  gifPalette(frames, reserve) {
+    const buckets = new Map();
+    for (const f of frames) {
+      const d = f.data;
+      for (let p = 0; p < d.length; p += 4) {
+        if (d[p + 3] < 128) continue;
+        const k = ((d[p] >> 3) << 10) | ((d[p + 1] >> 3) << 5) | (d[p + 2] >> 3);
+        let b = buckets.get(k);
+        if (!b) { b = [0, 0, 0, 0]; buckets.set(k, b); }
+        b[0] += d[p]; b[1] += d[p + 1]; b[2] += d[p + 2]; b[3]++;
+      }
+    }
+    // Median cut over the sampled colour buckets — a popularity palette would
+    // drop whole regions of the gamut on gradient-heavy frames.
+    const list = [];
+    for (const [k, b] of buckets) {
+      list.push({ k: k, n: b[3], r: b[0] / b[3], g: b[1] / b[3], b: b[2] / b[3] });
+    }
+    const cap = 256 - reserve;
+    const stats = (box) => {
+      if (box.st) return box.st;
+      let n = 0, lo = [255, 255, 255], hi = [0, 0, 0];
+      for (const c of box) {
+        n += c.n;
+        const v = [c.r, c.g, c.b];
+        for (let i = 0; i < 3; i++) { if (v[i] < lo[i]) lo[i] = v[i]; if (v[i] > hi[i]) hi[i] = v[i]; }
+      }
+      const sp = [hi[0] - lo[0], hi[1] - lo[1], hi[2] - lo[2]];
+      box.st = { n: n, ch: sp.indexOf(Math.max(sp[0], sp[1], sp[2])), sp: Math.max(sp[0], sp[1], sp[2]) };
+      return box.st;
+    };
+    let boxes = list.length ? [list] : [];
+    while (boxes.length && boxes.length < cap) {
+      let bi = -1, best = 0;
+      for (let i = 0; i < boxes.length; i++) {
+        const st = stats(boxes[i]);
+        if (boxes[i].length < 2 || st.sp <= 0) continue;
+        const score = st.n * st.sp;
+        if (score > best) { best = score; bi = i; }
+      }
+      if (bi < 0) break;
+      const box = boxes[bi], ch = ["r", "g", "b"][stats(box).ch];
+      box.sort((a, b) => a[ch] - b[ch]);
+      const half = stats(box).n / 2;
+      let acc = 0, cut = 0;
+      for (; cut < box.length - 1; cut++) { acc += box[cut].n; if (acc >= half) { cut++; break; } }
+      boxes.splice(bi, 1, box.slice(0, cut), box.slice(cut));
+    }
+    const pal = [], keyIndex = new Map();
+    if (reserve) pal.push([255, 0, 255]);
+    for (const box of boxes) {
+      let n = 0, r = 0, g = 0, b = 0;
+      for (const c of box) { n += c.n; r += c.r * c.n; g += c.g * c.n; b += c.b * c.n; }
+      const idx = pal.length;
+      pal.push([Math.round(r / n), Math.round(g / n), Math.round(b / n)]);
+      for (const c of box) keyIndex.set(c.k, idx);
+    }
+    while (pal.length < 2) pal.push([0, 0, 0]);
+    return { pal: pal, keyIndex: keyIndex };
+  }
+
+  gifIndex(frame, pal, keyIndex, reserve, prev) {
+    const d = frame.data, out = new Uint8Array(d.length >> 2);
+    const pd = prev ? prev.data : null;
+    const start = reserve ? 1 : 0;
+    for (let p = 0, i = 0; p < d.length; p += 4, i++) {
+      if (reserve && d[p + 3] < 128) { out[i] = 0; continue; }
+      if (pd && d[p + 3] === pd[p + 3] && Math.abs(d[p] - pd[p]) < 9
+        && Math.abs(d[p + 1] - pd[p + 1]) < 9 && Math.abs(d[p + 2] - pd[p + 2]) < 9) {
+        out[i] = 0; continue;
+      }
+      const k = ((d[p] >> 3) << 10) | ((d[p + 1] >> 3) << 5) | (d[p + 2] >> 3);
+      let idx = keyIndex.get(k);
+      if (idx === undefined) {
+        let best = start, bd = Infinity;
+        for (let c = start; c < pal.length; c++) {
+          const dr = pal[c][0] - d[p], dg = pal[c][1] - d[p + 1], db = pal[c][2] - d[p + 2];
+          const dist = dr * dr + dg * dg + db * db;
+          if (dist < bd) { bd = dist; best = c; }
+        }
+        idx = best; keyIndex.set(k, idx);
+      }
+      out[i] = idx;
+    }
+    return out;
+  }
+
+  gifLzw(px, out) {
+    const min = 8, clear = 256, eoi = 257;
+    let codeSize = min + 1, maxcode = (1 << codeSize) - 1, next = eoi + 1;
+    let dict = new Map(), cur = 0, curBits = 0;
+    const bytes = [];
+    const emit = (code) => {
+      cur |= code << curBits; curBits += codeSize;
+      while (curBits >= 8) { bytes.push(cur & 255); cur >>>= 8; curBits -= 8; }
+    };
+    if (!px.length) px = new Uint8Array(1);
+    emit(clear);
+    let prefix = px[0];
+    for (let i = 1; i < px.length; i++) {
+      const k = px[i], key = prefix * 256 + k, have = dict.get(key);
+      if (have !== undefined) { prefix = have; continue; }
+      emit(prefix);
+      // Widen AFTER emitting, BEFORE assigning this code — the decoder's table
+      // runs one entry behind, so any other ordering desyncs the bit widths.
+      if (next > maxcode && codeSize < 12) { codeSize++; maxcode = (1 << codeSize) - 1; }
+      if (next < 4096) { dict.set(key, next); next++; }
+      else {
+        emit(clear);
+        dict = new Map(); next = eoi + 1;
+        codeSize = min + 1; maxcode = (1 << codeSize) - 1;
+      }
+      prefix = k;
+    }
+    if (px.length) {
+      emit(prefix);
+      if (next > maxcode && codeSize < 12) { codeSize++; maxcode = (1 << codeSize) - 1; }
+      emit(eoi);
+    }
+    if (curBits > 0) bytes.push(cur & 255);
+    out.push(min);
+    for (let i = 0; i < bytes.length; i += 255) {
+      const chunk = bytes.slice(i, i + 255);
+      out.push(chunk.length);
+      for (const b of chunk) out.push(b);
+    }
+    out.push(0);
+  }
+
+  gifEncode(frames, W, H, delayCs, repeat, transparent) {
+    const reserve = 1; // index 0 = transparent / "unchanged since last frame"
+    const diff = !transparent && frames.length > 1;
+    const { pal, keyIndex } = this.gifPalette(frames, reserve);
+    const out = [];
+    const u16 = (n) => { out.push(n & 255, (n >> 8) & 255); };
+    for (const c of "GIF89a") out.push(c.charCodeAt(0));
+    u16(W); u16(H); out.push(0xF7, 0, 0);
+    for (let i = 0; i < 256; i++) {
+      const c = pal[i] || [0, 0, 0];
+      out.push(c[0], c[1], c[2]);
+    }
+    if (repeat !== null) {
+      out.push(0x21, 0xFF, 0x0B);
+      for (const c of "NETSCAPE2.0") out.push(c.charCodeAt(0));
+      out.push(0x03, 0x01); u16(repeat); out.push(0);
+    }
+    for (let i = 0; i < frames.length; i++) {
+      const prev = diff && i > 0 ? frames[i - 1] : null;
+      const disposal = transparent ? 2 : 1;
+      out.push(0x21, 0xF9, 0x04, (disposal << 2) | 1);
+      u16(delayCs); out.push(0, 0);
+      out.push(0x2C); u16(0); u16(0); u16(W); u16(H); out.push(0);
+      this.gifLzw(this.gifIndex(frames[i], pal, keyIndex, reserve, prev), out);
+    }
+    out.push(0x3B);
+    return new Blob([new Uint8Array(out)], { type: "image/gif" });
+  }
+
+  // Transparent GIF: hard-key any pixel with alpha < 50% to a magenta matte,
+  // then declare that matte as the GIF's transparent index (no AA fringe).
+  async exportGif() {
+    const s = this.state, v = this.video;
+    const g0 = this.compute();
+    if (!g0) return this.status("nothing to export yet");
+    // GIF is a heavy format — cap the long edge so a 2000px grid doesn't
+    // produce a 20 MB file the browser refuses to hand over.
+    const W0 = Math.round(g0.cols * g0.cellW), H0 = Math.round(g0.rows * g0.cellH);
+    const k = Math.min(1, (s.gifMax || 900) / Math.max(W0, H0));
+    const W = Math.max(1, Math.round(W0 * k)), H = Math.max(1, Math.round(H0 * k));
+    const transparent = s.bgMode === "transparent";
+    const tmp = document.createElement("canvas");
+    tmp.width = W; tmp.height = H;
+    const tctx = tmp.getContext("2d", { willReadFrequently: true });
+    const frames = [];
+    let wasPlaying = false;
+    const fps = s.gifFps;
+
+    try {
+      if (v) {
+        wasPlaying = !v.paused;
+        v.pause(); this.setState({ playing: false });
+        const dur = Math.min(v.duration || 0, 15) || 0;
+        const total = Math.max(1, Math.min(240, Math.round(dur * fps)));
+        for (let i = 0; i < total; i++) {
+          const t = (i / total) * dur;
+          await new Promise((res) => {
+            let done = false;
+            const fin = () => { if (!done) { done = true; v.onseeked = null; res(); } };
+            v.onseeked = fin; v.currentTime = t; setTimeout(fin, 400);
+          });
+          const g = this.compute();
+          if (!g) continue;
+          tctx.clearRect(0, 0, W, H);
+          this.paint(tctx, g, k);
+          frames.push(tctx.getImageData(0, 0, W, H));
+          this.status("capturing " + (i + 1) + "/" + total);
+          await new Promise((r) => setTimeout(r, 0));
+        }
+      } else {
+        tctx.clearRect(0, 0, W, H);
+        this.paint(tctx, g0, k);
+        frames.push(tctx.getImageData(0, 0, W, H));
+      }
+      if (!frames.length) return this.status("no frames captured");
+
+      const seq = (s.loopMode === "pingpong" && frames.length > 2)
+        ? frames.concat(frames.slice(1, -1).reverse()) : frames;
+      this.status("encoding " + seq.length + " frames…");
+      await new Promise((r) => setTimeout(r, 16));
+      const blob = this.gifEncode(seq, W, H, Math.max(2, Math.round(100 / fps)),
+        s.loopMode === "once" ? null : 0, transparent);
+      this.save(blob, this.baseName("gif"));
+      this.status("GIF saved · " + seq.length + " frames · " + W + "×" + H + " · " +
+        Math.round(blob.size / 1024) + " KB · " + (s.loopMode === "once" ? "no loop" : "infinite loop"));
+    } catch (err) {
+      this.status("GIF export failed: " + (err && err.message ? err.message : err));
+    } finally {
+      if (wasPlaying && v) { v.play().catch(() => {}); this.setState({ playing: true }); }
+    }
+  }
+
+  exportWebm() {
+    if (!this.video) return this.status("WebM needs a video");
+    const v = this.video;
+    const types = ["video/webm;codecs=vp9", "video/webm;codecs=vp8", "video/webm"];
+    const mime = types.find((t) => window.MediaRecorder && MediaRecorder.isTypeSupported(t));
+    if (!mime) return this.status("WebM unsupported here");
+    const stream = this.out.captureStream(30);
+    const rec = new MediaRecorder(stream, { mimeType: mime, videoBitsPerSecond: 8000000 });
+    const chunks = [];
+    rec.ondataavailable = (e) => { if (e.data.size) chunks.push(e.data); };
+    rec.onstop = () => {
+      this.save(new Blob(chunks, { type: "video/webm" }), this.baseName("webm"));
+      this.status("WebM saved");
+    };
+    v.currentTime = 0;
+    v.play().catch(() => {});
+    this.setState({ playing: true });
+    rec.start();
+    this.status("recording…");
+    const dur = Math.min(v.duration || 5, 15);
+    setTimeout(() => { rec.stop(); v.pause(); this.setState({ playing: false }); }, dur * 1000 + 200);
+  }
+
+  // Zip (store-only) of the rendered video + poster + embed snippet + README,
+  // sized to drop straight into another Claude Design project.
+  async exportPackage() {
+    if (!this.video) return this.status("Video package needs a video source");
+    if (this._pkgBusy) return;
+    const v = this.video, s = this.state;
+    const types = ["video/mp4;codecs=avc1", "video/mp4", "video/webm;codecs=vp9", "video/webm;codecs=vp8", "video/webm"];
+    const mime = types.find((t) => window.MediaRecorder && MediaRecorder.isTypeSupported(t));
+    if (!mime) return this.status("Video recording unsupported in this browser");
+    const ext = mime.indexOf("mp4") >= 0 ? "mp4" : "webm";
+    const stem = this.baseName("x").replace(/\.x$/, "");
+    const W = this.out.width, H = this.out.height;
+    this._pkgBusy = true;
+    v.pause(); v.currentTime = 0;
+    await new Promise((r) => { const t = setTimeout(r, 800); v.addEventListener("seeked", () => { clearTimeout(t); r(); }, { once: true }); });
+    this.draw();
+    const poster = await new Promise((r) => this.out.toBlob(r, "image/webp", 0.85));
+    const stream = this.out.captureStream(30);
+    const rec = new MediaRecorder(stream, { mimeType: mime, videoBitsPerSecond: 6000000 });
+    const chunks = [];
+    rec.ondataavailable = (e) => { if (e.data.size) chunks.push(e.data); };
+    const done = new Promise((r) => { rec.onstop = r; });
+    const dur = Math.min(v.duration || 5, 20);
+    v.play().catch(() => {});
+    this.setState({ playing: true });
+    rec.start(250);
+    const t0 = performance.now();
+    const tick = setInterval(() => this.status("recording package… " + Math.min(99, Math.round((performance.now() - t0) / (dur * 10))) + "%"), 250);
+    await new Promise((r) => setTimeout(r, dur * 1000 + 150));
+    rec.stop(); v.pause(); this.setState({ playing: false });
+    await done; clearInterval(tick);
+    const video = new Blob(chunks, { type: mime.split(";")[0] });
+    const vName = stem + "." + ext, pName = stem + "-poster.webp";
+    const alt = (s.fileName || "ASCII artwork").replace(/\.[^.]+$/, "").replace(/"/g, "");
+    const tag = '<video src="' + vName + '" poster="' + pName + '" autoplay muted loop playsinline aria-label="' + alt + '"\n' +
+      '  width="' + W + '" height="' + H + '" style="display:block; width:100%; height:auto; object-fit:cover"></video>';
+    const embed = '<!doctype html>\n<meta charset="utf-8">\n<title>' + alt + '</title>\n<body style="margin:0; background:#000">\n' + tag + '\n</body>\n';
+    const readme = "# " + alt + " — ASCII video embed\n\n" +
+      "Files:\n- " + vName + " — looping ASCII video, " + W + "×" + H + ", " + dur.toFixed(1) + "s, " + (video.size / 1048576).toFixed(1) + " MB\n" +
+      "- " + pName + " — first frame, shown while the video loads\n- embed.html — working preview of the tag below\n\n" +
+      "## Instructions for Claude\nCopy " + vName + " and " + pName + " into the project (same folder as the page, or update the paths). " +
+      "Place this element where the image should appear. Keep autoplay + muted + playsinline so it plays on mobile. " +
+      "It fills its container's width; wrap it in a sized container with overflow:hidden to crop.\n\n" +
+      "```html\n" + tag + "\n```\n";
+    const zip = await this.makeZip([
+      { name: vName, data: video }, { name: pName, data: poster },
+      { name: "embed.html", data: embed }, { name: "README.md", data: readme }
+    ]);
+    this._pkgBusy = false;
+    this._pkgBlob = zip;
+    this.save(zip, stem + "-package.zip");
+    this.setState({ codeOpen: true, codeText: readme, codeName: stem + "-package.zip", copied: false, codeKind: "package" });
+    this.status("Package saved · " + (zip.size / 1048576).toFixed(1) + " MB · " + ext.toUpperCase());
+  }
+
+  async makeZip(files) {
+    const crcT = this._crcT || (this._crcT = (() => { const t = new Uint32Array(256); for (let n = 0; n < 256; n++) { let c = n; for (let k = 0; k < 8; k++) c = c & 1 ? 0xEDB88320 ^ (c >>> 1) : c >>> 1; t[n] = c >>> 0; } return t; })());
+    const enc = new TextEncoder(), parts = [], central = [];
+    let off = 0;
+    for (const fl of files) {
+      const data = typeof fl.data === "string" ? enc.encode(fl.data) : new Uint8Array(await fl.data.arrayBuffer());
+      let c = 0xFFFFFFFF; for (let i = 0; i < data.length; i++) c = crcT[(c ^ data[i]) & 255] ^ (c >>> 8); c = (c ^ 0xFFFFFFFF) >>> 0;
+      const nm = enc.encode(fl.name);
+      const lh = new DataView(new ArrayBuffer(30));
+      lh.setUint32(0, 0x04034b50, true); lh.setUint16(4, 20, true); lh.setUint16(6, 0x0800, true);
+      lh.setUint32(14, c, true); lh.setUint32(18, data.length, true); lh.setUint32(22, data.length, true); lh.setUint16(26, nm.length, true);
+      const ch = new DataView(new ArrayBuffer(46));
+      ch.setUint32(0, 0x02014b50, true); ch.setUint16(4, 20, true); ch.setUint16(6, 20, true); ch.setUint16(8, 0x0800, true);
+      ch.setUint32(16, c, true); ch.setUint32(20, data.length, true); ch.setUint32(24, data.length, true); ch.setUint16(28, nm.length, true); ch.setUint32(42, off, true);
+      parts.push(lh.buffer, nm, data); central.push(ch.buffer, nm);
+      off += 30 + nm.length + data.length;
+    }
+    const cdSize = central.reduce((a, b) => a + (b.byteLength || b.length), 0);
+    const end = new DataView(new ArrayBuffer(22));
+    end.setUint32(0, 0x06054b50, true); end.setUint16(8, files.length, true); end.setUint16(10, files.length, true);
+    end.setUint32(12, cdSize, true); end.setUint32(16, off, true);
+    return new Blob([...parts, ...central, end.buffer], { type: "application/zip" });
+  }
+
+  // Framer-ready code component: glyph plane + reveal crops as stacked layers
+  // with a pointer-driven 3D tilt.
+  // Framer refuses code files over 1 MB, and everything here is embedded as a
+  // data URL — so encode WebP and step scale/quality down until it fits.
+  encodeCanvas(c, q, alpha) {
+    if (!alpha) {
+      const j = c.toDataURL("image/webp", q);
+      if (j.indexOf("data:image/webp") === 0) return j;
+      return c.toDataURL("image/jpeg", q);
+    }
+    const w = c.toDataURL("image/webp", q);
+    if (w.indexOf("data:image/webp") === 0) return w;
+    return c.toDataURL("image/png");
+  }
+
+  // Standalone <img> embed: current frame, cut-throughs baked in, inlined as a
+  // WebP data URL so the snippet needs no companion files.
+  async exportEmbed() {
+    if (!this.grid || !this.out) return this.status("no source");
+    this.draw();
+    const src = this.out, MAX = 1800;
+    const k = Math.min(1, MAX / Math.max(src.width, src.height));
+    const c = document.createElement("canvas");
+    c.width = Math.round(src.width * k); c.height = Math.round(src.height * k);
+    const ctx = c.getContext("2d");
+    ctx.imageSmoothingQuality = "high";
+    ctx.drawImage(src, 0, 0, c.width, c.height);
+    const blob = await new Promise((r) => c.toBlob(r, "image/webp", 0.9));
+    if (!blob) return this.status("embed failed");
+    this._embedBlob = blob;
+    const base = this.baseName("embed.html");
+    const imgName = base.replace(/\.html$/, ".webp");
+    const alt = (this.state.fileName || "ASCII artwork").replace(/\.[^.]+$/, "").replace(/"/g, "");
+    const code = '<!-- ASCII artwork · ' + c.width + '×' + c.height + ' · requires ' + imgName + ' next to this page -->\n' +
+      '<img src="' + imgName + '" alt="' + alt + '" width="' + c.width + '" height="' + c.height +
+      '" style="display:block; width:100%; max-width:' + c.width + 'px; height:auto">';
+    this.save(blob, imgName);
+    this.setState({ codeOpen: true, codeText: code, codeName: base, copied: false, codeKind: "embed" });
+    this.status("Embed ready · " + imgName + " " + (blob.size / 1024).toFixed(0) + " KB");
+  }
+
+  exportReact() {
+    if (!this.grid) return this.status("no source");
+    const LIMIT = 1000000;
+    let K = 2, q = 0.9, code = "", tries = 0;
+    for (;;) {
+      code = this.buildReactSource(K, q);
+      tries++;
+      if (code.length <= LIMIT || tries > 7) break;
+      if (q > 0.5) q = Math.max(0.45, q - 0.2);
+      else { K = K / 1.5; q = 0.85; }
+      if (K < 0.28) break;
+    }
+    const name = code.match(/export default function (\w+)/);
+    const file = (name ? name[1] : "AsciiScene") + ".tsx";
+    this.save(new Blob([code], { type: "text/plain" }), file);
+    this.setState({ codeOpen: true, codeText: code, codeName: file, copied: false, codeKind: "react" });
+    this.status(code.length <= LIMIT
+      ? "React component ready · " + (code.length / 1024).toFixed(0) + " KB"
+      : "Still over 1 MB — lower Columns and retry");
+  }
+
+  buildReactSource(K, quality) {
+    const s = this.state, g = this.grid;
+    const W = Math.round(g.cols * g.cellW), H = Math.round(g.rows * g.cellH);
+
+    const glyphCanvas = document.createElement("canvas");
+    glyphCanvas.width = W * K; glyphCanvas.height = H * K;
+    const gc = glyphCanvas.getContext("2d");
+    const saveWins = g.windows;
+    const saveFlareOn = s.flareOn;
+    g.windows = [];
+    const savePx = s.px, savePy = s.py;
+    this.state.px = 0; this.state.py = 0;
+    this.state.flareOn = false;
+    this.paint(gc, g, K);
+    g.windows = saveWins;
+    this.state.flareOn = saveFlareOn;
+
+    const size = this.srcSize();
+    const layers = (g.windows || []).slice()
+      .sort((a, b) => (a.z || 0) - (b.z || 0))
+      .map((w) => {
+        const c = document.createElement("canvas");
+        c.width = Math.round(w.w * g.cellW * K);
+        c.height = Math.round(w.h * g.cellH * K);
+        c.getContext("2d").drawImage(this.src(),
+          (w.x / g.cols) * size[0], (w.y / g.rows) * size[1],
+          (w.w / g.cols) * size[0], (w.h / g.rows) * size[1], 0, 0, c.width, c.height);
+        const d = this.zDepth(w.z);
+        return {
+          src: this.encodeCanvas(c, quality, false),
+          left: +((w.x * g.cellW / W) * 100).toFixed(4),
+          top: +((w.y * g.cellH / H) * 100).toFixed(4),
+          width: +((w.w * g.cellW / W) * 100).toFixed(4),
+          height: +((w.h * g.cellH / H) * 100).toFixed(4),
+          z: +(w.z || 0).toFixed(3),
+          translateZ: +d.offset.toFixed(2),
+          parallax: +d.px.toFixed(2),
+          blur: +d.blur.toFixed(2)
+        };
+      });
+    this.state.px = savePx; this.state.py = savePy;
+
+    // Flares ride their own layer above the deepest window so they never get
+    // occluded, and parallax at the front plane.
+    const maxZ = layers.reduce((m, l) => Math.max(m, l.translateZ), 0);
+    let flareLayer = null;
+    if (s.flareOn && s.flares.length) {
+      const fc = document.createElement("canvas");
+      fc.width = W * K; fc.height = H * K;
+      const fx = fc.getContext("2d");
+      fx.save();
+      fx.scale(K, K);
+      this.paintFlares(fx, W, H);
+      fx.restore();
+      flareLayer = {
+        src: this.encodeCanvas(fc, quality, true),
+        translateZ: +(maxZ + Math.max(18, s.zSpread * 0.5)).toFixed(2),
+        parallax: +(s.parallax * 1.5).toFixed(2)
+      };
+    }
+
+    const stroke = s.strokeOn && s.strokeWidth > 0
+      ? { color: s.strokeColor, width: s.strokeWidth, style: s.strokeStyle, inset: s.strokeInset }
+      : null;
+    const name = (s.fileName || "ascii").replace(/\.[^.]+$/, "").replace(/[^a-z0-9]+/gi, " ")
+      .trim().split(/\s+/).map((p) => p[0].toUpperCase() + p.slice(1)).join("") || "AsciiScene";
+
+    const code = `import * as React from "react"
+import { addPropertyControls, ControlType } from "framer"
+
+// Generated by ASCII Filter. Drop into Framer as a code component.
+const GLYPHS = "${this.encodeCanvas(glyphCanvas, quality, true)}"
+const LAYERS = ${JSON.stringify(layers, null, 2)}
+const STROKE = ${JSON.stringify(stroke)}
+const FLARES = ${JSON.stringify(flareLayer)}
+const RATIO = ${(H / W).toFixed(6)}
+
+/**
+ * @framerSupportedLayoutWidth any
+ * @framerSupportedLayoutHeight any
+ */
+export default function ${name}(props) {
+  const {
+    tilt = ${s.tiltMax},
+    depth = ${s.tiltDepth},
+    parallax = ${s.parallax},
+    ease = ${s.tiltEase},
+    zScale = 1,
+    background = "${s.bgMode === "solid" ? s.bgColor : "transparent"}",
+    showStroke = ${!!stroke},
+    strokeColor = "${stroke ? stroke.color : "#ffffff"}",
+  } = props
+
+  const wrap = React.useRef(null)
+  const plane = React.useRef(null)
+  const layerRefs = React.useRef([])
+  const flareRef = React.useRef(null)
+  const target = React.useRef({ x: 0, y: 0 })
+  const pos = React.useRef({ x: 0, y: 0 })
+  const pScale = parallax / ${s.parallax || 1}
+
+  // Transforms are written straight to the DOM — no per-frame React state, so
+  // this stays cheap on the Framer canvas.
+  React.useEffect(() => {
+    let raf = 0
+    let idle = 0
+    const apply = () => {
+      const p = pos.current
+      if (plane.current) {
+        plane.current.style.transform =
+          "rotateY(" + p.x * tilt + "deg) rotateX(" + -p.y * tilt + "deg)"
+      }
+      layerRefs.current.forEach((el, i) => {
+        if (!el) return
+        const l = LAYERS[i]
+        el.style.transform =
+          "translate(" + -p.x * l.parallax * pScale + "px," + -p.y * l.parallax * pScale + "px)"
+      })
+      if (flareRef.current && FLARES) {
+        flareRef.current.style.transform =
+          "translateZ(" + FLARES.translateZ * zScale + "px) translate(" +
+          -p.x * FLARES.parallax * pScale + "px," + -p.y * FLARES.parallax * pScale + "px)"
+      }
+    }
+    const tick = () => {
+      const t = target.current
+      const p = pos.current
+      const nx = p.x + (t.x - p.x) * ease
+      const ny = p.y + (t.y - p.y) * ease
+      if (Math.abs(nx - p.x) > 0.0004 || Math.abs(ny - p.y) > 0.0004) {
+        pos.current = { x: nx, y: ny }
+        apply()
+        idle = 0
+      } else if (idle < 4) {
+        idle++
+        apply()
+      }
+      raf = requestAnimationFrame(tick)
+    }
+    apply()
+    raf = requestAnimationFrame(tick)
+    return () => cancelAnimationFrame(raf)
+  }, [tilt, ease, parallax, zScale, pScale])
+
+  const onMove = (e) => {
+    const el = wrap.current
+    if (!el) return
+    const r = el.getBoundingClientRect()
+    if (!r.width || !r.height) return
+    target.current = {
+      x: ((e.clientX - r.left) / r.width - 0.5) * 2,
+      y: ((e.clientY - r.top) / r.height - 0.5) * 2,
+    }
+  }
+  const onLeave = () => { target.current = { x: 0, y: 0 } }
+
+  return (
+    <div
+      ref={wrap}
+      onPointerMove={onMove}
+      onPointerLeave={onLeave}
+      style={{
+        position: "relative",
+        width: "100%",
+        height: "100%",
+        minHeight: 1,
+        aspectRatio: String(1 / RATIO),
+        background,
+        perspective: depth + "px",
+        overflow: "hidden",
+      }}
+    >
+      <div
+        ref={plane}
+        style={{
+          position: "absolute",
+          inset: 0,
+          transformStyle: "preserve-3d",
+          willChange: "transform",
+        }}
+      >
+        <img
+          src={GLYPHS}
+          alt=""
+          draggable={false}
+          style={{
+            position: "absolute",
+            inset: 0,
+            width: "100%",
+            height: "100%",
+            objectFit: "fill",
+            transform: "translateZ(0px)",
+          }}
+        />
+        {LAYERS.map(function (l, i) { return (
+          <div
+            key={i}
+            style={{
+              position: "absolute",
+              left: \`\${l.left}%\`,
+              top: \`\${l.top}%\`,
+              width: \`\${l.width}%\`,
+              height: \`\${l.height}%\`,
+              overflow: "hidden",
+              transform: "translateZ(" + l.translateZ * zScale + "px)",
+              filter: l.blur > 0.2 ? "blur(" + l.blur * zScale + "px)" : undefined,
+              outline: showStroke && STROKE
+                ? STROKE.width + "px " + STROKE.style + " " + strokeColor
+                : undefined,
+              outlineOffset: showStroke && STROKE ? -STROKE.inset + "px" : undefined,
+            }}
+          >
+            <img
+              ref={(el) => { layerRefs.current[i] = el }}
+              src={l.src}
+              alt=""
+              draggable={false}
+              style={{
+                position: "absolute",
+                inset: -Math.abs(l.parallax) + "px",
+                width: "calc(100% + " + Math.abs(l.parallax) * 2 + "px)",
+                height: "calc(100% + " + Math.abs(l.parallax) * 2 + "px)",
+                objectFit: "cover",
+                willChange: "transform",
+              }}
+            />
+          </div>
+        )})}
+        {FLARES ? (
+          <img
+            ref={flareRef}
+            src={FLARES.src}
+            alt=""
+            draggable={false}
+            style={{
+              position: "absolute",
+              inset: 0,
+              width: "100%",
+              height: "100%",
+              objectFit: "fill",
+              mixBlendMode: "screen",
+              pointerEvents: "none",
+              willChange: "transform",
+            }}
+          />
+        ) : null}
+      </div>
+    </div>
+  )
+}
+
+addPropertyControls(${name}, {
+  tilt: { type: ControlType.Number, title: "Tilt", min: 0, max: 30, step: 0.5, defaultValue: ${s.tiltMax} },
+  depth: { type: ControlType.Number, title: "Depth", min: 200, max: 2400, step: 50, defaultValue: ${s.tiltDepth} },
+  parallax: { type: ControlType.Number, title: "Parallax", min: 0, max: 60, step: 1, defaultValue: ${s.parallax} },
+  zScale: { type: ControlType.Number, title: "Depth scale", min: 0, max: 3, step: 0.05, defaultValue: 1 },
+  ease: { type: ControlType.Number, title: "Ease", min: 0.02, max: 1, step: 0.01, defaultValue: ${s.tiltEase} },
+  background: { type: ControlType.Color, title: "Background", defaultValue: "${s.bgMode === "solid" ? s.bgColor : "transparent"}" },
+  showStroke: { type: ControlType.Boolean, title: "Stroke", defaultValue: ${!!stroke} },
+  strokeColor: { type: ControlType.Color, title: "Stroke color", defaultValue: "${stroke ? stroke.color : "#ffffff"}" },
+})
+`;
+    return code;
+  }
+
+  exportSnippet() {
+    if (!this.grid) return this.status("no source");
+    const s = this.state, g = this.grid;
+    const esc = (t) => t.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+    let html = "";
+    for (let y = 0; y < g.rows; y++) {
+      let cur = null, line = "";
+      for (let x = 0; x < g.cols; x++) {
+        const i = y * g.cols + x, ch = g.chars[i];
+        if (ch === " " || !g.colors[i]) { if (cur) { line += "</span>"; cur = null; } line += " "; continue; }
+        if (g.colors[i] !== cur) { if (cur) line += "</span>"; line += '<span style="color:' + g.colors[i] + '">'; cur = g.colors[i]; }
+        line += esc(ch);
+      }
+      if (cur) line += "</span>";
+      html += line + "\n";
+    }
+    const bg = s.bgMode === "solid" ? s.bgColor : "transparent";
+    const snippet = '<div class="ascii-art" style="background:' + bg + '">\n' +
+      '<pre style="margin:0;font-family:\'' + s.fontFamily + "', ui-monospace, monospace;font-size:" + s.fontSize +
+      "px;font-weight:" + s.fontWeight + ";line-height:" + (g.cellH / s.fontSize).toFixed(3) +
+      ';letter-spacing:0;white-space:pre;">\n' + html + "</pre>\n</div>\n" +
+      "<!-- Scales fluidly: set font-size in cqw/vw on the <pre> to make it responsive. -->";
+    this.save(new Blob([snippet], { type: "text/html" }), this.baseName("snippet.html"));
+    if (navigator.clipboard) navigator.clipboard.writeText(snippet).catch(() => {});
+    this.status("Snippet saved + copied");
+  }
+
+  renderVals() {
+    const panT = "translate(" + (this.state.panX || 0) + "px," + (this.state.panY || 0) + "px) ";
+    const s = this.state;
+    const on = { bg: "#0B2A20", fg: "#00E599", border: "#00E599" };
+    const off = { bg: "#101310", fg: "#A9B2A9", border: "#23271F" };
+    const t = (b) => (b ? on : off);
+    const iv = t(s.invert), dt = t(s.dither), ed = t(s.edges);
+    const mn = t(s.colorMode === "mono"), sr = t(s.colorMode === "source"),
+      du = t(s.colorMode === "duotone"), tr = t(s.colorMode === "tritone");
+    return {
+      s: s, h: this.h,
+      ramps: Object.keys(RAMPS).map((k) => ({ k: k, label: RAMPS[k].label })),
+      fonts: FONTS,
+      refOut: this.refOut, refStage: this.refStage,
+      noSrc: !s.srcType,
+      fileLabel: s.fileName || "no file loaded",
+      rampPreview: this.rampStr(),
+      aspectLabel: s.aspect.toFixed(2),
+      brightnessLabel: (s.brightness > 0 ? "+" : "") + s.brightness.toFixed(2),
+      contrastLabel: (s.contrast > 0 ? "+" : "") + s.contrast.toFixed(2),
+      gammaLabel: s.gamma.toFixed(2),
+      edgeLabel: s.edgeThreshold.toFixed(2),
+      edgeState: s.edges ? "on" : "off",
+      edgeOnlyState: s.edgeOnly ? "on" : "off",
+      revealBg: t(s.revealOn).bg, revealFg: t(s.revealOn).fg, revealBorder: t(s.revealOn).border,
+      revealState: s.revealOn ? "on" : "off",
+      revealSizeLabel: Math.round(s.revealSize * 100) + "%",
+      hasActiveWin: s.activeWin >= 0,
+      refCode: this.h.refCode,
+      presetList: s.presets.map((p) => ({
+        name: p.name,
+        meta: new Date(p.saved).toLocaleDateString(undefined, { month: "short", day: "numeric" }),
+        load: () => this.applyPreset(p),
+        del: (e) => { e.stopPropagation(); this.deletePreset(p.name); }
+      })),
+      hasPresets: s.presets.length > 0,
+      saveMsg: s.saveMsg,
+      codeIsEmbed: s.codeKind === "embed",
+      codeIsPackage: s.codeKind === "package",
+      codeIsSource: s.codeKind === "source",
+      codeIsFramer: ["embed", "package", "source"].indexOf(s.codeKind) < 0,
+      notEmbed: !this.embed,
+      isEmbed: !!this.embed,
+      grabCursor: this.state.activeWin >= 0 && this._dragging ? "grabbing" : "grab",
+      stagePad: this.embed ? "0" : "28px",
+      stageBg: this.embed ? "transparent" : "#0D0F0D",
+      rootBg: this.embed ? "transparent" : "#0A0B0A",
+      checkerSize: this.embed ? "0 0" : "18px 18px",
+      pannedUi: !this.embed && !!(s.panX || s.panY),
+      noSrcUi: !this.embed && !s.srcType,
+      copyLabel: s.copied === "yes" ? "Copied ✓" : s.copied === "fail" ? "Copy blocked" : "Copy to clipboard",
+      copyBg: s.copied === "yes" ? "#0B2A20" : s.copied === "fail" ? "#2A1414" : "#00E599",
+      copyFg: s.copied === "yes" ? "#00E599" : s.copied === "fail" ? "#FF8A8A" : "#04150F",
+      copyBorder: s.copied === "fail" ? "#FF6B6B" : "#00E599",
+      copyFailed: s.copied === "fail",
+      codeSizeLabel: s.codeText.length > 1048576
+        ? (s.codeText.length / 1048576).toFixed(1) + " MB"
+        : Math.round(s.codeText.length / 1024) + " KB",
+      codeHeavy: s.codeKind !== "embed" && s.codeText.length > 1000000,
+      flareBg: t(s.flareOn).bg, flareFg: t(s.flareOn).fg, flareBorder: t(s.flareOn).border,
+      flareState: s.flareOn ? "on" : "off",
+      flareSizeLabel: s.flareSize + "px",
+      flareSpikeLabel: s.flareSpike.toFixed(2) + "×",
+      flareOpacityLabel: Math.round(s.flareOpacity * 100) + "%",
+      flarePointsLabel: s.flarePoints + "-point",
+      flareGlowLabel: s.flareGlow ? "Halo on" : "Halo off",
+      flarePlaceLabel: s.flarePlace === "bright" ? "On highlights"
+        : s.flarePlace === "windows" ? "In reveal windows" : "Scattered",
+      flareField: this.colorField("flare", s.flareColor),
+      flareFieldB: this.colorField("flareB", s.flareColorB),
+      flareThinLabel: s.flareThin.toFixed(2),
+      flareHueLabel: Math.round(s.flareHue * 100) + "%",
+      flareCoreLabel: s.flareCore.toFixed(2),
+      flareDots: s.flareOn && s.rect ? s.flares.map((f, i) => ({
+        left: (s.rect.left + f.nx * s.rect.w).toFixed(1) + "px",
+        top: (s.rect.top + f.ny * s.rect.h).toFixed(1) + "px",
+        border: s.activeFlare === i ? "1px solid #00E599" : "1px solid rgba(0,229,153,0.4)",
+        onPointerDown: (e) => this.beginFlareDrag(i, e)
+      })) : [],
+      tiltBg: t(s.tiltOn).bg, tiltFg: t(s.tiltOn).fg, tiltBorder: t(s.tiltOn).border,
+      tiltState: s.tiltOn ? "on" : "off",
+      tiltMaxLabel: s.tiltMax + "°",
+      tiltDepthLabel: s.tiltDepth + "px",
+      parallaxLabel: s.parallax + "px",
+      tiltEaseLabel: s.tiltEase.toFixed(2),
+      zSpreadLabel: s.zSpread + "px",
+      defocusLabel: s.defocus === 0 ? "off" : s.defocus.toFixed(1) + "px",
+      activeZ: s.activeWin >= 0 && s.windows[s.activeWin] ? (s.windows[s.activeWin].z || 0) : 0,
+      activeZLabel: s.activeWin < 0 ? "select a window"
+        : ((s.windows[s.activeWin].z || 0) > 0 ? "+" : "") + (s.windows[s.activeWin].z || 0).toFixed(2),
+      zRowDim: s.activeWin < 0 ? 0.4 : 1,
+      panned: !!(s.panX || s.panY),
+      panCursor: !s.srcType ? "default" : s.panning ? "grabbing" : "grab",
+      overlayTransform: panT + (s.tiltOn
+        ? "perspective(" + s.tiltDepth + "px) rotateY(" + (s.px * s.tiltMax).toFixed(2) +
+          "deg) rotateX(" + (-s.py * s.tiltMax).toFixed(2) + "deg)"
+        : ""),
+      canvasTransform: panT + (s.tiltOn
+        ? "perspective(" + s.tiltDepth + "px) rotateY(" + (s.px * s.tiltMax).toFixed(2) +
+          "deg) rotateX(" + (-s.py * s.tiltMax).toFixed(2) + "deg)"
+        : ""),
+      strokeBg: t(s.strokeOn).bg, strokeFg: t(s.strokeOn).fg, strokeBorder: t(s.strokeOn).border,
+      strokeState: s.strokeOn ? "on" : "off",
+      strokeWidthLabel: s.strokeWidth.toFixed(1) + "px",
+      strokeInsetLabel: s.strokeInset + "px",
+      strokeStyles: [
+        { v: "solid", label: "Solid", bg: t(s.strokeStyle === "solid").bg, fg: t(s.strokeStyle === "solid").fg, border: t(s.strokeStyle === "solid").border, on: () => this.set("strokeStyle", "solid") },
+        { v: "dashed", label: "Dashed", bg: t(s.strokeStyle === "dashed").bg, fg: t(s.strokeStyle === "dashed").fg, border: t(s.strokeStyle === "dashed").border, on: () => this.set("strokeStyle", "dashed") },
+        { v: "dotted", label: "Dotted", bg: t(s.strokeStyle === "dotted").bg, fg: t(s.strokeStyle === "dotted").fg, border: t(s.strokeStyle === "dotted").border, on: () => this.set("strokeStyle", "dotted") }
+      ],
+      winBoxes: this._lastBoxes = s.revealOn && s.rect ? s.windows.map((w, i, all) => this.withMeasure((() => {
+        const g = this.grid, cw = g ? this.cellWindows(g.cols, g.rows) : null, c = cw && cw[i];
+        const snap = c ? {
+          eLeft: (s.rect.left + c.x / g.cols * s.rect.w).toFixed(2) + "px",
+          eTop: (s.rect.top + c.y / g.rows * s.rect.h).toFixed(2) + "px",
+          eWidth: (c.w / g.cols * s.rect.w).toFixed(2) + "px",
+          eHeight: (c.h / g.rows * s.rect.h).toFixed(2) + "px"
+        } : null;
+        return Object.assign({
+        left: (s.rect.left + w.nx * s.rect.w).toFixed(1) + "px",
+        top: (s.rect.top + w.ny * s.rect.h).toFixed(1) + "px",
+        width: (w.nw * s.rect.w).toFixed(1) + "px",
+        height: (w.nh * s.rect.h).toFixed(1) + "px",
+        border: s.activeWin === i ? "1px solid #00E599" : "1px dashed rgba(0,229,153,0.35)",
+        label: (i + 1) + "  z " + ((w.z || 0) > 0 ? "+" : "") + (w.z || 0).toFixed(2),
+        zTransform: s.tiltOn ? "translateZ(" + (this.zDepth(w.z).offset).toFixed(1) + "px)" : "none",
+        onPointerDown: (e) => this.beginDrag(i, "move", e),
+        onHandleDown: (e) => this.beginDrag(i, "resize", e),
+        onEdgeDown: (e) => this.beginDrag(i, e.currentTarget.getAttribute("data-mode") || "se", e),
+        active: s.activeWin === i,
+        hoverCorners: s.hoverWin === i && s.activeWin !== i,
+        showMeasure: s.hoverWin === i || s.activeWin === i,
+        showGuides: this._guides && this._dragging && this._dragIdx === i,
+        onEnter: () => { if (this.state.hoverWin !== i) this.setState({ hoverWin: i }); },
+        onLeave: () => { if (this.state.hoverWin === i) this.setState({ hoverWin: -1 }); },
+        embedOutline: s.activeWin === i ? "1px solid #CAE9DF" : "none"
+      }, snap || {
+        eLeft: (s.rect.left + w.nx * s.rect.w).toFixed(1) + "px",
+        eTop: (s.rect.top + w.ny * s.rect.h).toFixed(1) + "px",
+        eWidth: (w.nw * s.rect.w).toFixed(1) + "px",
+        eHeight: (w.nh * s.rect.h).toFixed(1) + "px"
+      });
+      })())) : [],
+      winOverlaps: this.overlapsOf(this._lastBoxes || [], s),
+      ...this.swatchVals(s),
+      invertBg: iv.bg, invertFg: iv.fg, invertBorder: iv.border,
+      ditherBg: dt.bg, ditherFg: dt.fg, ditherBorder: dt.border,
+      edgeBg: ed.bg, edgeFg: ed.fg, edgeBorder: ed.border,
+      monoBg: mn.bg, monoFg: mn.fg, monoBorder: mn.border,
+      sourceBg: sr.bg, sourceFg: sr.fg, sourceBorder: sr.border,
+      duoBg: du.bg, duoFg: du.fg, duoBorder: du.border,
+      triBg: tr.bg, triFg: tr.fg, triBorder: tr.border,
+      dataBg: t(s.dataOn).bg, dataFg: t(s.dataOn).fg, dataBorder: t(s.dataOn).border,
+      dataState: s.dataOn ? "on" : "off",
+      dataOpacityLabel: Math.round(s.dataOpacity * 100) + "%",
+      dataSizeLabel: s.dataSize + "px",
+      dataScopeLabel: s.dataScope === "windows" ? "Reveal windows only" : "Whole frame",
+      dataBoxesLabel: s.dataBoxes ? "Boxed labels on" : "Boxed labels off",
+      dataTrackBg: t(s.dataTrack).bg, dataTrackFg: t(s.dataTrack).fg, dataTrackBorder: t(s.dataTrack).border,
+      dataTrackState: s.dataTrack ? "on" : "off",
+      dataEaseLabel: s.dataEase.toFixed(2),
+      dataRadiusLabel: s.dataRadius + " cells",
+      dataLiveLabel: s.dataLive ? "Live values on" : "Fixed values",
+      dataField: this.colorField("data", s.dataColor),
+      glowBg: t(s.glowOn).bg, glowFg: t(s.glowOn).fg, glowBorder: t(s.glowOn).border,
+      glowState: s.glowOn ? "on" : "off",
+      glowAmountLabel: s.glowAmount + "px",
+      glowSrcLabel: s.glowUseInk ? "Match HIGH tone" : "Custom",
+      glowField: this.colorField("glow", s.glowColor),
+      glowFieldDim: s.glowUseInk ? 0.4 : 1,
+      strokeField: this.colorField("stroke", s.strokeColor),
+      bgField: this.colorField("bg", s.bgColor),
+      stopSlots: ["HIGH", "MID", "LOW"].map((label, i) => ({
+        label: label,
+        color: s.stops[i],
+        field: this.colorField(String(i), s.stops[i]),
+        dim: i === 1 && s.colorMode !== "tritone" ? 0.35 : s.dragFrom === i ? 0.4 : 1,
+        border: s.dragOver === i && s.dragFrom !== i ? "#00E599" : "#23271F",
+        onChange: (e) => this.setStop(i, e.target.value),
+        onDragStart: (e) => { e.dataTransfer.effectAllowed = "move"; e.dataTransfer.setData("text/plain", String(i)); this.setState({ dragFrom: i }); },
+        onDragOver: (e) => { e.preventDefault(); if (this.state.dragOver !== i) this.setState({ dragOver: i }); },
+        onDragLeave: () => { if (this.state.dragOver === i) this.setState({ dragOver: -1 }); },
+        onDrop: (e) => { e.preventDefault(); this.moveStop(this.state.dragFrom, i); },
+        onDragEnd: () => this.setState({ dragFrom: -1, dragOver: -1 })
+      })),
+      bgLabel: s.bgMode === "transparent" ? "Transparent" : "Solid",
+      statusMsg: s.status,
+      dlUrl: s.dlUrl || "", dlName: s.dlName || "file",
+      gifMaxLabel: (s.gifMax || 900) + "px",
+      dimsLabel: s.outW ? s.outW + " × " + s.outH + " px · " + s.cells + " cells" : "—",
+      playLabel: s.playing ? "Pause" : "Play",
+      loopLabel: s.loopMode === "once" ? "Play once" : s.loopMode === "loop" ? "Loop ∞" : "Ping-pong ∞",
+      loopBg: s.loopMode === "once" ? "#101310" : "#0B2A20",
+      loopFg: s.loopMode === "once" ? "#A9B2A9" : "#00E599",
+      loopBorder: s.loopMode === "once" ? "#23271F" : "#00E599",
+      scrub: s.duration ? Math.round((s.time / s.duration) * 1000) : 0,
+      timeLabel: fmtTime(s.time) + " / " + fmtTime(s.duration)
+    };
+  }
+}
+
+</script>
+</body>
+</html>

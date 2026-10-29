@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+Disallow: /insights
+Disallow: /highfive
+Disallow: /coach-walkthrough
+
+Sitemap: https://sheps.studio/sitemap.xml
