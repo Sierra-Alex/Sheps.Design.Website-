@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <script type="application/ld+json">
 {"@context":"https://schema.org","@graph":[
-{"@type":"ProfessionalService","@id":"https://sheps.studio/#org","name":"Sheps.Design","url":"https://sheps.studio/","logo":"https://sheps.studio/assets/favicon/favicon-192.png","description":"Sheps.Design builds agentic design systems that teach AI to read your brand and stay on it: design system audits, agent-ready design systems built from scratch, and custom AI tooling for design, marketing and product teams.","founder":{"@id":"https://sheps.studio/#alex"},"sameAs":["https://www.linkedin.com/company/sheps-studio-design/","https://www.instagram.com/sheps.studio/"],"knowsAbout":["Design systems","Agentic design systems","Design tokens","Component libraries","AI tooling","Brand design"],"hasOfferCatalog":{"@type":"OfferCatalog","name":"Services","itemListElement":[
+{"@type":"ProfessionalService","@id":"https://sheps.studio/#org","name":"Sheps.Design","url":"https://sheps.studio/","logo":"https://sheps.studio/assets/favicon/favicon-black-192.png","description":"Sheps.Design builds agentic design systems that teach AI to read your brand and stay on it: design system audits, agent-ready design systems built from scratch, and custom AI tooling for design, marketing and product teams.","founder":{"@id":"https://sheps.studio/#alex"},"sameAs":["https://www.linkedin.com/company/sheps-studio-design/","https://www.instagram.com/sheps.studio/"],"knowsAbout":["Design systems","Agentic design systems","Design tokens","Component libraries","AI tooling","Brand design"],"hasOfferCatalog":{"@type":"OfferCatalog","name":"Services","itemListElement":[
 {"@type":"Offer","itemOffered":{"@type":"Service","name":"Audit","description":"Assess an existing design system for AI-readiness and close the gaps."}},
 {"@type":"Offer","itemOffered":{"@type":"Service","name":"Build","description":"A full agent-ready design system built from the ground up."}},
 {"@type":"Offer","itemOffered":{"@type":"Service","name":"Partnership","description":"Build the design system, then maintain it and build AI tooling as the team grows."}}]}},
@@ -19,10 +19,10 @@
 <body>
 <x-dc>
 <helmet>
-<link rel="icon" href="assets/favicon/favicon-orange-32.svg" type="image/svg+xml">
-<link rel="icon" href="assets/favicon/favicon-48.png" type="image/png" sizes="48x48">
-<link rel="icon" href="assets/favicon/favicon-192.png" type="image/png" sizes="192x192">
-<link rel="apple-touch-icon" href="assets/favicon/favicon-180.png" sizes="180x180">
+<link rel="icon" href="assets/favicon/favicon-black-32.svg" type="image/svg+xml">
+<link rel="icon" href="assets/favicon/favicon-black-48.png" type="image/png" sizes="48x48">
+<link rel="icon" href="assets/favicon/favicon-black-192.png" type="image/png" sizes="192x192">
+<link rel="apple-touch-icon" href="assets/favicon/favicon-black-180.png" sizes="180x180">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
@@ -94,8 +94,8 @@ a:focus-visible,button:focus-visible{outline:2px solid #FDBB6F;outline-offset:2p
           </div>
         </div>
         <sc-if value="{{ showHeroArt }}" hint-placeholder-val="{{ true }}">
-        <div ref="{{ heroArtRef }}" data-reveal="" style="position:sticky;top:max(72px, 20vh);flex:1 1 min(100%, 306px);max-width:min(646px, 52.7vh);aspect-ratio:668 / 760;margin:0 auto;">
-                    <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;pointer-events:auto;"><div style="flex:none;width:160%;"><x-import component="AsciiWake" from="./components/ASCIIWake.jsx" ink="#131313" size="{{ 9 }}" width="{{ 868 }}" height="{{ 870 }}" media="{{ heroMedia }}" label="A crystal cluster drawn in dots that a pointer drags a wake through" hint-size="100%,100%"></x-import></div></div>
+        <div ref="{{ heroArtRef }}" data-reveal="" style="position:sticky;top:max(72px, 20vh);flex:1 1 min(100%, 306px);max-width:min(520px, 44vh);aspect-ratio:668 / 760;margin:0 auto;">
+                    <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;pointer-events:auto;"><div style="flex:none;width:160%;aspect-ratio:868 / 870;color:transparent;"><x-import component="AsciiWake" from="./components/ASCIIWake.jsx" ink="#131313" size="{{ 9 }}" width="{{ 868 }}" height="{{ 870 }}" media="{{ heroMedia }}" label="A crystal cluster drawn in dots that a pointer drags a wake through" hint-size="100%,100%"></x-import></div></div>
         </div>
         </sc-if>
       </div>
@@ -149,7 +149,7 @@ a:focus-visible,button:focus-visible{outline:2px solid #FDBB6F;outline-offset:2p
     </div>
     <sc-if value="{{ showHeroArt }}" hint-placeholder-val="{{ true }}">
     <div style="position:relative;flex:1 1 min(100%, 306px);max-width:646px;aspect-ratio:1 / 1;margin:0 auto;">
-      <div style="position:absolute;inset:0;pointer-events:auto;"><x-import component="AsciiWake" from="./components/ASCIIWake.jsx" ink="#131313" size="{{ 9 }}" width="{{ 868 }}" height="{{ 868 }}" media="{{ whyMedia }}" label="Stone, glass shards and a crystal cluster drawn in dots that a pointer drags a wake through" hint-size="100%,100%"></x-import></div>
+      <div style="position:absolute;inset:0;pointer-events:auto;color:transparent;"><x-import component="AsciiWake" from="./components/ASCIIWake.jsx" ink="#131313" size="{{ 9 }}" width="{{ 868 }}" height="{{ 868 }}" media="{{ whyMedia }}" label="Stone, glass shards and a crystal cluster drawn in dots that a pointer drags a wake through" hint-size="100%,100%"></x-import></div>
     </div>
     </sc-if>
     <sc-if value="{{ isPhone }}" hint-placeholder-val="{{ false }}">
