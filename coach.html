@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="icon" href="assets/favicon/favicon-orange-32.svg" type="image/svg+xml">
+<link rel="icon" href="assets/favicon/favicon-48.png" type="image/png" sizes="48x48">
+<link rel="icon" href="assets/favicon/favicon-192.png" type="image/png" sizes="192x192">
+<link rel="apple-touch-icon" href="assets/favicon/favicon-180.png" sizes="180x180">
+
+<title>Coach App · Case study · Sheps.Design</title>
+<link rel="preload" href="src/assets/fonts/Inter-Variable.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<style>
+@font-face{font-family:'Inter';font-style:normal;font-weight:100 900;font-display:swap;src:url('src/assets/fonts/Inter-Variable.woff2') format('woff2');}
+@font-face{font-family:'Space Grotesk';font-style:normal;font-weight:500;font-display:swap;src:url('src/assets/fonts/SpaceGrotesk-Medium.woff2') format('woff2');}
+html{font-optical-sizing:none;font-synthesis:none;}
+*,*::before,*::after{box-sizing:border-box;}
+html,body{overflow-x:clip;}
+body{margin:0;background:#F7F3F1;color:#6F6F6F;font-family:'Inter',sans-serif;font-size:14px;line-height:130%;-webkit-font-smoothing:antialiased;}
+a{color:#131313;}
+a:hover{color:#6F6F6F;}
+a:focus-visible,button:focus-visible{outline:2px solid #FDBB6F;outline-offset:2px;}
+::selection{background:#CAE9DF;color:#131313;}
+@media (max-width:807px){nav[aria-label="Contents"]{display:none !important;}}
+</style>
+<script src="./analytics.js"></script>
+<script src="./copy-email.js"></script>
+<script src="./about-popup.js"></script>
+</helmet>
+
+<div style="max-width:1520px;margin:0 auto;padding:8px clamp(clamp(8px, calc((100vw - 807px) * 999), 24px), calc((100vw - 1439px) * 999), 40px);display:flex;flex-direction:column;align-items:center;">
+  <nav aria-label="Main" style="position:sticky;top:8px;z-index:50;display:flex;align-items:center;justify-content:space-between;gap:8px;width:calc(100% + 2 * clamp(clamp(8px, calc((100vw - 807px) * 999), 24px), calc((100vw - 1439px) * 999), 40px) - 16px);max-width:1504px;height:60px;padding:8px;border:1px solid #E1DDDC;border-radius:8px;background:#F2ECE8B3;backdrop-filter:blur(8px);">
+    <a href="/" style="display:inline-flex;"><img src="assets/logo/nav-logo-cream.svg" alt="Sheps.Design" width="32" height="32" style="display:block;"></img></a>
+    <div style="display:flex;align-items:center;gap:16px;align-self:stretch;">
+        <a href="/#work" aria-current="page" style="flex:none;min-width:32px;text-align:center;color:#131313;font-size:12px;font-weight:400;line-height:130%;letter-spacing:0.02em;text-decoration:none;white-space:nowrap;padding-bottom:2px;background:linear-gradient(currentColor, currentColor) no-repeat 50% 100% / 0% 1px;transition:color 0.2s ease, background-size 0.3s ease;" style-hover="color:#131313;background-image:linear-gradient(#131313, #131313);background-size:100% 1px;">Work</a>
+        <a href="/agentic-systems" style="flex:none;min-width:32px;text-align:center;color:#6F6F6F;font-size:12px;font-weight:400;line-height:130%;letter-spacing:0.02em;text-decoration:none;white-space:nowrap;padding-bottom:2px;background:linear-gradient(currentColor, currentColor) no-repeat 50% 100% / 0% 1px;transition:color 0.2s ease, background-size 0.3s ease;" style-hover="color:#131313;background-image:linear-gradient(#131313, #131313);background-size:100% 1px;">Systems</a>
+        <a href="#about" data-about="" style="flex:none;min-width:32px;text-align:center;color:#6F6F6F;font-size:12px;font-weight:400;line-height:130%;letter-spacing:0.02em;text-decoration:none;white-space:nowrap;padding-bottom:2px;background:linear-gradient(currentColor, currentColor) no-repeat 50% 100% / 0% 1px;transition:color 0.2s ease, background-size 0.3s ease;" style-hover="color:#131313;background-image:linear-gradient(#131313, #131313);background-size:100% 1px;">About</a>
+        <a data-cta="nav-lets-chat" data-cta-tier="primary" data-cta-location="nav" href="mailto:alex@sheps.studio" data-copy-email="alex@sheps.studio" title="Copy email address" style="display:inline-flex;align-items:center;justify-content:center;flex:none;padding:12px 16px;border:0;border-radius:4px;background:#E9E4E1;color:#131313;font-family:'Inter',sans-serif;font-size:14px;font-weight:500;line-height:130%;letter-spacing:0.02em;text-decoration:none;white-space:nowrap;cursor:pointer;" style-hover="background:#CAE9DF;color:#131313;" style-active="background:#CAE9DF;color:#131313;opacity:0.8;">Let's Chat</a>
+    </div>
+  </nav>
+
+  <header data-screen-label="Case study header" style="display:flex;flex-direction:column;gap:24px;width:100%;padding:40px 0;">
+    <nav aria-label="Breadcrumb" style="font-size:12px;line-height:130%;letter-spacing:0.02em;">
+      <ol style="display:flex;flex-wrap:wrap;align-items:center;margin:0;padding:0;list-style:none;">
+        <li style="display:flex;align-items:center;"><a href="/" style="color:#6F6F6F;font-weight:400;text-decoration:none;" style-hover="color:#131313;">Home</a><img src="assets/icons/sys-caret-cream-muted.svg" alt="" width="16" height="16"></img></li>
+        <li style="display:flex;align-items:center;"><a href="/#work" style="color:#6F6F6F;font-weight:400;text-decoration:none;" style-hover="color:#131313;">Work</a><img src="assets/icons/sys-caret-cream-muted.svg" alt="" width="16" height="16"></img></li>
+        <li style="display:flex;align-items:center;"><span aria-current="page" style="color:#131313;font-weight:600;">Coach App</span></li>
+      </ol>
+    </nav>
+    <div style="display:flex;flex-wrap:wrap;align-items:flex-start;gap:40px;">
+      <div style="display:flex;flex:0 1 800px;flex-direction:column;gap:16px;min-width:0;max-width:800px;">
+        <h1 style="margin:0;max-width:660px;color:#131313;font-family:'Space Grotesk',sans-serif;font-size:clamp(clamp(24px, calc((100vw - 807px) * 999), 24px), calc((100vw - 1439px) * 999), 36px);font-weight:500;line-height:120%;letter-spacing:-0.04em;text-wrap:balance;">Designing Coach, a mood and journal tracker powered by AI insights.</h1>
+        <p style="margin:0;color:#6F6F6F;font-size:16px;font-weight:400;line-height:140%;letter-spacing:0.02em;text-wrap:pretty;">We designed Coach end to end: the product, the design system behind it, and the way its AI insights are presented. The result is a mood and journal tracker that turns quick daily check-ins into patterns people can understand and act on.</p>
+      </div>
+      <div style="display:flex;flex:1 1 16rem;flex-direction:column;gap:8px;max-width:520px;">
+        <div style="display:flex;align-items:center;gap:8px;font-size:14px;line-height:130%;letter-spacing:0.02em;">
+          <img src="assets/icons/brand-client-cream.svg?v=3" alt="" width="16" height="16"></img>
+          <h3 style="margin:0;color:#131313;font:inherit;font-weight:600;">Client</h3>
+          <span aria-hidden="true" style="width:1px;height:11px;background:#E1DDDC;"></span>
+          <p style="margin:0;color:#6F6F6F;">Coach App</p>
+        </div>
+        <div style="display:flex;align-items:center;gap:8px;font-size:14px;line-height:130%;letter-spacing:0.02em;">
+          <img src="assets/icons/brand-year-cream.svg?v=3" alt="" width="16" height="16"></img>
+          <h3 style="margin:0;color:#131313;font:inherit;font-weight:600;">Year</h3>
+          <span aria-hidden="true" style="width:1px;height:11px;background:#E1DDDC;"></span>
+          <p style="margin:0;color:#6F6F6F;">2026</p>
+        </div>
+        <div style="display:flex;align-items:flex-start;gap:8px;font-size:14px;line-height:130%;letter-spacing:0.02em;">
+          <div style="display:flex;align-items:center;gap:8px;flex:none;height:24px;">
+            <img src="assets/icons/brand-services-cream.svg?v=3" alt="" width="16" height="16"></img>
+            <h3 style="margin:0;color:#131313;font:inherit;font-weight:600;">Role</h3>
+            <span aria-hidden="true" style="width:1px;height:11px;background:#E1DDDC;"></span>
+          </div>
+          <ul role="list" style="display:flex;flex-wrap:wrap;gap:8px;flex:1 1 0;min-width:0;margin:0;padding:0;list-style:none;">
+            <sc-for list="{{ tags }}" as="tag" hint-placeholder-count="5">
+              <li><span style="display:inline-flex;padding:4px 8px;border-radius:4px;background:#FEE7CD;color:#131313;font-size:12px;font-weight:500;line-height:130%;letter-spacing:0.02em;white-space:nowrap;">{{ tag }}</span></li>
+            </sc-for>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div aria-hidden="true" style="width:100%;height:40px;background:url('assets/patterns/plus-cream.svg') 0 0 / 8px 10px repeat;"></div>
+
+  <main style="display:flex;flex-wrap:wrap;gap:40px;align-items:flex-start;justify-content:center;width:100%;padding:40px 0;">
+    <nav aria-label="Contents" style="position:sticky;top:min(84px, calc((100vw - 807px) * 999));flex:0 0 257px;display:flex;flex-direction:column;gap:8px;max-width:100%;padding:8px;border:1px solid #E1DDDC;border-radius:8px;background:#F2ECE8B3;backdrop-filter:blur(8px);">
+      <p style="margin:0;color:#6F6F6F;font-size:14px;line-height:140%;letter-spacing:0.02em;">Contents</p>
+      <span aria-hidden="true" style="display:block;width:100%;height:1px;background:#E1DDDC;"></span>
+      <ul role="list" style="display:flex;flex-direction:column;gap:8px;margin:0;padding:0;list-style:none;">
+        <sc-for list="{{ menu }}" as="m" hint-placeholder-count="8">
+          <li>
+            <a href="{{ m.href }}" onClick="{{ m.go }}" aria-current="{{ m.current }}" style="display:inline-flex;align-items:center;gap:8px;color:{{ m.color }};text-decoration:none;font-size:14px;font-weight:{{ m.weight }};line-height:130%;letter-spacing:0.02em;" style-hover="color:#131313;">
+              <span>{{ m.label }}</span>
+            </a>
+          </li>
+        </sc-for>
+      </ul>
+    </nav>
+
+    <article style="flex:1 1 calc((808px - 100vw) * 999);display:flex;flex-direction:column;gap:40px;min-width:0;">
+      <img src="assets/case-study/coach-hero.png" alt="Coach wordmark among clouds on a lilac-to-yellow gradient" style="display:block;width:100%;height:auto;aspect-ratio:3189 / 1595;border-radius:8px;object-fit:cover;"></img>
+      <section id="problem" data-screen-label="The problem" style="display:flex;flex-direction:column;gap:16px;width:100%;padding:24px;border-radius:8px;background:#FEE7CD;">
+        <div style="display:flex;align-items:center;gap:8px;font-size:14px;line-height:130%;letter-spacing:0.02em;">
+          <h2 style="margin:0;color:#131313;font:inherit;font-weight:600;">The problem</h2>
+          <span aria-hidden="true" style="width:1px;height:11px;background:#FDBB6F;"></span>
+          <p style="margin:0;color:#6E3B00;">Where it started</p>
+        </div>
+        <div style="max-width:800px;color:#6E3B00;font-size:16px;font-weight:400;line-height:130%;letter-spacing:0.02em;">
+          <p style="margin:0;">Most tracker and journal apps tell half the story. The data people log, like medication and daily habits, rarely connects to what they write about how they feel, so the patterns that matter stay hidden.</p>
+          <p style="margin:21px 0 0;">Our brief was to close that gap with a lightweight, focused product that surfaces only what's useful. Simple enough to become a daily ritual, and powerful enough to reveal insights and patterns that would otherwise go unnoticed.</p>
+        </div>
+      </section>
+
+      <sc-for list="{{ sections }}" as="s" hint-placeholder-count="6">
+        <div aria-hidden="true" style="height:40px;background:url('assets/patterns/plus-cream.svg') 0 0 / 8px 10px repeat;"></div>
+        <section id="{{ s.id }}" data-screen-label="{{ s.title }}" style="display:flex;flex-direction:column;gap:16px;">
+          <div style="display:flex;flex-direction:column;gap:16px;max-width:800px;">
+            <div style="display:flex;align-items:center;gap:8px;font-size:14px;line-height:130%;letter-spacing:0.02em;">
+              <h2 style="margin:0;color:#131313;font:inherit;font-weight:600;">{{ s.title }}</h2>
+              <span aria-hidden="true" style="width:1px;height:11px;background:#E1DDDC;"></span>
+              <p style="margin:0;color:#6F6F6F;">{{ s.item }}</p>
+            </div>
+            <p style="margin:0;color:#6F6F6F;font-size:16px;font-weight:400;line-height:140%;letter-spacing:0.02em;text-wrap:pretty;">{{ s.body }}</p>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:16px;">
+            <sc-for list="{{ s.rows }}" as="row" hint-placeholder-count="2">
+              <div style="display:flex;flex-wrap:wrap;gap:16px;">
+                <sc-for list="{{ row.cols }}" as="col" hint-placeholder-count="1">
+                  <div style="display:flex;flex:1 1 {{ col.basis }};flex-direction:column;gap:16px;min-width:0;">
+                    <sc-for list="{{ col.tiles }}" as="t" hint-placeholder-count="1">
+                      <figure style="position:relative;display:flex;flex-direction:column;gap:8px;aspect-ratio:{{ t.ratio }};flex:{{ t.grow }};min-height:{{ t.minH }};margin:0;padding:{{ t.pad }};border-radius:8px;background:{{ t.bg }};overflow:hidden;">
+                        <sc-if value="{{ t.label }}" hint-placeholder-val="{{ true }}">
+                          <figcaption style="flex:none;color:#131313;font-size:12px;font-weight:500;line-height:16px;">{{ t.label }}</figcaption>
+                        </sc-if>
+                        <sc-if value="{{ t.video }}" hint-placeholder-val="{{ false }}">
+                          <video data-tile-video="" src="{{ t.video }}" muted="{{ true }}" loop="{{ true }}" playsInline="{{ true }}" preload="auto" aria-label="{{ t.alt }}" style="position:absolute;top:-1px;left:-2px;display:block;width:calc(100% + 4px);height:calc(100% + 2px);object-fit:cover;"></video>
+                        </sc-if>
+                        <sc-if value="{{ t.compVideo }}" hint-placeholder-val="{{ false }}">
+                          <div style="display:flex;width:100%;height:100%;box-sizing:border-box;overflow:hidden;">
+                          <video ref="{{ compVideoRef }}" src="assets/case-study/coach-components-figma.mp4" muted="{{ true }}" loop="{{ true }}" playsInline="{{ true }}" aria-label="Coach diary components in Figma" style="display:block;flex:none;width:100%;height:calc(100% + 2px);object-fit:cover;object-position:center top;"></video>
+                          </div>
+                        </sc-if>
+                        <sc-if value="{{ t.flip }}" hint-placeholder-val="{{ false }}">
+                          <div style="position:relative;display:flex;align-items:center;justify-content:center;width:100%;height:100%;padding:clamp(16px, 8%, 72px) clamp(36px, 8%, 120px);box-sizing:border-box;">
+                            <button type="button" aria-label="Previous page" onClick="{{ flipPrev }}" style="position:absolute;left:clamp(8px, 2.5%, 40px);top:50%;transform:translateY(-50%);display:flex;padding:0;border:0;background:none;cursor:pointer;opacity:0.7;transition:opacity .15s ease-out;" style-hover="opacity:1;"><img src="assets/icons/flip-arrow-left.svg" alt="" width="20" height="20" style="display:block;"></img></button>
+                            <div style="display:flex;width:100%;max-height:100%;aspect-ratio:2392 / 1345;box-sizing:border-box;">
+                              <sc-if value="{{ flipCover }}" hint-placeholder-val="{{ true }}">
+                                <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(6px, 1.6%, 18px);width:100%;">
+                                  <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:clamp(4px, 1.5cqw, 16px);container-type:inline-size;">
+                                    <img src="coach-walkthrough-assets/coach-wordmark.svg" alt="Coach" style="display:block;width:50%;height:auto;"></img>
+                                    <span style="color:#6F6F6F;font-size:clamp(9px, 4.5cqw, 24px);line-height:1.2;">Primitive Tokens</span>
+                                  </div>
+                                  <div style="border-radius:clamp(3px, 0.8vw, 8px);background:url('coach-walkthrough-assets/background-clouds.webp') left center / cover no-repeat, url('assets/case-study/coach-token-card-bg.png') center / cover no-repeat;"></div>
+                                </div>
+                              </sc-if>
+                              <sc-if value="{{ flipPage }}" hint-placeholder-val="{{ false }}">
+                                <div role="img" aria-label="{{ flipAlt }}" style="width:100%;height:100%;background:url('{{ flipPage }}') center / contain no-repeat;"></div>
+                              </sc-if>
+                            </div>
+                            <button type="button" aria-label="Next page" onClick="{{ flipNext }}" style="position:absolute;right:clamp(8px, 2.5%, 40px);top:50%;transform:translateY(-50%);display:flex;padding:0;border:0;background:none;cursor:pointer;opacity:0.7;transition:opacity .15s ease-out;" style-hover="opacity:1;"><img src="assets/icons/flip-arrow-right.svg" alt="" width="20" height="20" style="display:block;"></img></button>
+                          </div>
+                        </sc-if>
+                        <sc-if value="{{ t.fill }}" hint-placeholder-val="{{ false }}">
+                          <div role="img" aria-label="{{ t.alt }}" style="width:100%;height:100%;background:url('{{ t.fill }}') center / cover no-repeat;"></div>
+                        </sc-if>
+                        <sc-if value="{{ t.appIcon }}" hint-placeholder-val="{{ false }}">
+                          <img src="assets/case-study/coach-app-icon.png" alt="Coach app icon" style="display:block;width:100%;height:100%;object-fit:cover;"></img>
+                        </sc-if>
+                        <sc-if value="{{ t.researchArt }}" hint-placeholder-val="{{ false }}">
+                          <img src="assets/case-study/coach-user-flow.png" alt="{{ t.alt }}" style="display:block;width:100%;height:100%;object-fit:cover;"></img>
+                        </sc-if>
+                        <sc-if value="{{ t.walk }}" hint-placeholder-val="{{ false }}">
+                          <div ref="{{ walkRef }}" style="position:relative;width:100%;aspect-ratio:1063 / 608;border-radius:4px;overflow:hidden;background:#CAE9DF;">
+                            <iframe src="{{ walkSrc }}" title="Coach app walkthrough" scrolling="no" loading="lazy" style="position:absolute;left:0;top:0;width:1063px;height:608px;border:0;transform-origin:0 0;transform:scale({{ walkScale }});"></iframe>
+                          </div>
+                        </sc-if>
+                        <sc-if value="{{ t.img }}" hint-placeholder-val="{{ false }}">
+                          <div style="display:flex;flex:1 1 auto;min-height:0;padding:4px 0 0 4px;border-style:solid;border-color:#AEBDB8;border-width:1px 0 0 1px;border-radius:8px 0 6px 0;overflow:hidden;">
+                            <div style="flex:1 1 auto;min-width:0;overflow:hidden;border-style:solid;border-color:#AEBDB8;border-width:1px 0 0 1px;border-radius:4px 0 6px 0;background:#C5D6D1;">
+                              <div role="img" aria-label="{{ t.alt }}" style="width:100%;height:100%;background:url('{{ t.img }}') left top / cover no-repeat;"></div>
+                            </div>
+                          </div>
+                        </sc-if>
+                      </figure>
+                    </sc-for>
+                  </div>
+                </sc-for>
+              </div>
+            </sc-for>
+          </div>
+        </section>
+      </sc-for>
+
+      <div aria-hidden="true" style="height:40px;background:url('assets/patterns/plus-cream.svg') 0 0 / 8px 10px repeat;"></div>
+
+      <section id="result" data-screen-label="The result" style="display:flex;flex-direction:column;gap:16px;">
+        <div style="display:flex;flex-direction:column;gap:16px;width:100%;padding:24px;border-radius:8px;background:#FEE7CD;">
+          <div style="display:flex;align-items:center;gap:8px;font-size:14px;line-height:130%;letter-spacing:0.02em;">
+            <h2 style="margin:0;color:#131313;font:inherit;font-weight:600;">The result</h2>
+            <span aria-hidden="true" style="width:1px;height:11px;background:#FDBB6F;"></span>
+            <p style="margin:0;color:#6E3B00;">What changed</p>
+          </div>
+          <div style="max-width:800px;color:#6E3B00;font-size:16px;font-weight:400;line-height:130%;letter-spacing:0.02em;">
+            <p style="margin:0;">Coach now runs on a fully agent-ready design system that makes on-brand product development straightforward. New features and iterations come together quickly, unlocking the speed of AI development while preserving the human creative decisions that make the brand and product distinct.</p>
+          </div>
+        </div>
+      </section>
+    </article>
+  </main>
+
+
+</div>
+<div style="max-width:1520px;margin:0 auto;">
+  <dc-import name="SiteFooter" bio-variant="cta" hint-size="100%,1900px" style="display:block;width:100%;"></dc-import>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { active: 'problem' };
+  nav = [
+    ['problem', 'The problem', 'problem'],
+    ['research', 'Research', 'design-system'],
+    ['checkins', 'Design', 'design-system'],
+    ['journal', 'Token system', 'design-system'],
+    ['insights', 'Component building', 'design-system'],
+    ['system', 'Stack and AI build', 'design-system'],
+    // ['designsystem', 'AI tooling', 'design-system'], // hidden for now
+    ['result', 'The result', 'solution'],
+  ];
+
+  wireInView() {
+    const io = this.vidIO = new IntersectionObserver((es) => es.forEach((e) => {
+      const v = e.target; v._inView = e.isIntersecting && e.intersectionRatio >= 0.35;
+      if (v._inView) { if (!v._started) { v._started = true; try { v.currentTime = 0; } catch (_) {} } v.play().catch(() => {}); } else if (!v.paused) v._origPause();
+    }), { threshold: [0, 0.35, 0.6] });
+    const scan = () => document.querySelectorAll('video').forEach((v) => {
+      if (v._ivWired) return; v._ivWired = true;
+      const av1 = v.canPlayType('video/mp4; codecs="av01.0.08M.08"');
+      const s0 = v.getAttribute('src') || '';
+      const phone = window.matchMedia('(max-width: 807px)').matches;
+      const alt = phone ? '-mobile' : (!av1 ? '-h264' : '');
+      if (alt && /\.mp4(\?|$)/.test(s0) && !/-(h264|mobile)\.mp4/.test(s0)) v.src = s0.replace(/\.mp4(\?|$)/, alt + '.mp4$1');
+      v.autoplay = false; v.removeAttribute('autoplay'); v.muted = true;
+      const play = v.play.bind(v); v._origPause = v.pause.bind(v);
+      v.play = () => (v._inView ? play() : Promise.resolve());
+      if (!v._inView) v._origPause();
+      io.observe(v);
+    });
+    scan();
+    this.vidMO = new MutationObserver(scan); this.vidMO.observe(document.body, { childList: true, subtree: true });
+  }
+  componentDidMount() {
+    this.wireInView();
+    const startVid = () => { const v = this.compVideoRef && this.compVideoRef.current; if (!v) { this.vidTimer = setTimeout(startVid, 100); return; } v.muted = true; v.loop = true; v.playsInline = true; if (!v.__loopBound) { v.__loopBound = true; v.preload = 'auto'; const tick = () => { if (v.duration && !v.paused && v.currentTime >= v.duration - 0.12) { v.currentTime = 0; } this.loopRaf = requestAnimationFrame(tick); }; this.loopRaf = requestAnimationFrame(tick); v.addEventListener('ended', () => { v.currentTime = 0; const p2 = v.play(); if (p2 && p2.catch) p2.catch(() => {}); }); v.addEventListener('pause', () => { if (v.ended || (v.duration && v.currentTime >= v.duration - 0.05)) { v.currentTime = 0; v.play().catch(() => {}); } }); } const pr = v.play(); if (pr && pr.catch) pr.catch(() => {}); };
+    startVid();
+    const startTiles = () => document.querySelectorAll('video[data-tile-video]').forEach((v) => {
+      if (v._wired) return; v._wired = true;
+      v.muted = true; v.setAttribute('muted', '');
+      const go = () => { const p = v.play(); if (p && p.catch) p.catch(() => {}); };
+      v.addEventListener('loadeddata', go); v.addEventListener('canplay', go); go();
+    });
+    startTiles(); this.tileVidTimer = setInterval(startTiles, 1000); setTimeout(() => clearInterval(this.tileVidTimer), 15000);
+    this.walkRO = new ResizeObserver(() => { const el = this.walkRef && this.walkRef.current; if (el && el.clientWidth) { const k = el.clientWidth / 1063; if (Math.abs(k - (this.state.walkScale || 0)) > 0.001) this.setState({ walkScale: k }); } });
+    const watch = () => { const el = this.walkRef && this.walkRef.current; if (el) this.walkRO.observe(el); else this.walkTimer = setTimeout(watch, 100); };
+    watch();
+    import('./reveal.js').then((m) => { const run = () => m.reveal("[data-screen-label]:not([data-screen-label=\"Hero\"]) > *:not(canvas), [data-reveal-group] > *, [data-reveal], nav[aria-label=\"Contents\"]"); run(); setTimeout(run, 600); setTimeout(run, 2000); }).catch(() => {});
+    this.onScroll = () => {
+      let cur = this.nav[0][0];
+      for (const [id] of this.nav) {
+        const el = document.getElementById(id);
+        if (el && el.getBoundingClientRect().top < 160) cur = id;
+      }
+      if (cur !== this.state.active) this.setState({ active: cur });
+    };
+    window.addEventListener('scroll', this.onScroll, { passive: true });
+  }
+  componentWillUnmount() {
+    this.vidIO && this.vidIO.disconnect(); this.vidMO && this.vidMO.disconnect();
+    cancelAnimationFrame(this.loopRaf); window.removeEventListener('scroll', this.onScroll); }
+  renderVals() {
+    const a = this.state.active;
+    const STACK = 'clamp(20rem, calc((808px - 100vw) * 999), 100%)';
+    if (!this.walkRef) this.walkRef = React.createRef();
+    if (!this.compVideoRef) this.compVideoRef = React.createRef();
+    // Flip book: first spread is the cover; add exported PDF page images (one per spread) after it.
+    const flipPages = [1,2,3,4,5,6,7].map(n => 'assets/case-study/coach-primitive-0' + n + '.png').concat(Array.from({ length: 14 }, (_, n) => 'assets/case-study/coach-semantic-' + String(n).padStart(2, '0') + '.png'));
+    const fi = Math.min(this.state.flipIdx || 0, flipPages.length - 1);
+    const P = 'assets/case-study/placeholder.png';
+    const tile = (height, label, img, pad) => ({ height, bg: '#CAE9DF', grow: '0 0 auto', minH: '0', ratio: height === 'auto' ? 'auto' : '712 / ' + parseFloat(height), label: label || '', img: img || '', alt: label || 'Case study image', pad: pad || (img ? '24px 2px 2px 24px' : '24px') });
+    const full = (height, label, img, pad) => ({ cols: [{ basis: '100%', tiles: [Object.assign(tile(height, label, img, pad), { ratio: '1440 / ' + parseFloat(height) })] }] });
+    const pair = (h) => ({ cols: [{ basis: STACK, tiles: [tile(h)] }, { basis: STACK, tiles: [tile(h)] }] });
+    const stack = (small, tall, tallTile, smallTiles) => ({ cols: [
+      { basis: STACK, tiles: smallTiles || [tile(small), tile(small)] },
+      { basis: STACK, tiles: [Object.assign(tallTile || tile(tall), { ratio: 'auto', grow: '1 1 auto', minH: '280px' })] },
+    ] });
+    const icon = (n) => `assets/icons/brand-${n}-cream.svg`;
+    const sections = [
+      { id: 'research', title: 'Research', item: 'Why people stop checking in', icon: icon('design-system'), body: "We started with a landscape audit: the best-in-class apps in the space, feature by feature, to map where the category already delivers and where it falls short. That audit set the scope for the product and gave us a clear foundation to plan from. From there, we built the first-stage user flow around only what the core experience needs.", rows: [
+        { cols: [{ basis: '100%', tiles: [Object.assign(tile('auto', '', '', '0'), { ratio: '2126 / 1217', bg: "url('assets/case-study/coach-research.png?v=2') center / 100% 100% no-repeat", alt: 'Coach research' })] }] }, { cols: [{ basis: '100%', tiles: [Object.assign(tile('auto', '', '', '0'), { ratio: '2126 / 1217', bg: "url('assets/case-study/coach-user-flow-v2.png') center / 100% 100% no-repeat", alt: 'Coach user flow' })] }] },
+      ] },
+      { id: 'checkins', title: 'Design', item: 'Brand and product, designed together', icon: icon('design-system'), body: "We designed Coach around simplicity and ease of use. As an AI-native product, it uses AI to keep the conversation going, nudging people to go deeper when an area of their journaling needs attention. Alongside the journal, Coach tracks the factors that shape mood: medication consistency, or moderating substances like cigarettes for anyone working to quit. Mood and energy act as markers for what's working and what isn't. Every entry feeds the AI coach, which reads across all the data to surface patterns and insights that would otherwise be missed. The AI steps in where it adds value, while journaling and tracking stay at the centre of the experience.", rows: [
+        { cols: [{ basis: '100%', tiles: [Object.assign(tile('auto', '', '', '0'), { walk: true, alt: 'Coach app walkthrough' })] }] }, { cols: [{ basis: STACK, tiles: [Object.assign(tile('280.968px', '', '', '0'), { appIcon: true, ratio: 'auto', grow: '1 1 0', minH: '200px' }), Object.assign(tile('auto', '', '', '0'), { ratio: 'auto', grow: '1 1 0', minH: '200px', video: 'assets/case-study/coach-toggle-loop.mp4', alt: 'Coach toggle interaction' })] }, { basis: STACK, tiles: [Object.assign(tile('auto', '', '', '0'), { ratio: '1095 / 1164', grow: '1 0 auto', video: 'assets/case-study/coach-longpress.mp4', alt: 'Coach long-press interaction' })] }] }, { cols: [{ basis: '100%', tiles: [Object.assign(tile('auto', '', '', '0'), { ratio: '2126 / 1216', bg: "url('assets/case-study/coach-device-screens-v3.webp') center / 100% 100% no-repeat", alt: 'Coach app screens' })] }] },
+      ] },
+      { id: 'journal', title: 'Token system', item: 'Raw values, mapped to purpose', icon: icon('design-system'), body: "Token building is where the design starts becoming code. Primitives hold the raw values: color, type, spacing and radius. Semantic tokens reference those primitives and name their purpose.", rows: [
+        { cols: [{ basis: STACK, tiles: [Object.assign(tile('auto', '', '', '0'), { fill: 'assets/case-study/coach-token-flow.png', ratio: '1571 / 1669', alt: 'Token flow: primitive tokens to pages' })] }, { basis: STACK, tiles: [Object.assign(tile('auto', '', '', '0'), { fill: 'assets/case-study/coach-token-studio.png', ratio: '1571 / 1669', alt: 'Tokens Studio JSON' })] }] },
+        { cols: [{ basis: '100%', tiles: [Object.assign(tile('auto', '', '', '0'), { flip: true, ratio: '1490 / 844', bg: "url('assets/case-study/coach-token-card-bg.png') center / cover no-repeat" })] }] },
+      ] },
+      { id: 'insights', title: 'Component building', item: 'Built on the tokens', icon: icon('design-system'), body: "From there, we built components, then patterns, then full pages: mood selectors, cards, inputs, buttons and navigation, each bound to tokens. Because every layer cascades from the one beneath it, the system stays easy to maintain: change a value once and it flows through the whole app. Components live in Figma for design and in code for engineering, so both stay in step.", rows: [
+        { cols: [{ basis: '100%', tiles: [Object.assign(tile('auto', '', '', '0'), { compVideo: true, ratio: '1490 / 820', bg: "url('assets/case-study/coach-token-card-bg.png') center / cover no-repeat" })] }] },
+      ] },
+      { id: 'system', title: 'Stack and AI build', item: 'Built with AI, on the system', icon: icon('design-system'), body: "With the system in place, we moved into the build. AI tooling worked directly from the tokens, components and an agent contract, so generated screens matched the designs instead of drifting from them. The same setup lets the team keep shipping features that still feel like Coach, and extends to go-to-market resources built with AI that look and feel like the product. Everything stays on brand and consistent, so the team can focus on the work itself rather than the details of execution.", rows: [
+        { cols: [{ basis: '100%', tiles: [Object.assign(tile('auto', '', '', '0'), { ratio: '2126 / 1196', bg: "url('assets/case-study/coach-ai-stack.png') center / 100% 100% no-repeat", alt: 'Coach tech stack' })] }] }, { cols: [{ basis: STACK, tiles: [Object.assign(tile('auto', '', '', '0'), { ratio: '1047 / 1164', bg: "url('assets/case-study/coach-build-preview.png') center / cover no-repeat", alt: 'AI-built Coach login screen running in the iOS simulator' })] }, { basis: STACK, tiles: [Object.assign(tile('auto', '', '', '0'), { ratio: '1047 / 1164', bg: "url('assets/case-study/coach-agent-contract.png') center / cover no-repeat", alt: 'Agent contract: the CLAUDE.md directives file' })] }] },
+      ] },
+      { id: 'designsystem', title: 'AI tooling', item: 'The system, put to work', icon: icon('design-system'), body: "With a solid, reliable agentic design system in place, we could build and iterate on the product quickly while keeping every screen consistent. The team now has a foundation that lets them take full advantage of the speed of AI, with output that is production-ready and on brand from the start.", rows: [
+        full('596.632px', 'Claude skills'), { cols: [{ basis: STACK, tiles: [tile('280.968px', 'Asset generator')] }, { basis: STACK, tiles: [tile('280.968px', 'Feature prototyping')] }] },
+      ] },
+    ];
+    return {
+      flipCover: false, flipPage: flipPages[fi] || '', flipAlt: fi < 7 ? 'Primitive tokens, page ' + (fi + 1) : 'Semantic tokens, page ' + (fi - 6),
+      flipAtStart: fi === 0, flipAtEnd: fi === flipPages.length - 1,
+      flipPrevOpacity: 0.7, flipNextOpacity: 0.7, flipPrevHover: 1, flipNextHover: 1,
+      flipPrev: () => this.setState({ flipIdx: (fi - 1 + flipPages.length) % flipPages.length }),
+      flipNext: () => this.setState({ flipIdx: (fi + 1) % flipPages.length }),
+      compVideoRef: this.compVideoRef,
+      walkRef: this.walkRef, walkSrc: '/coach-walkthrough', walkScale: this.state.walkScale || 0.5,
+      tags: ['UX research', 'Product design', 'Agentic design system', 'Agent contract', 'Product build', 'AI tooling'],
+      sections: sections.filter(s => s.id !== 'designsystem'), // AI tooling hidden for now
+      menu: this.nav.map(([id, label, ic]) => ({
+        href: '#' + id, label, current: a === id ? 'true' : undefined,
+        color: a === id ? '#131313' : '#6F6F6F',
+        weight: a === id ? 600 : 400,
+        icon: `assets/icons/menu-${ic}-${a === id ? 'active' : 'inactive'}.svg?v=3`,
+        go: (e) => {
+          e.preventDefault();
+          const el = document.getElementById(id);
+          if (el) window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - 84, behavior: 'smooth' });
+          this.setState({ active: id });
+        },
+      })),
+    };
+  }
+}
+</script>
+</body>
+</html>
