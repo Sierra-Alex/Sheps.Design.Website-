@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Highfive homepage</title><meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600&family=Noto+Serif:wght@400&display=swap">
+<link rel="stylesheet" href="highfive-home-fig/fig-tokens.css">
+<link rel="stylesheet" href="highfive-home-fig/fig-assets.css">
+<style>
+html,body{margin:0;background:#f7f3f1;scrollbar-width:none}html::-webkit-scrollbar{display:none}
+.rest{width:100%;overflow:hidden}
+#pr{width:1440px;transform-origin:0 0}
+</style>
+</head>
+<body>
+<div class="rest" aria-label="Highfive homepage"><div id="pr"></div></div>
+<script src="https://unpkg.com/react@18.3.1/umd/react.production.min.js" crossorigin></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.production.min.js" crossorigin></script>
+<script src="highfive-home-fig/Components.bundle.js"></script>
+<script>
+(() => {
+  const host = document.getElementById("pr"), rest = host.parentElement;
+  ReactDOM.createRoot(host).render(React.createElement(window.GridSystem));
+  const fit = () => { const k = rest.clientWidth / 1440; host.style.transform = "scale(" + k + ")"; rest.style.height = host.scrollHeight * k + "px"; };
+  const prep = () => { const root = host.firstElementChild; if (!root) return setTimeout(prep, 100); root.style.height = "auto";
+    const sv = root.querySelector('svg[height="823"]');
+    if (sv) { const d = document.createElement("div"); d.style.cssText = "position:absolute;left:0;top:0;width:1440px;height:823px;background:radial-gradient(996px 411.5px at 50% 50%, rgb(240,236,234) 16.86%, rgba(240,236,234,0) 100%), linear-gradient(180deg, rgba(167,221,250,0.8) 0%, rgba(200,216,229,0.8) 44.46%, rgba(236,212,212,0.8) 107.29%), url(highfive-home-fig/assets/52197a528423f5f6.png) center / cover no-repeat"; sv.replaceWith(d); }
+    const A = "highfive-home-fig/assets/", glass = "url(" + A + "bfba070dbe59aef5.webp) center / cover no-repeat, linear-gradient(90deg, rgba(255,255,255,0.25) 0%, rgba(255,255,255,0.4) 100%)";
+    root.querySelectorAll('svg[width="124"][height="120"]').forEach(v => { if (v.style.left !== "588px") return; const d = document.createElement("div");
+      d.style.cssText = "position:absolute;left:588px;top:" + v.style.top + ";width:124px;height:120px;border-radius:8px;box-shadow:inset 0 0 0 1px rgb(247,243,241);background:" + (v.style.top === "12px" ? "url(" + A + "59c33fd2ab81ccba.webp) 55.548% 50% / 172.676% 100% no-repeat, " : "url(" + A + "fac2236102476566.webp) 50% 50% / 204.839% 119.944% no-repeat, ") + glass; v.replaceWith(d); });
+    // hero cloud mask: Figma masks the clouds with a top-to-bottom fade; the extractor drew the mask as a grey box
+    [...root.querySelectorAll("div")].filter(e => e.style.top === "355px" && e.style.height === "468px").forEach(m => { m.innerHTML = ""; const cl = document.createElement("div"); cl.style.cssText = "position:absolute;left:1.5px;top:0;width:1440px;height:468px;background:linear-gradient(180deg, rgba(167,221,250,0.8) -49.04%, rgba(200,216,229,0.8) 12.73%, rgba(236,212,212,0.8) 100%), url(highfive-home-fig/assets/f0948d2ae82a6cc4.png) 50% 13.618% / 100% 205.128% no-repeat;-webkit-mask-image:linear-gradient(180deg, transparent 0%, #000 54.7%);mask-image:linear-gradient(180deg, transparent 0%, #000 54.7%)"; m.appendChild(cl); });
+    // drop the outer side strokes on full-width sections
+    root.querySelectorAll("div").forEach(e => { if (e.offsetWidth >= 1438 && (parseFloat(getComputedStyle(e).borderLeftWidth) || parseFloat(getComputedStyle(e).borderRightWidth))) { e.style.borderLeft = "0"; e.style.borderRight = "0"; } });
+    fit(); };
+  addEventListener("resize", fit); new ResizeObserver(fit).observe(host); prep();
+})();
+</script>
+<script>
+(() => {
+  // Auto scroll-through for the case study tile: glide down the page, hold, loop. Any manual input pauses it.
+  let t0 = null, held = 0;
+  const ease = x => x < .5 ? 2 * x * x : 1 - Math.pow(-2 * x + 2, 2) / 2;
+  function step(now) {
+    requestAnimationFrame(step);
+    if (now < held) { t0 = null; return; }
+    const H = innerHeight, max = document.documentElement.scrollHeight - H; if (max <= 0) return;
+    const top = 900, glide = Math.max(6000, max / (H * 0.5) * 1000), hold = 1300, total = top + glide + hold;
+    if (t0 === null) t0 = now - (scrollY >= max - 1 ? 0 : top + glide * (scrollY / max));
+    const t = (now - t0) % total;
+    scrollTo(0, t < top ? 0 : t < top + glide ? max * ease((t - top) / glide) : max);
+  }
+  const pause = () => { held = performance.now() + 4000; };
+  ["wheel", "touchstart", "keydown", "mousedown"].forEach(ev => addEventListener(ev, pause, { passive: true }));
+  if (!matchMedia("(prefers-reduced-motion: reduce)").matches) requestAnimationFrame(step);
+})();
+</script>
+</body>
+</html>

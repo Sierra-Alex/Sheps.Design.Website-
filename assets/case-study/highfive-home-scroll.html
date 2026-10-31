@@ -1,0 +1,57 @@
+<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Highfive homepage</title>
+<style>html,body{margin:0;background:#F7F3F1}img{display:block;width:100%;height:auto}html{scrollbar-width:none}body::-webkit-scrollbar{display:none}</style></head>
+<body><div style="position:relative"><img src="highfive-home-full.jpg?v=10" width="2000" height="8012" alt="Highfive homepage: hero, features, software, hardware, testimonial, content and footer"><div style="position:absolute;left:67.1%;top:18.3%;width:29.5%"><img src="highfive-rings-loop.webp" alt="" style="display:block;width:100%;height:auto"><img src="highfive-icon-audio.png" alt="" style="position:absolute;left:50%;top:50%;width:8.25%;height:auto;transform:translate(-50%,-50%);mix-blend-mode:multiply;opacity:0.8"></div><div style="position:absolute;left:35.25%;top:18.3%;width:29.5%"><img src="highfive-circle-hexagon.gif?v=1" alt="" style="display:block;width:100%;height:auto"><img src="highfive-icon-screen.png" alt="" style="position:absolute;left:50%;top:50%;width:8.25%;height:auto;transform:translate(-50%,-50%);mix-blend-mode:multiply;opacity:0.8"></div><div style="position:absolute;left:3.5%;top:18.3%;width:29.5%"><img src="highfive-circle-square.gif?v=1" alt="" style="display:block;width:100%;height:auto"><img src="highfive-icon-video.png" alt="" style="position:absolute;left:50%;top:50%;width:8.25%;height:auto;transform:translate(-50%,-50%);mix-blend-mode:multiply;opacity:0.8"></div><video id="callHero" src="highfive-call-hero.mp4" muted playsinline preload="auto" disablepictureinpicture aria-label="Highfive call: video conference animation" style="position:absolute;left:2.25%;top:32.763%;width:95.55%;height:12.481%;object-fit:cover;display:block;pointer-events:none"></video></div>
+<button id="sp" type="button" aria-label="Pause scroll-through" style="position:fixed;right:16px;bottom:16px;z-index:10;width:28px;height:28px;border-radius:50%;border:1px solid rgba(19,19,19,0.08);background:rgba(247,243,241,0.6);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);display:flex;align-items:center;justify-content:center;cursor:pointer;padding:0;color:#131313;transition:opacity .2s;opacity:0.7"><svg id="spPause" width="10" height="10" viewBox="0 0 14 14" fill="currentColor" aria-hidden="true"><rect x="2.5" y="1.5" width="3" height="11" rx="1"/><rect x="8.5" y="1.5" width="3" height="11" rx="1"/></svg><svg id="spPlay" width="10" height="10" viewBox="0 0 14 14" fill="currentColor" aria-hidden="true" style="display:none"><path d="M3.5 1.8v10.4a.8.8 0 0 0 1.2.7l8.3-5.2a.8.8 0 0 0 0-1.4L4.7 1.1a.8.8 0 0 0-1.2.7z"/></svg></button>
+<div id="sh" aria-hidden="true" style="position:fixed;left:50%;bottom:20px;z-index:10;transform:translate(-50%,8px);opacity:0;pointer-events:none;transition:opacity .4s ease,transform .4s ease;display:flex;align-items:center;gap:6px;padding:5px 10px;border-radius:999px;background:rgba(247,243,241,0.6);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);border:1px solid rgba(19,19,19,0.08);font:500 10px/1 'Inter',system-ui,sans-serif;letter-spacing:0.02em;color:#131313"><svg width="8" height="12" viewBox="0 0 12 18" fill="none" aria-hidden="true"><rect x="0.75" y="0.75" width="10.5" height="16.5" rx="5.25" stroke="#131313" stroke-width="1.5"/><rect id="shDot" x="5" y="4" width="2" height="4" rx="1" fill="#131313"/></svg>Scroll to explore</div>
+<style>@keyframes shd{0%{transform:translateY(0);opacity:1}70%{transform:translateY(5px);opacity:0}100%{transform:translateY(0);opacity:0}}#shDot{animation:shd 1.6s ease-in-out infinite}</style>
+<script>
+(() => {
+  const ease = t => t < .5 ? 2*t*t : 1 - Math.pow(-2*t+2, 2)/2;
+  const HOLD = 1500, PX_PER_S = 260, MAX_WAIT = 20000;
+  const v = document.getElementById("callHero");
+  let userPaused = false, hintShown = false;
+  let raf = 0, pausedUntil = 0, phase = "hold0", t0 = null, played = false, ended = false, waitStart = 0;
+  const playVid = () => { if (played) return; played = true; v.currentTime = 0; const p = v.play(); if (p) p.catch(() => { ended = true; }); };
+  v.addEventListener("ended", () => { ended = true; });
+  new IntersectionObserver(es => es.forEach(e => { if (e.intersectionRatio >= 0.6) playVid(); }), { threshold: [0, 0.6, 1] }).observe(v);
+  const stopY = () => { const r = v.getBoundingClientRect(); return Math.max(0, Math.min(r.top + scrollY + r.height / 2 - innerHeight / 2, document.documentElement.scrollHeight - innerHeight)); };
+  let segFrom = 0, segTo = 0, segDur = 0;
+  const seg = (from, to, now) => { segFrom = from; segTo = to; segDur = Math.max(1500, Math.abs(to - from) / PX_PER_S * 1000); t0 = now; };
+  function frame(now) {
+    raf = requestAnimationFrame(frame);
+    if (userPaused || now < pausedUntil) { t0 = null; return; }
+    const max = document.documentElement.scrollHeight - innerHeight;
+    if (max <= 0) return;
+    if (t0 === null) {
+      const y = scrollY, sy = stopY();
+      if (y < sy - 2) { phase = "toVideo"; seg(y, sy, now); }
+      else if (!ended && Math.abs(y - sy) <= 2) { phase = "video"; t0 = now; waitStart = now; playVid(); }
+      else { phase = "toEnd"; seg(y, max, now); }
+    }
+    const e = now - t0;
+    if (phase === "hold0") { scrollTo(0, 0); if (e > HOLD) { phase = "toVideo"; seg(0, stopY(), now); } return; }
+    if (phase === "toVideo") { const t = Math.min(1, e / segDur); scrollTo(0, segFrom + (segTo - segFrom) * ease(t)); if (t >= 1) { phase = "video"; t0 = now; waitStart = now; playVid(); } return; }
+    if (phase === "video") { if (ended || now - waitStart > MAX_WAIT) { phase = "toEnd"; seg(scrollY, max, now); } return; }
+    if (phase === "toEnd") { const t = Math.min(1, e / segDur); scrollTo(0, segFrom + (segTo - segFrom) * ease(t)); if (t >= 1) { phase = "holdEnd"; t0 = now; } return; }
+    if (phase === "holdEnd" && e > HOLD) { scrollTo(0, 0); phase = "hold0"; t0 = now; }
+  }
+  const btn = document.getElementById("sp"), hint = document.getElementById("sh");
+  let inv = 1;
+  const fit = () => { let k = 1; try { const fe = window.frameElement; if (fe) k = fe.getBoundingClientRect().width / innerWidth || 1; } catch (e) {} inv = Math.min(3, Math.max(1, 1 / k)); btn.style.transformOrigin = "100% 100%"; btn.style.transform = "scale(" + inv + ")"; btn.style.right = (12 * inv) + "px"; btn.style.bottom = (12 * inv) + "px"; hint.style.transformOrigin = "50% 100%"; hint.style.bottom = (14 * inv) + "px"; showHint(hintShown); };
+  const showHint = on => { hintShown = on; hint.style.opacity = on ? "0.75" : "0"; hint.style.transform = "translate(-50%," + (on ? 0 : 8 * inv) + "px) scale(" + inv + ")"; };
+  const setPaused = p => {
+    userPaused = p; t0 = null;
+    document.getElementById("spPause").style.display = p ? "none" : "";
+    document.getElementById("spPlay").style.display = p ? "" : "none";
+    btn.setAttribute("aria-label", p ? "Play scroll-through" : "Pause scroll-through");
+    if (p) { if (!v.paused) v.pause(); showHint(true); }
+    else { showHint(false); if (phase === "video" && played && !ended) v.play().catch(() => {}); }
+  };
+  fit(); addEventListener("resize", fit); try { window.parent.addEventListener("resize", fit); } catch (e) {} setInterval(fit, 1000);
+  btn.addEventListener("click", e => { e.stopPropagation(); setPaused(!userPaused); });
+  const pause = e => { if (e && e.target && e.target.closest && e.target.closest("#sp")) return; if (!userPaused) { setPaused(true); } };
+  ["wheel","touchstart","keydown","mousedown"].forEach(ev => addEventListener(ev, pause, { passive: true }));
+  const go = () => { if (!raf) { raf = requestAnimationFrame(now => { t0 = now; raf = requestAnimationFrame(frame); }); } };
+  document.images[0].complete ? go() : document.images[0].addEventListener("load", go);
+})();
+</script></body></html>

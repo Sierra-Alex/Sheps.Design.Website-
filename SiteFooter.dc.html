@@ -43,7 +43,7 @@ body{margin:0;font-family:'Inter',sans-serif;font-size:14px;line-height:130%;-we
       <sc-if value="{{ sent }}" hint-placeholder-val="{{ false }}">
         <div role="status" style="display:flex;align-items:flex-start;gap:8px;color:#6F6F6F;font-size:14px;line-height:130%;letter-spacing:0.02em;">
           <img src="assets/icons/sys-check-cream.svg" alt="" width="16" height="16" style="flex:none;"></img>
-          <p style="margin:0;">Thanks. Your message is on its way and we'll be in touch soon.</p>
+          <p style="margin:0;">Thanks. Your message is on its way and I'll be in touch soon.</p>
         </div>
       </sc-if>
       <sc-if value="{{ notSent }}" hint-placeholder-val="{{ true }}">
@@ -86,7 +86,7 @@ body{margin:0;font-family:'Inter',sans-serif;font-size:14px;line-height:130%;-we
 <div data-surface="cream" style="position:relative;display:flex;flex-direction:column;gap:40px;padding:0 8px 8px;background:#F7F3F1;box-shadow:0 0 0 100vmax #F7F3F1;clip-path:inset(0 -100vmax);">
   <footer style="display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap;width:100%;height:50px;padding:8px;border:1px solid #E1DDDC;border-radius:8px;background:#F2ECE8B3;backdrop-filter:blur(8px);">
     <div style="display:flex;align-items:center;gap:14px;">
-      <img src="assets/logo/nav-logo-cream.svg" alt="Sheps.Design" width="32" height="32" style="display:block;"></img>
+      <a href="Sheps Design Home.dc.html" aria-label="Sheps.Design home" style="display:block;line-height:0;"><img src="assets/logo/nav-logo-cream.svg" alt="Sheps.Design" width="32" height="32" style="display:block;"></img></a>
       <img src="assets/logo/word-mark-sm-slate.svg" alt="" width="110" height="13" hidden="" style="display:none;"></img>
     </div>
     <ul role="list" style="display:flex;align-items:center;align-self:center;gap:8px;height:100%;margin:0;padding:0;list-style:none;">
@@ -100,7 +100,7 @@ body{margin:0;font-family:'Inter',sans-serif;font-size:14px;line-height:130%;-we
 <div data-surface="slate" style="position:relative;display:flex;flex-direction:column;gap:40px;padding:0 8px 8px;background:#131313;box-shadow:0 0 0 100vmax #131313;clip-path:inset(0 -100vmax);">
   <footer style="display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap;width:100%;height:50px;padding:8px;border:1px solid #F7F3F11A;border-radius:8px;background:#131313B3;backdrop-filter:blur(8px);">
     <div style="display:flex;align-items:center;gap:14px;">
-      <img src="assets/logo/nav-logo-slate.svg" alt="Sheps.Design" width="32" height="32" style="display:block;"></img>
+      <a href="Sheps Design Home.dc.html" aria-label="Sheps.Design home" style="display:block;line-height:0;"><img src="assets/logo/nav-logo-slate.svg" alt="Sheps.Design" width="32" height="32" style="display:block;"></img></a>
       <img src="assets/logo/word-mark-sm-slate.svg" alt="" width="110" height="13" hidden="" style="display:none;"></img>
     </div>
     <ul role="list" style="display:flex;align-items:center;align-self:center;gap:8px;height:100%;margin:0;padding:0;list-style:none;">
@@ -564,9 +564,9 @@ class Component extends DCLogic {
       modalVideoRef: this.modalVideoRef,
       footBoxRef: this.footBoxRef,
       tiers: [
-        { tag: 'Connect', services: ["Audit","Token cleanup","Figma + code sync"], image: 'assets/figma/tier-audit.png', alt: 'A pile of glass and stones for the audit tier', left: '-24px', top: '-33.665px', divider: '0', pad: '0', title: "Make your system AI-ready.", body: "For teams with a design system in place that just needs cleaning up and connecting, so you can start creating with AI. We audit what you have, close the gaps, and work alongside your internal design team.", items: ["Full audit of your current design system's structure","Scored AI-readiness report","Prioritized list of gaps and fixes","Recommendations for token and component structure","Working session with your internal design team"] },
-        { tag: 'Design', services: ["Creative direction","Token architecture","Component library"], image: 'assets/figma/tier-build.png', alt: 'A pile of glass and stones for the build tier', left: '-24px', top: '-31.665px', divider: div, pad: 'clamp(0px, calc((100vw - 807px) * 999), 16px)', title: "Design an AI-ready system.", body: "For teams without a system yet. We work with you on styling and creative direction, then build it out as a full agent-ready design system: the foundation, the components, and the guardrails that keep AI-generated work on-brand.", items: ["Full agent-ready design system, built from the ground up","Semantic token architecture and component library","Guardrails that keep AI-generated work on-brand","Collaborative styling and creative direction sessions","Documentation built for both your team and your AI tools"] },
-        { tag: 'Partner', services: ["Maintenance","Custom AI tooling","Governance"], image: 'assets/figma/tier-partnership.png', alt: 'A pile of glass and stones for the partnership tier', left: '-24px', top: '-41.665px', divider: div, pad: 'clamp(0px, calc((100vw - 807px) * 999), 16px)', title: "Grow it with ongoing support.", body: "For teams who want support as they grow. We keep the relationship going, maintaining the system and building the AI tooling your team needs as you evolve. The exact makeup is flexible and shaped around what you need.", items: ["Ongoing maintenance and updates to the system","New components and tokens as your brand evolves","Custom AI tooling built for your team","Regular governance check-ins","Priority support as your team scales"] },
+        { tag: 'Connect', services: ["Audit","Token cleanup","Figma + code sync"], image: 'assets/figma/tier-audit.png', alt: 'A pile of glass and stones for the audit tier', left: '-24px', top: '-33.665px', divider: '0', pad: '0', title: "Make your system AI-ready.", body: "For teams with a design system in place that just needs cleaning up and connecting, so you can start creating with AI. I audit what you have, close the gaps, and work alongside your internal design team.", items: ["Full audit of your current design system's structure","Scored AI-readiness report","Prioritized list of gaps and fixes","Recommendations for token and component structure","Working session with your internal design team"] },
+        { tag: 'Design', services: ["Creative direction","Token architecture","Component library"], image: 'assets/figma/tier-build.png', alt: 'A pile of glass and stones for the build tier', left: '-24px', top: '-31.665px', divider: div, pad: 'clamp(0px, calc((100vw - 807px) * 999), 16px)', title: "Design an AI-ready system.", body: "For teams without a system yet. I work with you on styling and creative direction, then build it out as a full agent-ready design system: the foundation, the components, and the guardrails that keep AI-generated work on-brand.", items: ["Full agent-ready design system, built from the ground up","Semantic token architecture and component library","Guardrails that keep AI-generated work on-brand","Collaborative styling and creative direction sessions","Documentation built for both your team and your AI tools"] },
+        { tag: 'Partner', services: ["Maintenance","Custom AI tooling","Governance"], image: 'assets/figma/tier-partnership.png', alt: 'A pile of glass and stones for the partnership tier', left: '-24px', top: '-41.665px', divider: div, pad: 'clamp(0px, calc((100vw - 807px) * 999), 16px)', title: "Grow it with ongoing support.", body: "For teams who want support as they grow. I keep the relationship going, maintaining the system and building the AI tooling your team needs as you evolve. The exact makeup is flexible and shaped around what you need.", items: ["Ongoing maintenance and updates to the system","New components and tokens as your brand evolves","Custom AI tooling built for your team","Regular governance check-ins","Priority support as your team scales"] },
       ],
       modalOpen: !!this.state.modalOpen,
       modalHidden: this.state.modalOpen ? undefined : 'true',
@@ -627,7 +627,7 @@ class Component extends DCLogic {
         if (!v('name')) errors.name = 'Enter your name.';
         if (!v('email')) errors.email = 'Enter your email address.';
         else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v('email'))) errors.email = 'Enter a valid email address.';
-        if (!v('message')) errors.message = 'Tell us a little about your project.';
+        if (!v('message')) errors.message = 'Tell me a little about your project.';
         if (Object.keys(errors).length) { this.setState({ errors }); const first = ['name', 'email', 'message'].find((n) => errors[n]); fm.elements[first].focus(); return; }
         this.setState({ sending: true, sendError: false, errors: {} });
         fetch('https://formsubmit.co/ajax/alex@sheps.studio', {

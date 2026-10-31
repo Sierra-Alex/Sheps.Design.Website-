@@ -10,10 +10,10 @@
 
 Everything on the site should trace back to one of these five. If a section doesn't serve one, cut it.
 
-1. **One-time setup, built to last**: we come in and take care of what your system needs. Once it's in place, your team can maintain it themselves.
+1. **One-time setup, built to last**: I come in and take care of what your system needs. Once it's in place, your team can maintain it themselves.
 2. **Cost savings in the long run**: a well-built design system means fewer wasted credits every time AI touches your brand.
 3. **Leverage the AI productivity boom, without losing quality**: let your team move at AI speed while your brand stays high-quality and consistent.
-4. **Meet you where you are**: clean up and AI-ready the system you already have, or build a brand from scratch. Either way, we jump in and work with your team.
+4. **Meet you where you are**: clean up and AI-ready the system you already have, or build a brand from scratch. Either way, I jump in and work with your team.
 5. **Design governance that scales with you**: lets your team move fast while quality and consistency stay at the center of everything they ship.
 
 ---
@@ -81,8 +81,8 @@ Eight things someone needs to understand, roughly in the order a skeptical visit
 > - Sheps.Studio — Founder / Creative Director
 > - Mixpanel — Principal Designer / 2018 - 2026
 > - Highfive — Senior Visual Designer / 2016 - 2018
-> - PagerDuty — Graphic Designer / 2015 - 2016
-> - Freelance — Graphic Designer / 2014 - 2015
+> - PagerDuty — Interactive Designer / 2015 - 2016
+> - Freelance — Designer / 2014 - 2015
 > - Hot Pickle — Graphic Designer / 2012 - 2014
 > - Protége — Design Teacher / Mentor / 2010 - 2011
 > - The Hospital Club — Artist in Residence / 2010 - 2011
@@ -98,7 +98,7 @@ A light teaser, not a deep dive: 2-3 project cards right after the hero so visit
 > Examples of work.
 
 **Draft copy:**
-> A handful of the brands and systems we've designed from the ground up or made AI-ready, from the visual identity and token architecture to the components and guardrails that keep AI-generated work on-brand.
+> A handful of the brands and systems I've designed from the ground up or made AI-ready, from the visual identity and token architecture to the components and guardrails that keep AI-generated work on-brand.
 
 **Card structure (repeat per project):**
 - Project name / client (or anonymized descriptor if needed)
@@ -107,10 +107,10 @@ A light teaser, not a deep dive: 2-3 project cards right after the hero so visit
 
 **Live card — Mixpanel design and agentic system.**
 > Brand design, plus Heliograph, the agentic design system behind it. Taken from full audit through tokens and components to an AI tooling layer designers, engineers and agents all build from.
-- Role: Design · Design system · AI tooling
+- Role: Creative direction · Design · Agentic design system · Agent contract · Build · AI tooling (same tags as the Mixpanel case study header)
 
 **Live card — Coach product design and agentic system.**
-> A mood and journal tracker powered by AI insights. We designed the product and the system behind it, so every check-in and entry turns into patterns people can actually act on.
+> A mood and journal tracker powered by AI insights. I designed the product and the system behind it, so every check-in and entry turns into patterns people can actually act on.
 - Role: Product design · Design system · AI tooling
 
 *(Note: needs at least 2 real examples. BBP and a Heliograph-adjacent one are the obvious candidates, pending the naming-rights question below.)*
@@ -118,12 +118,56 @@ A light teaser, not a deep dive: 2-3 project cards right after the hero so visit
 
 **Card — Highfive (row 2, left):** links to the Highfive case study.
 > Highfive. Case study summary for Highfive goes here.
-> Role: Brand design · Visual design (placeholder)
+> Role: Creative Direction · Design · Build (same tags as the Highfive case study header)
 
 
 **Card — Mixpanel Rebrand (row 2, right):** links to the Mixpanel Rebrand case study (draft).
 > Mixpanel Rebrand. Case study summary for the Mixpanel rebrand goes here.
-> Role: Brand design · Creative direction (placeholder)
+> Role: Brand design · Interactive design (same tags as the Mixpanel Rebrand case study header)
+
+**Mixpanel Rebrand case study (/mixpanel-rebrand), header headline:**
+> Building the Mixpanel brand, from logo to launch.
+
+**Header intro:**
+> As Principal Designer, I helped reimagine Mixpanel's brand alongside a remarkably talented in-house team. Paul Jun led brand strategy, and I worked with Head of Brand Mike Casebolt and the wider team to breathe new life into it: a new logo, a new illustration style and a new website built for the launch.
+
+**Identity section subhead:**
+> One system for brand and product
+
+**Identity section copy:**
+> We started from scratch, building a new design system and brand package with fresh typography and a new color system. The color system was developed alongside the product team, so the brand and product now work as one cohesive system.
+
+**Illustration section subhead:**
+> Earth+, a world where data takes shape
+
+**Illustration section copy:**
+> Earth+ is an illustration world where products open portals to what's possible, combined with a graphic language that gives invisible event data a visible shape. Each world draws on the updated color palette, giving it its own complementary color system while keeping it unmistakably Mixpanel.
+
+**Web section subhead:**
+> A home built for discovery
+
+**Web section copy:**
+> With the brand system and illustration style in place, I led the design of the digital experience. The site leans into discovery and world-building, giving the new brand a meaningful, memorable home.
+
+**Execution section subhead:**
+> Beyond the screen
+
+**Execution section copy:**
+> Beyond the digital experience, we built the system to scale and flex wherever the brand needed to go, from events and out-of-home to swag. To celebrate the launch, we also designed a custom Mixpanel keyboard and shipped it to key people across the industry.
+
+**Credits — The team behind the rebrand**
+> Head of Brand Design — Mike Casebolt
+> Principal Creative Director — Paul Jun
+> Principal Brand Designer — Alex Shepherd
+> Principal Product Designer — Mark Johnson
+> Staff Motion Designer — Erik Blad
+> Staff Interactive Designer — Tara Odorizzi
+> Staff Campaign Designer — Ryan Howard
+> Sr. Brand Designer — Annie Szafranski
+> Sr. Brand Designer — Ka Lee
+> Contractor: Brand & Identity — Jon Howell
+> Contractor: Brand System Scaling — Michael Taylor
+> Contractor: Final Logo Type — Jeremy Mickel
 
 ---
 
@@ -249,7 +293,7 @@ Headline: *The knowledge layer that lets AI actually use your system*
 
 **Section 4 — What's inside it**
 Headline: *What you're actually getting*
-> Every system we build looks a little different, the right setup depends on your brand, your team, and what you're already working with. This is a general idea of what tends to be in place, not a fixed checklist.
+> Every system I build looks a little different, the right setup depends on your brand, your team, and what you're already working with. This is a general idea of what tends to be in place, not a fixed checklist.
 
 > This is exactly why it isn't a click-of-a-button process. There's no one-size-fits-all template to drop in, what's actually needed shifts with the business, the team, and what already exists. The pieces below are a general shape, not a fixed order.
 
@@ -298,7 +342,7 @@ Headline: *The real win: production without losing quality*
 > Building an agentic design system for Mixpanel.
 
 **Intro**
-> We worked with Mixpanel to get its teams up and running with AI tooling. Leading the engagement end to end, we set the creative direction for the digital brand and built the system from the ground up: a full audit, design, an agentic design system, and the AI tooling the team now builds with.
+> I worked with Mixpanel to get its teams up and running with AI tooling. Leading the engagement end to end, I set the creative direction for the digital brand and built the system from the ground up: a full audit, design, an agentic design system, and the AI tooling the team now builds with.
 
 **The problem — Where it started**
 > Mixpanel's teams were ready to adopt AI, but output was slow and inconsistent. Without a shared source of truth, each team worked from its own repositories and tooling, often starting from scratch with every artifact, and legacy branding persisted across touchpoints.
@@ -306,22 +350,22 @@ Headline: *The real win: production without losing quality*
 > The project had two objectives: refine and elevate the brand across every surface while staying true to its foundations, and establish a system beneath it that is simple to maintain and dependable for both people and AI agents.
 
 **Audit — Mapping what was really in use**
-> We began by consolidating the full body of go-to-market output and reviewing it with stakeholders in a series of working sessions, assessing what was performing, what had fallen out of date, and which qualities to strengthen. These sessions established a shared direction and defined clear goals for the engagement.
+> I began by consolidating the full body of go-to-market output and reviewing it with stakeholders in a series of working sessions, assessing what was performing, what had fallen out of date, and which qualities to strengthen. These sessions established a shared direction and defined clear goals for the engagement.
 
 **Design — One visual language for product and web**
-> Working closely with core stakeholders at Mixpanel, we built a complete brand from the ground up, starting with a design system flexible enough to meet the needs of every team. We took a web-first approach, so teams could produce on-brand pages faster and with confidence. From that foundation, the same system now extends to a wider range of go-to-market assets, all while preserving the color and playfulness that define Mixpanel.
+> Working closely with core stakeholders at Mixpanel, I built a complete brand from the ground up, starting with a design system flexible enough to meet the needs of every team. I took a web-first approach, so teams could produce on-brand pages faster and with confidence. From that foundation, the same system now extends to a wider range of go-to-market assets, all while preserving the color and playfulness that define Mixpanel.
 
 **Token system — Raw values, mapped to purpose**
-> As the design direction took shape, we began structuring it into a coherent system. We captured the raw values from the design work as primitive tokens: the colors, type sizes and spacing that define the brand, each named for what it is. As the component library came together, we mapped those primitives to semantic tokens that give each value a clear purpose. The result is a cascading system: because the foundation links directly to the product, a single change at the root flows through to every surface, keeping maintenance simple. Every decision is intentional, and structured so AI agents can apply it correctly.
+> As the design direction took shape, I began structuring it into a coherent system. I captured the raw values from the design work as primitive tokens: the colors, type sizes and spacing that define the brand, each named for what it is. As the component library came together, I mapped those primitives to semantic tokens that give each value a clear purpose. The result is a cascading system: because the foundation links directly to the product, a single change at the root flows through to every surface, keeping maintenance simple. Every decision is intentional, and structured so AI agents can apply it correctly.
 
 **Components & templates — Built on the system, not around it**
-> This is where the system comes together. We built the component library in two forms: in Figma, for the team to design and iterate with, and in code, ready for AI agents to build from. Every component is bound to tokens, so agents can read the system clearly and apply it correctly. Templates then assemble these components into the patterns the team reuses most.
+> This is where the system comes together. I built the component library in two forms: in Figma, for the team to design and iterate with, and in code, ready for AI agents to build from. Every component is bound to tokens, so agents can read the system clearly and apply it correctly. Templates then assemble these components into the patterns the team reuses most.
 
 **Agent contract — The rules of the road, written for agents**
-> Alongside the components, we built the material an AI agent needs to understand the system: a clear contract that sets out the rules of the road for both the brand and the design system, so agents know what to use, when, and why.
+> Alongside the components, I built the material an AI agent needs to understand the system: a clear contract that sets out the rules of the road for both the brand and the design system, so agents know what to use, when, and why.
 
 **Tooling & skills — A system AI tools can read**
-> We built a suite of AI tooling and resources so the team could put the system to work from day one. The agentic design system acts as the source of truth, letting the team capture the productivity gains of AI while producing work that is on brand and ready to ship. To get them started, we built a set of skills, including a landing page builder with an integrated image library, so marketing and design can ship pages independently, consistently and on brand. We also created an ABM tool that tailors those pages to key prospect accounts, drawing on discovery call transcripts and pairing custom branding with Mixpanel's foundational brand to create a personalized experience for each prospect.
+> I built a suite of AI tooling and resources so the team could put the system to work from day one. The agentic design system acts as the source of truth, letting the team capture the productivity gains of AI while producing work that is on brand and ready to ship. To get them started, I built a set of skills, including a landing page builder with an integrated image library, so marketing and design can ship pages independently, consistently and on brand. I also created an ABM tool that tailors those pages to key prospect accounts, drawing on discovery call transcripts and pairing custom branding with Mixpanel's foundational brand to create a personalized experience for each prospect.
 
 
 **The result**
@@ -334,38 +378,56 @@ Headline: *The real win: production without losing quality*
 **Headline**
 > Designing Coach, a mood and journal tracker powered by AI insights.
 
-> We designed Coach end to end: the product, the design system behind it, and the way its AI insights are presented. The result is a mood and journal tracker that turns quick daily check-ins into patterns people can understand and act on.
+> I designed Coach end to end: the product, the design system behind it, and the way its AI insights are presented. The result is a mood and journal tracker that turns quick daily check-ins into patterns people can understand and act on.
 
 - Company: Coach App · Year: 2026 · Services: Product design · UX research · Design system · AI insights
 
 **The problem — Where it started**
 > Most tracker and journal apps tell half the story. The data people log, like medication and daily habits, rarely connects to what they write about how they feel, so the patterns that matter stay hidden.
 
-> Our brief was to close that gap with a lightweight, focused product that surfaces only what's useful. Simple enough to become a daily ritual, and powerful enough to reveal insights and patterns that would otherwise go unnoticed.
+> My brief was to close that gap with a lightweight, focused product that surfaces only what's useful. Simple enough to become a daily ritual, and powerful enough to reveal insights and patterns that would otherwise go unnoticed.
 
 **Research — Why people stop checking in**
-> We started with a landscape audit: the best-in-class apps in the space, feature by feature, to map where the category already delivers and where it falls short. That audit set the scope for the product and gave us a clear foundation to plan from. From there, we built the first-stage user flow around only what the core experience needs.
+> I started with a landscape audit: the best-in-class apps in the space, feature by feature, to map where the category already delivers and where it falls short. That audit set the scope for the product and gave me a clear foundation to plan from. From there, I built the first-stage user flow around only what the core experience needs.
 
 **Design — Brand and product, designed together**
-> We designed Coach around simplicity and ease of use. As an AI-native product, it uses AI to keep the conversation going, nudging people to go deeper when an area of their journaling needs attention. Alongside the journal, Coach tracks the factors that shape mood: medication consistency, or moderating substances like cigarettes for anyone working to quit. Mood and energy act as markers for what's working and what isn't. Every entry feeds the AI coach, which reads across all the data to surface patterns and insights that would otherwise be missed. The AI steps in where it adds value, while journaling and tracking stay at the centre of the experience.
+> I designed Coach around simplicity and ease of use. As an AI-native product, it uses AI to keep the conversation going, nudging people to go deeper when an area of their journaling needs attention. Alongside the journal, Coach tracks the factors that shape mood: medication consistency, or moderating substances like cigarettes for anyone working to quit. Mood and energy act as markers for what's working and what isn't. Every entry feeds the AI coach, which reads across all the data to surface patterns and insights that would otherwise be missed. The AI steps in where it adds value, while journaling and tracking stay at the centre of the experience.
 
 **Token system — Raw values, mapped to purpose**
 > Token building is where the design starts becoming code. Primitives hold the raw values: color, type, spacing and radius. Semantic tokens reference those primitives and name their purpose.
 
 **Component building — Built on the tokens**
-> From there, we built components, then patterns, then full pages: mood selectors, cards, inputs, buttons and navigation, each bound to tokens. Because every layer cascades from the one beneath it, the system stays easy to maintain: change a value once and it flows through the whole app. Components live in Figma for design and in code for engineering, so both stay in step.
+> From there, I built components, then patterns, then full pages: mood selectors, cards, inputs, buttons and navigation, each bound to tokens. Because every layer cascades from the one beneath it, the system stays easy to maintain: change a value once and it flows through the whole app. Components live in Figma for design and in code for engineering, so both stay in step.
 
 **Stack and AI build — Built with AI, on the system**
-> With the system in place, we moved into the build. AI tooling worked directly from the tokens, components and an agent contract, so generated screens matched the designs instead of drifting from them. The same setup lets the team keep shipping features that still feel like Coach, and extends to go-to-market resources built with AI that look and feel like the product. Everything stays on brand and consistent, so the team can focus on the work itself rather than the details of execution.
+> With the system in place, I moved into the build. AI tooling worked directly from the tokens, components and an agent contract, so generated screens matched the designs instead of drifting from them. The same setup lets the team keep shipping features that still feel like Coach, and extends to go-to-market resources built with AI that look and feel like the product. Everything stays on brand and consistent, so the team can focus on the work itself rather than the details of execution.
 
 **AI tooling — The system, put to work**
-> With a solid, reliable agentic design system in place, we could build and iterate on the product quickly while keeping every screen consistent. The team now has a foundation that lets them take full advantage of the speed of AI, with output that is production-ready and on brand from the start.
+> With a solid, reliable agentic design system in place, I could build and iterate on the product quickly while keeping every screen consistent. The team now has a foundation that lets them take full advantage of the speed of AI, with output that is production-ready and on brand from the start.
 
 **The result — What changed**
 > Coach now runs on a fully agent-ready design system that makes on-brand product development straightforward. New features and iterations come together quickly, unlocking the speed of AI development while preserving the human creative decisions that make the brand and product distinct.
 
 
 ---
+
+## Case Study: Highfive (draft at /highfive)
+
+**Header**
+> Building a premium brand for Highfive, made to be read by AI agents.
+
+> A ground-up refresh of a dated brand, paired with a design system AI agents can build from, so go-to-market teams can ship custom web experiences quickly.
+
+**The problem — Where it started**
+> Highfive’s brand had grown dated and stale, and no longer reflected the premium product behind it. The goal was to reimagine it for the AI age.
+
+> Alongside the refresh, I rebuilt the design system from the ground up so AI agents could use it, giving go-to-market teams skills to quickly develop custom web experiences.
+
+**Audit — Mapping what was really in use**
+> I began with an audit of the existing work, defining what needed to evolve and what could be kept and carried into the new workflows.
+
+**Design — One visual language for product and web**
+> I built a new look and feel centred on the digital experience, leaning into the product’s cloud-based nature and the crystal-clear visuals it delivers. Creams, blacks and soft gradients elevated the brand while keeping it approachable and aspirational.
 
 ## Case study — Insights (draft, not linked from home)
 

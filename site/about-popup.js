@@ -2,7 +2,7 @@
 (function () {
   if (window.__aboutWired) return;
   window.__aboutWired = true;
-  const ROWS = [["Sheps.Studio","Founder / Creative Director"],["Mixpanel","Principal Designer / 2018 - 2026"],["Highfive","Senior Visual Designer / 2016 - 2018"],["PagerDuty","Graphic Designer / 2015 - 2016"],["Freelance","Graphic Designer / 2014 - 2015"],["Hot Pickle","Graphic Designer / 2012 - 2014"],["Protége","Design Teacher / Mentor / 2010 - 2011"],["The Hospital Club","Artist in Residence / 2010 - 2011"]];
+  const ROWS = [["Sheps.Studio","Founder / Creative Director"],["Mixpanel","Principal Designer / 2018 - 2026"],["Highfive","Senior Visual Designer / 2016 - 2018"],["PagerDuty","Interactive Designer / 2015 - 2016"],["Freelance","Designer / 2014 - 2015"],["Hot Pickle","Graphic Designer / 2012 - 2014"],["Protége","Design Teacher / Mentor / 2010 - 2011"],["The Hospital Club","Artist in Residence / 2010 - 2011"]];
   let open = null, lastFocus = null;
   function close() {
     if (!open) return;

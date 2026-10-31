@@ -55,8 +55,8 @@ a:focus-visible,button:focus-visible{outline:2px solid #FDBB6F;outline-offset:2p
     </nav>
     <div style="display:flex;flex-wrap:wrap;align-items:flex-start;gap:40px clamp(32px, 6vw, 120px);">
       <div style="display:flex;flex:2 1 28rem;flex-direction:column;gap:16px;min-width:0;max-width:800px;">
-        <h1 style="margin:0;color:#131313;font-family:'Inter',sans-serif;font-size:20px;font-weight:600;line-height:140%;letter-spacing:0.02em;text-wrap:pretty;">Highfive case study headline.</h1>
-        <p style="margin:0;color:#6F6F6F;font-size:16px;font-weight:400;line-height:140%;letter-spacing:0.02em;text-wrap:pretty;">Intro copy for the Highfive engagement goes here.</p>
+        <h1 style="margin:0;color:#131313;font-family:'Inter',sans-serif;font-size:20px;font-weight:600;line-height:140%;letter-spacing:0.02em;text-wrap:pretty;">Building a premium brand for Highfive, made to be read by AI agents.</h1>
+        <p style="margin:0;color:#6F6F6F;font-size:16px;font-weight:400;line-height:140%;letter-spacing:0.02em;text-wrap:pretty;">A ground-up refresh of a dated brand, paired with a design system AI agents can build from, so go-to-market teams can ship custom web experiences quickly.</p>
       </div>
       <div style="display:flex;flex:1 0 18rem;flex-direction:column;gap:8px;max-width:520px;">
         <div style="display:flex;align-items:center;gap:8px;font-size:14px;line-height:130%;letter-spacing:0.02em;">
@@ -92,7 +92,6 @@ a:focus-visible,button:focus-visible{outline:2px solid #FDBB6F;outline-offset:2p
   <main style="display:flex;flex-wrap:wrap;gap:40px;align-items:flex-start;justify-content:center;width:100%;padding:40px 0;">
     <nav aria-label="Contents" style="position:sticky;top:min(84px, calc((100vw - 807px) * 999));flex:0 0 257px;display:flex;flex-direction:column;gap:8px;max-width:100%;padding:8px;border:1px solid #E1DDDC;border-radius:8px;background:#F2ECE8B3;backdrop-filter:blur(8px);">
       <p style="margin:0;color:#6F6F6F;font-size:14px;line-height:140%;letter-spacing:0.02em;">Contents</p>
-      <span aria-hidden="true" style="display:block;width:100%;height:1px;background:#E1DDDC;"></span>
       <ul role="list" style="display:flex;flex-direction:column;gap:8px;margin:0;padding:0;list-style:none;">
         <sc-for list="{{ menu }}" as="m" hint-placeholder-count="8">
           <li>
@@ -105,7 +104,7 @@ a:focus-visible,button:focus-visible{outline:2px solid #FDBB6F;outline-offset:2p
     </nav>
 
     <article style="flex:1 1 calc((808px - 100vw) * 999);display:flex;flex-direction:column;gap:40px;min-width:0;">
-      <div role="img" aria-label="Image placeholder" style="display:flex;align-items:center;justify-content:center;width:100%;aspect-ratio:2126 / 1196;border-radius:8px;background:#CAE9DF;"><span style="color:#131313;font-size:14px;font-weight:500;line-height:130%;letter-spacing:0.02em;">Logo image</span></div>
+      <img src="./assets/case-study/highfive-hero-logo.png" alt="Highfive logo on a soft sky gradient" style="display:block;width:100%;aspect-ratio:2576 / 1288;object-fit:cover;border-radius:8px;">
       <section id="problem" data-screen-label="The problem" style="display:flex;flex-direction:column;gap:16px;width:100%;padding:24px;border-radius:8px;background:#FEE7CD;">
         <div style="display:flex;align-items:center;gap:8px;font-size:14px;line-height:130%;letter-spacing:0.02em;">
           <h2 style="margin:0;color:#131313;font:inherit;font-weight:600;">The problem</h2>
@@ -113,8 +112,8 @@ a:focus-visible,button:focus-visible{outline:2px solid #FDBB6F;outline-offset:2p
           <p style="margin:0;color:#6E3B00;">Where it started</p>
         </div>
         <div style="max-width:800px;color:#6E3B00;font-size:16px;font-weight:400;line-height:130%;letter-spacing:0.02em;">
-          <p style="margin:0;">Mixpanel's teams were ready to adopt AI, but output was slow and inconsistent. Without a shared source of truth, each team worked from its own repositories and tooling, often starting from scratch with every artifact, and legacy branding persisted across touchpoints.</p>
-          <p style="margin:21px 0 0;">The project had two objectives: refine and elevate the brand across every surface while staying true to its foundations, and establish a system beneath it that is simple to maintain and dependable for both people and AI agents.</p>
+          <p style="margin:0;">Highfive’s brand had grown dated and stale, and no longer reflected the premium product behind it. The goal was to reimagine it for the AI age.</p>
+          <p style="margin:21px 0 0;">Alongside the refresh, I rebuilt the design system from the ground up so AI agents could use it, giving go-to-market teams skills to quickly develop custom web experiences.</p>
         </div>
       </section>
 
@@ -147,6 +146,9 @@ a:focus-visible,button:focus-visible{outline:2px solid #FDBB6F;outline-offset:2p
                         </sc-if>
                         <sc-if value="{{ t.shot }}" hint-placeholder-val="{{ false }}">
                         </sc-if>
+                        <sc-if value="{{ t.pic }}" hint-placeholder-val="{{ false }}">
+                          <img src="{{ t.pic }}" alt="{{ t.alt }}" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center top;display:block;"></img>
+                        </sc-if>
                         <sc-if value="{{ t.fill }}" hint-placeholder-val="{{ false }}">
                           <div aria-hidden="true" style="width:100%;height:100%;"></div>
                         </sc-if>
@@ -169,6 +171,13 @@ a:focus-visible,button:focus-visible{outline:2px solid #FDBB6F;outline-offset:2p
                             </div>
                             <div style="flex:1 1 0;min-width:0;position:relative;transform:scale(0.85);">
                               <x-import component="MetricTreesSpot" from="./components/MetricTreesSpot.jsx" hint-size="100%,100%" style="position:absolute;top:0;left:0;width:100%;height:100%;"></x-import>
+                            </div>
+                          </div>
+                        </sc-if>
+                        <sc-if value="{{ t.frameEmbed }}" hint-placeholder-val="{{ false }}">
+                          <div ref="{{ frameFit }}" style="position:relative;width:100%;height:100%;overflow:hidden;background:#e2e8ee url({{ t.frameImg }}) center top / 100% 100% no-repeat;">
+                            <div style="position:absolute;left:2.73%;top:4.39%;width:94.54%;height:95.61%;overflow:hidden;border-radius:6px 6px 0 0;">
+                              <div style="position:absolute;left:0;top:0;width:100%;height:100%;transform-origin:0 0;"><iframe src="{{ t.frameEmbed }}" title="{{ t.alt }}" loading="lazy" style="display:block;width:100%;height:100%;border:0;"></iframe></div>
                             </div>
                           </div>
                         </sc-if>
@@ -204,20 +213,6 @@ a:focus-visible,button:focus-visible{outline:2px solid #FDBB6F;outline-offset:2p
         </section>
       </sc-for>
 
-      <div aria-hidden="true" style="height:40px;background:url('assets/patterns/plus-cream.svg') 0 0 / 8px 10px repeat;"></div>
-
-      <section id="result" data-screen-label="The result" style="display:flex;flex-direction:column;gap:16px;">
-        <div style="display:flex;flex-direction:column;gap:16px;width:100%;padding:24px;border-radius:8px;background:#FEE7CD;">
-          <div style="display:flex;align-items:center;gap:8px;font-size:14px;line-height:130%;letter-spacing:0.02em;">
-            <h2 style="margin:0;color:#131313;font:inherit;font-weight:600;">The result</h2>
-            <span aria-hidden="true" style="width:1px;height:11px;background:#FDBB6F;"></span>
-            <p style="margin:0;color:#6E3B00;">What changed</p>
-          </div>
-          <div style="max-width:800px;color:#6E3B00;font-size:16px;font-weight:400;line-height:130%;letter-spacing:0.02em;">
-            <p style="margin:0;">Mixpanel now has a strong foundation to build AI tooling on, and the team is putting the full power of AI production to work. Teams create high-quality, on-brand content independently, at a pace that simply wasn't possible before.</p>
-          </div>
-        </div>
-      </section>
     </article>
   </main>
 
@@ -234,11 +229,7 @@ class Component extends DCLogic {
     ['problem', 'The problem', 'problem'],
     ['audit', 'Audit', 'design-system'],
     ['design', 'Design', 'design-system'],
-    ['tokens', 'Token system', 'design-system'],
-    ['components', 'Components & templates', 'design-system'],
-    ['contract', 'Agent contract', 'design-system'],
-    ['tooling', 'Tooling & skills', 'design-system'],
-    ['result', 'The result', 'solution'],
+    ['tokens', 'Agentic System', 'design-system'],
   ];
 
   wireInView() {
@@ -277,6 +268,14 @@ class Component extends DCLogic {
     window.addEventListener('scroll', this.onScroll, { passive: true });
   }
   componentWillUnmount() { this.vidIO && this.vidIO.disconnect(); this.vidMO && this.vidMO.disconnect(); window.removeEventListener('scroll', this.onScroll); this.stopFlip(); }
+  frameFit = (el) => {
+    if (!el) return;
+    const box = el.firstElementChild, fr = box && box.firstElementChild;
+    if (!fr || el._fitRO) return;
+    const W = 1360;
+    const fit = () => { const w = box.clientWidth, h = box.clientHeight; if (!w) return; const k = Math.min(1, w / W); fr.style.width = (w / k) + 'px'; fr.style.height = (h / k) + 'px'; fr.style.transform = 'scale(' + k + ')'; };
+    el._fitRO = new ResizeObserver(fit); el._fitRO.observe(box); fit();
+  };
   flipRef = (el) => {
     if (this.flipIO) { this.flipIO.disconnect(); this.flipIO = null; }
     if (!el || this.flipStopped) return;
@@ -309,30 +308,20 @@ class Component extends DCLogic {
     };
     const icon = (n) => `assets/icons/brand-${n}-cream.svg`;
     const sections = [
-      { id: 'audit', title: 'Audit', item: 'Mapping what was really in use', icon: icon('education'), body: "We began by consolidating the full body of go-to-market output and reviewing it with stakeholders in a series of working sessions, assessing what was performing, what had fallen out of date, and which qualities to strengthen. These sessions established a shared direction and defined clear goals for the engagement.", rows: [{ cols: [{ basis: '100%', tiles: [Object.assign(tile('auto', '', '', '0'), { ph: 'Figma shot of old brand work', ratio: '2126 / 1217', fillSize: 'center / cover', fill: 'none', alt: 'Public audit of Mixpanel web pages in Figma' })] }] }] },
-      { id: 'design', title: 'Design', item: 'One visual language for product and web', icon: icon('design-system'), body: "Working closely with core stakeholders at Mixpanel, we built a complete brand from the ground up, starting with a design system flexible enough to meet the needs of every team. We took a web-first approach, so teams could produce on-brand pages faster and with confidence. From that foundation, the same system now extends to a wider range of go-to-market assets, all while preserving the color and playfulness that define Mixpanel.", rows: [
-        { cols: [{ basis: '100%', tiles: [Object.assign(tile('auto', '', '', '0'), { ph: 'Homepage', shot: 'none', ratio: '2126 / 1196', bg: '#F5F2FF', alt: 'Mixpanel homepage' })] }] }, { cols: [{ basis: '100%', tiles: [Object.assign(tile('auto', '', '', '0'), { ph: 'Hardware page', vid: 'none', ratio: '1920 / 1080', bg: '#E0D9FF', alt: 'Agent chat walkthrough' })] }] }, { cols: [{ basis: '100%', tiles: [Object.assign(tile('496px', '', '', '32px'), { ph: 'Pricing', alt: 'Pricing placeholder' })] }] }, flipRow, { cols: [{ basis: '100%', tiles: [Object.assign(tile('auto', '', '', '0'), { ph: 'Signup', shot: 'none', ratio: '2126 / 1292', bg: '#F5F2FF', alt: 'Signup placeholder' })] }] }, { cols: [{ basis: '100%', tiles: [Object.assign(tile('auto', '', '', '0'), { ph: 'Case study', shot: 'none', ratio: '2126 / 1292', bg: '#F5F2FF', alt: 'Case study placeholder' })] }] }, stack('280.968px', '581.812px', Object.assign(tile('auto', '', '', '0'), { ratio: '1040 / 1150', grow: '1 1 auto', fillSize: 'left top / cover', fill: 'none', alt: 'Text color semantic tokens' }), [Object.assign(tile('auto', '', '', '0'), { grow: '1 1 0', minH: '240px', fill: 'none', alt: 'Cards semantic tokens' }), Object.assign(tile('auto', '', '', '0'), { grow: '1 1 0', minH: '240px', fill: 'none', alt: 'Page and section stack spacing tokens' })], true),
+      { id: 'audit', title: 'Audit', item: 'Mapping what was really in use', icon: icon('education'), body: "I began with an audit of the existing work, defining what needed to evolve and what could be kept and carried into the new workflows.", rows: [{ cols: [{ basis: '100%', tiles: [Object.assign(tile('auto', '', '', '0'), { pic: 'assets/case-study/highfive-audit.png', ratio: '4252 / 2644', bg: '#F7F3F1', alt: 'Audit of the old Highfive site in Figma: homepage, Dolby Voice, software, video conferencing, setup and screen-sharing pages' })] }] }] },
+      { id: 'design', title: 'Design', item: 'One visual language for product and web', icon: icon('design-system'), body: "I built a new look and feel centred on the digital experience, leaning into the product’s cloud-based nature and the crystal-clear visuals it delivers. Creams, blacks and soft gradients elevated the brand while keeping it approachable and aspirational.", rows: [
+        { cols: [{ basis: '100%', tiles: [Object.assign(tile('auto', '', '', '0'), { frameEmbed: 'assets/case-study/highfive-home-scroll.html', frameImg: 'assets/case-study/highfive-frame-v2.png', ratio: '2400 / 1492', bg: '#F7F3F1', alt: 'Highfive homepage scroll-through: hero, features, software, hardware, testimonial and content sections' })] }] }, { cols: [{ basis: '100%', tiles: [Object.assign(tile('auto', '', '', '0'), { pic: 'assets/case-study/highfive-signup-v9.png', ratio: '2400 / 1350', bg: '#F7F3F1', alt: 'Highfive signup page: glass card over a pastel cloud sky' })] }] }, { cols: [{ basis: '100%', tiles: [Object.assign(tile('auto', '', '', '0'), { pic: 'assets/case-study/highfive-pricing-v3.png', ratio: '2400 / 1492', bg: '#F7F3F1', alt: 'Highfive pricing page: Teams, SMB and Enterprise plan cards over a pastel sky' })] }] }, { cols: [{ basis: '100%', tiles: [Object.assign(tile('auto', '', '', '0'), { frameEmbed: 'assets/case-study/highfive-hardware-page.html', frameImg: 'assets/case-study/highfive-frame-v2.png', ratio: '2400 / 1492', bg: '#F7F3F1', alt: 'Highfive hardware page scroll-through: the camera bar turns from front to back, then the page scrolls' })] }] },
       ] },
-      { id: 'tokens', title: 'Token system', item: 'Raw values, mapped to purpose', icon: icon('services'), body: "As the design direction took shape, we began structuring it into a coherent system. We captured the raw values from the design work as primitive tokens: the colors, type sizes and spacing that define the brand, each named for what it is. As the component library came together, we mapped those primitives to semantic tokens that give each value a clear purpose. The result is a cascading system: because the foundation links directly to the product, a single change at the root flows through to every surface, keeping maintenance simple. Every decision is intentional, and structured so AI agents can apply it correctly.", rows: [
-        { cols: [{ basis: '100%', tiles: [Object.assign(tile('auto', '', '', '0'), { ph: 'Token Figma view', video: 'none', ratio: '2560 / 1440', alt: 'Token Figma view placeholder' })] }] }, stack('280.968px', '581.812px', Object.assign(tile('auto', '', '', '0'), { ratio: '1040 / 1150', grow: '1 1 auto', fillSize: 'left top / cover', fill: 'none', ph: 'Semantic tokens applied to cards', alt: 'Semantic tokens applied to cards placeholder' }), [Object.assign(tile('auto', '', '', '0'), { ratio: '1040 / 1150', grow: '1 1 auto', fillSize: 'left top / cover', fill: 'none', ph: 'Semantic tokens applied to cards', alt: 'Semantic tokens applied to cards placeholder' })], true),
-       
-      ] },
-      { id: 'components', title: 'Components & templates', item: 'Built on the system, not around it', icon: icon('services'), body: "This is where the system comes together. We built the component library in two forms: in Figma, for the team to design and iterate with, and in code, ready for AI agents to build from. Every component is bound to tokens, so agents can read the system clearly and apply it correctly. Templates then assemble these components into the patterns the team reuses most.", rows: [
-        { cols: [{ basis: '100%', tiles: [Object.assign(tile('auto', '', '', '0'), { video: 'none', ratio: '2560 / 1440', alt: 'Heliograph page sections in Figma' })] }] }, stack('287.155px', '600px', Object.assign(tile('auto', '', '', '0'), { ratio: 'auto', grow: '1 1 0', minH: '480px', fillSize: 'left top / cover', fill: 'none', alt: 'Mixpanel hero section variations' }), [Object.assign(tile('auto', '', '', '0'), { grow: '1 1 0', minH: '240px', fill: 'none', alt: 'Mixpanel content section layouts' }), Object.assign(tile('auto', '', '', '0'), { grow: '1 1 0', minH: '240px', fill: 'none', alt: 'Mixpanel footer and closing CTA layout' })], true), { cols: [{ basis: '100%', tiles: [Object.assign(tile('auto', '', '', '0'), { ratio: '2126 / 1196', fillSize: 'center / cover', fill: 'none', alt: 'Heliograph responsive type scales in Figma' })] }] },
-      ] },
-      { id: 'contract', title: 'Agent contract', item: 'The rules of the road, written for agents', icon: icon('design-system'), body: "Alongside the components, we built the material an AI agent needs to understand the system: a clear contract that sets out the rules of the road for both the brand and the design system, so agents know what to use, when, and why.", rows: [
-        { cols: [{ basis: '100%', tiles: [Object.assign(tile('auto', '', '', '0'), { ratio: '2126 / 1164', fillSize: 'center / cover', fill: 'none', alt: 'Heliograph agent contract markdown file' })] }] },
-      ] },
-      { id: 'tooling', title: 'Tooling & skills', item: 'A system AI tools can read', icon: icon('education'), body: "We built a suite of AI tooling and resources so the team could put the system to work from day one. The agentic design system acts as the source of truth, letting the team capture the productivity gains of AI while producing work that is on brand and ready to ship. To get them started, we built a set of skills, including a landing page builder with an integrated image library, so marketing and design can ship pages independently, consistently and on brand. We also created an ABM tool that tailors those pages to key prospect accounts, drawing on discovery call transcripts and pairing custom branding with Mixpanel's foundational brand to create a personalized experience for each prospect.", rows: [
-        { cols: [{ basis: '100%', tiles: [Object.assign(tile('auto', '', '', '0'), { vid: 'none', ratio: '1920 / 1200', bg: '#E0D9FF', alt: 'LP page builder demo' })] }] }, { cols: [{ basis: '100%', tiles: [Object.assign(tile('auto', '', '', '0'), { shot: 'none', ratio: '2126 / 1196', alt: 'Heliograph Agentic Design System index page' })] }] }, { cols: [{ basis: '100%', tiles: [Object.assign(tile('auto', '', '', '0'), { vid: 'none', ratio: '2126 / 1164', bg: '#E0D9FF', alt: 'ABM page builder demo' })] }] },
+      { id: 'tokens', title: 'Agentic System', item: 'Raw values, mapped to purpose', icon: icon('services'), body: "Coming soon...", rows: [
       ] },
     ];
     return {
       flipSlides: flipPages.map((src, n) => ({ src, alt: flipAlts[n], hidden: n !== fi, opacity: n === fi ? 1 : 0 })),
       flipRef: this.flipRef,
+      frameFit: this.frameFit,
       flipPrev: () => { this.stopFlip(); this.setState({ flipIdx: (fi - 1 + flipPages.length) % flipPages.length }); },
       flipNext: () => { this.stopFlip(); this.setState({ flipIdx: (fi + 1) % flipPages.length }); },
-      tags: ['Audit', 'Design', 'Token architecture', 'Component library', 'Agent contract', 'AI tooling'],
+      tags: ['Creative Direction', 'Design', 'Build'],
       sections,
       menu: this.nav.map(([id, label, ic]) => ({
         href: '#' + id, label, current: a === id ? 'true' : undefined,

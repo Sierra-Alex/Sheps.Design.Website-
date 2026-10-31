@@ -1,0 +1,329 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Highfive Turntable — Hero</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;600&family=Noto+Serif:wght@400&display=swap">
+<style>
+body{margin:0}
+/* Layout: the Figma "Meet above the noise" hero is pinned; the device in it turns 0→180° on scroll, captions sit in the open sky below, then the dark Figma grid section lists the ports. */
+:root{
+  --paper:#f7f3f1;
+  --ink:#1c1c1c;
+  --ink-60:rgba(28,28,28,.6);
+  --ink-hair:rgba(28,28,28,.22);
+  --night:#1c1c1c;
+  --night-line:#505050;
+  --paper-70:rgba(247,243,241,.7);
+  --f-serif:"Noto Serif",Georgia,"Times New Roman",serif;
+  --f-sans:"Manrope",-apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif;
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+html{background:var(--paper)}
+body{background:var(--paper);color:var(--ink);font-family:var(--f-sans);font-weight:500;font-size:14px;line-height:1.4;-webkit-font-smoothing:antialiased;font-feature-settings:"salt" 1}
+.gut{padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.serif{font-family:var(--f-serif);font-weight:400;font-variation-settings:"wdth" 100;letter-spacing:-.04em;line-height:1}
+.label{font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase}
+
+/* ── hero scene ───────────────────────────── */
+.scene{position:relative;height:420vh;background:var(--paper)}
+/* background (Figma "hero animation" frames): sky + distant cloud sea, pinned to the bottom edge */
+.pin{position:sticky;top:0;height:100vh;height:100svh;overflow:clip;display:flex;flex-direction:column;align-items:center;
+  background:#e6dde2}
+/* separate layer so it can grow on scroll; scales from the bottom edge so the cloud sea stays pinned there */
+.bg{position:absolute;inset:0;z-index:0;background:url(assets/sky-sea.webp) center bottom/cover no-repeat;transform-origin:50% 100%;will-change:transform;pointer-events:none}
+/* the cloud cutout that rises in front of the camera; width and keyframes from the Figma frames */
+.frontcloud{position:absolute;left:50%;top:0;z-index:4;width:max(110.4vw,620px);aspect-ratio:2387/1114;pointer-events:none;will-change:transform;
+  background:url(assets/cloud-front.webp) center/100% 100% no-repeat;transform-origin:50% 100%;
+  filter:saturate(.45) brightness(1.06) contrast(.88) blur(2.5px);   /* same treatment as the far clouds, to sit with the cloud sea */
+  -webkit-mask-image:linear-gradient(to bottom,#000 78%,transparent);mask-image:linear-gradient(to bottom,#000 78%,transparent)}
+
+/* two far clouds behind the camera; rise slowly and settle in view towards the end */
+.cl{position:absolute;left:0;top:0;z-index:1;pointer-events:none;will-change:transform;
+  /* matched to the cloud sea: muted colour, lifted and flattened a touch, soft edges */
+  filter:saturate(.45) brightness(1.06) contrast(.88) blur(2.5px);background-position:center;background-size:100% 100%;background-repeat:no-repeat}
+.cl.pink{aspect-ratio:795/255;background-image:url(assets/cloud-pink.webp)}
+.cl.pastel{aspect-ratio:676/311;background-image:url(assets/cloud-pastel.webp)}
+
+.nav{position:absolute;inset:0 0 auto 0;display:flex;align-items:center;justify-content:space-between;padding-block:12px;z-index:5}
+.nav .gutx{padding-left:max(32px,env(safe-area-inset-left,0px));padding-right:max(32px,env(safe-area-inset-right,0px));width:100%;display:flex;align-items:center;justify-content:space-between}
+.logo{display:block;width:95px;height:23px}
+.play{appearance:none;border:0;padding:0;background:none;cursor:pointer;width:54px;height:54px;border-radius:50%;display:grid;place-items:center}
+.play svg{display:block}
+.play:focus-visible{outline:2px solid var(--ink);outline-offset:3px}
+.play .ico-pause{display:none}
+.play[aria-pressed="true"] .ico-play{display:none}
+.play[aria-pressed="true"] .ico-pause{display:inline}
+
+.head{position:relative;z-index:5;padding-top:clamp(84px,13.3vh,120px);display:flex;flex-direction:column;align-items:center;gap:12px;text-align:center}
+.head h1{margin:0;font-size:clamp(28px,2.25vw + 8px,40px);color:var(--ink)}
+.head p{margin:0;color:var(--ink-60);font-size:14px;max-width:60ch;text-wrap:balance}
+
+.stage{position:absolute;left:50%;top:50%;transform:translate(-50%,-47%);z-index:2;width:min(86.2vw,1320px);aspect-ratio:1440/420}
+.stage canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
+
+/* back callouts */
+.co{position:absolute;inset:0;pointer-events:none}
+.pt{position:absolute;left:var(--x);top:var(--y);width:0;height:0}
+.pt::before{content:"";position:absolute;left:-3px;top:-3px;width:6px;height:6px;border-radius:50%;background:var(--ink);box-shadow:0 0 0 3px rgba(255,255,255,.7)}
+.pt b{position:absolute;left:0;top:6px;width:1px;height:var(--len);background:var(--ink-hair);transform-origin:top}
+.pt span{position:absolute;left:0;top:calc(var(--len) + 12px);transform:translateX(-50%);white-space:nowrap;color:var(--ink)}
+.pt.up b{top:auto;bottom:6px;transform-origin:bottom}
+.pt.up span{top:auto;bottom:calc(var(--len) + 12px)}
+
+.caps{position:relative;z-index:4;width:100%;max-width:640px;min-height:118px;margin-top:clamp(28px,7vh,72px)}
+.cap{position:absolute;inset:0 0 auto 0;text-align:center;display:flex;flex-direction:column;align-items:center;gap:10px;will-change:opacity,transform}
+.cap .label{color:var(--ink-60)}
+.cap h2{margin:0;font-size:clamp(22px,1.4vw + 10px,28px);text-wrap:balance}
+.cap p{margin:0;color:var(--ink-60);max-width:46ch;text-wrap:pretty}
+
+.rail{position:absolute;left:0;right:0;margin:0 auto;bottom:clamp(24px,5vh,48px);z-index:6;width:min(100%,420px);display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:12px;color:var(--ink-60)}
+.track{position:relative;height:1px;background:var(--ink-hair)}
+.fill{position:absolute;inset:0 auto 0 0;width:0;background:var(--ink)}
+.deg{font-variant-numeric:tabular-nums;color:var(--ink);min-width:4.5ch;text-align:right}
+.load{grid-column:1/-1;text-align:center;font-size:10px;transition:opacity .4s}
+
+@media (max-width:760px){
+  .stage{width:170vw}
+  .co{display:none}
+  .caps{min-height:150px}
+  .grid{grid-template-columns:1fr 1fr}
+  .grid div,.grid div+div{border-left:0;border-bottom:1px solid var(--night-line);padding:22px 16px 26px}
+  .grid div:nth-child(even){border-left:1px solid var(--night-line)}
+  .nav .gutx{padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+}
+</style>
+</head>
+<body>
+<section class="scene" id="scene" aria-label="Highfive camera bar turning from front to back">
+  <div class="pin">
+    <div class="bg" id="bg" aria-hidden="true"></div>
+    <div class="cl pink" aria-hidden="true"></div>
+    <div class="cl pastel" aria-hidden="true"></div>
+
+    <nav class="nav"><div class="gutx">
+      <svg class="logo" viewBox="0 0 96 24" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Highfive">
+        <path opacity="0.6" fill-rule="evenodd" clip-rule="evenodd" d="M5.4108 17.2842L3.32812 19.3576C5.38318 21.4041 8.22227 22.67 11.359 22.67V19.7375C9.03617 19.7375 6.93321 18.7998 5.4108 17.2842Z" fill="#1C1C1C"/>
+        <path fill-rule="evenodd" clip-rule="evenodd" d="M17.3054 5.44088L19.3887 3.3669C17.3336 1.32098 14.494 0.0550461 11.3573 0.0550461V2.98757C13.6801 2.98757 15.7836 3.92524 17.3054 5.44088Z" fill="#1C1C1C" fill-opacity="0.6"/>
+        <path opacity="0.8" fill-rule="evenodd" clip-rule="evenodd" d="M22.7169 11.3625C22.7169 8.24028 21.4458 5.41325 19.3908 3.36676L17.3075 5.44074C18.8299 6.95639 19.7707 9.05 19.7707 11.3625C19.7707 15.9874 16.0049 19.7364 11.3594 19.7364V22.6695C17.6322 22.6695 22.7169 17.6068 22.7169 11.3625Z" fill="#1C1C1C"/>
+        <path opacity="0.4" fill-rule="evenodd" clip-rule="evenodd" d="M0.0858822 11.307C0.0858822 14.4292 1.3569 17.2562 3.41196 19.3027L5.4952 17.2288C3.97279 15.7131 3.03206 13.6195 3.03206 11.307C3.03206 6.6821 6.79778 2.93312 11.4434 2.93312V3.05176e-05C5.17054 3.05176e-05 0.0858822 5.06265 0.0858822 11.307Z" fill="#1C1C1C"/>
+        <path fill-rule="evenodd" clip-rule="evenodd" d="M13.9681 11.3617C13.9681 12.7965 12.8002 13.9586 11.359 13.9586C9.91774 13.9586 8.74986 12.7965 8.74986 11.3617C8.74986 9.92684 9.91774 8.76416 11.359 8.76416C12.8002 8.76416 13.9681 9.92684 13.9681 11.3617Z" fill="#1C1C1C"/>
+        <path fill-rule="evenodd" clip-rule="evenodd" d="M40.5443 5.2663V11.1516H32.5005V5.2663H31.668V17.5115H32.5005V11.8911H40.5443V17.5115H41.3762V5.2663H40.5443Z" fill="#1C1C1C"/>
+        <mask id="hf-logo-mask" style="mask-type:luminance" maskUnits="userSpaceOnUse" x="0" y="0" width="96" height="24"><path fill-rule="evenodd" clip-rule="evenodd" d="M0 23.2024H95.3571V0.0547562H0V23.2024Z" fill="white"/></mask>
+        <g mask="url(#hf-logo-mask)">
+          <path fill-rule="evenodd" clip-rule="evenodd" d="M44.4336 17.512H45.1765V8.87208H44.4336V17.512Z" fill="#1C1C1C"/>
+          <path fill-rule="evenodd" clip-rule="evenodd" d="M75.2286 7.37387C75.5753 7.37387 75.8571 7.0933 75.8571 6.74764C75.8571 6.40198 75.5753 6.1214 75.2286 6.1214C74.8809 6.1214 74.5996 6.40198 74.5996 6.74764C74.5996 7.0933 74.8809 7.37387 75.2286 7.37387Z" fill="#1C1C1C"/>
+          <path fill-rule="evenodd" clip-rule="evenodd" d="M44.8044 7.37389C45.1521 7.37389 45.4334 7.09332 45.4334 6.74765C45.4334 6.40199 45.1521 6.12142 44.8044 6.12142C44.4577 6.12142 44.1759 6.40199 44.1759 6.74765C44.1759 7.09332 44.4577 7.37389 44.8044 7.37389Z" fill="#1C1C1C"/>
+          <path fill-rule="evenodd" clip-rule="evenodd" d="M87.4242 12.8501C87.6102 10.8076 89.0695 9.435 91.0552 9.435C93.2669 9.435 94.6518 10.7458 94.6693 12.8552L94.6698 12.9197H87.418L87.4242 12.8501ZM94.7476 16.0301L94.2251 15.6132C93.5059 16.5104 92.1233 16.9133 91.0546 16.9133C89.0847 16.9133 87.5916 15.5593 87.4236 13.6211L87.418 13.5521H95.3282C95.4601 12.1088 95.127 10.9041 94.3638 10.0663C93.6006 9.22739 92.4254 8.76557 91.0546 8.76557C88.5503 8.76557 86.6621 10.6757 86.6621 13.2098C86.6621 15.8157 88.4686 17.635 91.0546 17.635C92.5511 17.635 93.9591 17.0222 94.7476 16.0301Z" fill="#1C1C1C"/>
+          <path fill-rule="evenodd" clip-rule="evenodd" d="M84.9962 8.90693L81.758 16.7332L78.5205 8.90693H77.6992L81.3206 17.5115H82.1949L85.8169 8.90693H84.9962Z" fill="#1C1C1C"/>
+          <path fill-rule="evenodd" clip-rule="evenodd" d="M72.788 9.61142V8.97789H69.9123V8.08231C69.9123 6.58686 70.6016 5.83045 71.628 5.83045C72.4504 5.83045 72.7565 6.06051 72.7565 6.06051L73.0755 5.56559C73.0755 5.56559 72.6054 5.15876 71.725 5.15876C70.0273 5.15876 69.1869 6.14244 69.1869 8.08231V8.97789H67.3984V9.61142H69.1869V17.5117H69.9123V9.61142H72.788Z" fill="#1C1C1C"/>
+          <path fill-rule="evenodd" clip-rule="evenodd" d="M74.8555 17.5119H75.5984V8.87201H74.8555V17.5119Z" fill="#1C1C1C"/>
+          <path fill-rule="evenodd" clip-rule="evenodd" d="M62.2478 8.78354C60.8613 8.80318 59.7582 9.41314 59.1427 10.5006L59.0243 10.7099V5.2663H58.3164V17.5115H59.0599V12.785C59.0599 10.8744 60.4008 9.48777 62.2478 9.48777C64.109 9.48777 65.1337 10.5837 65.1337 12.5735V17.5115H65.8586V12.5735C65.8586 10.1645 64.5424 8.78354 62.2478 8.78354Z" fill="#1C1C1C"/>
+          <path fill-rule="evenodd" clip-rule="evenodd" d="M48.422 12.9448C48.422 10.3961 50.1969 9.48763 51.7983 9.48763C53.8009 9.48763 55.2089 10.877 55.2089 12.9448C55.2089 14.7983 53.6132 16.3655 51.7983 16.3655C50.1524 16.3655 48.422 15.1899 48.422 12.9448ZM53.5517 16.715L53.4035 16.6623L53.5472 16.5983C54.9366 15.9738 55.9331 14.5058 55.9331 12.9447C55.9331 11.7338 55.5318 10.804 54.8041 10.0178L54.7996 10.0127L55.6597 9.03131L55.6141 8.99203V8.99147L55.1412 8.58015L55.1406 8.58071L55.1096 8.55378L54.2501 9.53409L54.2461 9.53129C53.5523 9.04029 52.6369 8.74793 51.7971 8.74793C49.3717 8.74793 47.6779 10.4342 47.6779 12.9447C47.6779 15.3941 49.41 17.105 51.7971 17.105C53.3578 17.105 55.1801 17.807 55.1801 19.7839C55.1801 21.772 53.4328 22.4802 51.7971 22.4802C49.733 22.4802 48.4056 21.4488 48.3724 19.8473H47.6289C47.6622 21.8568 49.3334 23.2024 51.7971 23.2024C53.7839 23.2024 55.9061 22.3045 55.9061 19.7839C55.9061 18.3227 55.0916 17.261 53.5517 16.715Z" fill="#1C1C1C"/>
+        </g>
+      </svg>
+      <button class="play" id="play" type="button" aria-pressed="false" aria-label="Play the turntable">
+        <svg width="54" height="54" viewBox="0 0 54 54" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <rect x="0.5" y="0.5" width="53" height="53" rx="26.5" fill="url(#hf-btn-fill)"/>
+          <rect x="0.5" y="0.5" width="53" height="53" rx="26.5" stroke="url(#hf-btn-stroke)"/>
+          <rect x="7" y="7" width="40" height="40" rx="20" fill="#F7F3F1"/>
+          <path class="ico-play" d="M32 27L24 23V31L32 27Z" fill="black"/>
+          <g class="ico-pause" fill="black"><rect x="23" y="23" width="2.5" height="8" rx=".5"/><rect x="28.5" y="23" width="2.5" height="8" rx=".5"/></g>
+          <defs>
+            <linearGradient id="hf-btn-fill" x1="1" y1="1" x2="70.5711" y2="30.2881" gradientUnits="userSpaceOnUse"><stop stop-color="white" stop-opacity="0.47"/><stop offset="1" stop-color="white" stop-opacity="0"/></linearGradient>
+            <radialGradient id="hf-btn-stroke" cx="0" cy="0" r="1" gradientTransform="matrix(56.9655 63.1757 -63.1757 144.08 1 1)" gradientUnits="userSpaceOnUse"><stop stop-color="white" stop-opacity="0.7"/><stop offset="1" stop-color="white" stop-opacity="0"/></radialGradient>
+          </defs>
+        </svg>
+      </button>
+    </div></nav>
+
+    <header class="head gut">
+      <h1 class="serif">Meet above the noise</h1>
+      <p>Software and hardware built together, so every room feels like the same room.</p>
+    </header>
+
+    <div class="stage" id="stage">
+      <canvas id="cv" width="1440" height="420" role="img" aria-label="Rendered frame of the Highfive camera bar"></canvas>
+      <div class="co" id="co" style="opacity:0" aria-hidden="true">
+        <div class="pt up" style="--x:50%;--y:42.1%;--len:64px"><b></b><span class="label">Speaker</span></div>
+        <div class="pt up" style="--x:12.2%;--y:52%;--len:48px"><b></b><span class="label">Vents</span></div>
+        <div class="pt up" style="--x:87.4%;--y:52%;--len:48px"><b></b><span class="label">Vents</span></div>
+        <div class="pt" style="--x:31.7%;--y:54.8%;--len:84px"><b></b><span class="label">Audio</span></div>
+        <div class="pt" style="--x:39.1%;--y:56.4%;--len:46px"><b></b><span class="label">HDMI</span></div>
+        <div class="pt" style="--x:61.2%;--y:55.7%;--len:46px"><b></b><span class="label">Ethernet</span></div>
+        <div class="pt" style="--x:65.3%;--y:56.4%;--len:84px"><b></b><span class="label">Reset</span></div>
+        <div class="pt" style="--x:68.3%;--y:55.2%;--len:122px"><b></b><span class="label">DC in</span></div>
+      </div>
+    </div>
+
+
+    <div class="frontcloud" id="frontcloud" aria-hidden="true"></div>
+
+    <div class="caps gut" hidden>
+      <div class="cap" data-in="-1,-.5,.15,.23">
+        <span class="label">Front</span>
+        <h2 class="serif">The lens sits deep in the face.</h2>
+        <p>A glossy bowl draws the eye to the glass, framed by a thin ring of light.</p>
+      </div>
+      <div class="cap" data-in=".30,.38,.56,.64" style="opacity:0">
+        <span class="label">Profile</span>
+        <h2 class="serif">One clean line of aluminum.</h2>
+        <p>The camera rides at the center of a bar that runs the width of the display.</p>
+      </div>
+      <div class="cap" data-in=".80,.88,2,3" style="opacity:0">
+        <span class="label">Back</span>
+        <h2 class="serif">Everything plugs in behind it.</h2>
+        <p>Power, network, display and audio, with vents at each end.</p>
+      </div>
+    </div>
+
+    <div class="rail gut">
+      <span class="label">0°</span>
+      <div class="track"><div class="fill" id="fill"></div></div>
+      <span class="label deg" id="deg">0°</span>
+      <span class="label load" id="load">Loading frames</span>
+    </div>
+  </div>
+</section>
+<script>
+(() => {
+  const N = 120, SRC = i => `frames/f${String(i + 1).padStart(3, "0")}.webp`;
+  const cv = document.getElementById("cv"), ctx = cv.getContext("2d");
+  const scene = document.getElementById("scene");
+  const fill = document.getElementById("fill"), deg = document.getElementById("deg"), load = document.getElementById("load");
+  const co = document.getElementById("co"), playBtn = document.getElementById("play");
+  const caps = [...document.querySelectorAll(".cap")].map(el => ({ el, k: el.dataset.in.split(",").map(Number) }));
+  const imgs = new Array(N), ready = new Array(N).fill(false);
+  let loaded = 0, cur = -1, want = 0, ticking = false;
+
+  // first frame, then every 8th, 4th, 2nd, then the rest, so scrubbing works before everything arrives
+  const order = [0];
+  for (const s of [8, 4, 2, 1]) for (let i = 0; i < N; i += s) if (!order.includes(i)) order.push(i);
+  order.forEach(i => {
+    const im = new Image();
+    im.decoding = "async";
+    im.onload = () => {
+      ready[i] = true; loaded++;
+      load.textContent = loaded < N ? `Loading frames ${loaded}/${N}` : "";
+      if (loaded === N) load.style.opacity = 0;
+      if (cur < 0 || Math.abs(i - want) < Math.abs(cur - want)) draw(want);
+    };
+    im.src = SRC(i);
+    imgs[i] = im;
+  });
+
+  function nearest(i) {
+    if (ready[i]) return i;
+    for (let d = 1; d < N; d++) {
+      if (i - d >= 0 && ready[i - d]) return i - d;
+      if (i + d < N && ready[i + d]) return i + d;
+    }
+    return -1;
+  }
+  function draw(i) {
+    const j = nearest(i);
+    if (j < 0 || j === cur) return;
+    ctx.clearRect(0, 0, cv.width, cv.height);
+    ctx.drawImage(imgs[j], 0, 0, cv.width, cv.height);
+    cur = j;
+  }
+  const clamp = (v, a = 0, b = 1) => Math.min(b, Math.max(a, v));
+  const band = (p, [a, b, c, d]) => p <= a || p >= d ? 0 : p < b ? (p - a) / (b - a) : p <= c ? 1 : 1 - (p - c) / (d - c);
+  const range = () => { const r = scene.getBoundingClientRect(); return { top: scrollY + r.top, len: r.height - innerHeight }; };
+
+  function update() {
+    ticking = false;
+    const { top, len } = range();
+    const p = clamp((scrollY - top) / len);
+    want = Math.round(p * (N - 1));
+    draw(want);
+    caps.forEach(({ el, k }) => {
+      const o = band(p, k);
+      el.style.opacity = o;
+      el.style.transform = `translateY(${(1 - o) * (p < (k[1] + k[2]) / 2 ? 12 : -12)}px)`;
+    });
+    const back = band(p, [0.84, 0.94, 2, 3]);
+    co.style.opacity = back;
+    co.querySelectorAll("b").forEach(b => (b.style.transform = `scaleY(${back})`));
+    fill.style.width = `${p * 100}%`;
+    deg.textContent = `${Math.round(p * 180)}°`;
+    moveFrontCloud(p);
+    moveFarClouds(p);
+    bgEl.style.transform = `scale(${1 + 0.2 * p})`;    // 100% → 120% across the turn
+  }
+
+  // Front cloud: Figma frames 1–5 put its top at 632, 362, 42, -308, -588 in an 800px-tall frame with the camera
+  // centred at 400. Here that's an offset from the camera centre, scaled by how wide the camera renders.
+  const fc = document.getElementById("frontcloud");
+  const KEYS = [632, 362, 42, -308, -588].map(y => y - 400);
+  function moveFrontCloud(p) {
+    const s = stage.offsetWidth / 1241;                       // px per Figma px (camera is 1158 wide in Figma)
+    const i = Math.min(KEYS.length - 2, Math.floor(p * (KEYS.length - 1)));
+    const t = p * (KEYS.length - 1) - i;
+    const y = KEYS[i] + (KEYS[i + 1] - KEYS[i]) * t;
+    const cy = pin.clientHeight / 2;
+    fc.style.transform = `translate(-50%, ${cy + y * s}px)`;
+    // Fade is tied to position, not scroll %: it starts when the cloud's visible top edge (~5% down the PNG)
+    // reaches the bottom of the camera, and it's gone by the time that edge passes the top of the camera.
+    const sh = stage.offsetHeight;
+    const camBottom = cy + 0.28 * sh, camTop = cy - 0.28 * sh;  // camera body spans ~56% of the frame height
+    const edge = cy + y * s + 0.05 * fc.offsetHeight;
+    const f = clamp((camBottom - edge) / (camBottom - camTop));
+    const e = f * f * (3 - 2 * f);
+    fc.style.opacity = 1 - e;
+    // grows as it fades (from its bottom edge, so it billows upward) — up to 112%
+    fc.style.transform = `translate(-50%, ${cy + y * s}px) scale(${1 + 0.12 * e})`;
+  }
+
+  // far clouds: Figma px from the camera centre (same scale as the front cloud); y0/y1 = top edge at start/end of the scroll
+  const FAR = [
+    // different travel distances = different scroll speeds: pink drifts up slowly (further away), pastel rises about twice as fast
+    { el: document.querySelector(".cl.pink"),   w: 795 * .62, x: -330, y0: 300, y1: -120, op: .72 },
+    { el: document.querySelector(".cl.pastel"), w: 676 * .58, x: 400,  y0: 620, y1: -260, op: .7 },
+  ];
+  function moveFarClouds(p) {
+    const s = stage.offsetWidth / 1241, H = pin.clientHeight, u = p * p * (3 - 2 * p);
+    for (const c of FAR) {
+      const w = c.w * s;
+      c.el.style.width = `${w}px`;
+      c.el.style.opacity = c.op;
+      c.el.style.transform = `translate(${pin.clientWidth / 2 + c.x * s - w / 2}px, ${H / 2 + (c.y0 + (c.y1 - c.y0) * u) * s}px)`;
+    }
+  }
+  const stage = document.getElementById("stage"), pin = document.querySelector(".pin"), bgEl = document.getElementById("bg");
+  const req = () => { if (!ticking) { ticking = true; requestAnimationFrame(update); } };
+  addEventListener("scroll", req, { passive: true });
+  addEventListener("resize", req);
+  req();
+
+  // play button: glides through the turn; any manual scroll input takes over
+  let raf = 0;
+  const stop = () => { cancelAnimationFrame(raf); raf = 0; playBtn.setAttribute("aria-pressed", "false"); playBtn.setAttribute("aria-label", "Play the turntable"); };
+  playBtn.addEventListener("click", () => {
+    if (raf) return stop();
+    const { top, len } = range();
+    let from = scrollY;
+    if (from >= top + len - 2 || from < top) from = top;           // restart from the front
+    const to = top + len, dur = 5200 * ((to - from) / len);
+    const t0 = performance.now();
+    playBtn.setAttribute("aria-pressed", "true"); playBtn.setAttribute("aria-label", "Pause the turntable");
+    const step = now => {
+      const t = clamp((now - t0) / dur);
+      const e = t < .5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2;
+      scrollTo(0, from + (to - from) * e);
+      if (t < 1) raf = requestAnimationFrame(step); else stop();
+    };
+    raf = requestAnimationFrame(step);
+  });
+  ["wheel", "touchstart", "keydown"].forEach(ev => addEventListener(ev, e => { if (raf && !(ev === "keydown" && e.target === playBtn)) stop(); }, { passive: true }));
+})();
+</script>
+<!-- end of hero; your next section goes here -->
+</body>
+</html>

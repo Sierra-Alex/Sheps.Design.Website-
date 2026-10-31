@@ -32,6 +32,7 @@ a:focus-visible,button:focus-visible{outline:2px solid #FDBB6F;outline-offset:2p
 <script src="./analytics.js"></script>
 <script src="./copy-email.js"></script>
 <script src="./about-popup.js"></script>
+<script src="./image-slot.js"></script>
 </helmet>
 
 <div style="max-width:1520px;margin:0 auto;padding:8px clamp(clamp(8px, calc((100vw - 807px) * 999), 24px), calc((100vw - 1439px) * 999), 40px);display:flex;flex-direction:column;align-items:center;">
@@ -55,8 +56,8 @@ a:focus-visible,button:focus-visible{outline:2px solid #FDBB6F;outline-offset:2p
     </nav>
     <div style="display:flex;flex-wrap:wrap;align-items:flex-start;gap:40px clamp(32px, 6vw, 120px);">
       <div style="display:flex;flex:2 1 28rem;flex-direction:column;gap:16px;min-width:0;max-width:800px;">
-        <h1 style="margin:0;color:#131313;font-family:'Inter',sans-serif;font-size:20px;font-weight:600;line-height:140%;letter-spacing:0.02em;text-wrap:pretty;">Mixpanel Rebrand case study headline.</h1>
-        <p style="margin:0;color:#6F6F6F;font-size:16px;font-weight:400;line-height:140%;letter-spacing:0.02em;text-wrap:pretty;">Intro copy for the Mixpanel Rebrand engagement goes here.</p>
+        <h1 style="margin:0;color:#131313;font-family:'Inter',sans-serif;font-size:20px;font-weight:600;line-height:140%;letter-spacing:0.02em;text-wrap:pretty;">Building the Mixpanel brand, from logo to launch.</h1>
+        <p style="margin:0;color:#6F6F6F;font-size:16px;font-weight:400;line-height:140%;letter-spacing:0.02em;text-wrap:pretty;">As Principal Designer, I helped reimagine Mixpanel's brand alongside a remarkably talented in-house team. <a href="https://www.linkedin.com/in/paul-jun-3544a167/" target="_blank" rel="noopener noreferrer" style="color:#131313;text-decoration:underline dotted #131313;text-decoration-thickness:1.5px;text-underline-offset:5px;" style-hover="text-decoration-style:solid;">Paul Jun</a> led brand strategy, and I worked with Head of Brand <a href="https://www.linkedin.com/in/mikecasebolt/" target="_blank" rel="noopener noreferrer" style="color:#131313;text-decoration:underline dotted #131313;text-decoration-thickness:1.5px;text-underline-offset:5px;" style-hover="text-decoration-style:solid;">Mike Casebolt</a> and the wider team to breathe new life into it: a new logo, a new illustration style and a new website built for the launch.</p>
       </div>
       <div style="display:flex;flex:1 0 18rem;flex-direction:column;gap:8px;max-width:520px;">
         <div style="display:flex;align-items:center;gap:8px;font-size:14px;line-height:130%;letter-spacing:0.02em;">
@@ -92,7 +93,6 @@ a:focus-visible,button:focus-visible{outline:2px solid #FDBB6F;outline-offset:2p
   <main style="display:flex;flex-wrap:wrap;gap:40px;align-items:flex-start;justify-content:center;width:100%;padding:40px 0;">
     <nav aria-label="Contents" style="position:sticky;top:min(84px, calc((100vw - 807px) * 999));flex:0 0 257px;display:flex;flex-direction:column;gap:8px;max-width:100%;padding:8px;border:1px solid #E1DDDC;border-radius:8px;background:#F2ECE8B3;backdrop-filter:blur(8px);">
       <p style="margin:0;color:#6F6F6F;font-size:14px;line-height:140%;letter-spacing:0.02em;">Contents</p>
-      <span aria-hidden="true" style="display:block;width:100%;height:1px;background:#E1DDDC;"></span>
       <ul role="list" style="display:flex;flex-direction:column;gap:8px;margin:0;padding:0;list-style:none;">
         <sc-for list="{{ menu }}" as="m" hint-placeholder-count="8">
           <li>
@@ -105,26 +105,27 @@ a:focus-visible,button:focus-visible{outline:2px solid #FDBB6F;outline-offset:2p
     </nav>
 
     <article style="flex:1 1 calc((808px - 100vw) * 999);display:flex;flex-direction:column;gap:40px;min-width:0;">
+      <div style="width:100%;aspect-ratio:2576 / 1288;border-radius:8px;overflow:hidden;background:#CAE9DF;"><image-slot id="rebrand-hero" src="assets/case-study/mixpanel-rebrand/hero.webp" shape="rounded" radius="8" placeholder="Drop the Mixpanel rebrand hero image (2576×1288)"></image-slot></div>
       <section id="identity" data-screen-label="Identity" style="display:flex;flex-direction:column;gap:16px;">
         <div style="display:flex;flex-direction:column;gap:16px;max-width:800px;">
           <div style="display:flex;align-items:center;gap:8px;font-size:14px;line-height:130%;letter-spacing:0.02em;">
             <h2 style="margin:0;color:#131313;font:inherit;font-weight:600;">Identity</h2>
             <span aria-hidden="true" style="width:1px;height:11px;background:#E1DDDC;"></span>
-            <p style="margin:0;color:#6F6F6F;">From funnel to journey</p>
+            <p style="margin:0;color:#6F6F6F;">One system for brand and product</p>
           </div>
-          <p style="margin:0;color:#6F6F6F;font-size:16px;font-weight:400;line-height:140%;letter-spacing:0.02em;text-wrap:pretty;">Section copy goes here.</p>
+          <p style="margin:0;color:#6F6F6F;font-size:16px;font-weight:400;line-height:140%;letter-spacing:0.02em;text-wrap:pretty;">We started from scratch, building a new design system and brand package with fresh typography and a new color system. The color system was developed alongside the product team, so the brand and product now work as one cohesive system.</p>
         </div>
         <div style="display:flex;flex-direction:column;gap:16px;">
           <video src="assets/case-study/mixpanel-rebrand/identity-mark.mp4" data-no-alt="" muted="" loop="" playsinline="" preload="metadata" aria-label="Animated Mixpanel brand mark" style="display:block;width:100%;height:auto;aspect-ratio:16 / 9;object-fit:cover;border-radius:8px;background:#E1DDDC;"></video>
           <img src="assets/case-study/mixpanel-rebrand/identity-01.webp" alt="Mixpanel brand mark built from data, discovery and evolution" width="3840" height="2160" loading="lazy" decoding="async" style="display:block;width:100%;height:auto;aspect-ratio:16 / 9;object-fit:cover;border-radius:8px;background:#E1DDDC;"></img>
           <img src="assets/case-study/mixpanel-rebrand/identity-07.webp" alt="Mixpanel X mark construction grid and bezier curves" width="3840" height="2160" loading="lazy" decoding="async" style="display:block;width:100%;height:auto;aspect-ratio:16 / 9;object-fit:cover;border-radius:8px;background:#E1DDDC;"></img>
+          <img src="assets/case-study/mixpanel-rebrand/identity-06.webp" alt="Mixpanel extended color palette: Purple, Lava, Mint and Mustard" width="3840" height="2160" loading="lazy" decoding="async" style="display:block;width:100%;height:auto;aspect-ratio:16 / 9;object-fit:cover;border-radius:8px;background:#E1DDDC;"></img>
           <div style="display:grid;grid-template-columns:repeat(auto-fit, minmax(min(100%, 280px), 1fr));gap:16px;">
             <img src="assets/case-study/mixpanel-rebrand/identity-02.webp" alt="Garnett display typeface specimen" width="3840" height="2160" loading="lazy" decoding="async" style="display:block;min-width:0;width:100%;height:auto;aspect-ratio:16 / 9;object-fit:cover;border-radius:8px;background:#E1DDDC;"></img>
             <img src="assets/case-study/mixpanel-rebrand/identity-03.webp" alt="Arizona Text long-form typeface specimen" width="3840" height="2160" loading="lazy" decoding="async" style="display:block;min-width:0;width:100%;height:auto;aspect-ratio:16 / 9;object-fit:cover;border-radius:8px;background:#E1DDDC;"></img>
           </div>
           <img src="assets/case-study/mixpanel-rebrand/identity-04.webp" alt="Mixpanel typography system" width="3840" height="2160" loading="lazy" decoding="async" style="display:block;width:100%;height:auto;aspect-ratio:16 / 9;object-fit:cover;border-radius:8px;background:#E1DDDC;"></img>
           <img src="assets/case-study/mixpanel-rebrand/identity-05.webp" alt="Mixpanel brand guidelines pages" width="3840" height="2160" loading="lazy" decoding="async" style="display:block;width:100%;height:auto;aspect-ratio:16 / 9;object-fit:cover;border-radius:8px;background:#E1DDDC;"></img>
-          <img src="assets/case-study/mixpanel-rebrand/identity-06.webp" alt="Mixpanel extended color palette: Purple, Lava, Mint and Mustard" width="3840" height="2160" loading="lazy" decoding="async" style="display:block;width:100%;height:auto;aspect-ratio:16 / 9;object-fit:cover;border-radius:8px;background:#E1DDDC;"></img>
         </div>
       </section>
       <div aria-hidden="true" style="height:40px;background:url('assets/patterns/plus-cream.svg') 0 0 / 8px 10px repeat;"></div>
@@ -133,9 +134,9 @@ a:focus-visible,button:focus-visible{outline:2px solid #FDBB6F;outline-offset:2p
           <div style="display:flex;align-items:center;gap:8px;font-size:14px;line-height:130%;letter-spacing:0.02em;">
             <h2 style="margin:0;color:#131313;font:inherit;font-weight:600;">Illustration</h2>
             <span aria-hidden="true" style="width:1px;height:11px;background:#E1DDDC;"></span>
-            <p style="margin:0;color:#6F6F6F;">Earth+</p>
+            <p style="margin:0;color:#6F6F6F;">Earth+, a world where data takes shape</p>
           </div>
-          <p style="margin:0;color:#6F6F6F;font-size:16px;font-weight:400;line-height:140%;letter-spacing:0.02em;text-wrap:pretty;">Section copy goes here.</p>
+          <p style="margin:0;color:#6F6F6F;font-size:16px;font-weight:400;line-height:140%;letter-spacing:0.02em;text-wrap:pretty;">Earth+ is an illustration world where products open portals to what's possible, combined with a graphic language that gives invisible event data a visible shape. Each world draws on the updated color palette, giving it its own complementary color system while keeping it unmistakably Mixpanel.</p>
         </div>
         <div style="display:flex;flex-direction:column;gap:16px;">
           <img src="assets/case-study/mixpanel-rebrand/system-02.webp" alt="Earth+ illustration of a data visualization room" width="3840" height="2160" loading="lazy" decoding="async" style="display:block;width:100%;height:auto;aspect-ratio:16 / 9;object-fit:cover;border-radius:8px;background:#E1DDDC;"></img>
@@ -150,19 +151,14 @@ a:focus-visible,button:focus-visible{outline:2px solid #FDBB6F;outline-offset:2p
           <div style="display:flex;align-items:center;gap:8px;font-size:14px;line-height:130%;letter-spacing:0.02em;">
             <h2 style="margin:0;color:#131313;font:inherit;font-weight:600;">Web</h2>
             <span aria-hidden="true" style="width:1px;height:11px;background:#E1DDDC;"></span>
-            <p style="margin:0;color:#6F6F6F;">Illustration, color, type and voice</p>
+            <p style="margin:0;color:#6F6F6F;">A home built for discovery</p>
           </div>
-          <p style="margin:0;color:#6F6F6F;font-size:16px;font-weight:400;line-height:140%;letter-spacing:0.02em;text-wrap:pretty;">Section copy goes here.</p>
+          <p style="margin:0;color:#6F6F6F;font-size:16px;font-weight:400;line-height:140%;letter-spacing:0.02em;text-wrap:pretty;">With the brand system and illustration style in place, I led the design of the digital experience. The site leans into discovery and world-building, giving the new brand a meaningful, memorable home.</p>
         </div>
         <div style="display:flex;flex-direction:column;gap:16px;">
           <video src="assets/case-study/mixpanel-rebrand/identity-motion.mp4" data-no-alt="" muted="" loop="" playsinline="" preload="metadata" aria-label="Mixpanel brand motion" style="display:block;width:100%;height:auto;aspect-ratio:16 / 9;object-fit:cover;border-radius:8px;background:#E1DDDC;"></video>
           <img src="assets/case-study/mixpanel-rebrand/system-01.avif" alt="Mixpanel homepage on a laptop" width="3840" height="2160" loading="lazy" decoding="async" style="display:block;width:100%;height:auto;aspect-ratio:16 / 9;object-fit:cover;border-radius:8px;background:#E1DDDC;"></img>
           <img src="assets/case-study/mixpanel-rebrand/system-03.webp" alt="Mixpanel signup page on a tablet" width="3840" height="2160" loading="lazy" decoding="async" style="display:block;width:100%;height:auto;aspect-ratio:16 / 9;object-fit:cover;border-radius:8px;background:#E1DDDC;"></img>
-          <div style="display:grid;grid-template-columns:repeat(auto-fit, minmax(min(100%, 160px), 1fr));gap:16px;">
-            <img src="assets/case-study/mixpanel-rebrand/system-10.webp" alt="Mixpanel X keycap close-up" width="1080" height="1080" loading="lazy" decoding="async" style="display:block;min-width:0;width:100%;height:auto;aspect-ratio:1 / 1;object-fit:cover;border-radius:8px;background:#E1DDDC;"></img>
-            <img src="assets/case-study/mixpanel-rebrand/system-11.webp" alt="Mixpanel branded keyboard from above" width="1080" height="1080" loading="lazy" decoding="async" style="display:block;min-width:0;width:100%;height:auto;aspect-ratio:1 / 1;object-fit:cover;border-radius:8px;background:#E1DDDC;"></img>
-            <img src="assets/case-study/mixpanel-rebrand/system-15.webp" alt="Mixpanel mobile navigation on a phone" width="1080" height="1080" loading="lazy" decoding="async" style="display:block;min-width:0;width:100%;height:auto;aspect-ratio:1 / 1;object-fit:cover;border-radius:8px;background:#E1DDDC;"></img>
-          </div>
         </div>
       </section>
       <div aria-hidden="true" style="height:40px;background:url('assets/patterns/plus-cream.svg') 0 0 / 8px 10px repeat;"></div>
@@ -170,17 +166,45 @@ a:focus-visible,button:focus-visible{outline:2px solid #FDBB6F;outline-offset:2p
         <div style="display:flex;flex-direction:column;gap:16px;max-width:800px;">
           <div style="display:flex;align-items:center;gap:8px;font-size:14px;line-height:130%;letter-spacing:0.02em;">
             <h2 style="margin:0;color:#131313;font:inherit;font-weight:600;">Execution</h2>
+            <span aria-hidden="true" style="width:1px;height:11px;background:#E1DDDC;"></span>
+            <p style="margin:0;color:#6F6F6F;">Beyond the screen</p>
           </div>
-          <p style="margin:0;color:#6F6F6F;font-size:16px;font-weight:400;line-height:140%;letter-spacing:0.02em;text-wrap:pretty;">Section copy goes here.</p>
+          <p style="margin:0;color:#6F6F6F;font-size:16px;font-weight:400;line-height:140%;letter-spacing:0.02em;text-wrap:pretty;">Beyond the digital experience, we built the system to scale and flex wherever the brand needed to go, from events and out-of-home to swag. To celebrate the launch, we also designed a custom Mixpanel keyboard and shipped it to key people across the industry.</p>
         </div>
         <div style="display:flex;flex-direction:column;gap:16px;">
           <img src="assets/case-study/mixpanel-rebrand/system-06.webp" alt="Mixpanel billboard on a street corner" width="3840" height="2160" loading="lazy" decoding="async" style="display:block;width:100%;height:auto;aspect-ratio:16 / 9;object-fit:cover;border-radius:8px;background:#E1DDDC;"></img>
           <img src="assets/case-study/mixpanel-rebrand/system-07.webp" alt="Progress is possible newspaper spread" width="3840" height="2160" loading="lazy" decoding="async" style="display:block;width:100%;height:auto;aspect-ratio:16 / 9;object-fit:cover;border-radius:8px;background:#E1DDDC;"></img>
           <img src="assets/case-study/mixpanel-rebrand/system-08.webp" alt="Mixpanel event lanyard and summit signage" width="3840" height="2160" loading="lazy" decoding="async" style="display:block;width:100%;height:auto;aspect-ratio:16 / 9;object-fit:cover;border-radius:8px;background:#E1DDDC;"></img>
-          <img src="assets/case-study/mixpanel-rebrand/system-09.webp" alt="Mixpanel branded keyboard beside a tablet" width="3840" height="2160" loading="lazy" decoding="async" style="display:block;width:100%;height:auto;aspect-ratio:16 / 9;object-fit:cover;border-radius:8px;background:#E1DDDC;"></img>
           <img src="assets/case-study/mixpanel-rebrand/system-14.webp" alt="Mixpanel poster in a subway station" width="3840" height="2160" loading="lazy" decoding="async" style="display:block;width:100%;height:auto;aspect-ratio:16 / 9;object-fit:cover;border-radius:8px;background:#E1DDDC;"></img>
           <img src="assets/case-study/mixpanel-rebrand/system-13.webp" alt="Mixpanel kraft mailer boxes with the X pattern" width="2048" height="1152" loading="lazy" decoding="async" style="display:block;width:100%;height:auto;aspect-ratio:16 / 9;object-fit:cover;border-radius:8px;background:#E1DDDC;"></img>
+          <img src="assets/case-study/mixpanel-rebrand/system-09.webp" alt="Mixpanel branded keyboard beside a tablet" width="3840" height="2160" loading="lazy" decoding="async" style="display:block;width:100%;height:auto;aspect-ratio:16 / 9;object-fit:cover;border-radius:8px;background:#E1DDDC;"></img>
+          <div style="display:grid;grid-template-columns:repeat(auto-fit, minmax(min(100%, 160px), 1fr));gap:16px;">
+            <img src="assets/case-study/mixpanel-rebrand/system-10.webp" alt="Mixpanel X keycap close-up" width="1080" height="1080" loading="lazy" decoding="async" style="display:block;min-width:0;width:100%;height:auto;aspect-ratio:1 / 1;object-fit:cover;border-radius:8px;background:#E1DDDC;"></img>
+            <img src="assets/case-study/mixpanel-rebrand/system-11.webp" alt="Mixpanel branded keyboard from above" width="1080" height="1080" loading="lazy" decoding="async" style="display:block;min-width:0;width:100%;height:auto;aspect-ratio:1 / 1;object-fit:cover;border-radius:8px;background:#E1DDDC;"></img>
+          </div>
         </div>
+      </section>
+      <div aria-hidden="true" style="height:40px;background:url('assets/patterns/plus-cream.svg') 0 0 / 8px 10px repeat;"></div>
+      <section id="credits" data-screen-label="Credits" style="display:flex;flex-direction:column;gap:16px;">
+        <div style="display:flex;align-items:center;gap:8px;font-size:14px;line-height:130%;letter-spacing:0.02em;">
+          <h2 style="margin:0;color:#131313;font:inherit;font-weight:600;">Credits</h2>
+          <span aria-hidden="true" style="width:1px;height:11px;background:#E1DDDC;"></span>
+          <p style="margin:0;color:#6F6F6F;">The team behind the rebrand</p>
+        </div>
+        <ul style="list-style:none;margin:0;padding:0;border-top:1px solid #E1DDDC;font-size:16px;font-weight:400;line-height:140%;letter-spacing:0.02em;">
+          <li style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:baseline;gap:4px 24px;padding:14px 0;border-bottom:1px solid #E1DDDC;"><span style="color:#131313;">Head of Brand Design</span><span style="color:#6F6F6F;">Mike Casebolt</span></li>
+          <li style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:baseline;gap:4px 24px;padding:14px 0;border-bottom:1px solid #E1DDDC;"><span style="color:#131313;">Principal Creative Director</span><span style="color:#6F6F6F;">Paul Jun</span></li>
+          <li style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:baseline;gap:4px 24px;padding:14px 0;border-bottom:1px solid #E1DDDC;"><span style="color:#131313;">Principal Brand Designer</span><span style="color:#6F6F6F;">Alex Shepherd</span></li>
+          <li style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:baseline;gap:4px 24px;padding:14px 0;border-bottom:1px solid #E1DDDC;"><span style="color:#131313;">Principal Product Designer</span><span style="color:#6F6F6F;">Mark Johnson</span></li>
+          <li style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:baseline;gap:4px 24px;padding:14px 0;border-bottom:1px solid #E1DDDC;"><span style="color:#131313;">Staff Motion Designer</span><span style="color:#6F6F6F;">Erik Blad</span></li>
+          <li style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:baseline;gap:4px 24px;padding:14px 0;border-bottom:1px solid #E1DDDC;"><span style="color:#131313;">Staff Interactive Designer</span><span style="color:#6F6F6F;">Tara Odorizzi</span></li>
+          <li style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:baseline;gap:4px 24px;padding:14px 0;border-bottom:1px solid #E1DDDC;"><span style="color:#131313;">Staff Campaign Designer</span><span style="color:#6F6F6F;">Ryan Howard</span></li>
+          <li style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:baseline;gap:4px 24px;padding:14px 0;border-bottom:1px solid #E1DDDC;"><span style="color:#131313;">Sr. Brand Designer</span><span style="color:#6F6F6F;">Annie Szafranski</span></li>
+          <li style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:baseline;gap:4px 24px;padding:14px 0;border-bottom:1px solid #E1DDDC;"><span style="color:#131313;">Sr. Brand Designer</span><span style="color:#6F6F6F;">Ka Lee</span></li>
+          <li style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:baseline;gap:4px 24px;padding:14px 0;border-bottom:1px solid #E1DDDC;"><span style="color:#131313;">Contractor: Brand &amp; Identity</span><span style="color:#6F6F6F;">Jon Howell</span></li>
+          <li style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:baseline;gap:4px 24px;padding:14px 0;border-bottom:1px solid #E1DDDC;"><span style="color:#131313;">Contractor: Brand System Scaling</span><span style="color:#6F6F6F;">Michael Taylor</span></li>
+          <li style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:baseline;gap:4px 24px;padding:14px 0;border-bottom:1px solid #E1DDDC;"><span style="color:#131313;">Contractor: Final Logo Type</span><span style="color:#6F6F6F;">Jeremy Mickel</span></li>
+        </ul>
       </section>
     </article>
   </main>
@@ -269,21 +293,21 @@ class Component extends DCLogic {
     };
     const icon = (n) => `assets/icons/brand-${n}-cream.svg`;
     const sections = [
-      { id: 'audit', title: 'Audit', item: 'Mapping what was really in use', icon: icon('education'), body: "We began by consolidating the full body of go-to-market output and reviewing it with stakeholders in a series of working sessions, assessing what was performing, what had fallen out of date, and which qualities to strengthen. These sessions established a shared direction and defined clear goals for the engagement.", rows: [{ cols: [{ basis: '100%', tiles: [Object.assign(tile('auto', '', '', '0'), { ph: 'Figma shot of old brand work', ratio: '2126 / 1217', fillSize: 'center / cover', fill: 'none', alt: 'Public audit of Mixpanel web pages in Figma' })] }] }] },
-      { id: 'design', title: 'Design', item: 'One visual language for product and web', icon: icon('design-system'), body: "Working closely with core stakeholders at Mixpanel, we built a complete brand from the ground up, starting with a design system flexible enough to meet the needs of every team. We took a web-first approach, so teams could produce on-brand pages faster and with confidence. From that foundation, the same system now extends to a wider range of go-to-market assets, all while preserving the color and playfulness that define Mixpanel.", rows: [
+      { id: 'audit', title: 'Audit', item: 'Mapping what was really in use', icon: icon('education'), body: "I began by consolidating the full body of go-to-market output and reviewing it with stakeholders in a series of working sessions, assessing what was performing, what had fallen out of date, and which qualities to strengthen. These sessions established a shared direction and defined clear goals for the engagement.", rows: [{ cols: [{ basis: '100%', tiles: [Object.assign(tile('auto', '', '', '0'), { ph: 'Figma shot of old brand work', ratio: '2126 / 1217', fillSize: 'center / cover', fill: 'none', alt: 'Public audit of Mixpanel web pages in Figma' })] }] }] },
+      { id: 'design', title: 'Design', item: 'One visual language for product and web', icon: icon('design-system'), body: "Working closely with core stakeholders at Mixpanel, I built a complete brand from the ground up, starting with a design system flexible enough to meet the needs of every team. I took a web-first approach, so teams could produce on-brand pages faster and with confidence. From that foundation, the same system now extends to a wider range of go-to-market assets, all while preserving the color and playfulness that define Mixpanel.", rows: [
         { cols: [{ basis: '100%', tiles: [Object.assign(tile('auto', '', '', '0'), { ph: 'Homepage', shot: 'none', ratio: '2126 / 1196', bg: '#F5F2FF', alt: 'Mixpanel homepage' })] }] }, { cols: [{ basis: '100%', tiles: [Object.assign(tile('auto', '', '', '0'), { ph: 'Hardware page', vid: 'none', ratio: '1920 / 1080', bg: '#E0D9FF', alt: 'Agent chat walkthrough' })] }] }, { cols: [{ basis: '100%', tiles: [Object.assign(tile('496px', '', '', '32px'), { ph: 'Pricing', alt: 'Pricing placeholder' })] }] }, flipRow, { cols: [{ basis: '100%', tiles: [Object.assign(tile('auto', '', '', '0'), { ph: 'Signup', shot: 'none', ratio: '2126 / 1292', bg: '#F5F2FF', alt: 'Signup placeholder' })] }] }, { cols: [{ basis: '100%', tiles: [Object.assign(tile('auto', '', '', '0'), { ph: 'Case study', shot: 'none', ratio: '2126 / 1292', bg: '#F5F2FF', alt: 'Case study placeholder' })] }] }, stack('280.968px', '581.812px', Object.assign(tile('auto', '', '', '0'), { ratio: '1040 / 1150', grow: '1 1 auto', fillSize: 'left top / cover', fill: 'none', alt: 'Text color semantic tokens' }), [Object.assign(tile('auto', '', '', '0'), { grow: '1 1 0', minH: '240px', fill: 'none', alt: 'Cards semantic tokens' }), Object.assign(tile('auto', '', '', '0'), { grow: '1 1 0', minH: '240px', fill: 'none', alt: 'Page and section stack spacing tokens' })], true),
       ] },
-      { id: 'tokens', title: 'Token system', item: 'Raw values, mapped to purpose', icon: icon('services'), body: "As the design direction took shape, we began structuring it into a coherent system. We captured the raw values from the design work as primitive tokens: the colors, type sizes and spacing that define the brand, each named for what it is. As the component library came together, we mapped those primitives to semantic tokens that give each value a clear purpose. The result is a cascading system: because the foundation links directly to the product, a single change at the root flows through to every surface, keeping maintenance simple. Every decision is intentional, and structured so AI agents can apply it correctly.", rows: [
+      { id: 'tokens', title: 'Token system', item: 'Raw values, mapped to purpose', icon: icon('services'), body: "As the design direction took shape, I began structuring it into a coherent system. I captured the raw values from the design work as primitive tokens: the colors, type sizes and spacing that define the brand, each named for what it is. As the component library came together, I mapped those primitives to semantic tokens that give each value a clear purpose. The result is a cascading system: because the foundation links directly to the product, a single change at the root flows through to every surface, keeping maintenance simple. Every decision is intentional, and structured so AI agents can apply it correctly.", rows: [
         { cols: [{ basis: '100%', tiles: [Object.assign(tile('auto', '', '', '0'), { ph: 'Token Figma view', video: 'none', ratio: '2560 / 1440', alt: 'Token Figma view placeholder' })] }] }, stack('280.968px', '581.812px', Object.assign(tile('auto', '', '', '0'), { ratio: '1040 / 1150', grow: '1 1 auto', fillSize: 'left top / cover', fill: 'none', ph: 'Semantic tokens applied to cards', alt: 'Semantic tokens applied to cards placeholder' }), [Object.assign(tile('auto', '', '', '0'), { ratio: '1040 / 1150', grow: '1 1 auto', fillSize: 'left top / cover', fill: 'none', ph: 'Semantic tokens applied to cards', alt: 'Semantic tokens applied to cards placeholder' })], true),
        
       ] },
-      { id: 'components', title: 'Components & templates', item: 'Built on the system, not around it', icon: icon('services'), body: "This is where the system comes together. We built the component library in two forms: in Figma, for the team to design and iterate with, and in code, ready for AI agents to build from. Every component is bound to tokens, so agents can read the system clearly and apply it correctly. Templates then assemble these components into the patterns the team reuses most.", rows: [
+      { id: 'components', title: 'Components & templates', item: 'Built on the system, not around it', icon: icon('services'), body: "This is where the system comes together. I built the component library in two forms: in Figma, for the team to design and iterate with, and in code, ready for AI agents to build from. Every component is bound to tokens, so agents can read the system clearly and apply it correctly. Templates then assemble these components into the patterns the team reuses most.", rows: [
         { cols: [{ basis: '100%', tiles: [Object.assign(tile('auto', '', '', '0'), { video: 'none', ratio: '2560 / 1440', alt: 'Heliograph page sections in Figma' })] }] }, stack('287.155px', '600px', Object.assign(tile('auto', '', '', '0'), { ratio: 'auto', grow: '1 1 0', minH: '480px', fillSize: 'left top / cover', fill: 'none', alt: 'Mixpanel hero section variations' }), [Object.assign(tile('auto', '', '', '0'), { grow: '1 1 0', minH: '240px', fill: 'none', alt: 'Mixpanel content section layouts' }), Object.assign(tile('auto', '', '', '0'), { grow: '1 1 0', minH: '240px', fill: 'none', alt: 'Mixpanel footer and closing CTA layout' })], true), { cols: [{ basis: '100%', tiles: [Object.assign(tile('auto', '', '', '0'), { ratio: '2126 / 1196', fillSize: 'center / cover', fill: 'none', alt: 'Heliograph responsive type scales in Figma' })] }] },
       ] },
-      { id: 'contract', title: 'Agent contract', item: 'The rules of the road, written for agents', icon: icon('design-system'), body: "Alongside the components, we built the material an AI agent needs to understand the system: a clear contract that sets out the rules of the road for both the brand and the design system, so agents know what to use, when, and why.", rows: [
+      { id: 'contract', title: 'Agent contract', item: 'The rules of the road, written for agents', icon: icon('design-system'), body: "Alongside the components, I built the material an AI agent needs to understand the system: a clear contract that sets out the rules of the road for both the brand and the design system, so agents know what to use, when, and why.", rows: [
         { cols: [{ basis: '100%', tiles: [Object.assign(tile('auto', '', '', '0'), { ratio: '2126 / 1164', fillSize: 'center / cover', fill: 'none', alt: 'Heliograph agent contract markdown file' })] }] },
       ] },
-      { id: 'tooling', title: 'Tooling & skills', item: 'A system AI tools can read', icon: icon('education'), body: "We built a suite of AI tooling and resources so the team could put the system to work from day one. The agentic design system acts as the source of truth, letting the team capture the productivity gains of AI while producing work that is on brand and ready to ship. To get them started, we built a set of skills, including a landing page builder with an integrated image library, so marketing and design can ship pages independently, consistently and on brand. We also created an ABM tool that tailors those pages to key prospect accounts, drawing on discovery call transcripts and pairing custom branding with Mixpanel's foundational brand to create a personalized experience for each prospect.", rows: [
+      { id: 'tooling', title: 'Tooling & skills', item: 'A system AI tools can read', icon: icon('education'), body: "I built a suite of AI tooling and resources so the team could put the system to work from day one. The agentic design system acts as the source of truth, letting the team capture the productivity gains of AI while producing work that is on brand and ready to ship. To get them started, I built a set of skills, including a landing page builder with an integrated image library, so marketing and design can ship pages independently, consistently and on brand. I also created an ABM tool that tailors those pages to key prospect accounts, drawing on discovery call transcripts and pairing custom branding with Mixpanel's foundational brand to create a personalized experience for each prospect.", rows: [
         { cols: [{ basis: '100%', tiles: [Object.assign(tile('auto', '', '', '0'), { vid: 'none', ratio: '1920 / 1200', bg: '#E0D9FF', alt: 'LP page builder demo' })] }] }, { cols: [{ basis: '100%', tiles: [Object.assign(tile('auto', '', '', '0'), { shot: 'none', ratio: '2126 / 1196', alt: 'Heliograph Agentic Design System index page' })] }] }, { cols: [{ basis: '100%', tiles: [Object.assign(tile('auto', '', '', '0'), { vid: 'none', ratio: '2126 / 1164', bg: '#E0D9FF', alt: 'ABM page builder demo' })] }] },
       ] },
     ];
@@ -292,7 +316,7 @@ class Component extends DCLogic {
       flipRef: this.flipRef,
       flipPrev: () => { this.stopFlip(); this.setState({ flipIdx: (fi - 1 + flipPages.length) % flipPages.length }); },
       flipNext: () => { this.stopFlip(); this.setState({ flipIdx: (fi + 1) % flipPages.length }); },
-      tags: ['Audit', 'Design', 'Token architecture', 'Component library', 'Agent contract', 'AI tooling'],
+      tags: ['Brand design', 'Interactive design'],
       sections,
       menu: this.nav.map(([id, label, ic]) => ({
         href: '#' + id, label, current: a === id ? 'true' : undefined,

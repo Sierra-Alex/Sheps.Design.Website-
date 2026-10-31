@@ -1,6 +1,8 @@
 # Sheps.Design website — design rules
 
 - Surface backgrounds (cream #F7F3F1 and any other section surface color) always run full browser width, edge to edge. Content stays inside the 1520px max-width container. Implement with `box-shadow:0 0 0 100vmax <color>;clip-path:inset(0 -100vmax);` on the section alongside its `background`.
+- Inline text links (links inside body copy, any page): always `style="color:#131313;text-decoration:underline dotted #131313;text-decoration-thickness:1.5px;text-underline-offset:5px;" style-hover="text-decoration-style:solid;"`. External links add `target="_blank" rel="noopener noreferrer"`. Buttons and nav links keep their own styles.
+- Case study role tags: the tags in a case study header and the role tags on its home page work card (`Sheps Design Home.dc.html` → `work` list) are the same list. When one changes, update the other (and `site/`, and the copy doc) in the same turn.
 - Case study pages (`Case Study - *.dc.html`) share one template: any layout/style change to one applies to all of them in the same turn (copy stays page-specific).
 - Copy doc: `uploads/sheps-design-site-draft.md` mirrors the live site copy. Whenever on-page text changes (any page, card, caption or subhead), update the matching passage in that doc in the same turn.
 - Analytics: every page (any new top-level page DC, and its copy in `site/`) must include `<script src="./analytics.js"></script>` inside its `<helmet>`. This loads Mixpanel (token lives in `analytics.js` — don't duplicate it). Pages in subfolders use the correct relative path (e.g. `../analytics.js`). Shared components (SiteFooter, diagrams) don't need it. Named events use `window.mixpanel && window.mixpanel.track('Event name', { page: location.pathname })`.
