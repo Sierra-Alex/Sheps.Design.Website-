@@ -30,6 +30,8 @@ Sheps.Design does not have a public API or self-serve product. To engage, direct
 
 - [Mixpanel](https://sheps.studio/mixpanel): Brand design plus Heliograph, an agentic design system, taken from full audit through tokens, components and an AI tooling layer (landing page builder, ABM tool).
 - [Coach](https://sheps.studio/coach): Product design and design system for a mood and journal tracker powered by AI insights, built with AI tooling working from the system.
+- [Highfive](https://sheps.studio/highfive): Rebrand of a premium video conferencing company for the AI age, with a design system built from the ground up for AI agents so go-to-market teams can ship custom web experiences quickly.
+- [Mixpanel rebrand](https://sheps.studio/mixpanel-rebrand): Rebuilding the Mixpanel brand from logo to launch: identity, illustration world, color and type system, and a new website.
 
 ## Optional
 

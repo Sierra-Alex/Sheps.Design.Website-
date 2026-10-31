@@ -81,26 +81,6 @@
       "source": "/insights.html",
       "destination": "/",
       "permanent": false
-    },
-    {
-      "source": "/highfive",
-      "destination": "/",
-      "permanent": false
-    },
-    {
-      "source": "/highfive.html",
-      "destination": "/",
-      "permanent": false
-    },
-    {
-      "source": "/mixpanel-rebrand",
-      "destination": "/",
-      "permanent": false
-    },
-    {
-      "source": "/mixpanel-rebrand.html",
-      "destination": "/",
-      "permanent": false
     }
   ]
 }

@@ -117,7 +117,7 @@ A light teaser, not a deep dive: 2-3 project cards right after the hero so visit
 
 
 **Card — Highfive (row 2, left):** links to the Highfive case study.
-> Highfive. Case study summary for Highfive goes here.
+> Highfive. A ground-up refresh of a dated brand, paired with a design system AI agents can build from.
 > Role: Creative Direction · Design · Build (same tags as the Highfive case study header)
 
 
