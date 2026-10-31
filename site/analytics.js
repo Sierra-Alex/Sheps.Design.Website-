@@ -10,7 +10,7 @@
 (function () {
   if (window.mixpanel && window.mixpanel.__SV) return;
   if (!/^(www\.)?sheps\.studio$/.test(location.hostname) || window.top !== window.self) return;
-  var PAGES = { '/': 'Home', '/mixpanel': 'Mixpanel case study', '/coach': 'Coach case study', '/insights': 'Insights case study', '/highfive': 'Highfive case study', '/agentic-systems': 'Agentic systems', '/mixpanel-rebrand': 'Mixpanel Rebrand case study', '/coach-walkthrough': 'Coach walkthrough', '/verdant-orb': 'Verdant Orb' };
+  var PAGES = { '/': 'Home', '/mixpanel': 'Mixpanel case study', '/coach': 'Coach case study', '/insights': 'Insights case study', '/highfive': 'Highfive case study', '/agentic-systems': 'Agentic systems', '/mixpanel-rebrand': 'Mixpanel Rebrand case study', '/coach-walkthrough': 'Coach walkthrough', '/cv': 'CV', '/verdant-orb': 'Verdant Orb' };
   var path = location.pathname.replace(/\.html$/, '').replace(/\/index$/, '/').replace(/(.)\/$/, '$1') || '/';
   var PAGE_NAME = PAGES[path] || path.replace(/^\//, '').replace(/-/g, ' ');
   var TOKEN = '22b0e0ec324b760a60f50783cb3f0ca2';
