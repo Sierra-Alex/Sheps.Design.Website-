@@ -16,6 +16,8 @@
   var TOKEN = '22b0e0ec324b760a60f50783cb3f0ca2';
   var CONFIG = {
     track_pageview: false, autocapture: true, persistence: 'localStorage', api_host: 'https://api-js.mixpanel.com',
+    // Session Replay: record every session; public portfolio, so show text and images instead of masking them.
+    record_sessions_percent: 100, record_heatmap_data: true, record_mask_text_selector: '', record_block_selector: '',
     loaded: function (m) {
       m.register({ page_name: PAGE_NAME, page_path: path });
       m.track_pageview({ page_name: PAGE_NAME, page_path: path });
