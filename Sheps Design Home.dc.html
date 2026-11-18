@@ -32,7 +32,7 @@
 <style>
 @font-face{font-family:'Inter';font-style:normal;font-weight:100 900;font-display:swap;src:url('src/assets/fonts/Inter-Variable.woff2') format('woff2');}
 @font-face{font-family:'Space Grotesk';font-style:normal;font-weight:500;font-display:swap;src:url('src/assets/fonts/SpaceGrotesk-Medium.woff2') format('woff2');}
-html{font-optical-sizing:none;font-synthesis:none;}
+html{font-optical-sizing:none;font-synthesis:none;background:#F7F3F1;}body{background:#F7F3F1;}
 html,body{overflow-x:clip;}
 *,*::before,*::after{box-sizing:border-box;}
 html,body{overflow-x:clip;}
@@ -124,7 +124,7 @@ a:focus-visible,button:focus-visible{outline:2px solid #FDBB6F;outline-offset:2p
   </div>
 </section>
 
-<section data-surface="cream" data-screen-label="Why agent-ready" style="background:#F7F3F1;box-shadow:0 0 0 100vmax #F7F3F1;clip-path:inset(0 -100vmax);padding:40px clamp(clamp(8px, calc((100vw - 807px) * 999), 24px), calc((100vw - 1439px) * 999), 40px);padding-bottom:40px;">
+<section data-surface="cream" data-screen-label="Why agent-ready" style-before="content:'';position:absolute;top:0;left:clamp(clamp(8px, calc((100vw - 807px) * 999), 24px), calc((100vw - 1439px) * 999), 40px);right:clamp(clamp(8px, calc((100vw - 807px) * 999), 24px), calc((100vw - 1439px) * 999), 40px);height:1px;background:#E1DDDC;box-shadow:none;clip-path:none;pointer-events:none;" style="position:relative;background:#F7F3F1;box-shadow:0 0 0 100vmax #F7F3F1;clip-path:inset(0 -100vmax);padding:40px clamp(clamp(8px, calc((100vw - 807px) * 999), 24px), calc((100vw - 1439px) * 999), 40px);padding-bottom:40px;">
   <div ref="{{ whyBoxRef }}" style="position:relative;display:flex;flex-wrap:wrap;align-items:center;gap:40px;">
     <canvas ref="{{ whyFieldRef }}" aria-hidden="true" hidden="" style="position:absolute;top:0;left:calc(50% - 50vw);width:100vw;height:100%;display:none;opacity:0.8;pointer-events:none;"></canvas>
     <div style="position:relative;z-index:1;display:flex;flex:1 1 min(100%, 420px);flex-direction:column;gap:16px;pointer-events:none;max-width:668px;">
