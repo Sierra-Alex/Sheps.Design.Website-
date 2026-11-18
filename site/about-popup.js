@@ -5,6 +5,8 @@
   const ROWS = [["Sheps.Studio","Founder / Creative Director"],["Mixpanel","Principal Designer / 2018 - 2026"],["Highfive","Senior Visual Designer / 2016 - 2018"],["PagerDuty","Interactive Designer / 2015 - 2016"],["Freelance","Designer / 2014 - 2015"],["Hot Pickle","Graphic Designer / 2012 - 2014"],["Protége","Design Teacher / Mentor / 2010 - 2011"],["The Hospital Club","Artist in Residence / 2010 - 2011"]];
   // the photo resolves from this script's own URL, so the pop-up also works on pages in subfolders (/tools/...)
   const PHOTO = new URL('assets/about/alex.jpg', (document.currentScript && document.currentScript.src) || location.href).href;
+  // same tags as the home hero's Focus row; keep the two lists in step
+  const FOCUS = ['Brand Experience', 'Product Design', 'Agentic Systems', 'AI Tooling', 'Creative Direction', 'Building'];
   let open = null, lastFocus = null;
   function close() {
     if (!open) return;
@@ -153,7 +155,7 @@
     const P = "margin:0;color:#6F6F6F;font-size:16px;font-weight:400;line-height:150%;letter-spacing:0.01em;text-wrap:pretty;";
     const MP = /\.dc\.html$/.test(decodeURIComponent(location.pathname)) ? 'Case Study - Mixpanel.dc.html' : '/mixpanel';
     const LNK = (href, txt, ext) => '<a href="' + href + '"' + (ext ? ' target="_blank" rel="noopener"' : '') + ' style="color:#131313;text-decoration:underline dotted #131313;text-decoration-thickness:1px;text-underline-offset:4px;" onmouseenter="this.style.textDecorationStyle=\'solid\'" onmouseleave="this.style.textDecorationStyle=\'dotted\'">' + txt + '</a>';
-    o.innerHTML = '<div role="dialog" aria-modal="true" aria-label="About Alex Shepherd" style="position:relative;width:100%;max-width:1200px;max-height:calc(100vh - 32px);overflow:auto;padding:40px;border:1px solid #E1DDDC;border-radius:8px;background:#F7F3F1;box-shadow:0 24px 64px rgba(19,19,19,0.2);">'
+    o.innerHTML = '<div role="dialog" aria-modal="true" aria-label="About Alex Shepherd" style="position:relative;width:100%;max-width:1200px;max-height:calc(100vh - 32px);overflow:auto;padding:40px;border:1px solid #E1DDDC;border-radius:8px;background:#F7F3F1;box-shadow:0 20px 60px rgba(30,28,25,0.18);">'
       + '<button type="button" data-about-close aria-label="Close" style="position:absolute;z-index:2;top:6px;right:6px;display:flex;align-items:center;justify-content:center;width:32px;height:32px;padding:0;border:0;background:transparent;color:#6F6F6F;cursor:pointer;"><svg width="10" height="10" viewBox="0 0 14 14" fill="none"><path d="M1 1 L13 13 M13 1 L1 13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"></path></svg></button>'
       + '<div style="display:grid;grid-template-columns:repeat(auto-fit, minmax(min(100%, 340px), 1fr));gap:40px;align-items:stretch;">'
       + '<div data-about-copy style="display:flex;flex-direction:column;gap:16px;min-width:0;">'
@@ -161,6 +163,8 @@
       + '<p style="' + P + '">My focus is creating memorable brand moments and building customer loyalty through consistent, meaningful engagement. That only works when the foundation is strong. A well-crafted system is what lets a brand scale without losing what makes it&nbsp;unique.</p>'
       + '<p style="' + P + '">In the age of AI, that foundation matters more than ever. That’s why I founded ' + LNK('https://sheps.studio', 'Sheps.Studio', 1) + ', a consultancy that builds agentic design systems and AI tooling so teams can scale&nbsp;consistently.</p>'
       + '<p style="' + P + '">AI speeds up production, but it doesn’t replace design thinking. Design and craft are still at the heart of my practice. I believe the best work comes from pairing strong design fundamentals with tools that let teams move&nbsp;faster.</p>'
+      + '<div style="display:flex;flex-direction:column;margin-top:16px;"><div style="padding:0 0 8px;color:#131313;font-size:14px;font-weight:500;line-height:140%;">Focus</div>'
+      + '<div style="display:flex;flex-wrap:wrap;gap:8px;">' + FOCUS.map((f) => '<span style="display:inline-flex;padding:4px 8px;border-radius:4px;background:#F2ECE8B3;color:#131313;font-size:12px;font-weight:500;line-height:130%;letter-spacing:0.02em;white-space:nowrap;">' + f + '</span>').join('') + '</div></div>'
       + '<div style="display:flex;flex-direction:column;margin-top:16px;"><div style="padding:0 0 8px;color:#131313;font-size:14px;font-weight:500;line-height:140%;">Experience</div>'
       + ROWS.map(([a, b]) => '<div style="display:flex;flex-wrap:wrap;justify-content:space-between;gap:2px 16px;padding:8px 0;border-top:1px solid #E1DDDC;"><span style="color:#131313;font-size:14px;line-height:140%;">' + a + '</span><span style="color:#6F6F6F;font-size:14px;line-height:140%;">' + b + '</span></div>').join('')
       + '</div>'

@@ -1045,7 +1045,7 @@ var EyeTrackerMod=(()=>{var zt=(f,e)=>()=>(e||f((e={exports:{}}).exports,e),e.ex
   const CSS = `
   .sa-link{padding:0;border:0;background:none;cursor:pointer;font:500 12px/1.5 'Inter',system-ui,sans-serif;color:var(--sa-mute);text-decoration:underline dotted;text-decoration-color:currentColor;text-decoration-thickness:1px;text-underline-offset:4px}
   .sa-link:hover,.sa-link:focus-visible,.sa-link[aria-expanded="true"]{color:var(--sa-ink);text-decoration-style:solid;outline:none}
-  .sa-pop{position:fixed;z-index:9999;left:50%;top:50%;transform:translate(-50%,-50%);width:min(440px,calc(100vw - 24px));padding:14px 18px 18px;background:var(--sa-bg);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);border:1px solid var(--sa-line);border-radius:8px;box-shadow:0 24px 60px rgba(30,28,25,.22);display:none;flex-direction:column;gap:14px;box-sizing:border-box;color:var(--sa-ink)}
+  .sa-pop{position:fixed;z-index:9999;left:50%;top:50%;transform:translate(-50%,-50%);width:min(440px,calc(100vw - 24px));padding:14px 18px 18px;background:var(--sa-bg);-webkit-backdrop-filter:blur(22px) saturate(1.4);backdrop-filter:blur(22px) saturate(1.4);border:1px solid var(--sa-line);border-radius:8px;box-shadow:0 20px 60px rgba(30,28,25,0.22),inset 0 0 0 0.5px rgba(30,28,25,0.08);display:none;flex-direction:column;gap:14px;box-sizing:border-box;color:var(--sa-ink)}
   .sa-pop.open{display:flex}
   .sa-pop[data-dragged]{transform:none}
   .sa-h{display:flex;align-items:center;cursor:grab;touch-action:none;user-select:none;-webkit-user-select:none}
@@ -1064,7 +1064,7 @@ var EyeTrackerMod=(()=>{var zt=(f,e)=>()=>(e||f((e={exports:{}}).exports,e),e.ex
   .sa-next:hover{border-color:var(--sa-ink)}
   .sa-next.typing{opacity:.35}
   @keyframes pet-caret{50%{opacity:0;}}`;
-  const LIGHT = '--sa-bg:#F7F3F1;--sa-ink:#131313;--sa-text:#6F6F6F;--sa-mute:#6F6F6F;--sa-line:#E1DDDC;--sa-pill:#E9E4E1;';
+  const LIGHT = '--sa-bg:rgba(251,250,247,0.68);--sa-ink:#131313;--sa-text:#6F6F6F;--sa-mute:#6F6F6F;--sa-line:rgba(255,255,255,0.6);--sa-pill:#E9E4E1;';
   const DARK  = '--sa-bg:rgba(19,19,17,.9);--sa-ink:#EBE8DE;--sa-text:#B4B0A4;--sa-mute:#8E8B7E;--sa-line:#2A2924;--sa-pill:#24231F;';
   const REACT = ['https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js','https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js'];
   function load(src){ return new Promise((res,rej)=>{ const s=document.createElement('script'); s.src=src; s.onload=res; s.onerror=rej; document.head.appendChild(s); }); }

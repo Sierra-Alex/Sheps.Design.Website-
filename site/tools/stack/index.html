@@ -9,7 +9,7 @@
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
   :root{
-    --ground:#FFFFFF;--card:#F7F3F1; --page:#F7F3F1; --ink:#131313; --muted:#6F6F6F; --line:#E1DDDC; --chip:#E9E4E1; --warn:#9A5B00;
+    --ground:#FFFFFF;--card:rgba(251,250,247,0.68);--card-line:rgba(255,255,255,0.6); --page:#F7F3F1; --ink:#131313; --muted:#6F6F6F; --line:#E1DDDC; --chip:#E9E4E1; --warn:#9A5B00;
     --plate:#FFFFFF; --hi:#131313; --edge:#A4A4AC; --mid:#C3C3C9; --lo:#E0E0E4;
     --mono:'JetBrains Mono',ui-monospace,monospace;
   }
@@ -35,7 +35,7 @@
   svg#fig [data-id]{cursor:help}
   .hint{position:absolute;left:16px;bottom:12px;font-size:10.5px;color:var(--muted);pointer-events:none}
 
-  .overview{position:absolute;left:16px;top:16px;width:250px;z-index:3;pointer-events:none;background:var(--card, color-mix(in srgb,var(--ground) 92%,transparent));border:1px solid var(--line);border-radius:8px;padding:14px 15px 13px}
+  .overview{position:absolute;left:16px;top:16px;width:250px;z-index:3;pointer-events:none;-webkit-backdrop-filter:blur(22px) saturate(1.4);backdrop-filter:blur(22px) saturate(1.4);background:var(--card, color-mix(in srgb,var(--ground) 92%,transparent));border:1px solid var(--card-line, var(--line));border-radius:8px;padding:14px 15px 13px}
   .overview .eyebrow{display:flex;align-items:center;gap:8px;font:10px var(--mono);color:var(--muted);letter-spacing:.06em}
   .overview .eyebrow b{font-weight:500;background:var(--ink);color:var(--ground);border-radius:4px;padding:1px 7px;letter-spacing:0}
   .overview .ticks{margin-left:auto;display:flex;gap:3px}
@@ -51,7 +51,7 @@
   @media (max-width:1180px){.overview{width:210px}.overview .why{display:none}}
   @media (max-width:980px){.overview{display:none}}
 
-  .tip{position:absolute;z-index:5;pointer-events:none;width:290px;background:var(--card, var(--ground));border:1px solid var(--line);border-radius:8px;padding:12px 14px;box-shadow:0 14px 40px rgba(30,28,25,.12);display:none}
+  .tip{position:absolute;z-index:5;pointer-events:none;width:290px;-webkit-backdrop-filter:blur(22px) saturate(1.4);backdrop-filter:blur(22px) saturate(1.4);background:var(--card, var(--ground));border:1px solid var(--card-line, var(--line));border-radius:8px;padding:12px 14px;box-shadow:0 14px 40px rgba(30,28,25,.12);display:none}
   .tip .h{display:flex;align-items:center;gap:8px;min-width:0}
   .tip .sw{width:12px;height:12px;border-radius:4px;flex:none;border:1px solid rgba(0,0,0,.08)}
   .tip b{font-family:var(--mono);font-weight:500;font-size:12px;overflow-wrap:anywhere}
@@ -965,7 +965,7 @@ var EyeTrackerMod=(()=>{var zt=(f,e)=>()=>(e||f((e={exports:{}}).exports,e),e.ex
   const CSS = `
   .sa-link,[data-sa-link]{padding:0;border:0;background:none;cursor:pointer;font:500 12px/1.5 'Inter',system-ui,sans-serif;color:var(--sa-mute);text-decoration:underline dotted;text-decoration-color:currentColor;text-decoration-thickness:1px;text-underline-offset:4px}
   .sa-link:hover,.sa-link:focus-visible,.sa-link[aria-expanded="true"],[data-sa-link]:hover,[data-sa-link]:focus-visible{color:var(--sa-ink);text-decoration-style:solid;outline:none}
-  .sa-pop{position:fixed;z-index:9999;left:50%;top:50%;transform:translate(-50%,-50%);width:min(440px,calc(100vw - 24px));padding:14px 18px 18px;background:var(--sa-bg);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);border:1px solid var(--sa-line);border-radius:8px;box-shadow:0 24px 60px rgba(30,28,25,.22);display:none;flex-direction:column;gap:14px;box-sizing:border-box;color:var(--sa-ink)}
+  .sa-pop{position:fixed;z-index:9999;left:50%;top:50%;transform:translate(-50%,-50%);width:min(440px,calc(100vw - 24px));padding:14px 18px 18px;background:var(--sa-bg);-webkit-backdrop-filter:blur(22px) saturate(1.4);backdrop-filter:blur(22px) saturate(1.4);border:1px solid var(--sa-line);border-radius:8px;box-shadow:0 20px 60px rgba(30,28,25,0.22),inset 0 0 0 0.5px rgba(30,28,25,0.08);display:none;flex-direction:column;gap:14px;box-sizing:border-box;color:var(--sa-ink)}
   .sa-pop.open{display:flex}
   .sa-pop[data-dragged]{transform:none}
   .sa-h{display:flex;align-items:center;cursor:grab;touch-action:none;user-select:none;-webkit-user-select:none}
@@ -984,7 +984,7 @@ var EyeTrackerMod=(()=>{var zt=(f,e)=>()=>(e||f((e={exports:{}}).exports,e),e.ex
   .sa-next:hover{border-color:var(--sa-ink)}
   .sa-next.typing{opacity:.35}
   @keyframes pet-caret{50%{opacity:0;}}`;
-  const LIGHT = '--sa-bg:#F7F3F1;--sa-ink:#131313;--sa-text:#6F6F6F;--sa-mute:#6F6F6F;--sa-line:#E1DDDC;--sa-pill:#E9E4E1;';
+  const LIGHT = '--sa-bg:rgba(251,250,247,0.68);--sa-ink:#131313;--sa-text:#6F6F6F;--sa-mute:#6F6F6F;--sa-line:rgba(255,255,255,0.6);--sa-pill:#E9E4E1;';
   const DARK  = '--sa-bg:rgba(19,19,17,.9);--sa-ink:#EBE8DE;--sa-text:#B4B0A4;--sa-mute:#8E8B7E;--sa-line:#2A2924;--sa-pill:#24231F;';
   const REACT = ['https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js','https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js'];
   function load(src){ return new Promise((res,rej)=>{ const s=document.createElement('script'); s.src=src; s.onload=res; s.onerror=rej; document.head.appendChild(s); }); }

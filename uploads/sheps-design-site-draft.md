@@ -73,6 +73,8 @@ Eight things someone needs to understand, roughly in the order a skeptical visit
 > In the age of AI, that foundation matters more than ever. That’s why I founded Sheps.Studio, a consultancy that builds agentic design systems and AI tooling so teams can scale consistently.
 > AI speeds up production, but it doesn’t replace design thinking. Design and craft are still at the heart of my practice. I believe the best work comes from pairing strong design fundamentals with tools that let teams move faster.
 > (Links: Mixpanel → /mixpanel; PagerDuty, Mattel, Unilever, Sheps.Studio → new tab.)
+> Focus (tags, same list as the home hero Focus row): Brand Experience · Product Design · Agentic Systems · AI Tooling · Creative Direction · Building
+>
 > Experience:
 > - Sheps.Studio — Founder / Creative Director
 > - Mixpanel — Principal Designer / 2018 - 2026
