@@ -53,11 +53,7 @@ Eight things someone needs to understand, roughly in the order a skeptical visit
 
 **Button:** View Work (jumps to the work section)
 
-**Above the experience list:**
-> Founder of Sheps.Studio.
-> Past work for Mixpanel and Highfive.
-
-**Focus list:**
+**Focus tags** (no label; a wrapping row of tags under the View Work button, with the Scroll cue to the right):
 - Brand Experience
 - Product Design
 - Agentic Systems
@@ -71,7 +67,7 @@ Eight things someone needs to understand, roughly in the order a skeptical visit
 
 **CTA:** removed from the hero (the nav "Let's Chat" button remains).
 
-**Nav:** Work · Systems · About · Let's Chat. "About" opens a pop-up (all pages), two columns: copy left, photo right.
+**Nav:** Work · Systems · Tools · About · Let's Chat. "Tools" goes to the tools hub (/tools). "About" opens a pop-up (all pages), two columns: copy left, photo right.
 > **I’m Alex Shepherd, an interactive designer and creative director. For the past 15 years I’ve worked across in-house teams and external projects, partnering with companies like Mixpanel, PagerDuty, Mattel and Unilever, and helping startups build and scale their brands and products.**
 > My focus is creating memorable brand moments and building customer loyalty through consistent, meaningful engagement. That only works when the foundation is strong. A well-crafted system is what lets a brand scale without losing what makes it unique.
 > In the age of AI, that foundation matters more than ever. That’s why I founded Sheps.Studio, a consultancy that builds agentic design systems and AI tooling so teams can scale consistently.
@@ -94,35 +90,42 @@ Eight things someone needs to understand, roughly in the order a skeptical visit
 
 A light teaser, not a deep dive: 2-3 project cards right after the hero so visitors see real output before they hit the education content. Links down to the fuller case studies later on the page (or a dedicated Work page, if the site grows that direction).
 
-**Section headline (draft):**
+*(Removed from the live page 2026-11-18: the work section now opens straight into the project cards. The headline and copy below are kept for reference.)*
+
+**Section headline (removed):**
 > Examples of work.
 
-**Draft copy:**
+**Draft copy (removed):**
 > A handful of the brands and systems I've designed from the ground up or made AI-ready, from the visual identity and token architecture to the components and guardrails that keep AI-generated work on-brand.
 
 **Card structure (repeat per project):**
 - Project name / client (or anonymized descriptor if needed)
 - One-line result ("Rebuilt the token architecture so AI-generated marketing stays on-brand")
 - Visual: before/after or a system snapshot
+- Each home card shows a small Company / Year block under its summary (added 2026-11-18), matching its case study header. Role tags are not shown on the cards; each card still carries its role list in the page data, matching its case study header, and the Role lines below record it.
 
 **Live card — Mixpanel design and agentic system.**
 > Brand design, plus Heliograph, the agentic design system behind it. Taken from full audit through tokens and components to an AI tooling layer designers, engineers and agents all build from.
+- Company: Mixpanel · Year: 2026
 - Role: Creative direction · Design · Agentic design system · Agent contract · Build · AI tooling (same tags as the Mixpanel case study header)
 
 **Live card — Coach product design and agentic system.**
 > A mood and journal tracker powered by AI insights. I designed the product and the system behind it, so every check-in and entry turns into patterns people can actually act on.
-- Role: Product design · Design system · AI tooling
+- Company: Coach App · Year: 2026
+- Role: UX research · Product design · Agentic design system · Agent contract · Product build · AI tooling (same tags as the Coach case study header)
 
 *(Note: needs at least 2 real examples. BBP and a Heliograph-adjacent one are the obvious candidates, pending the naming-rights question below.)*
 
 
 **Card — Highfive (row 2, left):** links to the Highfive case study.
-> Highfive. A ground-up refresh of a dated brand, paired with a design system AI agents can build from.
+> Highfive design. A ground-up refresh of a dated brand, paired with a design system AI agents can build from.
+> Company: Highfive · Year: 2026 (revisited)
 > Role: Creative Direction · Design · Build (same tags as the Highfive case study header)
 
 
 **Card — Mixpanel Rebrand (row 2, right):** links to the Mixpanel Rebrand case study (draft).
 > Mixpanel Rebrand. Case study summary for the Mixpanel rebrand goes here.
+> Company: Mixpanel · Year: 2024
 > Role: Brand design · Interactive design (same tags as the Mixpanel Rebrand case study header)
 
 **Mixpanel Rebrand case study (/mixpanel-rebrand), header headline:**

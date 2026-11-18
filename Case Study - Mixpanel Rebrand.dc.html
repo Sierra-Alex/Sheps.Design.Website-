@@ -25,8 +25,13 @@ body{margin:0;background:#F7F3F1;color:#6F6F6F;font-family:'Inter',sans-serif;fo
 a{color:#131313;}
 a:hover{color:#6F6F6F;}
 a:focus-visible,button:focus-visible{outline:2px solid #FDBB6F;outline-offset:2px;}
-::selection{background:#CAE9DF;color:#131313;}
+::selection{background:#DEF139;color:#131313;}
 @media (max-width:807px){nav[aria-label="Contents"]{display:none !important;}}
+@media (max-width:807px){figure:has(> [data-duo]){height:auto !important;}[data-duo]{flex:none !important;flex-direction:column;gap:16px !important;}[data-duo-spot]{flex:none !important;height:440px;transform:none !important;}}
+@media (max-width:420px){nav[aria-label="Main"] > div{gap:10px !important;}}
+/* Button colour (#DEF139 fill, #E5F461 hover). Remove this rule and the data-btn attributes to revert. */
+[data-btn]{background:#DEF139 !important;color:#131313 !important;border-color:#DEF139 !important;transition:background-color .2s ease,color .2s ease,opacity .2s ease !important}
+[data-btn]:hover,[data-btn]:focus-visible{background:#E5F461 !important;color:#131313 !important;border-color:#E5F461 !important}
 </style>
 <script src="./analytics.js"></script>
 <script src="./copy-email.js"></script>
@@ -40,8 +45,9 @@ a:focus-visible,button:focus-visible{outline:2px solid #FDBB6F;outline-offset:2p
     <div style="display:flex;align-items:center;gap:16px;align-self:stretch;">
         <a href="Sheps Design Home.dc.html#work" aria-current="page" style="flex:none;min-width:32px;text-align:center;color:#131313;font-size:12px;font-weight:400;line-height:130%;letter-spacing:0.02em;text-decoration:none;white-space:nowrap;padding-bottom:2px;background:linear-gradient(currentColor, currentColor) no-repeat 50% 100% / 0% 1px;transition:color 0.2s ease, background-size 0.3s ease;" style-hover="color:#131313;background-image:linear-gradient(#131313, #131313);background-size:100% 1px;">Work</a>
         <a href="Sheps Design Agentic Systems.dc.html" style="flex:none;min-width:32px;text-align:center;color:#6F6F6F;font-size:12px;font-weight:400;line-height:130%;letter-spacing:0.02em;text-decoration:none;white-space:nowrap;padding-bottom:2px;background:linear-gradient(currentColor, currentColor) no-repeat 50% 100% / 0% 1px;transition:color 0.2s ease, background-size 0.3s ease;" style-hover="color:#131313;background-image:linear-gradient(#131313, #131313);background-size:100% 1px;">Systems</a>
+        <a href="tools/index.html" style="flex:none;min-width:32px;text-align:center;color:#6F6F6F;font-size:12px;font-weight:400;line-height:130%;letter-spacing:0.02em;text-decoration:none;white-space:nowrap;padding-bottom:2px;background:linear-gradient(currentColor, currentColor) no-repeat 50% 100% / 0% 1px;transition:color 0.2s ease, background-size 0.3s ease;" style-hover="color:#131313;background-image:linear-gradient(#131313, #131313);background-size:100% 1px;">Tools</a>
         <a href="#about" data-about="" style="flex:none;min-width:32px;text-align:center;color:#6F6F6F;font-size:12px;font-weight:400;line-height:130%;letter-spacing:0.02em;text-decoration:none;white-space:nowrap;padding-bottom:2px;background:linear-gradient(currentColor, currentColor) no-repeat 50% 100% / 0% 1px;transition:color 0.2s ease, background-size 0.3s ease;" style-hover="color:#131313;background-image:linear-gradient(#131313, #131313);background-size:100% 1px;">About</a>
-        <a data-cta="nav-lets-chat" data-cta-tier="primary" data-cta-location="nav" href="mailto:alex@sheps.studio" data-copy-email="alex@sheps.studio" title="Copy email address" style="display:inline-flex;align-items:center;justify-content:center;flex:none;padding:12px 16px;border:0;border-radius:4px;background:#E9E4E1;color:#131313;font-family:'Inter',sans-serif;font-size:14px;font-weight:500;line-height:130%;letter-spacing:0.02em;text-decoration:none;white-space:nowrap;cursor:pointer;" style-hover="background:#CAE9DF;color:#131313;" style-active="background:#CAE9DF;color:#131313;opacity:0.8;">Let's Chat</a>
+        <a data-btn="" data-cta="nav-lets-chat" data-cta-tier="primary" data-cta-location="nav" href="mailto:alex@sheps.studio" data-copy-email="alex@sheps.studio" title="Copy email address" style="display:inline-flex;align-items:center;justify-content:center;flex:none;padding:12px 16px;border:0;border-radius:4px;background:#E9E4E1;color:#131313;font-family:'Inter',sans-serif;font-size:12px;font-weight:500;line-height:130%;letter-spacing:0.02em;text-decoration:none;white-space:nowrap;cursor:pointer;" style-hover="background:#CAE9DF;color:#131313;" style-active="background:#CAE9DF;color:#131313;opacity:0.8;">Let's Chat</a>
     </div>
   </nav>
 
@@ -56,7 +62,7 @@ a:focus-visible,button:focus-visible{outline:2px solid #FDBB6F;outline-offset:2p
     <div style="display:flex;flex-wrap:wrap;align-items:flex-start;gap:40px clamp(32px, 6vw, 120px);">
       <div style="display:flex;flex:2 1 28rem;flex-direction:column;gap:16px;min-width:0;max-width:800px;">
         <h1 style="margin:0;color:#131313;font-family:'Inter',sans-serif;font-size:20px;font-weight:600;line-height:140%;letter-spacing:0.02em;text-wrap:pretty;">Building the Mixpanel brand, from logo to launch.</h1>
-        <p style="margin:0;color:#6F6F6F;font-size:16px;font-weight:400;line-height:140%;letter-spacing:0.02em;text-wrap:pretty;">As Principal Designer, I helped reimagine Mixpanel's brand alongside a remarkably talented in-house team. <a href="https://www.linkedin.com/in/paul-jun-3544a167/" target="_blank" rel="noopener noreferrer" style="color:#131313;text-decoration:underline dotted #131313;text-decoration-thickness:1.5px;text-underline-offset:5px;" style-hover="text-decoration-style:solid;">Paul Jun</a> led brand strategy, and I worked with Head of Brand <a href="https://www.linkedin.com/in/mikecasebolt/" target="_blank" rel="noopener noreferrer" style="color:#131313;text-decoration:underline dotted #131313;text-decoration-thickness:1.5px;text-underline-offset:5px;" style-hover="text-decoration-style:solid;">Mike Casebolt</a> and the wider team to breathe new life into it: a new logo, a new illustration style and a new website built for the launch.</p>
+        <p style="margin:0;color:#6F6F6F;font-size:16px;font-weight:400;line-height:140%;letter-spacing:0.02em;text-wrap:pretty;">As Principal Designer, I helped reimagine Mixpanel's brand alongside a remarkably talented in-house team. <a href="https://www.linkedin.com/in/paul-jun-3544a167/" target="_blank" rel="noopener noreferrer" style="color:#131313;text-decoration:underline dotted #131313;text-decoration-thickness:1px;text-underline-offset:5px;" style-hover="text-decoration-style:solid;">Paul Jun</a> led brand strategy, and I worked with Head of Brand <a href="https://www.linkedin.com/in/mikecasebolt/" target="_blank" rel="noopener noreferrer" style="color:#131313;text-decoration:underline dotted #131313;text-decoration-thickness:1px;text-underline-offset:5px;" style-hover="text-decoration-style:solid;">Mike Casebolt</a> and the wider team to breathe new life into it: a new logo, a new illustration style and a new website built for the launch.</p>
       </div>
       <div style="display:flex;flex:1 0 18rem;flex-direction:column;gap:8px;max-width:520px;">
         <div style="display:flex;align-items:center;gap:8px;font-size:14px;line-height:130%;letter-spacing:0.02em;">
@@ -79,7 +85,7 @@ a:focus-visible,button:focus-visible{outline:2px solid #FDBB6F;outline-offset:2p
           </div>
           <ul role="list" style="display:flex;flex-wrap:wrap;gap:8px;flex:1 1 0;min-width:0;margin:0;padding:0;list-style:none;">
             <sc-for list="{{ tags }}" as="tag" hint-placeholder-count="5">
-              <li><span style="display:inline-flex;padding:4px 8px;border-radius:4px;background:#FEE7CD;color:#131313;font-size:12px;font-weight:500;line-height:130%;letter-spacing:0.02em;white-space:nowrap;">{{ tag }}</span></li>
+              <li><span style="display:inline-flex;padding:4px 8px;border-radius:4px;background:#F2ECE8B3;color:#131313;font-size:12px;font-weight:500;line-height:130%;letter-spacing:0.02em;white-space:nowrap;">{{ tag }}</span></li>
             </sc-for>
           </ul>
         </div>
@@ -104,7 +110,7 @@ a:focus-visible,button:focus-visible{outline:2px solid #FDBB6F;outline-offset:2p
     </nav>
 
     <article style="flex:1 1 calc((808px - 100vw) * 999);display:flex;flex-direction:column;gap:40px;min-width:0;">
-      <div style="width:100%;aspect-ratio:2576 / 1288;border-radius:8px;overflow:hidden;background:#CAE9DF;"><image-slot id="rebrand-hero" src="assets/case-study/mixpanel-rebrand/hero.webp" shape="rounded" radius="8" placeholder="Drop the Mixpanel rebrand hero image (2576×1288)"></image-slot></div>
+      <div style="width:100%;aspect-ratio:2576 / 1288;border-radius:8px;overflow:hidden;background:#E9E4E1;"><image-slot id="rebrand-hero" src="assets/case-study/mixpanel-rebrand/hero.webp" shape="rounded" radius="8" placeholder="Drop the Mixpanel rebrand hero image (2576×1288)"></image-slot></div>
       <section id="identity" data-screen-label="Identity" style="display:flex;flex-direction:column;gap:16px;">
         <div style="display:flex;flex-direction:column;gap:16px;max-width:800px;">
           <div style="display:flex;align-items:center;gap:8px;font-size:14px;line-height:130%;letter-spacing:0.02em;">

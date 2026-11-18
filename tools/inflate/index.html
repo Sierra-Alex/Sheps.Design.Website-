@@ -1,0 +1,1148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Inflate · Tools · Sheps.Design</title>
+<style>
+  :root {
+    --page:#F7F3F1; --side:#F7F3F1; --ink:#131313; --label:#131313; --muted:#6F6F6F; --faint:#949191;
+    --pill:#E9E4E1; --line:#E1DDDC; --dark:#131313;
+  }
+  * { box-sizing:border-box; }
+  html, body { margin:0; height:100%; background:var(--page); color:var(--ink); font:13px/1.45 'Inter', system-ui, sans-serif; }
+  .app { display:flex; height:calc(100vh - 76px); min-height:0; overflow:hidden; }
+  aside { width:300px; flex:0 0 300px; background:var(--side); border-right:1px solid var(--line); display:flex; flex-direction:column; min-height:0; }
+  .brand { padding:18px 18px 14px; border-bottom:1px solid var(--line); display:flex; align-items:baseline; gap:8px; }
+  .brand b { font-size:20px; font-weight:600; }
+  .brand b span { color:var(--muted); }
+  .brand small { margin-left:auto; font-size:9px; letter-spacing:.02em; color:var(--muted); }
+  .scroll { flex:1; overflow-y:auto; padding-bottom:24px; }
+  section { border-top:1px solid var(--line); padding:12px 18px 16px; display:flex; flex-direction:column; gap:12px; }
+  section:first-child { border-top:0; }
+  h2 { margin:0; font-size:12px; font-weight:600; letter-spacing:.02em; color:var(--ink); display:flex; align-items:center; gap:6px; position:relative; }
+  .info-i { width:14px; height:14px; padding:0; border-radius:50%; border:1px solid #949191; background:transparent; color:var(--muted); line-height:0; cursor:default; display:inline-flex; align-items:center; justify-content:center; }
+  .info-i:hover, .info-i:focus-visible { border-color:var(--ink); color:var(--ink); outline:none; }
+  .info-tip { position:absolute; left:0; right:0; top:calc(100% + 4px); z-index:40; padding:9px 11px; border-radius:4px; background:rgba(28,27,25,.92); color:#F7F3F1; font:400 11px/1.45 'Inter', system-ui, sans-serif; letter-spacing:0; box-shadow:0 10px 30px rgba(30,28,25,.2); opacity:0; transform:translateY(-3px); pointer-events:none; transition:opacity .15s, transform .15s; }
+  .info-i:hover + .info-tip, .info-i:focus-visible + .info-tip { opacity:1; transform:none; }
+  .upload { display:flex; align-items:center; justify-content:center; height:34px; border:1px dashed #E1DDDC; border-radius:4px; cursor:pointer; color:var(--label); font-size:11px; }
+  .upload:hover, .upload:focus-within { border-color:var(--ink); }
+  .upload input { position:absolute; width:1px; height:1px; opacity:0; }
+  .meta { font-size:10px; color:var(--muted); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+  .text-link { align-self:flex-start; padding:0; border:0; background:none; cursor:pointer; font:500 11px/1.4 'Inter', system-ui, sans-serif; color:var(--ink); text-decoration:underline; text-decoration-color:#949191; text-underline-offset:3px; }
+  .text-link:hover, .text-link:focus-visible { text-decoration-color:var(--ink); outline:none; }
+  .row { display:flex; justify-content:space-between; color:var(--label); }
+  .row output { color:var(--ink); }
+  .field { display:flex; flex-direction:column; gap:5px; }
+  input[type=range] { -webkit-appearance:none; appearance:none; width:100%; height:18px; background:transparent; margin:0; }
+  input[type=range]::-webkit-slider-runnable-track { height:1px; background:var(--ink); }
+  input[type=range]::-moz-range-track { height:1px; background:var(--ink); }
+  input[type=range]::-webkit-slider-thumb { -webkit-appearance:none; width:18px; height:18px; margin-top:-8.5px; border-radius:50%; background:#fff; border:1.5px solid var(--ink); cursor:pointer; }
+  input[type=range]::-moz-range-thumb { width:18px; height:18px; border-radius:50%; background:#fff; border:1.5px solid var(--ink); cursor:pointer; box-sizing:border-box; }
+  input[type=range]:focus-visible::-webkit-slider-thumb { box-shadow:0 0 0 3px rgba(28,27,25,.15); }
+  .pills { display:grid; gap:6px; }
+  .pills.c2 { grid-template-columns:1fr 1fr; } .pills.c3 { grid-template-columns:1fr 1fr 1fr; } .pills.c4 { grid-template-columns:repeat(4,1fr); }
+  .pill { height:28px; border-radius:4px; border:1px solid var(--pill); background:var(--pill); color:var(--label); font:500 11px 'Inter', system-ui, sans-serif; cursor:pointer; padding:0 8px; white-space:nowrap; }
+  .pill:hover, .pill:focus-visible { border-color:var(--ink); outline:none; }
+  .pill[aria-pressed="true"] { background:#DEF139; border-color:#DEF139; color:var(--ink); }
+  .primary { height:36px; border-radius:4px; border:1px solid #E9E4E1; background:#E9E4E1; color:var(--ink); font:500 12px 'Inter', system-ui, sans-serif; cursor:pointer; }
+  .primary:hover, .primary:focus-visible { background:#DEF139; border-color:#DEF139; outline:none; }
+  main { flex:1; min-width:0; display:flex; flex-direction:column; }
+  .bar { min-height:56px; display:flex; align-items:center; gap:8px; padding:8px 16px; border-bottom:1px solid var(--line); flex-wrap:wrap; }
+  .bar .label { font-size:10px; letter-spacing:.02em; color:var(--muted); margin-right:4px; }
+  .bar .status { margin-left:auto; font-size:11px; color:var(--muted); }
+  .stage { position:relative; flex:1; min-height:0; margin:14px 16px 16px; border-radius:8px; background:#000; overflow:hidden; display:flex; align-items:center; justify-content:center; }
+  .stage canvas { max-width:calc(100% - 40px); max-height:calc(100% - 40px); display:block; }
+  .empty { position:absolute; color:#8E8A84; text-align:center; font-size:11px; letter-spacing:.2em; pointer-events:none; }
+  .busy { position:absolute; left:50%; top:16px; transform:translateX(-50%); background:rgba(255,255,255,.1); color:#ddd; font-size:11px; padding:5px 12px; border-radius:4px; opacity:0; transition:opacity .2s; pointer-events:none; }
+  .busy.on { opacity:1; }
+  @media (prefers-reduced-motion: reduce) { .info-tip { transition:none; } }
+
+  [hidden] { display:none !important; }
+  .pad-wrap { position:relative; border-radius:8px; background:#0B0B0C; aspect-ratio:1/1; overflow:hidden; }
+  #pad { position:absolute; inset:0; width:100%; height:100%; cursor:crosshair; touch-action:none; }
+  .pad-hint { position:absolute; inset:0; display:flex; align-items:center; justify-content:center; color:#77736C; font-size:11px; pointer-events:none; text-align:center; padding:20px; }
+  .txt { width:100%; height:34px; border-radius:4px; border:1px solid var(--line); background:#fff; padding:0 11px; font:500 12px 'Inter', system-ui, sans-serif; color:var(--ink); }
+  .txt:focus { outline:none; border-color:var(--ink); }
+  textarea.txt { height:150px; padding:9px 11px; line-height:1.45; resize:vertical; font-weight:400; font-size:11px; }
+  .primary:disabled { opacity:.5; cursor:default; }
+  .stage { flex-direction:column; gap:14px; padding:20px; }
+  .view { position:relative; flex:1; min-height:0; width:100%; display:flex; align-items:center; justify-content:center; }
+  .view canvas#gl3 { position:absolute; inset:0; width:100%; height:100%; cursor:grab; outline:none; }
+  .view canvas#gl3:active { cursor:grabbing; }
+  .view img { max-width:100%; max-height:100%; display:block; border-radius:6px; }
+  .empty { position:static; line-height:1.8; }
+  .gallery { display:flex; gap:8px; overflow-x:auto; width:100%; min-height:0; flex:0 0 auto; padding-bottom:2px; }
+  .gallery button { flex:0 0 64px; height:64px; padding:0; border-radius:8px; border:2px solid transparent; background:#111; overflow:hidden; cursor:pointer; }
+  .gallery button[aria-current="true"] { border-color:#fff; }
+  .gallery img { width:100%; height:100%; object-fit:cover; display:block; }
+  .loader { position:absolute; inset:0; display:flex; flex-direction:column; gap:14px; align-items:center; justify-content:center; color:#cfcac2; font-size:12px; }
+  .loader i { width:46px; height:46px; border-radius:50%; background:conic-gradient(#E21BC0, #9D6BF2, #B7F25E, #FF8A2E, #E21BC0); animation:spin 1.1s linear infinite; -webkit-mask:radial-gradient(circle, transparent 15px, #000 16px); mask:radial-gradient(circle, transparent 15px, #000 16px); }
+  @keyframes spin { to { transform:rotate(360deg); } }
+  @media (prefers-reduced-motion: reduce) { .loader i { animation:none; } }
+  .note { font-size:10px; color:var(--muted); line-height:1.5; white-space:normal; }
+  .warn { font-size:11px; color:#8A3B2E; background:#F7E7E2; border-radius:4px; padding:9px 11px; line-height:1.5; }
+  a.text-link { display:inline-block; }
+
+/* Site nav (matches sheps.design; same markup as the tools hub) */
+body{padding-top:76px}
+.site-nav{position:fixed;top:8px;left:50%;transform:translateX(-50%);z-index:60;display:flex;align-items:center;justify-content:space-between;gap:8px;width:calc(min(100%, 1520px) - 16px);height:60px;padding:8px;box-sizing:border-box;border:1px solid #E1DDDC;border-radius:8px;background:#F2ECE8B3;-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);font-family:'Inter',system-ui,sans-serif}
+.site-nav a{text-decoration:none}
+.site-nav .sn-logo{display:inline-flex}
+.site-nav .sn-links{display:flex;align-items:center;gap:16px;align-self:stretch}
+.site-nav .sn-l{flex:none;min-width:32px;text-align:center;color:#6F6F6F;font-size:12px;font-weight:400;line-height:130%;letter-spacing:.02em;white-space:nowrap;padding-bottom:2px;background:linear-gradient(currentColor,currentColor) no-repeat 50% 100% / 0% 1px;transition:color .2s ease,background-size .3s ease}
+.site-nav .sn-l:hover,.site-nav .sn-l[aria-current="page"]{color:#131313;background-size:100% 1px}
+.site-nav .sn-chat{position:relative;display:flex;flex:none}
+.site-nav .sn-chat a{display:inline-flex;align-items:center;justify-content:center;padding:12px 16px;border-radius:4px;background:#E9E4E1;color:#131313;font-size:12px;font-weight:500;line-height:130%;letter-spacing:.02em;white-space:nowrap}
+.site-nav .sn-chat a:hover{background:#DEF139}
+.site-nav .sn-tip{position:absolute;left:50%;top:calc(100% + 12px);padding:6px 10px;border-radius:4px;background:#E9E4E1CC;-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);color:#131313;font-size:12px;font-weight:500;white-space:nowrap;pointer-events:none;opacity:0;transform:translate(-50%,-4px);transition:opacity .2s ease,transform .2s ease}
+.site-nav .sn-tip.on{opacity:1;transform:translate(-50%,0)}
+@media (max-width:520px){.site-nav .sn-links{gap:10px}.site-nav .sn-chat a{padding:10px 12px;font-size:12px}}
+
+
+/* Button colour (#DEF139 fill, #E5F461 hover). Delete this block to revert. */
+.site-nav .sn-chat a, .primary{background:#DEF139 !important;color:#131313 !important;border-color:#DEF139 !important;transition:background-color .2s ease,color .2s ease !important}
+.site-nav .sn-chat a:hover, .primary:hover, .site-nav .sn-chat a:focus-visible, .primary:focus-visible{background:#E5F461 !important;color:#131313 !important;border-color:#E5F461 !important}
+</style>
+<meta name="robots" content="noindex, nofollow">
+<script src="/analytics.js"></script>
+<script src="/about-popup.js"></script>
+<link rel="preload" href="/src/assets/fonts/Inter-Variable.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<style>@font-face{font-family:'Inter';font-style:normal;font-weight:100 900;font-display:swap;src:url('/src/assets/fonts/Inter-Variable.woff2') format('woff2');}html{font-optical-sizing:none;font-synthesis:none;}</style>
+<link rel="icon" href="/assets/favicon/favicon-black-32.svg" type="image/svg+xml">
+<link rel="icon" href="/assets/favicon/favicon-black-48.png" type="image/png" sizes="48x48">
+<link rel="icon" href="/assets/favicon/favicon-black-192.png" type="image/png" sizes="192x192">
+<link rel="apple-touch-icon" href="/assets/favicon/favicon-black-180.png" sizes="180x180">
+<style>/* text selection: the button yellow */::selection{background:#DEF139;color:#131313;}</style>
+</head>
+<body>
+<nav class="site-nav" aria-label="Main">
+  <a class="sn-logo" href="/" aria-label="Sheps.Design home"><svg width="32" height="32" viewBox="0 0 32 32" fill="#131313" aria-hidden="true"><path d="M3.55556 27.5556C3.55556 28.0465 3.95353 28.4444 4.44444 28.4444H7.11111V32H0V24.8889H3.55556V27.5556Z"/><path fill-rule="evenodd" clip-rule="evenodd" d="M17.7778 2.66667C17.7778 3.15759 18.1757 3.55556 18.6667 3.55556H21.3333V7.11111H18.6667C18.1757 7.11111 17.7778 7.50908 17.7778 8V9.77778C17.7778 10.2687 18.1757 10.6667 18.6667 10.6667H21.3333V13.3333L21.3345 13.379C21.3583 13.8487 21.7466 14.2222 22.2222 14.2222H24C24.4909 14.2222 24.8889 13.8243 24.8889 13.3333V10.6667H28.4444V13.3333C28.4444 13.8243 28.8424 14.2222 29.3333 14.2222H32V17.7778H29.3333C28.8424 17.7778 28.4444 18.1757 28.4444 18.6667V21.3333H24.8889V18.6667C24.8889 18.1757 24.4909 17.7778 24 17.7778H22.2222C21.7313 17.7778 21.3333 18.1757 21.3333 18.6667V21.3333H18.6667C18.1757 21.3333 17.7778 21.7313 17.7778 22.2222V24C17.7778 24.4909 18.1757 24.8889 18.6667 24.8889H21.3333V28.4444H18.6667C18.1757 28.4444 17.7778 28.8424 17.7778 29.3333V32H14.2222V29.3333C14.2222 28.8577 13.8487 28.4694 13.379 28.4457L13.3333 28.4444H10.6667V24.8889H13.3333C13.8243 24.8889 14.2222 24.4909 14.2222 24V22.2222C14.2222 21.7466 13.8487 21.3583 13.379 21.3345L13.3333 21.3333H10.6667V18.6667C10.6667 18.1757 10.2687 17.7778 9.77778 17.7778H8C7.50908 17.7778 7.11111 18.1757 7.11111 18.6667V21.3333H3.55556V18.6667C3.55556 18.1757 3.15759 17.7778 2.66667 17.7778H0V14.2222H2.66667C3.15759 14.2222 3.55556 13.8243 3.55556 13.3333V10.6667H7.11111V13.3333L7.11233 13.379C7.13609 13.8487 7.52439 14.2222 8 14.2222H9.77778C10.2687 14.2222 10.6667 13.8243 10.6667 13.3333V10.6667H13.3333C13.8243 10.6667 14.2222 10.2687 14.2222 9.77778V8C14.2222 7.52439 13.8487 7.13609 13.379 7.11233L13.3333 7.11111H10.6667V3.55556H13.3333C13.8243 3.55556 14.2222 3.15759 14.2222 2.66667V0H17.7778V2.66667ZM15.1111 24.8889C14.6202 24.8889 14.2222 25.2869 14.2222 25.7778V27.5556C14.2222 28.0465 14.6202 28.4444 15.1111 28.4444H16.8889C17.3798 28.4444 17.7778 28.0465 17.7778 27.5556V25.7778C17.7778 25.2869 17.3798 24.8889 16.8889 24.8889H15.1111ZM15.1111 10.6667C14.6202 10.6667 14.2222 11.0646 14.2222 11.5556V14.2222H11.5556C11.0646 14.2222 10.6667 14.6202 10.6667 15.1111V16.8889C10.6667 17.3798 11.0646 17.7778 11.5556 17.7778H14.2222V20.4444C14.2222 20.9354 14.6202 21.3333 15.1111 21.3333H16.8889C17.3798 21.3333 17.7778 20.9354 17.7778 20.4444V17.7778H20.4444C20.9354 17.7778 21.3333 17.3798 21.3333 16.8889V15.1111C21.3333 14.6202 20.9354 14.2222 20.4444 14.2222H17.7778V11.5556C17.7778 11.0646 17.3798 10.6667 16.8889 10.6667H15.1111ZM4.44444 14.2222C3.95353 14.2222 3.55556 14.6202 3.55556 15.1111V16.8889C3.55556 17.3798 3.95352 17.7778 4.44444 17.7778H6.22222C6.71314 17.7778 7.11111 17.3798 7.11111 16.8889V15.1111C7.11111 14.6202 6.71314 14.2222 6.22222 14.2222H4.44444ZM25.7778 14.2222C25.2869 14.2222 24.8889 14.6202 24.8889 15.1111V16.8889C24.8889 17.3798 25.2869 17.7778 25.7778 17.7778H27.5556C28.0465 17.7778 28.4444 17.3798 28.4444 16.8889V15.1111C28.4444 14.6355 28.0709 14.2472 27.6012 14.2234L27.5556 14.2222H25.7778ZM15.1111 3.55556C14.6202 3.55556 14.2222 3.95352 14.2222 4.44444V6.22222C14.2222 6.71314 14.6202 7.11111 15.1111 7.11111H16.8889C17.3798 7.11111 17.7778 6.71314 17.7778 6.22222V4.44444C17.7778 3.95352 17.3798 3.55556 16.8889 3.55556H15.1111Z"/><path d="M32 32H24.8889V28.4444H27.5556C28.0465 28.4444 28.4444 28.0465 28.4444 27.5556V24.8889H32V32Z"/><path d="M7.11111 3.55556H4.44444C3.95353 3.55556 3.55556 3.95352 3.55556 4.44444V7.11111H0V0H7.11111V3.55556Z"/><path d="M32 7.11111H28.4444V4.44444C28.4444 3.96884 28.0709 3.58054 27.6012 3.55677L27.5556 3.55556H24.8889V0H32V7.11111Z"/></svg></a>
+  <div class="sn-links">
+    <a class="sn-l" href="/#work">Work</a>
+    <a class="sn-l" href="/agentic-systems">Systems</a>
+    <a class="sn-l" href="/tools" aria-current="page">Tools</a>
+    <a class="sn-l" href="#about" data-about="">About</a>
+    <span class="sn-chat"><a href="mailto:alex@sheps.studio" id="snChat" title="Copy email address">Let's Chat</a><span class="sn-tip" id="snTip" role="status" aria-live="polite"></span></span>
+  </div>
+</nav>
+
+<div class="app">
+  <aside>
+    <div class="brand"><b>inflate<span>.</span></b><button type="button" id="saLink" style="margin-left:auto;align-self:center">About</button></div>
+    <div class="scroll">
+      <section>
+        <h2><span>Shape</span><button type="button" class="info-i" aria-label="What is Shape?" aria-describedby="t1"><svg width="6" height="8" viewBox="0 0 6 8" aria-hidden="true"><circle cx="3" cy="1.1" r=".75" fill="currentColor"/><path d="M3 3.2V7.5" stroke="currentColor" stroke-width="1" stroke-linecap="round"/></svg></button><span class="info-tip" role="tooltip" id="t1">The image model takes words, not drawings. Pick a shape, type one, or sketch one and Claude will name it for the prompt.</span></h2>
+        <div class="pills c3" role="group" aria-label="Preset shape" id="presets"></div>
+        <div class="pad-wrap"><canvas id="pad" width="480" height="480" aria-label="Sketch a shape"></canvas><div class="pad-hint" id="padHint">Sketch a rough shape here</div></div>
+        <input class="txt" id="shape" type="text" value="square block" aria-label="Shape, in words">
+        <div class="note" id="shapeNote">Or type any shape: a donut, the letter S, a tall pill, a star.</div>
+        <div id="fitRow" hidden style="display:flex; align-items:center; gap:10px">
+          <button type="button" class="pill" id="fitToggle" aria-pressed="true" style="padding:0 14px">Match my drawing</button>
+          <span class="note">Bends the result to your exact outline.</span>
+        </div>
+      </section>
+
+      <section>
+        <h2><span>Look</span><button type="button" class="info-i" aria-label="What is Look?" aria-describedby="t2"><svg width="6" height="8" viewBox="0 0 6 8" aria-hidden="true"><circle cx="3" cy="1.1" r=".75" fill="currentColor"/><path d="M3 3.2V7.5" stroke="currentColor" stroke-width="1" stroke-linecap="round"/></svg></button><span class="info-tip" role="tooltip" id="t2">Colour set, how blown-up the organs are, and which pigeon parts to show through them.</span></h2>
+        <div class="pills c4" role="group" aria-label="Colours" id="palettes"></div>
+        <div class="pills c3" role="group" aria-label="Puff" id="puffs"></div>
+        <div class="pills c3" id="parts"></div>
+      </section>
+
+      <section>
+        <h2><span>3D</span><button type="button" class="info-i" aria-label="What is 3D?" aria-describedby="t5"><svg width="6" height="8" viewBox="0 0 6 8" aria-hidden="true"><circle cx="3" cy="1.1" r=".75" fill="currentColor"/><path d="M3 3.2V7.5" stroke="currentColor" stroke-width="1" stroke-linecap="round"/></svg></button><span class="info-tip" role="tooltip" id="t5">Relief puffs up the current picture. Cube builds a solid rounded block with a different generated picture on every side, each sac swelling out between its seams. Drag to turn it, scroll to zoom, and save it as a .glb for Blender, Spline, Figma or a website.</span></h2>
+        <div class="pills c3" role="group" aria-label="View">
+          <button type="button" class="pill" data-view="flat" aria-pressed="true">Image</button>
+          <button type="button" class="pill" data-view="3d" aria-pressed="false">Relief</button>
+          <button type="button" class="pill" data-view="cube" aria-pressed="false">Cube</button>
+        </div>
+        <div id="cubeBox" hidden style="display:flex; flex-direction:column; gap:8px">
+          <button type="button" class="primary" id="makeCube">Generate the 6 sides</button>
+          <div class="note" id="cubeNote">Makes a separate picture for each side of the block (6 Figma generations). Until then every side shows your current image.</div>
+        </div>
+        <div class="field"><div class="row"><span>Depth</span><output id="depthOut">60%</output></div><input id="depth" type="range" min="10" max="100" value="60" aria-label="Depth"></div>
+        <div class="field"><div class="row"><span>Sac puff</span><output id="sacOut">60%</output></div><input id="sac" type="range" min="0" max="100" value="60" aria-label="Sac puff"></div>
+        <div style="display:flex; gap:8px; align-items:center; flex-wrap:wrap">
+          <button type="button" class="pill" id="spin" aria-pressed="false" style="padding:0 14px">Spin</button>
+          <button type="button" class="text-link" id="resetView">Reset view</button>
+        </div>
+      </section>
+
+      <section>
+        <h2><span>Model</span><button type="button" class="info-i" aria-label="What is Model?" aria-describedby="t3"><svg width="6" height="8" viewBox="0 0 6 8" aria-hidden="true"><circle cx="3" cy="1.1" r=".75" fill="currentColor"/><path d="M3 3.2V7.5" stroke="currentColor" stroke-width="1" stroke-linecap="round"/></svg></button><span class="info-tip" role="tooltip" id="t3">The image model Figma runs. Each generation uses Figma AI credits; models cost different amounts. Every image is also kept in your Inflate generations file in Figma.</span></h2>
+        <div class="pills c2" role="group" aria-label="Model" id="models"></div>
+        <button type="button" class="text-link" id="togglePrompt" aria-expanded="false">Show the prompt</button>
+        <textarea class="txt" id="prompt" hidden aria-label="Prompt"></textarea>
+        <button type="button" class="text-link" id="resetPrompt" hidden>Rebuild from settings</button>
+      </section>
+    </div>
+    <div style="padding:14px 18px 18px; border-top:1px solid var(--line); display:flex; flex-direction:column; gap:8px">
+      <button type="button" class="primary" id="generate">Generate with Figma</button>
+      <div class="pills c2">
+        <button type="button" class="pill" id="copyMj">Copy for Midjourney</button>
+        <label class="pill" style="display:flex;align-items:center;justify-content:center;cursor:pointer">Upload image<input id="upload" type="file" accept="image/*" style="position:absolute;width:1px;height:1px;opacity:0"></label>
+      </div>
+      <div class="note">Figma uses your AI credits. Or copy the prompt into Midjourney and upload the result here to view and save it in 3D. <a class="text-link" href="https://www.figma.com/design/zUYtSpnBZA16zpMVnW4jHH" target="_blank" rel="noopener">Figma file</a></div>
+    </div>
+  </aside>
+
+  <main>
+    <div class="bar">
+      <span class="label">EXPORT</span>
+      <button type="button" class="pill" id="savePng" hidden disabled>Save PNG</button>
+      <button type="button" class="pill" id="saveGlb" hidden disabled>Save 3D model (.glb)</button>
+      <span class="status" id="status"></span>
+    </div>
+    <div class="stage" id="stage">
+      <div class="view" id="view">
+        <div class="empty" id="empty">PICK OR SKETCH A SHAPE<br><span style="letter-spacing:0">then generate, or drop in an image from Midjourney</span></div>
+        <img id="img" alt="" hidden>
+        <div class="loader" id="loader" hidden><i></i><span id="loaderText">Inflating…</span></div>
+      </div>
+      <div class="warn" id="warn" hidden></div>
+      <div class="gallery" id="gallery" aria-label="This session's images"></div>
+    </div>
+  </main>
+</div>
+
+<script>
+/* ══ 3D: the picture inflated into a model ═════════════════
+   No 3D model comes back from the image model, so one is built from
+   the picture itself. The subject is cut from the black background;
+   its outline is inflated like a pillow; every sac is then inflated
+   on its own, using the dark creases between sacs as seams (distance
+   from the nearest crease = how far it puffs out). The front is the
+   picture, the back is its mirror, and both meet at the outline, so
+   the block reads as a solid puffy object you can turn around. */
+const M3 = { N: 220, depth: 60, puff: 60, spin: false, yaw: -0.5, pitch: 0.18, zoom: 1, built: null, src: null, raf: 0, dragging: false, t0: 0 };
+const gl3c = document.createElement("canvas");
+gl3c.id = "gl3"; gl3c.setAttribute("role", "img"); gl3c.setAttribute("aria-label", "3D model of the generated image; drag to turn it");
+const gl3 = gl3c.getContext("webgl2", { antialias: true, preserveDrawingBuffer: true, premultipliedAlpha: false });
+
+function dt2(mask, W, H) {
+  /* chamfer distance (3-4) to the nearest 0 pixel */
+  const INF = 1e9, d = new Float32Array(W * H);
+  for (let i = 0; i < d.length; i++) d[i] = mask[i] ? INF : 0;
+  for (let y = 0; y < H; y++) for (let x = 0; x < W; x++) {
+    const i = y * W + x; if (!d[i]) continue; let v = d[i];
+    if (x > 0) v = Math.min(v, d[i - 1] + 3); else v = Math.min(v, 3);
+    if (y > 0) { v = Math.min(v, d[i - W] + 3); if (x > 0) v = Math.min(v, d[i - W - 1] + 4); if (x < W - 1) v = Math.min(v, d[i - W + 1] + 4); } else v = Math.min(v, 3);
+    d[i] = v;
+  }
+  for (let y = H - 1; y >= 0; y--) for (let x = W - 1; x >= 0; x--) {
+    const i = y * W + x; if (!d[i]) continue; let v = d[i];
+    if (x < W - 1) v = Math.min(v, d[i + 1] + 3); else v = Math.min(v, 3);
+    if (y < H - 1) { v = Math.min(v, d[i + W] + 3); if (x < W - 1) v = Math.min(v, d[i + W + 1] + 4); if (x > 0) v = Math.min(v, d[i + W - 1] + 4); } else v = Math.min(v, 3);
+    d[i] = v;
+  }
+  for (let i = 0; i < d.length; i++) d[i] /= 3;
+  return d;
+}
+function blurF(a, W, H, r) {
+  let src = a;
+  for (let pass = 0; pass < 2; pass++) {
+    const o = new Float32Array(W * H);
+    for (let y = 0; y < H; y++) { let s = 0, n = 0; for (let x = -r; x < W + r; x++) { if (x + r < W) { s += src[y * W + Math.min(W - 1, x + r)]; n++; } if (x - r - 1 >= 0) { s -= src[y * W + x - r - 1]; n--; } if (x >= 0 && x < W) o[y * W + x] = s / Math.max(1, n); } }
+    const o2 = new Float32Array(W * H);
+    for (let x = 0; x < W; x++) { let s = 0, n = 0; for (let y = -r; y < H + r; y++) { if (y + r < H) { s += o[Math.min(H - 1, y + r) * W + x]; n++; } if (y - r - 1 >= 0) { s -= o[(y - r - 1) * W + x]; n--; } if (y >= 0 && y < H) o2[y * W + x] = s / Math.max(1, n); } }
+    src = o2;
+  }
+  return src;
+}
+function largest(m, W, H) {
+  const lab = new Int32Array(W * H), out = new Uint8Array(W * H); let best = 0, bestId = 0, id = 0; const st = [];
+  for (let i = 0; i < m.length; i++) {
+    if (!m[i] || lab[i]) continue; id++; let n = 0; st.push(i); lab[i] = id;
+    while (st.length) { const j = st.pop(); n++; const x = j % W, y = (j - x) / W;
+      for (const k of [x > 0 ? j - 1 : -1, x < W - 1 ? j + 1 : -1, y > 0 ? j - W : -1, y < H - 1 ? j + W : -1]) if (k >= 0 && m[k] && !lab[k]) { lab[k] = id; st.push(k); } }
+    if (n > best) { best = n; bestId = id; }
+  }
+  for (let i = 0; i < m.length; i++) out[i] = lab[i] === bestId ? 1 : 0;
+  /* fill holes: anything not reachable from the border is inside */
+  const seen = new Uint8Array(W * H);
+  for (let x = 0; x < W; x++) { st.push(x, (H - 1) * W + x); } for (let y = 0; y < H; y++) { st.push(y * W, y * W + W - 1); }
+  while (st.length) { const j = st.pop(); if (seen[j] || out[j]) continue; seen[j] = 1; const x = j % W, y = (j - x) / W; if (x > 0) st.push(j - 1); if (x < W - 1) st.push(j + 1); if (y > 0) st.push(j - W); if (y < H - 1) st.push(j + W); }
+  for (let i = 0; i < out.length; i++) if (!seen[i]) out[i] = 1;
+  return out;
+}
+
+/* the height field, the texture with its cut-out alpha, and the mesh */
+function buildModel(img) {
+  const iw = img.naturalWidth, ih = img.naturalHeight, N = M3.N, W = N, H = Math.max(8, Math.round(N * ih / iw));
+  const c = document.createElement("canvas"); c.width = W; c.height = H;
+  const cx = c.getContext("2d", { willReadFrequently: true }); cx.drawImage(img, 0, 0, W, H);
+  const d = cx.getImageData(0, 0, W, H).data, L = new Float32Array(W * H);
+  for (let i = 0; i < W * H; i++) L[i] = (d[i * 4] * 0.3 + d[i * 4 + 1] * 0.59 + d[i * 4 + 2] * 0.11) / 255;
+  /* subject: whatever isn't the black backdrop */
+  const Lb2 = blurF(L, W, H, 1);
+  let mask = new Uint8Array(W * H); for (let i = 0; i < mask.length; i++) mask[i] = Lb2[i] > 0.07 ? 1 : 0;
+  mask = largest(mask, W, H);
+  const De = dt2(mask, W, H); let Rmax = 1; for (const v of De) Rmax = Math.max(Rmax, v);
+  /* seams: pixels much darker than their surroundings, inside the subject */
+  const Lb = blurF(L, W, H, Math.max(3, Math.round(N / 40)));
+  const open = new Uint8Array(W * H);
+  for (let i = 0; i < open.length; i++) open[i] = mask[i] && !(L[i] < Lb[i] * 0.6 || L[i] < 0.1) ? 1 : 0;
+  const Ds = dt2(open, W, H), Rs = N * 0.07, Re = Math.max(2, N * 0.025);
+  const field = new Float32Array(W * H);
+  for (let i = 0; i < field.length; i++) {
+    if (!mask[i]) continue;
+    const u = Math.min(1, De[i] / (Rmax * 0.9)), h1 = Math.sqrt(1 - (1 - u) * (1 - u));
+    const s = Math.min(1, Ds[i] / Rs), h2 = 1 - (1 - s) * (1 - s);
+    const e = Math.min(1, De[i] / Re);
+    field[i] = h1 * 0.55 + e * (h2 * 0.45 * (M3.puff / 60) + Lb[i] * 0.06);
+  }
+  const Hf = blurF(field, W, H, 1);
+  /* keep the outline at zero so front and back meet */
+  for (let i = 0; i < Hf.length; i++) Hf[i] = mask[i] ? Hf[i] * Math.min(1, De[i] / 1.5) : 0;
+
+  /* texture: the full image, with the subject's outline as alpha */
+  const T = 1024, tc = document.createElement("canvas"); tc.width = T; tc.height = Math.round(T * ih / iw);
+  const tx = tc.getContext("2d", { willReadFrequently: true }); tx.drawImage(img, 0, 0, tc.width, tc.height);
+  const td = tx.getImageData(0, 0, tc.width, tc.height), tdd = td.data;
+  const mc = document.createElement("canvas"); mc.width = W; mc.height = H; const mx = mc.getContext("2d");
+  const mid = mx.createImageData(W, H); for (let i = 0; i < mask.length; i++) { mid.data[i * 4 + 3] = mask[i] ? 255 : 0; }
+  mx.putImageData(mid, 0, 0);
+  const big = document.createElement("canvas"); big.width = tc.width; big.height = tc.height; const bx = big.getContext("2d", { willReadFrequently: true });
+  bx.imageSmoothingEnabled = true; bx.drawImage(mc, 0, 0, tc.width, tc.height); const bd = bx.getImageData(0, 0, tc.width, tc.height).data;
+  /* the colour of the nearby surface, to paint over the dark fringe and the seam where front meets back */
+  const R2 = new Float32Array(W * H), G2 = new Float32Array(W * H), B2 = new Float32Array(W * H), A2 = new Float32Array(W * H);
+  for (let i = 0; i < W * H; i++) if (mask[i] && L[i] > 0.15) { R2[i] = d[i * 4]; G2[i] = d[i * 4 + 1]; B2[i] = d[i * 4 + 2]; A2[i] = 1; }
+  const rr = Math.max(2, Math.round(N / 50)), Rb = blurF(R2, W, H, rr), Gb = blurF(G2, W, H, rr), Bb = blurF(B2, W, H, rr), Ab = blurF(A2, W, H, rr);
+  const sx = W / tc.width, sy = H / tc.height;
+  for (let y = 0; y < tc.height; y++) for (let x = 0; x < tc.width; x++) {
+    const i = (y * tc.width + x) * 4, lum = (tdd[i] * 0.3 + tdd[i + 1] * 0.59 + tdd[i + 2] * 0.11) / 255;
+    const inside = bd[i + 3] > 200 || (bd[i + 3] > 40 && lum > 0.07);
+    tdd[i + 3] = inside ? 255 : 0;
+    if (!inside) continue;
+    const j = Math.min(H - 1, Math.floor(y * sy)) * W + Math.min(W - 1, Math.floor(x * sx)), edge = De[j] < 2.5;
+    if ((edge || lum < 0.1) && Ab[j] > 0.05) {
+      const k = edge ? 0.85 : Math.min(1, (0.1 - lum) / 0.1) * 0.7;
+      tdd[i] = tdd[i] * (1 - k) + (Rb[j] / Ab[j]) * 0.8 * k; tdd[i + 1] = tdd[i + 1] * (1 - k) + (Gb[j] / Ab[j]) * 0.8 * k; tdd[i + 2] = tdd[i + 2] * (1 - k) + (Bb[j] / Ab[j]) * 0.8 * k;
+    }
+  }
+  tx.putImageData(td, 0, 0);
+
+  /* mesh: a front sheet and a mirrored back sheet; only cells touching the subject */
+  const aspect = H / W, depth = M3.depth / 100 * 0.42;
+  const pos = [], nor = [], uv = [], idx = [];
+  const z = (x, y) => Hf[Math.max(0, Math.min(H - 1, y)) * W + Math.max(0, Math.min(W - 1, x))] * depth;
+  const vid = new Int32Array(W * H).fill(-1);
+  const near = (x, y) => { for (let dy = -1; dy <= 1; dy++) for (let dx = -1; dx <= 1; dx++) { const xx = x + dx, yy = y + dy; if (xx >= 0 && yy >= 0 && xx < W && yy < H && mask[yy * W + xx]) return true; } return false; };
+  for (const side of [1, -1]) {
+    vid.fill(-1);
+    for (let y = 0; y < H; y++) for (let x = 0; x < W; x++) {
+      if (!near(x, y)) continue;
+      const X = (x / (W - 1)) * 2 - 1, Y = -((y / (H - 1)) * 2 - 1) * aspect, Z = z(x, y) * side;
+      const gx = (z(x + 1, y) - z(x - 1, y)) / (4 / (W - 1)), gy = (z(x, y + 1) - z(x, y - 1)) / (4 / (W - 1));
+      let nx = -gx, ny = gy, nz = 1; const l = Math.hypot(nx, ny, nz); nx /= l; ny /= l; nz /= l;
+      vid[y * W + x] = pos.length / 3;
+      /* the back carries the same picture, seen through from behind, as on an x-ray */
+      pos.push(X, Y, Z); nor.push(nx, ny, nz * side); uv.push(x / (W - 1), y / (H - 1));
+    }
+    for (let y = 0; y < H - 1; y++) for (let x = 0; x < W - 1; x++) {
+      const a = vid[y * W + x], b = vid[y * W + x + 1], c2 = vid[(y + 1) * W + x], d2 = vid[(y + 1) * W + x + 1];
+      if (a < 0 || b < 0 || c2 < 0 || d2 < 0) continue;
+      if (side > 0) idx.push(a, c2, b, b, c2, d2); else idx.push(a, b, c2, b, d2, c2);
+    }
+  }
+  return { pos: new Float32Array(pos), nor: new Float32Array(nor), uv: new Float32Array(uv), idx: new Uint32Array(idx), tex: tc, aspect, cut: true, name: "relief" };
+}
+
+/* ── renderer ── */
+const VS3 = `#version 300 es
+in vec3 aP; in vec3 aN; in vec2 aU; uniform mat4 uM, uVP; out vec3 vN; out vec2 vU; out vec3 vW;
+void main(){ vec4 w = uM * vec4(aP, 1.0); vW = w.xyz; vN = mat3(uM) * aN; vU = aU; gl_Position = uVP * w; }`;
+const FS3 = `#version 300 es
+precision highp float; in vec3 vN; in vec2 vU; in vec3 vW; uniform sampler2D uT; uniform vec3 uEye; out vec4 o;
+void main(){
+  vec4 t = texture(uT, vU); if (t.a < 0.5) discard;
+  vec3 n = normalize(vN); vec3 v = normalize(uEye - vW); if (!gl_FrontFacing) n = -n;
+  vec3 L1 = normalize(vec3(-0.5, 0.7, 0.8)), L2 = normalize(vec3(0.7, -0.2, 0.4));
+  float d = max(dot(n, L1), 0.0) * 0.55 + max(dot(n, L2), 0.0) * 0.2;
+  vec3 h = normalize(L1 + v); float s = pow(max(dot(n, h), 0.0), 48.0) * 0.5 + pow(max(dot(n, normalize(L2 + v)), 0.0), 24.0) * 0.15;
+  float rim = pow(1.0 - max(dot(n, v), 0.0), 2.5);
+  vec3 c = t.rgb * (0.62 + d) + vec3(s) + t.rgb * rim * 0.5;
+  o = vec4(c, 1.0);
+}`;
+let P3 = null, B3 = { items: [] };
+function init3() {
+  if (!gl3) return false;
+  const sh = (ty, src) => { const s = gl3.createShader(ty); gl3.shaderSource(s, src); gl3.compileShader(s); if (!gl3.getShaderParameter(s, gl3.COMPILE_STATUS)) throw new Error(gl3.getShaderInfoLog(s)); return s; };
+  P3 = gl3.createProgram(); gl3.attachShader(P3, sh(gl3.VERTEX_SHADER, VS3)); gl3.attachShader(P3, sh(gl3.FRAGMENT_SHADER, FS3)); gl3.linkProgram(P3);
+  if (!gl3.getProgramParameter(P3, gl3.LINK_STATUS)) throw new Error(gl3.getProgramInfoLog(P3));
+  return true;
+}
+/* one GPU entry per mesh: the relief is one mesh, the cube is six (a picture per side) */
+function upload3(meshes) {
+  for (const it of B3.items) { gl3.deleteVertexArray(it.vao); it.bufs.forEach((b) => gl3.deleteBuffer(b)); gl3.deleteTexture(it.tex); }
+  B3.items = [];
+  gl3.useProgram(P3);
+  for (const m of meshes) {
+    const vao = gl3.createVertexArray(); gl3.bindVertexArray(vao); const bufs = [];
+    const attr = (data, name, size) => { const buf = gl3.createBuffer(); bufs.push(buf); gl3.bindBuffer(gl3.ARRAY_BUFFER, buf); gl3.bufferData(gl3.ARRAY_BUFFER, data, gl3.STATIC_DRAW); const l = gl3.getAttribLocation(P3, name); gl3.enableVertexAttribArray(l); gl3.vertexAttribPointer(l, size, gl3.FLOAT, false, 0, 0); };
+    attr(m.pos, "aP", 3); attr(m.nor, "aN", 3); attr(m.uv, "aU", 2);
+    const ib = gl3.createBuffer(); bufs.push(ib); gl3.bindBuffer(gl3.ELEMENT_ARRAY_BUFFER, ib); gl3.bufferData(gl3.ELEMENT_ARRAY_BUFFER, m.idx, gl3.STATIC_DRAW);
+    const tex = gl3.createTexture(); gl3.bindTexture(gl3.TEXTURE_2D, tex); gl3.pixelStorei(gl3.UNPACK_FLIP_Y_WEBGL, false);
+    gl3.texImage2D(gl3.TEXTURE_2D, 0, gl3.RGBA, gl3.RGBA, gl3.UNSIGNED_BYTE, m.tex); gl3.generateMipmap(gl3.TEXTURE_2D);
+    gl3.texParameteri(gl3.TEXTURE_2D, gl3.TEXTURE_MIN_FILTER, gl3.LINEAR_MIPMAP_LINEAR); gl3.texParameteri(gl3.TEXTURE_2D, gl3.TEXTURE_WRAP_S, gl3.CLAMP_TO_EDGE); gl3.texParameteri(gl3.TEXTURE_2D, gl3.TEXTURE_WRAP_T, gl3.CLAMP_TO_EDGE);
+    B3.items.push({ vao, bufs, tex, n: m.idx.length });
+  }
+  gl3.bindVertexArray(null);
+}
+function mat4mul(a, b) { const o = new Float32Array(16); for (let i = 0; i < 4; i++) for (let j = 0; j < 4; j++) { let s = 0; for (let k = 0; k < 4; k++) s += a[k * 4 + j] * b[i * 4 + k]; o[i * 4 + j] = s; } return o; }
+function persp(f, a, n, fa) { const t = 1 / Math.tan(f / 2); return new Float32Array([t / a, 0, 0, 0, 0, t, 0, 0, 0, 0, (fa + n) / (n - fa), -1, 0, 0, 2 * fa * n / (n - fa), 0]); }
+function rotY(r) { const c = Math.cos(r), s = Math.sin(r); return new Float32Array([c, 0, -s, 0, 0, 1, 0, 0, s, 0, c, 0, 0, 0, 0, 1]); }
+function rotX(r) { const c = Math.cos(r), s = Math.sin(r); return new Float32Array([1, 0, 0, 0, 0, c, s, 0, 0, -s, c, 0, 0, 0, 0, 1]); }
+function draw3(t) {
+  if (!B3.items.length) return;
+  const r = gl3c.getBoundingClientRect(), dpr = Math.min(2, window.devicePixelRatio || 1);
+  const w = Math.max(2, Math.round(r.width * dpr)), h = Math.max(2, Math.round(r.height * dpr));
+  if (gl3c.width !== w || gl3c.height !== h) { gl3c.width = w; gl3c.height = h; }
+  gl3.viewport(0, 0, w, h); gl3.clearColor(0, 0, 0, 1); gl3.clear(gl3.COLOR_BUFFER_BIT | gl3.DEPTH_BUFFER_BIT); gl3.enable(gl3.DEPTH_TEST);
+  gl3.useProgram(P3);
+  const dist = (M3.mode === "cube" ? 6.2 : 3.4) / M3.zoom, eye = [0, 0, dist];
+  const view = new Float32Array([1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, -dist, 1]);
+  const vp = mat4mul(persp(0.62, w / h, 0.1, 50), view);
+  const m = mat4mul(rotX(M3.pitch), rotY(M3.yaw));
+  gl3.uniformMatrix4fv(gl3.getUniformLocation(P3, "uVP"), false, vp);
+  gl3.uniformMatrix4fv(gl3.getUniformLocation(P3, "uM"), false, m);
+  gl3.uniform3fv(gl3.getUniformLocation(P3, "uEye"), eye);
+  gl3.activeTexture(gl3.TEXTURE0); gl3.uniform1i(gl3.getUniformLocation(P3, "uT"), 0);
+  for (const it of B3.items) { gl3.bindVertexArray(it.vao); gl3.bindTexture(gl3.TEXTURE_2D, it.tex); gl3.drawElements(gl3.TRIANGLES, it.n, gl3.UNSIGNED_INT, 0); }
+  gl3.bindVertexArray(null);
+}
+function loop3(t) {
+  if (!M3.active) { M3.raf = 0; return; }
+  if (!M3.dragging && M3.spin) M3.yaw += 0.008;
+  draw3(t); M3.raf = requestAnimationFrame(loop3);
+}
+function rebuild3(img) {
+  if (!gl3 || !img) return;
+  M3.src = img; M3.mode = "relief"; M3.meshes = [buildModel(img)]; upload3(M3.meshes); draw3();
+}
+function start3() { M3.active = true; if (!M3.raf) M3.raf = requestAnimationFrame(loop3); }
+function stop3() { M3.active = false; }
+
+/* drag to turn, wheel or pinch to zoom */
+(() => {
+  let last = null; const pts = new Map();
+  gl3c.addEventListener("pointerdown", (e) => { gl3c.setPointerCapture(e.pointerId); pts.set(e.pointerId, [e.clientX, e.clientY]); last = [e.clientX, e.clientY]; M3.dragging = true; });
+  gl3c.addEventListener("pointermove", (e) => {
+    if (!pts.has(e.pointerId)) return;
+    if (pts.size === 2) { const [a, b] = [...pts.values()]; const d0 = Math.hypot(a[0] - b[0], a[1] - b[1]); pts.set(e.pointerId, [e.clientX, e.clientY]); const [c, d] = [...pts.values()]; const d1 = Math.hypot(c[0] - d[0], c[1] - d[1]); M3.zoom = Math.max(0.5, Math.min(3, M3.zoom * d1 / Math.max(1, d0))); return; }
+    pts.set(e.pointerId, [e.clientX, e.clientY]);
+    M3.yaw += (e.clientX - last[0]) * 0.008; M3.pitch = Math.max(-1.3, Math.min(1.3, M3.pitch + (e.clientY - last[1]) * 0.008)); last = [e.clientX, e.clientY];
+  });
+  const up = (e) => { pts.delete(e.pointerId); if (!pts.size) M3.dragging = false; };
+  gl3c.addEventListener("pointerup", up); gl3c.addEventListener("pointercancel", up);
+  gl3c.addEventListener("wheel", (e) => { e.preventDefault(); M3.zoom = Math.max(0.5, Math.min(3, M3.zoom * Math.exp(-e.deltaY * 0.0015))); }, { passive: false });
+  gl3c.addEventListener("keydown", (e) => {
+    const k = e.key; if (k === "ArrowLeft") M3.yaw -= 0.15; else if (k === "ArrowRight") M3.yaw += 0.15; else if (k === "ArrowUp") M3.pitch -= 0.15; else if (k === "ArrowDown") M3.pitch += 0.15; else return; e.preventDefault();
+  });
+  gl3c.tabIndex = 0;
+})();
+
+/* ── export: a self-contained .glb with the picture as its texture ── */
+async function toGLB() {
+  const ms = M3.meshes; if (!ms || !ms.length) return null;
+  const pad4 = (n) => (n + 3) & ~3;
+  const parts = [], json = {
+    asset: { version: "2.0", generator: "Sheps.Studio Inflate" }, scene: 0, scenes: [{ nodes: [0] }], nodes: [{ mesh: 0, name: "inflated pigeon" }],
+    meshes: [{ primitives: [] }], materials: [], textures: [], samplers: [{ magFilter: 9729, minFilter: 9987 }], images: [], buffers: [], bufferViews: [], accessors: []
+  };
+  let len = 0;
+  const view = (data, target) => { const off = len; parts.push([data, off]); len = pad4(len + data.byteLength); json.bufferViews.push({ buffer: 0, byteOffset: off, byteLength: data.byteLength, ...(target ? { target } : {}) }); return json.bufferViews.length - 1; };
+  const acc = (bv, type, count, ct, extra) => { json.accessors.push({ bufferView: bv, componentType: ct, count, type, ...(extra || {}) }); return json.accessors.length - 1; };
+  for (let k = 0; k < ms.length; k++) {
+    const m = ms[k], nV = m.pos.length / 3;
+    let mn = [1e9, 1e9, 1e9], mx = [-1e9, -1e9, -1e9];
+    for (let i = 0; i < m.pos.length; i += 3) for (let c = 0; c < 3; c++) { mn[c] = Math.min(mn[c], m.pos[i + c]); mx[c] = Math.max(mx[c], m.pos[i + c]); }
+    const P = acc(view(m.pos, 34962), "VEC3", nV, 5126, { min: mn, max: mx }), Nn = acc(view(m.nor, 34962), "VEC3", nV, 5126), U = acc(view(m.uv, 34962), "VEC2", nV, 5126), I = acc(view(m.idx, 34963), "SCALAR", m.idx.length, 5125);
+    const png = new Uint8Array(await (await new Promise((r) => m.tex.toBlob(r, "image/png"))).arrayBuffer());
+    json.images.push({ bufferView: view(png), mimeType: "image/png" }); json.textures.push({ source: k, sampler: 0 });
+    json.materials.push({ name: m.name || "inflated", pbrMetallicRoughness: { baseColorTexture: { index: k }, metallicFactor: 0, roughnessFactor: 0.32 }, ...(m.cut ? { alphaMode: "MASK", alphaCutoff: 0.5 } : {}) });
+    json.meshes[0].primitives.push({ attributes: { POSITION: P, NORMAL: Nn, TEXCOORD_0: U }, indices: I, material: k });
+  }
+  json.buffers.push({ byteLength: len });
+  const bin = new Uint8Array(len); for (const [p, off] of parts) bin.set(new Uint8Array(p.buffer || p, p.byteOffset || 0, p.byteLength), off);
+  const js = new TextEncoder().encode(JSON.stringify(json)), jl = pad4(js.length), jp = new Uint8Array(jl).fill(0x20); jp.set(js);
+  const total = 12 + 8 + jl + 8 + len, out = new ArrayBuffer(total), dv = new DataView(out), u8 = new Uint8Array(out);
+  dv.setUint32(0, 0x46546C67, true); dv.setUint32(4, 2, true); dv.setUint32(8, total, true);
+  dv.setUint32(12, jl, true); dv.setUint32(16, 0x4E4F534A, true); u8.set(jp, 20);
+  dv.setUint32(20 + jl, len, true); dv.setUint32(24 + jl, 0x004E4942, true); u8.set(bin, 28 + jl);
+  return new Blob([out], { type: "model/gltf-binary" });
+}
+
+/* ══ the cube: six pictures, six puffy sides ═══════════════
+   Each side is its own generated picture of that face of the block.
+   The picture is cropped to the subject, laid on a rounded box, and
+   pushed out along the surface: each sac swells between the dark
+   seams around it, and the whole side bulges a little like a pillow.
+   Displacement fades to nothing at the edges, so neighbouring sides
+   meet cleanly on the rounded corners. */
+const SIDES = ["front", "back", "left", "right", "top", "bottom"];
+const AXES = {                       /* normal, U (texture right), V (texture up) */
+  front:  [[0, 0, 1], [1, 0, 0], [0, 1, 0]],
+  back:   [[0, 0, -1], [-1, 0, 0], [0, 1, 0]],
+  right:  [[1, 0, 0], [0, 0, -1], [0, 1, 0]],
+  left:   [[-1, 0, 0], [0, 0, 1], [0, 1, 0]],
+  top:    [[0, 1, 0], [1, 0, 0], [0, 0, -1]],
+  bottom: [[0, -1, 0], [1, 0, 0], [0, 0, 1]]
+};
+
+/* crop a picture to its subject (the non-black part) */
+function cropToSubject(img) {
+  const s = 256, c = document.createElement("canvas"); c.width = c.height = s;
+  const x = c.getContext("2d", { willReadFrequently: true }); x.drawImage(img, 0, 0, s, s);
+  const d = x.getImageData(0, 0, s, s).data;
+  let x0 = s, y0 = s, x1 = 0, y1 = 0;
+  for (let y = 0; y < s; y++) for (let xx = 0; xx < s; xx++) { const i = (y * s + xx) * 4; if (d[i] * 0.3 + d[i + 1] * 0.59 + d[i + 2] * 0.11 > 22) { x0 = Math.min(x0, xx); y0 = Math.min(y0, y); x1 = Math.max(x1, xx); y1 = Math.max(y1, y); } }
+  if (x1 - x0 < s * 0.3 || y1 - y0 < s * 0.3) { x0 = 0; y0 = 0; x1 = s - 1; y1 = s - 1; }
+  /* trim a touch inside the outline so the black backdrop doesn't show at the corners */
+  const tw = (x1 - x0) * 0.03, th = (y1 - y0) * 0.03;
+  const k = img.naturalWidth / s, kh = img.naturalHeight / s;
+  return [(x0 + tw) * k, (y0 + th) * kh, (x1 - x0 - 2 * tw) * k, (y1 - y0 - 2 * th) * kh];
+}
+
+function faceData(img, G) {
+  const [sx, sy, sw, sh] = cropToSubject(img);
+  const T = 1024, tex = document.createElement("canvas"); tex.width = tex.height = T;
+  const tx = tex.getContext("2d", { willReadFrequently: true }); tx.drawImage(img, sx, sy, sw, sh, 0, 0, T, T);
+  /* any black backdrop left in the picture is painted over with the colour of the sacs around it */
+  { const g = 128, sc = document.createElement("canvas"); sc.width = sc.height = g; const sx2 = sc.getContext("2d", { willReadFrequently: true }); sx2.drawImage(tex, 0, 0, g, g);
+    const sd = sx2.getImageData(0, 0, g, g).data, R = new Float32Array(g * g), G2 = new Float32Array(g * g), B = new Float32Array(g * g), A = new Float32Array(g * g);
+    for (let i = 0; i < g * g; i++) { const l = sd[i * 4] * 0.3 + sd[i * 4 + 1] * 0.59 + sd[i * 4 + 2] * 0.11; if (l > 40) { R[i] = sd[i * 4]; G2[i] = sd[i * 4 + 1]; B[i] = sd[i * 4 + 2]; A[i] = 1; } }
+    let Rb = R, Gb = G2, Bb = B, Ab = A; for (let k = 0; k < 3; k++) { Rb = blurF(Rb, g, g, 6); Gb = blurF(Gb, g, g, 6); Bb = blurF(Bb, g, g, 6); Ab = blurF(Ab, g, g, 6); }
+    const td = tx.getImageData(0, 0, T, T), dd = td.data;
+    for (let y = 0; y < T; y++) for (let x = 0; x < T; x++) {
+      const i = (y * T + x) * 4, l = (dd[i] * 0.3 + dd[i + 1] * 0.59 + dd[i + 2] * 0.11) / 255; if (l > 0.09) continue;
+      const j = Math.floor(y * g / T) * g + Math.floor(x * g / T), a = Ab[j]; if (a < 0.02) continue;
+      const k = Math.min(1, (0.09 - l) / 0.06) * 0.85;
+      dd[i] = dd[i] * (1 - k) + (Rb[j] / a) * 0.55 * k; dd[i + 1] = dd[i + 1] * (1 - k) + (Gb[j] / a) * 0.55 * k; dd[i + 2] = dd[i + 2] * (1 - k) + (Bb[j] / a) * 0.55 * k;
+    }
+    tx.putImageData(td, 0, 0); }
+  const c = document.createElement("canvas"); c.width = c.height = G;
+  const cx = c.getContext("2d", { willReadFrequently: true }); cx.drawImage(tex, 0, 0, G, G);
+  const d = cx.getImageData(0, 0, G, G).data, L = new Float32Array(G * G);
+  for (let i = 0; i < G * G; i++) L[i] = (d[i * 4] * 0.3 + d[i * 4 + 1] * 0.59 + d[i * 4 + 2] * 0.11) / 255;
+  /* seams: much darker than their surroundings */
+  const Lb = blurF(L, G, G, Math.max(3, Math.round(G / 30)));
+  const open = new Uint8Array(G * G);
+  for (let i = 0; i < open.length; i++) open[i] = L[i] < Lb[i] * 0.6 || L[i] < 0.1 ? 0 : 1;
+  const Ds = dt2(open, G, G), Rs = G * 0.075;
+  const h = new Float32Array(G * G);
+  for (let i = 0; i < h.length; i++) { const s = Math.min(1, Ds[i] / Rs); h[i] = (1 - (1 - s) * (1 - s)) * 0.85 + Lb[i] * 0.15; }
+  return { tex, h: blurF(h, G, G, 1) };
+}
+
+function buildCube(faceImgs) {
+  const G = 120, r = 0.22, depth = (M3.depth / 100) * 0.16, puff = M3.puff / 60;
+  const meshes = [];
+  for (const side of SIDES) {
+    const img = faceImgs[side]; if (!img) continue;
+    const { tex, h } = faceData(img, G), [N, U, Vv] = AXES[side];
+    const nV = G * G, pos = new Float32Array(nV * 3), uv = new Float32Array(nV * 2), nor = new Float32Array(nV * 3);
+    for (let j = 0; j < G; j++) for (let i = 0; i < G; i++) {
+      const u = (i / (G - 1)) * 2 - 1, v = (j / (G - 1)) * 2 - 1, k = j * G + i;
+      /* the point on a cube, pulled onto a box with rounded edges and corners */
+      const p = [N[0] + U[0] * u + Vv[0] * v, N[1] + U[1] * u + Vv[1] * v, N[2] + U[2] * u + Vv[2] * v];
+      const inner = p.map((c) => Math.max(-(1 - r), Math.min(1 - r, c))), dlt = p.map((c, q) => c - inner[q]), dl = Math.hypot(...dlt) || 1;
+      const n = dlt.map((c) => c / dl), q = inner.map((c, z) => c + n[z] * r);
+      /* puff: sacs from the picture, plus a gentle pillow over the whole side, both fading out at the edges */
+      const eu = Math.min(1, (1 - Math.abs(u)) / 0.16), ev = Math.min(1, (1 - Math.abs(v)) / 0.16), edge = (eu * eu * (3 - 2 * eu)) * (ev * ev * (3 - 2 * ev));
+      const ti = Math.round(i), tj = G - 1 - j;           /* texture row 0 is the top of the picture */
+      const hh = h[tj * G + ti] * edge * puff * depth + (1 - u * u) * (1 - v * v) * depth * 0.55;
+      pos[k * 3] = q[0] + n[0] * hh; pos[k * 3 + 1] = q[1] + n[1] * hh; pos[k * 3 + 2] = q[2] + n[2] * hh;
+      uv[k * 2] = i / (G - 1); uv[k * 2 + 1] = 1 - j / (G - 1);
+    }
+    /* normals from the finished surface */
+    const P = (i, j) => { i = Math.max(0, Math.min(G - 1, i)); j = Math.max(0, Math.min(G - 1, j)); const k = (j * G + i) * 3; return [pos[k], pos[k + 1], pos[k + 2]]; };
+    for (let j = 0; j < G; j++) for (let i = 0; i < G; i++) {
+      const a = P(i + 1, j), b = P(i - 1, j), c = P(i, j + 1), d = P(i, j - 1);
+      const du = [a[0] - b[0], a[1] - b[1], a[2] - b[2]], dv = [c[0] - d[0], c[1] - d[1], c[2] - d[2]];
+      let n = [du[1] * dv[2] - du[2] * dv[1], du[2] * dv[0] - du[0] * dv[2], du[0] * dv[1] - du[1] * dv[0]];
+      const l = Math.hypot(...n) || 1; n = n.map((x) => x / l);
+      const k = (j * G + i) * 3; nor[k] = n[0]; nor[k + 1] = n[1]; nor[k + 2] = n[2];
+    }
+    const idx = new Uint32Array((G - 1) * (G - 1) * 6); let t = 0;
+    for (let j = 0; j < G - 1; j++) for (let i = 0; i < G - 1; i++) { const a = j * G + i, b = a + 1, c = a + G, d = c + 1; idx[t++] = a; idx[t++] = b; idx[t++] = c; idx[t++] = b; idx[t++] = d; idx[t++] = c; }
+    meshes.push({ pos, nor, uv, idx, tex, name: side, cut: false });
+  }
+  return meshes;
+}
+function rebuildCube(faceImgs) {
+  if (!gl3) return;
+  M3.mode = "cube"; M3.src = null; M3.faces = faceImgs; M3.meshes = buildCube(faceImgs); upload3(M3.meshes); draw3();
+}
+
+/* ── fitting a picture to the drawn outline ──────────────────
+   The image model only reads words, so it draws its own version of
+   the shape. Afterwards the picture is warped onto the sketch: from
+   the centre, every direction is stretched so the picture's edge
+   lands on the drawn edge there. The sacs keep their own lumps, so
+   the outline stays soft and puffy but follows the drawing. */
+let sketchPoly = null;
+function closedSmooth(p, it) {
+  for (let k = 0; k < it; k++) { const q = []; for (let i = 0; i < p.length; i++) { const a = p[i], b = p[(i + 1) % p.length]; q.push({ x: a.x * 0.75 + b.x * 0.25, y: a.y * 0.75 + b.y * 0.25 }, { x: a.x * 0.25 + b.x * 0.75, y: a.y * 0.25 + b.y * 0.75 }); } p = q; }
+  return p;
+}
+function makeSketchPoly(points) {
+  if (!points || points.length < 8) return null;
+  let p = points.filter((q, i) => i % 2 === 0 || i === points.length - 1);
+  p = closedSmooth(p, 3);
+  let a = 0; for (let i = 0; i < p.length; i++) { const u = p[i], v = p[(i + 1) % p.length]; a += u.x * v.y - v.x * u.y; }
+  return Math.abs(a) > 2000 ? p : null;
+}
+const NA = 720;
+function radialOfPoly(p) {
+  let cx = 0, cy = 0, A = 0;
+  for (let i = 0; i < p.length; i++) { const u = p[i], v = p[(i + 1) % p.length], c = u.x * v.y - v.x * u.y; A += c; cx += (u.x + v.x) * c; cy += (u.y + v.y) * c; }
+  cx /= 3 * A; cy /= 3 * A;
+  const R = new Float32Array(NA);
+  for (let k = 0; k < NA; k++) {
+    const t = (k / NA) * Math.PI * 2, dx = Math.cos(t), dy = Math.sin(t); let best = 0;
+    for (let i = 0; i < p.length; i++) {
+      const u = p[i], v = p[(i + 1) % p.length], ex = v.x - u.x, ey = v.y - u.y, den = dx * ey - dy * ex;
+      if (Math.abs(den) < 1e-9) continue;
+      const s = ((u.x - cx) * ey - (u.y - cy) * ex) / den, w = ((u.x - cx) * dy - (u.y - cy) * dx) / den;
+      if (s > 0 && w >= 0 && w <= 1 && s > best) best = s;
+    }
+    R[k] = best;
+  }
+  return { cx, cy, R };
+}
+function radialOfImage(img) {
+  const N = 256, c = document.createElement("canvas"); c.width = c.height = N;
+  const x = c.getContext("2d", { willReadFrequently: true }); x.drawImage(img, 0, 0, N, N);
+  const d = x.getImageData(0, 0, N, N).data, m = new Uint8Array(N * N);
+  for (let i = 0; i < N * N; i++) m[i] = d[i * 4] * 0.3 + d[i * 4 + 1] * 0.59 + d[i * 4 + 2] * 0.11 > 26 ? 1 : 0;
+  let sx = 0, sy = 0, n = 0; for (let i = 0; i < N * N; i++) if (m[i]) { sx += i % N; sy += (i / N) | 0; n++; }
+  if (n < N * N * 0.05) return null;
+  const cx = sx / n, cy = sy / n, R = new Float32Array(NA);
+  for (let k = 0; k < NA; k++) {
+    const t = (k / NA) * Math.PI * 2, dx = Math.cos(t), dy = Math.sin(t); let last = 0, gap = 0;
+    for (let r = 0; r < N; r += 0.5) {
+      const px = Math.round(cx + dx * r), py = Math.round(cy + dy * r);
+      if (px < 0 || py < 0 || px >= N || py >= N) break;
+      if (m[py * N + px]) { last = r; gap = 0; } else if (++gap > 12) break;
+    }
+    R[k] = last;
+  }
+  /* smooth gently: keep the sacs' bulges, lose single-pixel noise */
+  const S2 = new Float32Array(NA), w = 6;
+  for (let k = 0; k < NA; k++) { let s = 0; for (let j = -w; j <= w; j++) s += R[(k + j + NA) % NA]; S2[k] = s / (2 * w + 1); }
+  const sc = img.naturalWidth / N;
+  for (let k = 0; k < NA; k++) S2[k] *= sc;
+  return { cx: cx * sc, cy: cy * sc, R: S2 };
+}
+function fitToSketch(src, poly) {
+  return new Promise((res) => {
+    const im = new Image();
+    im.onload = () => {
+      const G = radialOfImage(im); if (!G) { res(src); return; }
+      const P = radialOfPoly(poly);
+      /* the sketch, scaled so its largest extent fills 86% of the square */
+      let mx = 0; for (let k = 0; k < NA; k++) mx = Math.max(mx, P.R[k]);
+      const W = 1024, k0 = (W * 0.43) / mx;
+      const sw = im.naturalWidth, sh = im.naturalHeight, sc = document.createElement("canvas"); sc.width = sw; sc.height = sh;
+      const sx = sc.getContext("2d", { willReadFrequently: true }); sx.drawImage(im, 0, 0);
+      const sd = sx.getImageData(0, 0, sw, sh).data;
+      const oc = document.createElement("canvas"); oc.width = oc.height = W;
+      const ox = oc.getContext("2d"), od = ox.createImageData(W, W), o = od.data;
+      /* centre the sketch's box in the frame */
+      let minx = 1e9, maxx = -1e9, miny = 1e9, maxy = -1e9;
+      for (let k = 0; k < NA; k++) { const t = (k / NA) * Math.PI * 2, r = P.R[k] * k0; minx = Math.min(minx, Math.cos(t) * r); maxx = Math.max(maxx, Math.cos(t) * r); miny = Math.min(miny, Math.sin(t) * r); maxy = Math.max(maxy, Math.sin(t) * r); }
+      const ccx = W / 2 - (minx + maxx) / 2, ccy = W / 2 - (miny + maxy) / 2;
+      const lerpR = (R, t) => { let f = ((t / (Math.PI * 2)) % 1 + 1) % 1 * NA, i = Math.floor(f), u = f - i; return R[i % NA] * (1 - u) + R[(i + 1) % NA] * u; };
+      for (let y = 0; y < W; y++) for (let x = 0; x < W; x++) {
+        const dx = x - ccx, dy = y - ccy, r = Math.hypot(dx, dy), t = Math.atan2(dy, dx);
+        const rs = lerpR(P.R, t) * k0, q = (y * W + x) * 4;
+        o[q + 3] = 255;
+        if (rs <= 0) continue;
+        const f = r / rs; if (f > 1.6) continue;
+        const rg = lerpR(G.R, t) * f, X = G.cx + Math.cos(t) * rg, Y = G.cy + Math.sin(t) * rg;
+        if (X < 0 || Y < 0 || X >= sw - 1 || Y >= sh - 1) continue;
+        const x0 = X | 0, y0 = Y | 0, ax = X - x0, ay = Y - y0, i00 = (y0 * sw + x0) * 4, i10 = i00 + 4, i01 = i00 + sw * 4, i11 = i01 + 4;
+        for (let c = 0; c < 3; c++) o[q + c] = (sd[i00 + c] * (1 - ax) + sd[i10 + c] * ax) * (1 - ay) + (sd[i01 + c] * (1 - ax) + sd[i11 + c] * ax) * ay;
+      }
+      ox.putImageData(od, 0, 0);
+      res(oc.toDataURL("image/png"));
+    };
+    im.onerror = () => res(src);
+    im.src = src;
+  });
+}
+async function withFit(item) {
+  item.raw = item.raw || item.src;
+  item.poly = item.poly !== undefined ? item.poly : sketchPoly;
+  if (item.poly && S.fit) { item.src = await fitToSketch(item.raw, item.poly); item.img = null; }
+  return item;
+}
+
+/* ══ Inflate ════════════════════════════════════════════════
+   A pigeon's organs, blown up like balloons and squeezed into a
+   shape. The image comes from an image model run through the
+   viewer's Figma connector (generate_image), and is read back at
+   full size with get_screenshot. A sketch is turned into words by
+   Claude, because the model only takes a text prompt. */
+const FILE_KEY = "zUYtSpnBZA16zpMVnW4jHH";
+const $ = (id) => document.getElementById(id);
+const press = (el, on) => el.setAttribute("aria-pressed", on ? "true" : "false");
+const status = (t) => { $("status").textContent = t; };
+
+const PRESETS = { square: "square block", circle: "perfect sphere", heart: "heart", star: "five-pointed star", triangle: "triangle", egg: "egg" };
+const PALETTES = {
+  neon:  { name: "Neon",  words: "Saturated hot magenta, violet, lavender, acid lime, tangerine orange and pale periwinkle" },
+  candy: { name: "Candy", words: "Soft pastel pink, lilac, butter yellow, mint and peach" },
+  toxic: { name: "Toxic", words: "Acid lime, electric cyan, toxic yellow, hot pink and emerald" },
+  ice:   { name: "Ice",   words: "Icy blue, violet, frosted white, aqua and periwinkle" }
+};
+const PUFFS = { puffy: ["Puffy", "inflated like soft balloons"], over: ["Over-inflated", "over-inflated like balloons"], burst: ["Bursting", "blown up until they are about to burst, stretched glossy and taut"] };
+const PARTS = {
+  skull: ["Skull", "skull with a pale beak and big round eye near a top corner"],
+  spine: ["Spine & ribs", "neck vertebrae, ribcage and spine"],
+  heart: ["Heart", "a glassy heart with its vessels"],
+  guts:  ["Guts", "coiled segmented intestines"],
+  foot:  ["Foot", "a scaly clawed foot near the bottom"],
+  wing:  ["Wing", "a translucent feathered wing at one side"]
+};
+const MODELS = { "gemini-3.1-flash-image": "Gemini", "gpt-image-2.5-flare": "GPT Flare", "gpt-image-2.5-sunburst": "GPT Sunburst", "gemini-3.1-flash-lite-image": "Gemini Lite" };
+const S = { preset: "square", palette: "neon", puff: "over", parts: { skull: true, spine: true, heart: true, guts: true, foot: true, wing: true }, model: "gemini-3.1-flash-image", promptEdited: false, busy: false };
+
+function buildPrompt() {
+  const shape = ($("shape").value.trim() || "square block").replace(/\.$/, "");
+  const parts = Object.entries(S.parts).filter(([, on]) => on).map(([k]) => PARTS[k][1]);
+  const pigeon = parts.length ? " Woven through them, a translucent glowing pigeon: " + parts.join(", ") + "." : "";
+  return "Soft glowing 3D x-ray render: a " + shape + " made of a pigeon's anatomy, its organs " + PUFFS[S.puff][1] + " and squeezed together into a " + shape +
+    " shape. The sacs themselves form the outer edge, which bulges and is lumpy; there is no container, no box, no glass case and no frame around them." +
+    " A few very large sacs of different sizes and many smaller ones, all semi-transparent and overlapping so you see through one into the next, like a colour x-ray." +
+    " The sacs are velvety and luminous, each gathered into soft radial pleats at a pinched point, with fine glowing branching veins in a contrasting colour." +
+    pigeon + " " + PALETTES[S.palette].words + ". Soft inner glow, gentle diffuse light, matte satin skin, no metal, no chrome, no sharp highlights, not flat. Pure black background.";
+}
+function syncPrompt() { if (!S.promptEdited) $("prompt").value = buildPrompt(); }
+
+/* ── pills ── */
+function pillGroup(wrapId, entries, isOn, onClick) {
+  const wrap = $(wrapId);
+  for (const [k, label] of entries) {
+    const b = document.createElement("button"); b.type = "button"; b.className = "pill"; b.textContent = label; b.dataset.k = k; press(b, isOn(k));
+    b.addEventListener("click", () => { onClick(k); wrap.querySelectorAll(".pill").forEach((x) => press(x, isOn(x.dataset.k))); syncPrompt(); });
+    wrap.appendChild(b);
+  }
+}
+pillGroup("presets", Object.keys(PRESETS).map((k) => [k, k[0].toUpperCase() + k.slice(1)]), (k) => S.preset === k, (k) => { S.preset = k; $("shape").value = PRESETS[k]; clearPad(); $("shapeNote").textContent = "Or type any shape: a donut, the letter S, a tall pill, a star."; });
+pillGroup("palettes", Object.entries(PALETTES).map(([k, p]) => [k, p.name]), (k) => S.palette === k, (k) => { S.palette = k; });
+pillGroup("puffs", Object.entries(PUFFS).map(([k, p]) => [k, p[0]]), (k) => S.puff === k, (k) => { S.puff = k; });
+pillGroup("parts", Object.entries(PARTS).map(([k, p]) => [k, p[0]]), (k) => S.parts[k], (k) => { S.parts[k] = !S.parts[k]; });
+pillGroup("models", Object.entries(MODELS), (k) => S.model === k, (k) => { S.model = k; });
+$("shape").addEventListener("input", () => { S.preset = null; $("presets").querySelectorAll(".pill").forEach((x) => press(x, false)); syncPrompt(); });
+$("togglePrompt").addEventListener("click", (e) => {
+  const open = $("prompt").hidden; $("prompt").hidden = !open; $("resetPrompt").hidden = !open || !S.promptEdited;
+  e.currentTarget.textContent = open ? "Hide the prompt" : "Show the prompt"; e.currentTarget.setAttribute("aria-expanded", String(open));
+});
+$("prompt").addEventListener("input", () => { S.promptEdited = true; $("resetPrompt").hidden = false; });
+$("resetPrompt").addEventListener("click", () => { S.promptEdited = false; $("resetPrompt").hidden = true; syncPrompt(); });
+syncPrompt();
+
+/* ── sketch pad: Claude names the shape ── */
+const pad = $("pad"), px = pad.getContext("2d");
+let stroke = null, pts = [];
+function clearPad() { px.clearRect(0, 0, pad.width, pad.height); pts = []; sketchPoly = null; $("padHint").hidden = false; syncFit(); }
+const at = (e) => { const r = pad.getBoundingClientRect(); return { x: ((e.clientX - r.left) / r.width) * pad.width, y: ((e.clientY - r.top) / r.height) * pad.height }; };
+pad.addEventListener("pointerdown", (e) => { pad.setPointerCapture(e.pointerId); clearPad(); $("padHint").hidden = true; stroke = true; pts.push(at(e)); });
+pad.addEventListener("pointermove", (e) => {
+  if (!stroke) return; const p = at(e), q = pts[pts.length - 1]; if (Math.hypot(p.x - q.x, p.y - q.y) < 2) return;
+  pts.push(p); px.strokeStyle = "#fff"; px.lineWidth = 6; px.lineCap = px.lineJoin = "round";
+  px.beginPath(); px.moveTo(q.x, q.y); px.lineTo(p.x, p.y); px.stroke();
+});
+const endPad = () => { if (!stroke) return; stroke = false; if (pts.length > 8) { sketchPoly = makeSketchPoly(pts); drawSketch(); syncFit(); nameSketch(); } };
+pad.addEventListener("pointerup", endPad); pad.addEventListener("pointercancel", endPad);
+
+/* a rough guess when Claude isn't available: how round, how many corners */
+function guessShape(p) {
+  let x0 = 1e9, y0 = 1e9, x1 = -1e9, y1 = -1e9; for (const q of p) { x0 = Math.min(x0, q.x); y0 = Math.min(y0, q.y); x1 = Math.max(x1, q.x); y1 = Math.max(y1, q.y); }
+  const w = x1 - x0, h = y1 - y0, ar = w / Math.max(1, h);
+  let area = 0, per = 0; for (let i = 0; i < p.length; i++) { const a = p[i], b = p[(i + 1) % p.length]; area += a.x * b.y - b.x * a.y; per += Math.hypot(b.x - a.x, b.y - a.y); }
+  area = Math.abs(area) / 2; const round = (4 * Math.PI * area) / (per * per), fill = area / Math.max(1, w * h);
+  const tall = ar < 0.7 ? "tall " : ar > 1.4 ? "wide " : "";
+  if (fill < 0.6) return tall + "triangle";
+  if (round > 0.8) return ar < 0.8 || ar > 1.25 ? "oval egg" : "perfect sphere";
+  return tall + (Math.abs(ar - 1) < 0.2 ? "square block" : "rectangular block");
+}
+let sampler = null;
+(async () => { try { sampler = window.claude && window.claude.use ? await window.claude.use("sample") : null; } catch (e) { sampler = null; } })();
+async function nameSketch() {
+  S.preset = null; $("presets").querySelectorAll(".pill").forEach((x) => press(x, false));
+  const rough = guessShape(pts);
+  $("shape").value = rough; syncPrompt();
+  if (!sampler) { $("shapeNote").textContent = "Read your sketch as: " + rough + ". Edit it if that's off."; return; }
+  $("shapeNote").textContent = "Claude is reading your sketch…";
+  try {
+    const c = document.createElement("canvas"); c.width = c.height = 480; const x = c.getContext("2d");
+    x.fillStyle = "#000"; x.fillRect(0, 0, 480, 480); x.drawImage(pad, 0, 0);
+    const blob = await new Promise((r) => c.toBlob(r, "image/png"));
+    const res = await sampler.json('This is a rough hand-drawn outline of a shape (white on black). Name the shape in 2 to 6 plain words, as a solid object an image prompt can fill, for example "square block", "five-pointed star", "crescent moon", "letter S", "tall rounded pill", "lumpy cloud". Return JSON {"shape": "..."}.', { images: [blob], modelTier: "quick" });
+    const name = res && typeof res.shape === "string" ? res.shape.trim().slice(0, 60) : "";
+    if (name) { $("shape").value = name; syncPrompt(); $("shapeNote").textContent = "Claude reads your sketch as: " + name + ". Edit it if that's off."; }
+    else $("shapeNote").textContent = "Read your sketch as: " + rough + ". Edit it if that's off.";
+  } catch (e) {
+    $("shapeNote").textContent = "Read your sketch as: " + rough + ". Edit it if that's off.";
+    if (e && e.code === "not_granted") sampler = null;
+  }
+}
+
+/* ── generating through Figma ── */
+let mcp = null, sessionId = null, current = null;
+const gallery = [];
+(async () => {
+  try { mcp = window.claude && window.claude.use ? await window.claude.use("mcp") : null; } catch (e) { mcp = null; }
+  if (!mcp) showWarn("Generating needs your Figma connector. Open this page in Claude while signed in with Figma connected, and allow it when asked.");
+})();
+function showWarn(t) { $("warn").textContent = t; $("warn").hidden = !t; }
+
+/* find an inline image anywhere in a tool result */
+function findImage(o, depth = 0) {
+  if (!o || depth > 6) return null;
+  if (typeof o === "string") {
+    if (o.startsWith("data:image/")) return o;
+    if (o.length > 2000 && /^(iVBORw0KGgo|\/9j\/)/.test(o)) return (o.startsWith("/9j/") ? "data:image/jpeg;base64," : "data:image/png;base64,") + o;
+    return null;
+  }
+  if (Array.isArray(o)) { for (const v of o) { const r = findImage(v, depth + 1); if (r) return r; } return null; }
+  if (typeof o === "object") {
+    if (o.type === "image" && typeof o.data === "string") return "data:" + (o.mimeType || "image/png") + ";base64," + o.data;
+    for (const k of Object.keys(o)) { const r = findImage(o[k], depth + 1); if (r) return r; }
+  }
+  return null;
+}
+function findField(o, key, depth = 0) {
+  if (!o || depth > 6) return null;
+  if (typeof o === "string") { if (o.trim().startsWith("{")) { try { return findField(JSON.parse(o), key, depth + 1); } catch (e) {} } return null; }
+  if (typeof o !== "object") return null;
+  if (typeof o[key] === "string") return o[key];
+  for (const k of Object.keys(o)) { const r = findField(o[k], key, depth + 1); if (r) return r; }
+  return null;
+}
+async function call(tool, input) {
+  const r = await mcp.callTool("Figma", tool, input);
+  return r;
+}
+async function generate() {
+  if (S.busy) return;
+  if (!mcp) { showWarn("Generating needs your Figma connector, which this page can't reach right now."); return; }
+  const prompt = $("prompt").value.trim() || buildPrompt();
+  S.busy = true; $("generate").disabled = true; showWarn(""); status("");
+  $("empty").hidden = true; $("loader").hidden = false; $("loaderText").textContent = "Inflating… this takes a few seconds";
+  try {
+    if (!sessionId) { try { sessionId = findField(await call("create_session", { fileKey: FILE_KEY, description: "Generate inflated pigeon anatomy images from the Inflate tool" }), "sessionId"); } catch (e) { sessionId = null; } }
+    const g = await call("generate_image", { fileKey: FILE_KEY, prompt, width: 1024, height: 1024, model: S.model, ...(sessionId ? { sessionId } : {}) });
+    const nodeId = findField(g, "nodeId");
+    let src = null;
+    if (nodeId) {
+      $("loaderText").textContent = "Fetching the full-size image…";
+      try { src = findImage(await call("get_screenshot", { fileKey: FILE_KEY, nodeId, maxDimension: 1024, enableBase64Response: true, ...(sessionId ? { sessionId } : {}) })); } catch (e) { src = null; }
+    }
+    if (!src) { src = findImage(g); if (src) status("Showing a small preview; the full image is in the Figma file"); }
+    if (!src) throw { code: "no_image" };
+    const item = await withFit({ src, nodeId, prompt });
+    gallery.unshift(item); show(item); renderGallery();
+  } catch (e) {
+    const code = e && e.code;
+    showWarn(code === "no_image" ? "The image was made (it's in your Figma file) but couldn't be shown here." :
+      code === "server_not_connected" || code === "not_granted" ? "Connect Figma in Claude's connector settings, then allow this page to use it." :
+      code === "rate_limited" ? "Figma is rate-limiting requests. Wait a minute and try again." :
+      "That didn't work" + (e && e.message ? ": " + String(e.message).slice(0, 160) : ".") + " Check your Figma AI credits and connection.");
+    if (!current) $("empty").hidden = false;
+  } finally {
+    S.busy = false; $("generate").disabled = false; $("loader").hidden = true;
+  }
+}
+function show(item) {
+  current = item; $("img").src = item.src; $("img").hidden = S.view === "3d";
+  $("saveGlb").disabled = false; load3(item); $("img").alt = "Generated: " + ($("shape").value || "shape") + " of inflated pigeon organs";
+  $("empty").hidden = true; $("savePng").disabled = false; renderGallery(); syncFit();
+}
+function renderGallery() {
+  const g = $("gallery"); g.innerHTML = "";
+  gallery.forEach((it, i) => {
+    const b = document.createElement("button"); b.type = "button"; b.setAttribute("aria-label", "Image " + (gallery.length - i)); b.setAttribute("aria-current", it === current ? "true" : "false");
+    const im = document.createElement("img"); im.src = it.src; im.alt = ""; b.appendChild(im);
+    b.addEventListener("click", () => show(it)); g.appendChild(b);
+  });
+}
+$("generate").addEventListener("click", generate);
+
+/* the smoothed outline drawn back over the sketch, and the fit switch */
+S.fit = true;
+function drawSketch() {
+  if (!sketchPoly) return;
+  px.clearRect(0, 0, pad.width, pad.height);
+  px.beginPath(); sketchPoly.forEach((q, i) => (i ? px.lineTo(q.x, q.y) : px.moveTo(q.x, q.y))); px.closePath();
+  px.fillStyle = "rgba(255,255,255,.08)"; px.fill(); px.strokeStyle = "#fff"; px.lineWidth = 5; px.lineJoin = "round"; px.stroke();
+}
+function syncFit() {
+  $("fitRow").hidden = !sketchPoly && !(current && current.poly);
+  press($("fitToggle"), S.fit);
+}
+$("fitToggle").addEventListener("click", async () => {
+  S.fit = !S.fit; syncFit();
+  if (current && current.raw && current.poly) { current.src = S.fit ? await fitToSketch(current.raw, current.poly) : current.raw; current.img = null; show(current); }
+});
+
+/* ── bring your own image (from Midjourney or anywhere) ── */
+function addUpload(file) {
+  if (!file || !/^image\//.test(file.type)) return;
+  const r = new FileReader();
+  r.onload = async () => { const item = await withFit({ src: r.result, nodeId: null, prompt: null }); gallery.unshift(item); showWarn(""); show(item); status("Uploaded " + file.name); };
+  r.readAsDataURL(file);
+}
+$("upload").addEventListener("change", (e) => { addUpload(e.target.files && e.target.files[0]); e.target.value = ""; });
+$("stage").addEventListener("dragover", (e) => e.preventDefault());
+$("stage").addEventListener("drop", (e) => { e.preventDefault(); addUpload(e.dataTransfer.files && e.dataTransfer.files[0]); });
+$("copyMj").addEventListener("click", async () => {
+  const text = ($("prompt").value.trim() || buildPrompt()) + " --ar 1:1";
+  try { await navigator.clipboard.writeText(text); status("Prompt copied. Paste it into Midjourney"); }
+  catch (e) { $("prompt").hidden = false; $("prompt").value = text; $("prompt").select(); status("Select and copy the prompt below"); }
+});
+
+/* ── 3D view ── */
+S.view = "flat";
+$("view").appendChild(gl3c); gl3c.hidden = true;
+let ok3 = false; try { ok3 = init3(); } catch (e) { console.error(e); ok3 = false; }
+function withImg(item, then) {
+  if (item.img) { then(item.img); return; }
+  const im = new Image(); im.onload = () => { item.img = im; then(im); }; im.src = item.src;
+}
+function cubeFaces(item) {
+  const f = {}; for (const s of SIDES) f[s] = (item.faces && item.faces[s] && item.faces[s].img) || item.img; return f;
+}
+function show3(item) {
+  if (!ok3 || !item) return;
+  withImg(item, () => {
+    if (current !== item) return;
+    if (S.view === "cube") rebuildCube(cubeFaces(item)); else if (M3.src !== item.img || M3.mode !== "relief") rebuild3(item.img);
+  });
+  syncCubeNote();
+}
+function load3(item) { show3(item); }
+function syncCubeNote() {
+  const done = current && current.faces ? SIDES.filter((s) => current.faces[s] && current.faces[s].img).length : 0;
+  $("makeCube").textContent = done === 6 ? "Regenerate the 6 sides" : done ? "Generate the missing sides" : "Generate the 6 sides";
+  $("cubeNote").textContent = done === 6 ? "Every side has its own picture. Regenerating makes 6 new ones." : done ? done + " of 6 sides made; the rest show your current image." : "Makes a separate picture for each side of the block (6 Figma generations). Until then every side shows your current image.";
+  $("makeCube").disabled = !current || S.cubeBusy;
+}
+function setView(v) {
+  if (v === "3d" && !ok3) { showWarn("3D needs WebGL 2, which this browser isn't offering."); return; }
+  S.view = v; document.querySelectorAll("[data-view]").forEach((b) => press(b, b.dataset.view === v));
+  const is3 = v !== "flat";
+  gl3c.hidden = !is3; $("img").hidden = is3 || !current; $("cubeBox").hidden = v !== "cube";
+  if (v === "cube") { M3.pitch = 0.45; M3.yaw = -0.62; }
+  if (is3) { start3(); show3(current); } else stop3();
+}
+document.querySelectorAll("[data-view]").forEach((b) => b.addEventListener("click", () => setView(b.dataset.view)));
+let reb = 0;
+const re3 = () => { clearTimeout(reb); reb = setTimeout(() => { if (M3.mode === "cube" && M3.faces) rebuildCube(M3.faces); else if (M3.src) rebuild3(M3.src); }, 60); };
+for (const [id, key] of [["depth", "depth"], ["sac", "puff"]]) {
+  const el = $(id), o = $(id + "Out");
+  el.addEventListener("input", () => { M3[key] = +el.value; o.textContent = el.value + "%"; re3(); });
+}
+$("spin").addEventListener("click", (e) => { M3.spin = !M3.spin && !matchMedia("(prefers-reduced-motion: reduce)").matches; press(e.currentTarget, M3.spin); });
+$("resetView").addEventListener("click", () => { M3.yaw = S.view === "cube" ? -0.62 : -0.5; M3.pitch = S.view === "cube" ? 0.45 : 0.18; M3.zoom = 1; });
+
+/* ── the cube's sides, each generated as a straight-on picture of that face ── */
+const SIDE_CONTENT = {
+  front: "the pigeon's head with its pale beak and big round eye, beside a glassy heart with its vessels",
+  back: "the spine and tail feathers, with kidneys and air sacs",
+  left: "the folded left wing, layered translucent feathers over ribs and a lung",
+  right: "the liver, gizzard and crop beside the right side of the ribcage",
+  top: "the top of the skull and neck seen from above, with both lungs and air sacs",
+  bottom: "two scaly clawed pigeon feet tucked up among coiled segmented intestines"
+};
+function sidePrompt(side) {
+  return "One flat face of a cube, seen perfectly straight on, filling the entire frame edge to edge with no background, no border and no perspective: a tightly packed surface made of a pigeon's organs, " +
+    PUFFS[S.puff][1] + " and pressed against each other. Semi-transparent overlapping sacs of different sizes, velvety and luminous like a colour x-ray, gathered into soft radial pleats at pinched points, with fine glowing branching veins. On this face: " +
+    SIDE_CONTENT[side] + ", translucent and glowing. " + PALETTES[S.palette].words + ". Soft inner glow, diffuse light, matte satin skin, no metal, no chrome, no sharp highlights.";
+}
+async function makeOne(prompt) {
+  const g = await call("generate_image", { fileKey: FILE_KEY, prompt, width: 1024, height: 1024, model: S.model, ...(sessionId ? { sessionId } : {}) });
+  const nodeId = findField(g, "nodeId"); let src = null;
+  if (nodeId) { try { src = findImage(await call("get_screenshot", { fileKey: FILE_KEY, nodeId, maxDimension: 1024, enableBase64Response: true, ...(sessionId ? { sessionId } : {}) })); } catch (e) { src = null; } }
+  return src || findImage(g);
+}
+$("makeCube").addEventListener("click", async () => {
+  if (!current || S.cubeBusy) return;
+  if (!mcp) { showWarn("Generating needs your Figma connector, which this page can't reach right now."); return; }
+  const item = current, all = item.faces && SIDES.every((s) => item.faces[s] && item.faces[s].img);
+  if (!item.faces || all) item.faces = {};
+  const todo = SIDES.filter((s) => !(item.faces[s] && item.faces[s].img));
+  S.cubeBusy = true; syncCubeNote(); showWarn("");
+  if (!sessionId) { try { sessionId = findField(await call("create_session", { fileKey: FILE_KEY, description: "Generate cube sides of inflated pigeon anatomy from the Inflate tool" }), "sessionId"); } catch (e) {} }
+  let done = 0, failed = 0;
+  const queue = todo.slice();
+  const worker = async () => {
+    while (queue.length) {
+      const side = queue.shift();
+      $("cubeNote").textContent = "Making the " + side + " side… (" + (SIDES.length - todo.length + done + 1) + " of 6)";
+      try {
+        const src = await makeOne(sidePrompt(side));
+        if (!src) throw new Error("no image");
+        await new Promise((res) => { const im = new Image(); im.onload = () => { item.faces[side] = { src, img: im }; res(); }; im.onerror = res; im.src = src; });
+        done++;
+        if (current === item && S.view === "cube") rebuildCube(cubeFaces(item));
+      } catch (e) {
+        failed++;
+        if (e && e.code === "rate_limited") { queue.length = 0; showWarn("Figma is rate-limiting requests. Wait a minute, then press the button again to make the missing sides."); }
+      }
+    }
+  };
+  await Promise.all([worker(), worker()]);
+  S.cubeBusy = false; syncCubeNote();
+  if (failed && !$("warn").textContent) showWarn(failed + " side" + (failed > 1 ? "s" : "") + " didn't come through. Press the button again to make " + (failed > 1 ? "them" : "it") + ". Check your Figma AI credits if it keeps failing.");
+});
+
+/* saving needs the downloads capability; hidden where absent */
+(async () => {
+  try {
+    if (!window.claude || !window.claude.use) return;
+    const dl = await window.claude.use("downloads");
+    if (!dl) return;
+    $("savePng").hidden = false; $("saveGlb").hidden = !ok3;
+    $("saveGlb").addEventListener("click", async () => {
+      if (!current) return;
+      try {
+        status("Building the model…");
+        await new Promise((r) => { const t = setInterval(() => { if (current.img) { clearInterval(t); r(); } }, 50); });
+        if (S.view === "cube") rebuildCube(cubeFaces(current)); else if (M3.mode !== "relief" || M3.src !== current.img) rebuild3(current.img);
+        const blob = await toGLB();
+        await dl.save({ filename: "inflated-" + (S.view === "cube" ? "cube" : ($("shape").value || "shape").toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "")) + ".glb", data: blob });
+        status("Saved");
+      } catch (e) { if (e && e.code !== "declined") status("Couldn't save the model"); }
+    });
+    $("savePng").addEventListener("click", async () => {
+      if (!current) return;
+      if (S.view === "3d") { try { gl3c.toBlob(async (blob) => { try { await dl.save({ filename: "inflated-3d-view.png", data: blob }); status("Saved"); } catch (e) { if (e && e.code !== "declined") status("Couldn't save"); } }, "image/png"); } catch (e) {} return; }
+      try {
+        const [head, b64] = current.src.split(","), bin = atob(b64), u = new Uint8Array(bin.length); for (let i = 0; i < bin.length; i++) u[i] = bin.charCodeAt(i);
+        const blob = new Blob([u], { type: (/data:([^;]+)/.exec(head) || [, "image/png"])[1] });
+        await dl.save({ filename: "inflated-" + ($("shape").value || "shape").toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "") + ".png", data: blob });
+        status("Saved");
+      } catch (e) { if (e && e.code !== "declined") status("Couldn't save"); }
+    });
+  } catch (e) {}
+})();
+
+</script>
+<script>
+/* Eye tracker from sheps.design, originally from Bencho (MIT, bencho.dev/licence). */
+var EyeTrackerMod=(()=>{var zt=(f,e)=>()=>(e||f((e={exports:{}}).exports,e),e.exports);var ae=zt((re,Qt)=>{var Xt=()=>typeof window<"u"&&!!(window.matchMedia&&window.matchMedia("(prefers-reduced-motion: reduce)").matches),Pt={Slant:{w:9,h:15,r:4.5},Dots:{w:11,h:11,r:5.5},Squares:{w:12,h:12,r:3.5}},Vt=.19,Dt=64,lt=(f,e,R)=>Math.min(R,Math.max(e,f)),It=["Hey, I see you.","Boop.","That tickles.","Hi there!","Stop poking me.","I'm watching you.","Again? Okay.","You found me."],vt=["#3b5bff","#179c52","#e0307f"],jt=38,Gt=1500,xt={Ball:"M50 0 A50 50 0 1 1 49.99 0 Z",Circle:"M50 7 A43 43 0 1 1 49.99 7 Z",Cube:"M30 6 H70 A24 24 0 0 1 94 30 V70 A24 24 0 0 1 70 94 H30 A24 24 0 0 1 6 70 V30 A24 24 0 0 1 30 6 Z",Pill:"M34 17 H66 A33 33 0 0 1 66 83 H34 A33 33 0 0 1 34 17 Z",Hexagon:"M59.53 8.50 L81.18 21.00 Q90.70 26.50 90.70 37.50 L90.70 62.50 Q90.70 73.50 81.18 79.00 L59.53 91.50 Q50.00 97.00 40.47 91.50 L18.82 79.00 Q9.30 73.50 9.30 62.50 L9.30 37.50 Q9.30 26.50 18.82 21.00 L40.47 8.50 Q50.00 3.00 59.53 8.50 Z","Hex flat":"M91.50 59.53 L79.00 81.18 Q73.50 90.70 62.50 90.70 L37.50 90.70 Q26.50 90.70 21.00 81.18 L8.50 59.53 Q3.00 50.00 8.50 40.47 L21.00 18.82 Q26.50 9.30 37.50 9.30 L62.50 9.30 Q73.50 9.30 79.00 18.82 L91.50 40.47 Q97.00 50.00 91.50 59.53 Z"},Ct=120,qt=new Map;function Bt(f){let e=qt.get(f);if(e)return e;let R="http://www.w3.org/2000/svg",d=document.createElementNS(R,"svg");d.setAttribute("viewBox","0 0 100 100"),d.style.cssText="position:absolute;width:0;height:0;overflow:hidden";let P=document.createElementNS(R,"path");P.setAttribute("d",xt[f]||xt.Ball),d.appendChild(P),document.body.appendChild(d);let F=d.createSVGPoint(),Y=[];for(let m=0;m<Ct;m++){let Q=m/Ct*Math.PI*2-Math.PI/2,y=0,x=60;for(let A=0;A<16;A++){let b=(y+x)/2;F.x=50+Math.cos(Q)*b,F.y=50+Math.sin(Q)*b,P.isPointInFill(F)?y=b:x=b}Y.push(y)}return d.remove(),qt.set(f,Y),Y}function Rt(f){let e="";return f.forEach((R,d)=>{let P=d/f.length*Math.PI*2-Math.PI/2;e+=`${d?"L":"M"}${(50+Math.cos(P)*R).toFixed(2)} ${(50+Math.sin(P)*R).toFixed(2)}`}),e+"Z"}var Wt={"--fill-slab":"#F7F3F1","--fill-on":"#131313","--card":"#F7F3F1","--font-ui":"'Inter', sans-serif",position:"relative",display:"grid",placeItems:"center"},Kt={overflow:"visible",transformOrigin:"center",WebkitTapHighlightColor:"transparent"},Jt={fill:"var(--fill-slab, #ffffff)"},Ut={fill:"var(--fill-on, #0b0b0d)"},te=(f,e,R)=>({position:"absolute",left:`calc(50% + ${f*.36}px)`,top:`calc(50% + ${f*.3}px)`,display:"inline-flex",alignItems:"center",gap:2,minHeight:34,padding:"0 16px",borderRadius:"6px 14px 14px 14px",background:R,boxShadow:"inset 0 -1.5px 0 rgba(0, 0, 0, 0.1)",color:"#ffffff",fontFamily:"var(--font-ui)",fontSize:13,fontWeight:400,whiteSpace:"nowrap",transformOrigin:"top left",opacity:e?1:0,scale:e?"1":"0.85",pointerEvents:"none",transition:"opacity 160ms ease, scale 220ms cubic-bezier(0.24, 1.34, 0.38, 1), background-color 220ms ease"}),ee={width:1.5,height:13,borderRadius:1,background:"var(--fill-slab, var(--card))",animation:"pet-caret 1s steps(1) infinite"},Nt=[" ",".",":","-","=","+","*","#","%","@"],ne='ui-monospace, "SF Mono", SFMono-Regular, Menlo, Consolas, monospace';function oe(f,e,R,d,P,F){if(!f)return{paint(){},stop(){}};let Y=Math.min(3,window.devicePixelRatio||1);f.width=Math.round(e*Y),f.height=Math.round(e*Y);let m=f.getContext("2d"),Q=4.5,y=Q*.62,x=Q*.82,A=Math.floor(e/y),b=Math.floor(e/x),I=(e-A*y)/2,C=(e-b*x)/2,tt=new Float32Array(A*b),O=new Float32Array(A*b);for(let s=0;s<b;s++)for(let a=0;a<A;a++){let l=I+(a+.5+(s&1)*.5)*y,o=C+(s+.5)*x,i=Math.max(0,Math.abs(l-e/2)-(e/2-R)),h=Math.max(0,Math.abs(o-e/2)-(e/2-R)),c=R-Math.hypot(i,h)-Math.max(Math.abs(l-e/2)-e/2,Math.abs(o-e/2)-e/2,-R)*0,n=Math.min(c,e/2-Math.abs(l-e/2),e/2-Math.abs(o-e/2));tt[s*A+a]=n<=0?0:.35+.65*Math.min(1,n/6)}let et=Nt.length-1,L=16,nt=-999,ft=-999,B=NaN,q=NaN,S=!1,X=0,V=0,D=0,j=0,N=(s,a)=>{let l=s*374761393+a*668265263|0;return l=Math.imul(l^l>>>13,1274126177),((l^l>>>16)>>>0)/4294967296},ht=(s,a)=>{s-=I,a-=C;let l=Math.max(0,Math.floor((s-L)/y)),o=Math.min(A-1,Math.ceil((s+L)/y)),i=Math.max(0,Math.floor((a-L)/x)),h=Math.min(b-1,Math.ceil((a+L)/x));for(let c=i;c<=h;c++)for(let n=l;n<=o;n++){let t=(n+.5)*y-s,u=(c+.5)*x-a,w=(t*t+u*u)/(L*L);if(w>=1)continue;let g=1-w,r=c*A+n;O[r]=Math.min(1,O[r]+.5*g*g)}},Z=e/100,G=(s,a)=>{let l=F.current;for(let o=0;o<2;o++){let i=l[o];if(!i||i.hide)continue;let h=s-i.x*Z,c=a-i.y*Z,n=-i.tilt*Math.PI/180,t=Math.cos(n),u=Math.sin(n),w=Math.abs(h*t-c*u),g=Math.abs(h*u+c*t),r=i.w*Z/2+y*.35,T=i.h*Z/2+x*.35,k=Math.min(i.r*Z,r,T);if(w>r||g>T)continue;let H=Math.max(0,w-(r-k)),z=Math.max(0,g-(T-k));if(H*H+z*z<=k*k)return!0}return!1},E=()=>{m.setTransform(Y,0,0,Y,0,0),m.clearRect(0,0,e,e);let s=[];m.fillStyle="#131313",m.font="500 "+Q+"px "+ne,m.textAlign="center",m.textBaseline="middle";let a=Math.min(y,x)*.48;m.beginPath();for(let o=0;o<b;o++){let i=C+(o+.5)*x;for(let h=0;h<A;h++){let c=o*A+h,n=tt[c];if(n<=0)continue;let t=I+(h+.5+(o&1)*.5)*y;if(G(t,i)){s.push(t,i);continue}let u=O[c];if(X>.002){let r=((t-nt)**2+(i-ft)**2)/(L*L);r<1&&(u=Math.max(u,.95*X*(1-r)*(1-r)))}let w=Math.min(1,u)*et+.5;u>.04&&(w+=(N(c,D)-.5)*1.6*Math.min(1,u*2));let g=Math.min(et,Math.max(1,Math.floor(w)));if(u<=.04||g===1){let r=Math.max(.45,a*Math.sqrt(n));m.moveTo(t+r,i),m.arc(t,i,r,0,Math.PI*2);continue}m.fillText(Nt[g],t,i)}}m.fill(),m.fillStyle="#ffffff",m.beginPath();let l=Math.min(y,x)*.5;for(let o=0;o<s.length;o+=2)m.moveTo(s[o]+l,s[o+1]),m.arc(s[o],s[o+1],l,0,Math.PI*2);m.fill()},M=()=>{if(V||d){E();return}let s=performance.now(),a=l=>{let o=Math.min(.05,(l-s)/1e3);s=l;let i=Math.exp(-o*3/1.2),h=0;for(let c=0;c<O.length;c++){let n=O[c]*i;O[c]=n<.003?0:n,n>h&&(h=n)}X+=((S?1:0)-X)*(1-Math.pow(.004,o)),j+=o,j>.07&&(j=0,D++),E(),V=!S&&h===0&&X<.004?0:requestAnimationFrame(a)};V=requestAnimationFrame(a)},wt=f.closest(P||"[data-eyes-frame], a")||f,W=s=>{let a=wt.getBoundingClientRect();if(!(s.clientX>=a.left&&s.clientX<=a.right&&s.clientY>=a.top&&s.clientY<=a.bottom)){S&&(S=!1,B=NaN,M());return}let o=f.getBoundingClientRect(),i=o.width/e,h=(s.clientX-o.left)/i,c=(s.clientY-o.top)/i;Number.isNaN(B)&&(B=h,q=c);let n=Math.max(1,Math.ceil(Math.hypot(h-B,c-q)/(L/3)));for(let t=1;t<=n;t++)ht(B+(h-B)*t/n,q+(c-q)*t/n);B=h,q=c,nt=h,ft=c,S=!0,M()};return E(),window.addEventListener("pointermove",W,{passive:!0}),{paint:E,stop(){window.removeEventListener("pointermove",W),cancelAnimationFrame(V)}}}var se=0,ut={Cube:{k:.88,r:"27.3%"},Ball:{k:1,r:"50%"},Circle:{k:.86,r:"50%"}};function Ht({follow:f=60,bounce:e=30,size:R=100,shape:d="Cube",eyes:P="Slant",eyeScale:F=1,eyeWidth:Y=1,eyeRound:m=1,eyeHeight:Q=1,idle:y=!1,within:x,glass:A=!1,corner:b,dots:I=!1}={}){let C=Xt(),tt=React.useRef(null),[O,et]=React.useState(""),[L,nt]=React.useState(!1),[ft,B]=React.useState(vt[0]),q=React.useRef(0),S=React.useRef(-1);React.useEffect(()=>()=>{q.current++},[]);let X=async()=>{if(y)return;let n=++q.current,t=It.map((r,T)=>T).filter(r=>r!==S.current),u=t[Math.floor(Math.random()*t.length)];S.current=u;let w=It[u],g=r=>new Promise(T=>setTimeout(T,r));B(vt[Math.floor(Math.random()*vt.length)]),et(""),nt(!0);for(let r=1;r<=w.length;r++){if(await g(jt+Math.random()*30),n!==q.current)return;et(w.slice(0,r))}await g(Gt),n===q.current&&nt(!1)},V=React.useRef([]),D=React.useRef({follow:f,bounce:e,eyeScale:F});D.current={follow:f,bounce:e,eyeScale:F};let j=Pt[P]||Pt.Slant,N={w:j.w*F*Y,h:j.h*F*Q,r:j.r*F*Y*m},ht=React.useRef(N),Z=React.useRef([null,null]),G=React.useRef(null);ht.current=N,React.useEffect(()=>{let n=tt.current;if(!n)return;let t={x:0,y:0,vx:0,vy:0,tx:0,ty:0},u=0,w=0,g=0,r=performance.now()+2200,T=p=>{let v=1;p>r&&(g=p,r=p+(y?2e3:2600+Math.random()*3200));let $=p-g;$<160&&(v=1-.9*Math.sin($/160*Math.PI));let _=J=>Math.asin(lt(J,-.92,.92)),at=_(t.x),K=-_(t.y),Mt=Math.cos(at),it=Math.sin(at),Ot=Math.cos(K),St=Math.sin(K),Et=Dt*t.x*t.y,At=Vt*Math.max(1,D.current.eyeScale*.8);[-At,At].forEach((J,Tt)=>{let pt=V.current[Tt];if(!pt)return;let kt=Math.sqrt(1-J*J),Ft=J*Mt+kt*it,Yt=-J*it+kt*Mt,Lt=-Yt*St,bt=Yt*Ot,$t=lt(bt,0,1),_t=.45+.55*$t,Zt=_t*(.7+.3*$t),yt=ht.current,rt=yt.w*Zt,ct=Math.max(.6,yt.h*_t*v),U=pt.firstElementChild;U&&(U.setAttribute("x",(-rt/2).toFixed(2)),U.setAttribute("y",(-ct/2).toFixed(2)),U.setAttribute("width",rt.toFixed(2)),U.setAttribute("height",ct.toFixed(2)),U.setAttribute("rx",Math.min(yt.r,rt/2,ct/2).toFixed(2))),pt.setAttribute("transform",`translate(${(50+Ft*50).toFixed(2)} ${(50+Lt*50).toFixed(2)}) rotate(${Et.toFixed(2)})`),pt.style.opacity=bt<.05?"0":"1",Z.current[Tt]={x:50+Ft*50,y:50+Lt*50,w:rt,h:ct,r:Math.min(yt.r,rt/2,ct/2),tilt:Et,hide:bt<.05}}),G.current&&G.current.paint()},k=!0,H=p=>{if(!k||document.hidden){u=0,w=0;return}let v=w?Math.min(2.5,(p-w)/16.67):1;if(w=p,C)t.x=t.tx,t.y=t.ty;else{let _=.34-lt(D.current.bounce,0,100)/100*.22;t.vx+=((t.tx-t.x)*.06-t.vx*_)*v,t.vy+=((t.ty-t.y)*.06-t.vy*_)*v,t.x+=t.vx*v,t.y+=t.vy*v}T(p),u=requestAnimationFrame(H)};u=requestAnimationFrame(H);let z=()=>{!u&&k&&!document.hidden&&(u=requestAnimationFrame(H))},ot=new IntersectionObserver(([p])=>{k=p.isIntersecting,z()});ot.observe(n),document.addEventListener("visibilitychange",z);let st=()=>{ot.disconnect(),document.removeEventListener("visibilitychange",z)},dt=n.closest(x||"[data-eyes-frame], a")||n,mt=p=>{let v=dt.getBoundingClientRect();if(p.clientX<v.left||p.clientX>v.right||p.clientY<v.top||p.clientY>v.bottom){t.tx=0,t.ty=0;return}let $=n.getBoundingClientRect(),_=p.clientX-($.left+$.width/2),at=p.clientY-($.top+$.height/2),K=Math.hypot(_,at)||1,Mt=Math.max(60,Math.min(v.width,v.height)*.28),it=Math.min(.85,Math.tanh(K/Mt)*(lt(D.current.follow,0,100)/100)*1.5);t.tx=_/K*it,t.ty=at/K*it},gt=()=>{t.tx=0,t.ty=0};if(y){let p=0,v=()=>{let $=Math.random()*Math.PI*2,_=.45+Math.random()*.25;t.tx=Math.cos($)*_,t.ty=Math.sin($)*_,p=window.setTimeout(()=>{gt(),p=window.setTimeout(v,4100)},900)};return p=window.setTimeout(v,5e3),()=>{cancelAnimationFrame(u),st(),window.clearTimeout(p)}}return window.addEventListener("pointermove",mt,{passive:!0}),document.documentElement.addEventListener("pointerleave",gt),()=>{cancelAnimationFrame(u),st(),window.removeEventListener("pointermove",mt),document.documentElement.removeEventListener("pointerleave",gt)}},[C,y,x]);let E=lt(R,16,180),M=b!=null?Math.min(50,b*100/E):null,wt=M!=null?`M${M} 0 H${100-M} A${M} ${M} 0 0 1 100 ${M} V${100-M} A${M} ${M} 0 0 1 ${100-M} 100 H${M} A${M} ${M} 0 0 1 0 ${100-M} V${M} A${M} ${M} 0 0 1 ${M} 0 Z`:xt[d]||xt.Ball,W=React.useRef(null);W.current||(W.current=`eyt-clip-${++se}`);let s=W.current,a=React.useRef(null),l=React.useRef(null),o=React.useRef(null),i=React.useRef(d);React.useLayoutEffect(()=>{if(i.current===d)return;let n=o.current||Bt(i.current),t=Bt(d);if(i.current=d,C){o.current=t;let T=Rt(t);a.current&&a.current.setAttribute("d",T),l.current&&l.current.setAttribute("d",T);return}let u=performance.now(),w=520,g=0,r=T=>{let k=Math.min(1,(T-u)/w),H=1.3,z=1+(H+1)*Math.pow(k-1,3)+H*Math.pow(k-1,2),ot=n.map((dt,mt)=>dt+(t[mt]-dt)*z);o.current=ot;let st=Rt(ot);a.current&&a.current.setAttribute("d",st),l.current&&l.current.setAttribute("d",st),k<1&&(g=requestAnimationFrame(r))};return g=requestAnimationFrame(r),()=>cancelAnimationFrame(g)},[d,C]);let h=M==null&&o.current?Rt(o.current):wt,c=React.useRef(null);return React.useEffect(()=>{if(!I)return;let n=oe(c.current,E,b??E*.24,C,x,Z);return G.current=n,()=>{n.stop(),G.current=null}},[I,E,b,C,x]),React.createElement("div",{ref:tt,style:Wt,role:"img","aria-label":"A ball with two eyes that follows the cursor"},I?React.createElement("canvas",{ref:c,"aria-hidden":"true",style:{position:"absolute",left:"50%",top:"50%",width:E,height:E,transform:"translate(-50%, -50%)"}}):null,A&&ut[d]?React.createElement("div",{style:{position:"absolute",left:"50%",top:"50%",width:E*ut[d].k,height:E*ut[d].k,transform:"translate(-50%, -50%)",borderRadius:ut[d].r,background:"rgba(247, 243, 241, 0.5)",backdropFilter:"blur(10px)",WebkitBackdropFilter:"blur(10px)"}}):null,React.createElement("svg",{viewBox:"0 0 100 100",style:{...Kt,position:"relative",zIndex:1,width:E,height:E,cursor:y?void 0:"pointer"},onClick:X},React.createElement("defs",null,React.createElement("clipPath",{id:s},React.createElement("path",{ref:l,d:h}))),React.createElement("path",{ref:a,style:I||A&&ut[d]?{fill:"transparent"}:Jt,d:h}),React.createElement("g",{clipPath:`url(#${s})`,style:I?{opacity:0}:void 0},[0,1].map(n=>React.createElement("g",{key:n,ref:t=>{V.current[n]=t}},React.createElement("rect",{style:I?{fill:"#ffffff"}:Ut,x:-N.w/2,y:-N.h/2,width:N.w,height:N.h,rx:N.r}))))),y?null:React.createElement("span",{"aria-live":"polite",style:te(E,L,ft)},React.createElement("span",null,O),React.createElement("span",{style:ee})))}Qt.exports={EyeTracker:Ht,Watcher:Ht}});return ae();})();
+</script>
+<script>
+/* Sheps.Studio "About" explainer: a link opens a small panel where the
+   sheps.design dot head explains the tool, one line at a time.
+   Usage: shepsAbout({ link: Element, lines: [...], dark: false }) */
+(function(){
+  const CSS = `
+  .sa-link{padding:0;border:0;background:none;cursor:pointer;font:500 12px/1.5 'Inter',system-ui,sans-serif;color:var(--sa-mute);text-decoration:underline dotted;text-decoration-color:currentColor;text-decoration-thickness:1px;text-underline-offset:4px}
+  .sa-link:hover,.sa-link:focus-visible,.sa-link[aria-expanded="true"]{color:var(--sa-ink);text-decoration-style:solid;outline:none}
+  .sa-pop{position:fixed;z-index:9999;left:50%;top:50%;transform:translate(-50%,-50%);width:min(440px,calc(100vw - 24px));padding:14px 18px 18px;background:var(--sa-bg);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);border:1px solid var(--sa-line);border-radius:8px;box-shadow:0 24px 60px rgba(30,28,25,.22);display:none;flex-direction:column;gap:14px;box-sizing:border-box;color:var(--sa-ink)}
+  .sa-pop.open{display:flex}
+  .sa-pop[data-dragged]{transform:none}
+  .sa-h{display:flex;align-items:center;cursor:grab;touch-action:none;user-select:none;-webkit-user-select:none}
+  .sa-head{width:64px;height:64px;flex:none;position:relative}
+  .sa-dark .sa-head{filter:invert(1)}
+  .sa-box{cursor:pointer;outline:none;display:flex;flex-direction:column;gap:10px}
+  .sa-say{display:grid}
+  .sa-say > *{grid-area:1/1;margin:0;font:400 15px/1.6 'Inter',system-ui,sans-serif;letter-spacing:.01em;color:var(--sa-text);white-space:pre-wrap;text-wrap:pretty}
+  .sa-say .sizer{visibility:hidden}
+  .sa-say b{font:500 13px ui-monospace,'JetBrains Mono',Menlo,monospace;letter-spacing:0;color:var(--sa-ink);background:var(--sa-pill);border-radius:3px;padding:0 4px}
+  .sa-foot{display:flex;align-items:center;justify-content:space-between}
+  .sa-dots{display:flex;gap:5px}
+  .sa-dots i{width:5px;height:5px;border-radius:50%;background:var(--sa-line)}
+  .sa-dots i.on{background:var(--sa-ink)}
+  .sa-next{display:inline-flex;align-items:center;justify-content:center;width:36px;height:36px;padding:0;border-radius:50%;border:1px solid var(--sa-pill);background:var(--sa-pill);color:var(--sa-ink);cursor:pointer}
+  .sa-next:hover{border-color:var(--sa-ink)}
+  .sa-next.typing{opacity:.35}
+  @keyframes pet-caret{50%{opacity:0;}}`;
+  const LIGHT = '--sa-bg:#F7F3F1;--sa-ink:#131313;--sa-text:#6F6F6F;--sa-mute:#6F6F6F;--sa-line:#E1DDDC;--sa-pill:#E9E4E1;';
+  const DARK  = '--sa-bg:rgba(19,19,17,.9);--sa-ink:#EBE8DE;--sa-text:#B4B0A4;--sa-mute:#8E8B7E;--sa-line:#2A2924;--sa-pill:#24231F;';
+  const REACT = ['https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js','https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js'];
+  function load(src){ return new Promise((res,rej)=>{ const s=document.createElement('script'); s.src=src; s.onload=res; s.onerror=rej; document.head.appendChild(s); }); }
+  async function react(){ if(window.React && window.ReactDOM) return; for(const u of REACT) await load(u); }
+
+  window.shepsAbout = function(opts){
+    const link = opts.link; if(!link) return;
+    if(!document.getElementById('sa-css')){ const st=document.createElement('style'); st.id='sa-css'; st.textContent=CSS; document.head.appendChild(st); }
+    link.classList.add('sa-link'); link.setAttribute('aria-haspopup','dialog'); link.setAttribute('aria-expanded','false');
+    link.style.cssText += opts.dark ? DARK : LIGHT;
+    const LINES = opts.lines;
+    const pop = document.createElement('div'); pop.className='sa-pop'; pop.setAttribute('role','dialog'); pop.setAttribute('aria-label', opts.label || 'About this tool');
+    pop.style.cssText = opts.dark ? DARK : LIGHT;
+    if(opts.dark) pop.classList.add('sa-dark');
+    pop.innerHTML = '<div class="sa-h"><div class="sa-head" aria-hidden="true"></div></div>'
+      + '<div class="sa-box" tabindex="0" role="button" aria-label="Next" aria-live="polite"><div class="sa-say"><p class="sa-line"></p></div>'
+      + '<div class="sa-foot"><span class="sa-dots"></span><button type="button" class="sa-next" aria-label="Next"><svg width="14" height="10" viewBox="0 0 14 10" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><path d="M1 5h12M9 1l4 4-4 4"/></svg></button></div></div>';
+    document.body.appendChild(pop);
+    const q = s => pop.querySelector(s), say=q('.sa-line'), box=q('.sa-box'), next=q('.sa-next'), dots=q('.sa-dots'), headEl=q('.sa-head'), handle=q('.sa-h');
+    const esc=t=>t.replace(/&/g,'&amp;').replace(/</g,'&lt;'), fmt=t=>esc(t).replace(/\[([^\]]+)\]/g,'<b>$1</b>'), plain=t=>t.replace(/[\[\]]/g,'');
+    LINES.forEach(t=>{ const z=document.createElement('p'); z.className='sizer'; z.setAttribute('aria-hidden','true'); z.innerHTML=fmt(t); q('.sa-say').appendChild(z); });
+    const still = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    let page=0, timer=null, mounted=false;
+    const last=()=>page===LINES.length-1;
+    function finish(){ clearInterval(timer); timer=null; say.innerHTML=fmt(LINES[page]); next.classList.remove('typing'); next.setAttribute('aria-label', last()?'Done':'Next'); box.setAttribute('aria-label', last()?'Close':'Next'); }
+    function type(){
+      clearInterval(timer); dots.innerHTML=LINES.map((_,i)=>`<i class="${i===page?'on':''}"></i>`).join(''); next.classList.add('typing');
+      if(still){ finish(); return; }
+      const total=plain(LINES[page]).length; let shown=0;
+      timer=setInterval(()=>{ shown++; let out='', n=0;
+        for(const ch of LINES[page]){ if(ch==='['||ch===']'){ out+=ch; continue; } if(n>=shown) break; out+=ch; n++; }
+        if((out.match(/\[/g)||[]).length>(out.match(/\]/g)||[]).length) out+=']';
+        say.innerHTML=fmt(out); if(shown>=total) finish(); }, 26);
+    }
+    function advance(){ if(timer){ finish(); return; } if(!last()){ page++; type(); } else set(false); }
+    box.addEventListener('click', advance);
+    next.addEventListener('click', e=>{ e.stopPropagation(); advance(); });
+    box.addEventListener('keydown', e=>{ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); advance(); } });
+    async function mountHead(){
+      if(mounted) return; mounted=true;
+      try{ await react(); if(!window.EyeTrackerMod) throw 0;
+        ReactDOM.createRoot(headEl).render(React.createElement(EyeTrackerMod.EyeTracker,{ size:64, shape:'Cube', corner:16, dots:true, eyeScale:1.5, within:'body' }));
+      }catch(e){ headEl.style.display='none'; }
+    }
+    function set(o){ pop.classList.toggle('open',o); link.setAttribute('aria-expanded',o);
+      if(o){ mountHead(); page=0; type(); box.focus({preventScroll:true}); } else { clearInterval(timer); timer=null; } }
+    link.addEventListener('click', e=>{ e.preventDefault(); e.stopPropagation(); set(!pop.classList.contains('open')); });
+    pop.addEventListener('click', e=>e.stopPropagation());
+    pop.addEventListener('pointerdown', e=>e.stopPropagation());
+    document.addEventListener('click', ()=>{ if(pop.classList.contains('open')) set(false); });
+    document.addEventListener('keydown', e=>{ if(e.key==='Escape' && pop.classList.contains('open')) set(false); });
+    // drag by the head row
+    handle.addEventListener('pointerdown', e=>{
+      if(e.button!==0) return; e.preventDefault();
+      const r=pop.getBoundingClientRect(); pop.style.left=r.left+'px'; pop.style.top=r.top+'px'; pop.dataset.dragged='1';
+      const dx=e.clientX-r.left, dy=e.clientY-r.top; handle.setPointerCapture(e.pointerId);
+      const mv=ev=>{ pop.style.left=Math.min(Math.max(8-r.width+60, ev.clientX-dx), innerWidth-60)+'px'; pop.style.top=Math.min(Math.max(8, ev.clientY-dy), innerHeight-40)+'px'; };
+      const up=()=>{ handle.removeEventListener('pointermove',mv); handle.removeEventListener('pointerup',up); };
+      handle.addEventListener('pointermove',mv); handle.addEventListener('pointerup',up);
+    });
+  };
+})();
+
+shepsAbout({ link: document.getElementById("saLink"), dark: false, label: "About this tool", lines: ["Inflate turns a shape into an x-ray illustration: a pigeon's organs, glowing and blown up like balloons, filling the outline you choose.", "Pick a preset, type a word or sketch a shape. The image model works from words, so your sketch is named for the prompt.", "Relief puffs up the current picture. Cube builds a rounded block with a different generated image on every side.", "It runs through your Figma connector and uses Figma AI credits. Every image is also saved to an Inflate file in Figma."] });
+</script>
+<script type="module">
+// Site load animation (reveal.js): content drops in with a melt as it loads or scrolls in, and melts out on internal links.
+import('/reveal.js').then((m) => { const run = () => m.reveal('.app > aside > :not(.scroll):not(script):not(.info-tip), .app > aside > .scroll > :not(script):not(.info-tip), .app > :not(aside):not(script)'); run(); setTimeout(run, 600); setTimeout(run, 2000); }).catch(() => {});
+</script>
+<script>
+(function () {
+  const btn = document.getElementById('snChat'), tip = document.getElementById('snTip'); let t;
+  if (!btn) return;
+  btn.addEventListener('click', e => {
+    const done = () => { e.preventDefault(); tip.textContent = 'Email copied'; tip.classList.add('on'); clearTimeout(t); t = setTimeout(() => tip.classList.remove('on'), 1600); };
+    try { if (navigator.clipboard && navigator.clipboard.writeText) { e.preventDefault(); navigator.clipboard.writeText('alex@sheps.studio').then(done, () => { tip.textContent = 'alex@sheps.studio'; tip.classList.add('on'); }); } } catch (err) {}
+  });
+})();
+</script>
+</body>
+</html>

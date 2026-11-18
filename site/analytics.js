@@ -10,7 +10,7 @@
 (function () {
   if (window.mixpanel && window.mixpanel.__SV) return;
   if (!/^(www\.)?sheps\.(studio|design)$/.test(location.hostname) || window.top !== window.self) return;
-  var PAGES = { '/': 'Home', '/mixpanel': 'Mixpanel case study', '/coach': 'Coach case study', '/insights': 'Insights case study', '/highfive': 'Highfive case study', '/agentic-systems': 'Agentic systems', '/mixpanel-rebrand': 'Mixpanel Rebrand case study', '/coach-walkthrough': 'Coach walkthrough', '/cv': 'CV', '/verdant-orb': 'Verdant Orb' };
+  var PAGES = { '/': 'Home', '/mixpanel': 'Mixpanel case study', '/coach': 'Coach case study', '/insights': 'Insights case study', '/highfive': 'Highfive case study', '/agentic-systems': 'Agentic systems', '/mixpanel-rebrand': 'Mixpanel Rebrand case study', '/coach-walkthrough': 'Coach walkthrough', '/cv': 'CV', '/verdant-orb': 'Verdant Orb', '/tools': 'Tools hub', '/tools/ascii-filter': 'ASCII Filter', '/tools/hex-alpha': 'Hex Alpha Calculator', '/tools/ease-lab': 'Ease Lab', '/tools/pdf-viewer': 'PDF Viewer', '/tools/ds-layers': 'Design System Layers', '/tools/stack': 'Stack', '/tools/inflate': 'Inflate' };
   var path = location.pathname.replace(/\.html$/, '').replace(/\/index$/, '/').replace(/(.)\/$/, '$1') || '/';
   var PAGE_NAME = PAGES[path] || path.replace(/^\//, '').replace(/-/g, ' ');
   var TOKEN = '22b0e0ec324b760a60f50783cb3f0ca2';

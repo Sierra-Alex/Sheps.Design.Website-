@@ -334,7 +334,7 @@
     '.ring{position:absolute;inset:0;pointer-events:none;border:1.5px dashed currentColor;' +
     '  opacity:.35;transition:border-color .12s,opacity .12s}' +
     ':host([data-over]) .ring{border-color:#c96442;opacity:1}' +
-    ':host([data-filled]) .ring{display:none}' +
+    ':host([data-filled]) .ring,.ring[hidden]{display:none !important}' +
     // Controls overlay INSIDE the frame, pinned to the top-right corner, so
     // a full-bleed slot in an overflow:hidden container still shows them
     // (the old below-mask placement got clipped). Credit sits bottom-left,
@@ -1149,6 +1149,9 @@
         this._hidShowing = false;
         this._img.style.display = 'block';
         this._empty.style.display = 'none';
+        // the host's data-filled can be stripped when the page re-renders, so the
+        // dashed placeholder ring is also hidden from inside the shadow root
+        this._ring.hidden = true;
         this.setAttribute('data-filled', '');
         this._clampView();
         this._applyView();
@@ -1168,6 +1171,7 @@
         // The error tile owns the blocked-photo state; .empty stays for
         // the genuinely-empty slot.
         this._empty.style.display = attrError ? 'none' : 'flex';
+        this._ring.hidden = false;
         this.removeAttribute('data-filled');
       }
 

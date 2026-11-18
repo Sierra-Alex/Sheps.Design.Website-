@@ -22,11 +22,15 @@ html{font-optical-sizing:none;font-synthesis:none;}
 *,*::before,*::after{box-sizing:border-box;}
 html,body{overflow-x:clip;}
 body{margin:0;background:#131313;color:#949191;font-family:'Inter',sans-serif;font-size:14px;line-height:130%;-webkit-font-smoothing:antialiased;}
-a{color:#FDBB6F;}
+a{color:#DEF139;}
 a:hover{color:#CAE9DF;}
-a:focus-visible,button:focus-visible{outline:2px solid #FDBB6F;outline-offset:2px;}
-::selection{background:#CAE9DF;color:#131313;}
+a:focus-visible,button:focus-visible{outline:2px solid #DEF139;outline-offset:2px;}
+::selection{background:#DEF139;color:#131313;}
 html{scrollbar-gutter:stable;}
+@media (max-width:420px){nav[aria-label="Main"] > div{gap:10px !important;}}
+/* Button colour (#DEF139 fill, #E5F461 hover). Remove this rule and the data-btn attributes to revert. */
+[data-btn]{background:#DEF139 !important;color:#131313 !important;border-color:#DEF139 !important;transition:background-color .2s ease,color .2s ease,opacity .2s ease !important}
+[data-btn]:hover,[data-btn]:focus-visible{background:#E5F461 !important;color:#131313 !important;border-color:#E5F461 !important}
 </style>
 <script src="./analytics.js"></script>
 <script src="./copy-email.js"></script>
@@ -37,10 +41,11 @@ html{scrollbar-gutter:stable;}
   <nav aria-label="Main" style="position:sticky;top:8px;z-index:50;display:flex;align-items:center;justify-content:space-between;gap:8px;width:calc(100% + 2 * clamp(clamp(8px, calc((100vw - 807px) * 999), 24px), calc((100vw - 1439px) * 999), 40px) - 16px);max-width:1504px;height:60px;padding:8px;border:1px solid #F7F3F11A;border-radius:8px;background:#131313B3;backdrop-filter:blur(8px);">
     <a href="/" style="display:inline-flex;"><img src="assets/logo/nav-logo-slate.svg" alt="Sheps.Design" width="32" height="32" style="display:block;"></img></a>
     <div style="display:flex;align-items:center;gap:16px;align-self:stretch;">
-        <a href="/#work" style="flex:none;min-width:32px;text-align:center;color:#949191;font-size:12px;font-weight:400;line-height:130%;letter-spacing:0.02em;text-decoration:none;white-space:nowrap;padding-bottom:2px;background:linear-gradient(currentColor, currentColor) no-repeat 50% 100% / 0% 1px;transition:color 0.2s ease, background-size 0.3s ease;" style-hover="color:#FDBB6F;background-image:linear-gradient(#FDBB6F, #FDBB6F);background-size:100% 1px;">Work</a>
-        <a href="/agentic-systems" aria-current="page" style="flex:none;min-width:32px;text-align:center;color:#FDBB6F;font-size:12px;font-weight:400;line-height:130%;letter-spacing:0.02em;text-decoration:none;white-space:nowrap;padding-bottom:2px;background:linear-gradient(currentColor, currentColor) no-repeat 50% 100% / 0% 1px;transition:color 0.2s ease, background-size 0.3s ease;" style-hover="color:#FDBB6F;background-image:linear-gradient(#FDBB6F, #FDBB6F);background-size:100% 1px;">Systems</a>
-        <a href="#about" data-about="" style="flex:none;min-width:32px;text-align:center;color:#949191;font-size:12px;font-weight:400;line-height:130%;letter-spacing:0.02em;text-decoration:none;white-space:nowrap;padding-bottom:2px;background:linear-gradient(currentColor, currentColor) no-repeat 50% 100% / 0% 1px;transition:color 0.2s ease, background-size 0.3s ease;" style-hover="color:#FDBB6F;background-image:linear-gradient(#FDBB6F, #FDBB6F);background-size:100% 1px;">About</a>
-        <a data-cta="nav-lets-chat" data-cta-tier="primary" data-cta-location="nav" href="mailto:alex@sheps.studio" data-copy-email="alex@sheps.studio" data-copy-theme="dark" title="Copy email address" style="display:inline-flex;align-items:center;justify-content:center;flex:none;padding:12px 16px;border:0;border-radius:4px;background:#FDBB6F;color:#131313;font-family:'Inter',sans-serif;font-size:14px;font-weight:500;line-height:130%;letter-spacing:0.02em;text-decoration:none;white-space:nowrap;cursor:pointer;" style-hover="background:#CAE9DF;color:#131313;" style-active="background:#CAE9DF;color:#131313;opacity:0.8;">Let's Chat</a>
+        <a href="/#work" style="flex:none;min-width:32px;text-align:center;color:#949191;font-size:12px;font-weight:400;line-height:130%;letter-spacing:0.02em;text-decoration:none;white-space:nowrap;padding-bottom:2px;background:linear-gradient(currentColor, currentColor) no-repeat 50% 100% / 0% 1px;transition:color 0.2s ease, background-size 0.3s ease;" style-hover="color:#DEF139;background-image:linear-gradient(#DEF139, #DEF139);background-size:100% 1px;">Work</a>
+        <a href="/agentic-systems" aria-current="page" style="flex:none;min-width:32px;text-align:center;color:#DEF139;font-size:12px;font-weight:400;line-height:130%;letter-spacing:0.02em;text-decoration:none;white-space:nowrap;padding-bottom:2px;background:linear-gradient(currentColor, currentColor) no-repeat 50% 100% / 0% 1px;transition:color 0.2s ease, background-size 0.3s ease;" style-hover="color:#DEF139;background-image:linear-gradient(#DEF139, #DEF139);background-size:100% 1px;">Systems</a>
+        <a href="/tools" style="flex:none;min-width:32px;text-align:center;color:#949191;font-size:12px;font-weight:400;line-height:130%;letter-spacing:0.02em;text-decoration:none;white-space:nowrap;padding-bottom:2px;background:linear-gradient(currentColor, currentColor) no-repeat 50% 100% / 0% 1px;transition:color 0.2s ease, background-size 0.3s ease;" style-hover="color:#DEF139;background-image:linear-gradient(#DEF139, #DEF139);background-size:100% 1px;">Tools</a>
+        <a href="#about" data-about="" style="flex:none;min-width:32px;text-align:center;color:#949191;font-size:12px;font-weight:400;line-height:130%;letter-spacing:0.02em;text-decoration:none;white-space:nowrap;padding-bottom:2px;background:linear-gradient(currentColor, currentColor) no-repeat 50% 100% / 0% 1px;transition:color 0.2s ease, background-size 0.3s ease;" style-hover="color:#DEF139;background-image:linear-gradient(#DEF139, #DEF139);background-size:100% 1px;">About</a>
+        <a data-btn="" data-cta="nav-lets-chat" data-cta-tier="primary" data-cta-location="nav" href="mailto:alex@sheps.studio" data-copy-email="alex@sheps.studio" data-copy-theme="dark" title="Copy email address" style="display:inline-flex;align-items:center;justify-content:center;flex:none;padding:12px 16px;border:0;border-radius:4px;background:#DEF139;color:#131313;font-family:'Inter',sans-serif;font-size:12px;font-weight:500;line-height:130%;letter-spacing:0.02em;text-decoration:none;white-space:nowrap;cursor:pointer;" style-hover="background:#CAE9DF;color:#131313;" style-active="background:#CAE9DF;color:#131313;opacity:0.8;">Let's Chat</a>
     </div>
   </nav>
 
@@ -48,11 +53,11 @@ html{scrollbar-gutter:stable;}
     <nav aria-label="Breadcrumb" style="font-size:12px;line-height:130%;letter-spacing:0.02em;">
       <ol style="display:flex;flex-wrap:wrap;align-items:center;margin:0;padding:0;list-style:none;">
         <li style="display:flex;align-items:center;"><a href="/" style="color:#949191;font-weight:400;text-decoration:none;" style-hover="color:#F7F3F1;">Home</a><img src="assets/icons/sys-caret-slate-muted.svg" alt="" width="16" height="16"></img></li>
-        <li style="display:flex;align-items:center;"><span aria-current="page" style="color:#FDBB6F;font-weight:600;">Agentic systems</span></li>
+        <li style="display:flex;align-items:center;"><span aria-current="page" style="color:#DEF139;font-weight:600;">Agentic systems</span></li>
       </ol>
     </nav>
     <div style="display:flex;flex-direction:column;gap:16px;max-width:800px;">
-      <h1 style="margin:0;max-width:660px;color:#CAE9DF;font-family:'Space Grotesk',sans-serif;font-size:clamp(clamp(24px, calc((100vw - 807px) * 999), 24px), calc((100vw - 1439px) * 999), 36px);font-weight:500;line-height:120%;letter-spacing:-0.04em;text-wrap:balance;">Design systems, explained.</h1>
+      <h1 style="margin:0;max-width:660px;color:#F7F3F1;font-family:'Space Grotesk',sans-serif;font-size:clamp(clamp(24px, calc((100vw - 807px) * 999), 24px), calc((100vw - 1439px) * 999), 36px);font-weight:500;line-height:120%;letter-spacing:-0.04em;text-wrap:balance;">Design systems, explained.</h1>
       <p style="margin:0;color:#949191;font-size:16px;font-weight:400;line-height:140%;letter-spacing:0.02em;text-wrap:pretty;">A design system stored as code, with tokens, components and rules in one repo that people and agents both read. From it you can build skills that produce on-brand decks, landing pages, documents and more.</p>
     </div>
   </header>
@@ -66,7 +71,7 @@ html{scrollbar-gutter:stable;}
       <ul role="list" style="display:flex;flex-direction:column;gap:8px;margin:0;padding:0;list-style:none;">
         <sc-for list="{{ menu }}" as="m" hint-placeholder-count="6">
           <li>
-            <a href="{{ m.href }}" onClick="{{ m.go }}" aria-current="{{ m.current }}" style="display:inline-flex;align-items:center;gap:8px;color:{{ m.color }};text-decoration:none;font-size:14px;font-weight:{{ m.weight }};line-height:130%;letter-spacing:0.02em;" style-hover="color:#FDBB6F;">
+            <a href="{{ m.href }}" onClick="{{ m.go }}" aria-current="{{ m.current }}" style="display:inline-flex;align-items:center;gap:8px;color:{{ m.color }};text-decoration:none;font-size:14px;font-weight:{{ m.weight }};line-height:130%;letter-spacing:0.02em;" style-hover="color:#DEF139;">
               <span>{{ m.label }}</span>
             </a>
           </li>
@@ -78,7 +83,7 @@ html{scrollbar-gutter:stable;}
       <section id="foundation" data-screen-label="The cascade" style="display:flex;flex-direction:column;gap:16px;">
         <div style="display:flex;flex-direction:column;gap:16px;max-width:800px;">
           <div style="display:flex;align-items:center;flex-wrap:wrap;gap:4px 8px;font-size:14px;line-height:130%;letter-spacing:0.02em;">
-            <h2 style="margin:0;color:#FDBB6F;font:inherit;font-weight:600;">The cascade</h2>
+            <h2 style="margin:0;color:#DEF139;font:inherit;font-weight:600;">The cascade</h2>
             <span aria-hidden="true" style="flex:none;width:clamp(0px, calc((100vw - 807px) * 999), 1px);height:11px;background:#F7F3F11A;"></span>
             <p style="margin:0;flex:1 1 clamp(0px, calc((808px - 100vw) * 999), 100%);min-width:0;color:#949191;text-wrap:balance;">One system, built to hold together</p>
           </div>
@@ -103,7 +108,7 @@ html{scrollbar-gutter:stable;}
       <section id="cascade" data-screen-label="Why two token layers?" style="display:flex;flex-direction:column;gap:16px;">
         <div style="display:flex;flex-direction:column;gap:16px;max-width:800px;">
           <div style="display:flex;align-items:center;flex-wrap:wrap;gap:4px 8px;font-size:14px;line-height:130%;letter-spacing:0.02em;">
-            <h2 style="margin:0;color:#FDBB6F;font:inherit;font-weight:600;">Why two token layers?</h2>
+            <h2 style="margin:0;color:#DEF139;font:inherit;font-weight:600;">Why two token layers?</h2>
             <span aria-hidden="true" style="flex:none;width:clamp(0px, calc((100vw - 807px) * 999), 1px);height:11px;background:#F7F3F11A;"></span>
             <p style="margin:0;flex:1 1 clamp(0px, calc((808px - 100vw) * 999), 100%);min-width:0;color:#949191;text-wrap:balance;">One says what it is. The other says what it’s for.</p>
           </div>
@@ -128,7 +133,7 @@ html{scrollbar-gutter:stable;}
       <section id="contract" data-screen-label="The agent contract" style="display:flex;flex-direction:column;gap:16px;">
         <div style="display:flex;flex-direction:column;gap:16px;max-width:800px;">
           <div style="display:flex;align-items:center;flex-wrap:wrap;gap:4px 8px;font-size:14px;line-height:130%;letter-spacing:0.02em;">
-            <h2 style="margin:0;color:#FDBB6F;font:inherit;font-weight:600;">The agent contract</h2>
+            <h2 style="margin:0;color:#DEF139;font:inherit;font-weight:600;">The agent contract</h2>
             <span aria-hidden="true" style="flex:none;width:clamp(0px, calc((100vw - 807px) * 999), 1px);height:11px;background:#F7F3F11A;"></span>
             <p style="margin:0;flex:1 1 clamp(0px, calc((808px - 100vw) * 999), 100%);min-width:0;color:#949191;text-wrap:balance;">The knowledge layer that lets AI actually use your system</p>
           </div>
@@ -145,7 +150,7 @@ html{scrollbar-gutter:stable;}
       <section id="pieces" data-screen-label="What's inside it" style="display:flex;flex-direction:column;gap:16px;">
         <div style="display:flex;flex-direction:column;gap:16px;max-width:800px;">
           <div style="display:flex;align-items:center;flex-wrap:wrap;gap:4px 8px;font-size:14px;line-height:130%;letter-spacing:0.02em;">
-            <h2 style="margin:0;color:#FDBB6F;font:inherit;font-weight:600;">What's inside it</h2>
+            <h2 style="margin:0;color:#DEF139;font:inherit;font-weight:600;">What's inside it</h2>
             <span aria-hidden="true" style="flex:none;width:clamp(0px, calc((100vw - 807px) * 999), 1px);height:11px;background:#F7F3F11A;"></span>
             <p style="margin:0;flex:1 1 clamp(0px, calc((808px - 100vw) * 999), 100%);min-width:0;color:#949191;text-wrap:balance;">What you’re actually getting</p>
           </div>
@@ -160,7 +165,7 @@ html{scrollbar-gutter:stable;}
       <section id="library" data-screen-label="How it evolves" style="display:flex;flex-direction:column;gap:16px;">
         <div style="display:flex;flex-direction:column;gap:16px;max-width:800px;">
           <div style="display:flex;align-items:center;flex-wrap:wrap;gap:4px 8px;font-size:14px;line-height:130%;letter-spacing:0.02em;">
-            <h2 style="margin:0;color:#FDBB6F;font:inherit;font-weight:600;">How it evolves</h2>
+            <h2 style="margin:0;color:#DEF139;font:inherit;font-weight:600;">How it evolves</h2>
             <span aria-hidden="true" style="flex:none;width:clamp(0px, calc((100vw - 807px) * 999), 1px);height:11px;background:#F7F3F11A;"></span>
             <p style="margin:0;flex:1 1 clamp(0px, calc((808px - 100vw) * 999), 100%);min-width:0;color:#949191;text-wrap:balance;">Not a one off quick fix, a new way to maintain your brand</p>
           </div>
@@ -175,7 +180,7 @@ html{scrollbar-gutter:stable;}
       <section id="practice" data-screen-label="What you can build" style="display:flex;flex-direction:column;gap:16px;">
         <div style="display:flex;flex-direction:column;gap:16px;max-width:800px;">
           <div style="display:flex;align-items:center;flex-wrap:wrap;gap:4px 8px;font-size:14px;line-height:130%;letter-spacing:0.02em;">
-            <h2 style="margin:0;color:#FDBB6F;font:inherit;font-weight:600;">What you can build</h2>
+            <h2 style="margin:0;color:#DEF139;font:inherit;font-weight:600;">What you can build</h2>
             <span aria-hidden="true" style="flex:none;width:clamp(0px, calc((100vw - 807px) * 999), 1px);height:11px;background:#F7F3F11A;"></span>
             <p style="margin:0;flex:1 1 clamp(0px, calc((808px - 100vw) * 999), 100%);min-width:0;color:#949191;text-wrap:balance;">The real win: production without losing quality</p>
           </div>
@@ -245,7 +250,7 @@ class Component extends DCLogic {
       ],
       menu: this.nav.map(([id, label, ic]) => ({
         href: '#' + id, label, current: a === id ? 'true' : undefined,
-        color: a === id ? '#FDBB6F' : '#949191',
+        color: a === id ? '#DEF139' : '#949191',
         weight: a === id ? 600 : 400,
         icon: a === id ? `assets/icons/brand-${ic}-slate.svg` : `assets/icons/nav-${ic}-slate.svg`,
         go: (e) => {

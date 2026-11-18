@@ -26,7 +26,12 @@ body{margin:0;background:#F7F3F1;color:#6F6F6F;font-family:'Inter',sans-serif;fo
 a{color:#131313;}
 a:hover{color:#6F6F6F;}
 a:focus-visible,button:focus-visible{outline:2px solid #FDBB6F;outline-offset:2px;}
-::selection{background:#CAE9DF;color:#131313;}
+::selection{background:#DEF139;color:#131313;}
+@media (max-width:807px){figure:has(> [data-duo]){height:auto !important;}[data-duo]{flex:none !important;flex-direction:column;gap:16px !important;}[data-duo-spot]{flex:none !important;height:440px;transform:none !important;}}
+@media (max-width:420px){nav[aria-label="Main"] > div{gap:10px !important;}}
+/* Button colour (#DEF139 fill, #E5F461 hover). Remove this rule and the data-btn attributes to revert. */
+[data-btn]{background:#DEF139 !important;color:#131313 !important;border-color:#DEF139 !important;transition:background-color .2s ease,color .2s ease,opacity .2s ease !important}
+[data-btn]:hover,[data-btn]:focus-visible{background:#E5F461 !important;color:#131313 !important;border-color:#E5F461 !important}
 </style>
 <script src="./analytics.js"></script>
 <script src="./copy-email.js"></script>
@@ -39,8 +44,9 @@ a:focus-visible,button:focus-visible{outline:2px solid #FDBB6F;outline-offset:2p
     <div style="display:flex;align-items:center;gap:16px;align-self:stretch;">
         <a href="/#work" aria-current="page" style="flex:none;min-width:32px;text-align:center;color:#131313;font-size:12px;font-weight:400;line-height:130%;letter-spacing:0.02em;text-decoration:none;white-space:nowrap;padding-bottom:2px;background:linear-gradient(currentColor, currentColor) no-repeat 50% 100% / 0% 1px;transition:color 0.2s ease, background-size 0.3s ease;" style-hover="color:#131313;background-image:linear-gradient(#131313, #131313);background-size:100% 1px;">Work</a>
         <a href="/agentic-systems" style="flex:none;min-width:32px;text-align:center;color:#6F6F6F;font-size:12px;font-weight:400;line-height:130%;letter-spacing:0.02em;text-decoration:none;white-space:nowrap;padding-bottom:2px;background:linear-gradient(currentColor, currentColor) no-repeat 50% 100% / 0% 1px;transition:color 0.2s ease, background-size 0.3s ease;" style-hover="color:#131313;background-image:linear-gradient(#131313, #131313);background-size:100% 1px;">Systems</a>
+        <a href="/tools" style="flex:none;min-width:32px;text-align:center;color:#6F6F6F;font-size:12px;font-weight:400;line-height:130%;letter-spacing:0.02em;text-decoration:none;white-space:nowrap;padding-bottom:2px;background:linear-gradient(currentColor, currentColor) no-repeat 50% 100% / 0% 1px;transition:color 0.2s ease, background-size 0.3s ease;" style-hover="color:#131313;background-image:linear-gradient(#131313, #131313);background-size:100% 1px;">Tools</a>
         <a href="#about" data-about="" style="flex:none;min-width:32px;text-align:center;color:#6F6F6F;font-size:12px;font-weight:400;line-height:130%;letter-spacing:0.02em;text-decoration:none;white-space:nowrap;padding-bottom:2px;background:linear-gradient(currentColor, currentColor) no-repeat 50% 100% / 0% 1px;transition:color 0.2s ease, background-size 0.3s ease;" style-hover="color:#131313;background-image:linear-gradient(#131313, #131313);background-size:100% 1px;">About</a>
-        <a data-cta="nav-lets-chat" data-cta-tier="primary" data-cta-location="nav" href="mailto:alex@sheps.studio" data-copy-email="alex@sheps.studio" title="Copy email address" style="display:inline-flex;align-items:center;justify-content:center;flex:none;padding:12px 16px;border:0;border-radius:4px;background:#E9E4E1;color:#131313;font-family:'Inter',sans-serif;font-size:14px;font-weight:500;line-height:130%;letter-spacing:0.02em;text-decoration:none;white-space:nowrap;cursor:pointer;" style-hover="background:#CAE9DF;color:#131313;" style-active="background:#CAE9DF;color:#131313;opacity:0.8;">Let's Chat</a>
+        <a data-btn="" data-cta="nav-lets-chat" data-cta-tier="primary" data-cta-location="nav" href="mailto:alex@sheps.studio" data-copy-email="alex@sheps.studio" title="Copy email address" style="display:inline-flex;align-items:center;justify-content:center;flex:none;padding:12px 16px;border:0;border-radius:4px;background:#E9E4E1;color:#131313;font-family:'Inter',sans-serif;font-size:12px;font-weight:500;line-height:130%;letter-spacing:0.02em;text-decoration:none;white-space:nowrap;cursor:pointer;" style-hover="background:#CAE9DF;color:#131313;" style-active="background:#CAE9DF;color:#131313;opacity:0.8;">Let's Chat</a>
     </div>
   </nav>
 
@@ -78,7 +84,7 @@ a:focus-visible,button:focus-visible{outline:2px solid #FDBB6F;outline-offset:2p
           </div>
           <ul role="list" style="display:flex;flex-wrap:wrap;gap:8px;flex:1 1 0;min-width:0;margin:0;padding:0;list-style:none;">
             <sc-for list="{{ tags }}" as="tag" hint-placeholder-count="5">
-              <li><span style="display:inline-flex;padding:4px 8px;border-radius:4px;background:#FEE7CD;color:#131313;font-size:12px;font-weight:500;line-height:130%;letter-spacing:0.02em;white-space:nowrap;">{{ tag }}</span></li>
+              <li><span style="display:inline-flex;padding:4px 8px;border-radius:4px;background:#F2ECE8B3;color:#131313;font-size:12px;font-weight:500;line-height:130%;letter-spacing:0.02em;white-space:nowrap;">{{ tag }}</span></li>
             </sc-for>
           </ul>
         </div>
@@ -103,14 +109,14 @@ a:focus-visible,button:focus-visible{outline:2px solid #FDBB6F;outline-offset:2p
     </nav>
 
     <article style="flex:1 1 calc((808px - 100vw) * 999);display:flex;flex-direction:column;gap:40px;min-width:0;">
-      <div role="img" aria-label="Image placeholder" style="display:block;width:100%;aspect-ratio:2126 / 1196;border-radius:8px;background:#CAE9DF;"></div>
-      <section id="problem" data-screen-label="The problem" style="display:flex;flex-direction:column;gap:16px;width:100%;padding:24px;border-radius:8px;background:#FEE7CD;">
+      <div role="img" aria-label="Image placeholder" style="display:block;width:100%;aspect-ratio:2126 / 1196;border-radius:8px;background:#E9E4E1;"></div>
+      <section id="problem" data-screen-label="The problem" style="display:flex;flex-direction:column;gap:16px;width:100%;padding:24px;border:1px solid #E1DDDC;border-radius:8px;background:#F2ECE8B3;">
         <div style="display:flex;align-items:center;gap:8px;font-size:14px;line-height:130%;letter-spacing:0.02em;">
           <h2 style="margin:0;color:#131313;font:inherit;font-weight:600;">The problem</h2>
-          <span aria-hidden="true" style="width:1px;height:11px;background:#FDBB6F;"></span>
-          <p style="margin:0;color:#6E3B00;">Where it started</p>
+          <span aria-hidden="true" style="width:1px;height:11px;background:#E1DDDC;"></span>
+          <p style="margin:0;color:#6F6F6F;">Where it started</p>
         </div>
-        <div style="max-width:800px;color:#6E3B00;font-size:16px;font-weight:400;line-height:130%;letter-spacing:0.02em;">
+        <div style="max-width:800px;color:#6F6F6F;font-size:16px;font-weight:400;line-height:130%;letter-spacing:0.02em;">
           <p style="margin:0;">Mixpanel's teams were ready to adopt AI, but output was slow and inconsistent. Without a shared source of truth, each team worked from its own repositories and tooling, often starting from scratch with every artifact, and legacy branding persisted across touchpoints.</p>
           <p style="margin:21px 0 0;">The project had two objectives: refine and elevate the brand across every surface while staying true to its foundations, and establish a system beneath it that is simple to maintain and dependable for both people and AI agents.</p>
         </div>
@@ -133,7 +139,7 @@ a:focus-visible,button:focus-visible{outline:2px solid #FDBB6F;outline-offset:2p
                 <sc-for list="{{ row.cols }}" as="col" hint-placeholder-count="1">
                   <div style="display:flex;flex:1 1 {{ col.basis }};flex-direction:column;gap:16px;min-width:0;">
                     <sc-for list="{{ col.tiles }}" as="t" hint-placeholder-count="1">
-                      <figure style="display:flex;flex-direction:column;gap:8px;height:{{ t.height }};aspect-ratio:{{ t.ratio }};flex:{{ t.grow }};min-height:{{ t.minH }};margin:0;padding:{{ t.pad }};border-radius:8px;background:#CAE9DF;overflow:hidden;">
+                      <figure style="display:flex;flex-direction:column;gap:8px;height:{{ t.height }};aspect-ratio:{{ t.ratio }};flex:{{ t.grow }};min-height:{{ t.minH }};margin:0;padding:{{ t.pad }};border-radius:8px;background:#E9E4E1;overflow:hidden;">
                         <sc-if value="{{ t.vid }}" hint-placeholder-val="{{ false }}">
                           <video src="{{ t.vid }}" muted="{{ true }}" loop="{{ true }}" playsInline="{{ true }}" aria-label="{{ t.alt }}" style="visibility:hidden;display:block;flex:none;width:100%;height:auto;"></video>
                         </sc-if>
@@ -162,11 +168,11 @@ a:focus-visible,button:focus-visible{outline:2px solid #FDBB6F;outline-offset:2p
                           </div>
                         </sc-if>
                         <sc-if value="{{ t.duo }}" hint-placeholder-val="{{ false }}">
-                          <div style="display:flex;flex:1 1 0;min-height:0;gap:32px;">
-                            <div style="flex:1 1 0;min-width:0;position:relative;transform:scale(0.85);">
+                          <div data-duo style="display:flex;flex:1 1 0;min-height:0;gap:32px;">
+                            <div data-duo-spot style="flex:1 1 0;min-width:0;position:relative;transform:scale(0.85);">
                               <x-import component="MixpanelAISpot" from="./components/MixpanelAISpot.jsx" hint-size="100%,100%" style="position:absolute;top:0;left:0;width:100%;height:100%;"></x-import>
                             </div>
-                            <div style="flex:1 1 0;min-width:0;position:relative;transform:scale(0.85);">
+                            <div data-duo-spot style="flex:1 1 0;min-width:0;position:relative;transform:scale(0.85);">
                               <x-import component="MetricTreesSpot" from="./components/MetricTreesSpot.jsx" hint-size="100%,100%" style="position:absolute;top:0;left:0;width:100%;height:100%;"></x-import>
                             </div>
                           </div>
@@ -189,8 +195,8 @@ a:focus-visible,button:focus-visible{outline:2px solid #FDBB6F;outline-offset:2p
                           <figcaption style="flex:none;color:#131313;font-size:12px;font-weight:500;line-height:16px;">{{ t.label }}</figcaption>
                         </sc-if>
                         <sc-if value="{{ t.img }}" hint-placeholder-val="{{ true }}">
-                          <div style="display:flex;flex:1 1 auto;min-height:0;padding:4px 0 0 4px;border-style:solid;border-color:#AEBDB8;border-width:1px 0 0 1px;border-radius:8px 0 6px 0;overflow:hidden;">
-                            <div style="flex:1 1 auto;min-width:0;overflow:hidden;border-style:solid;border-color:#AEBDB8;border-width:1px 0 0 1px;border-radius:4px 0 6px 0;background:#CAE9DF;">
+                          <div style="display:flex;flex:1 1 auto;min-height:0;padding:4px 0 0 4px;border-style:solid;border-color:#E1DDDC;border-width:1px 0 0 1px;border-radius:8px 0 6px 0;overflow:hidden;">
+                            <div style="flex:1 1 auto;min-width:0;overflow:hidden;border-style:solid;border-color:#E1DDDC;border-width:1px 0 0 1px;border-radius:4px 0 6px 0;background:#E9E4E1;">
                               <img src="{{ t.img }}" alt="{{ t.alt }}" style="visibility:hidden;display:block;width:1175px;max-width:none;height:586px;object-fit:cover;object-position:left top;"></img>
                             </div>
                           </div>
@@ -208,13 +214,13 @@ a:focus-visible,button:focus-visible{outline:2px solid #FDBB6F;outline-offset:2p
       <div aria-hidden="true" style="height:40px;background:url('assets/patterns/plus-cream.svg') 0 0 / 8px 10px repeat;"></div>
 
       <section id="result" data-screen-label="The result" style="display:flex;flex-direction:column;gap:16px;">
-        <div style="display:flex;flex-direction:column;gap:16px;width:100%;padding:24px;border-radius:8px;background:#FEE7CD;">
+        <div style="display:flex;flex-direction:column;gap:16px;width:100%;padding:24px;border:1px solid #E1DDDC;border-radius:8px;background:#F2ECE8B3;">
           <div style="display:flex;align-items:center;gap:8px;font-size:14px;line-height:130%;letter-spacing:0.02em;">
             <h2 style="margin:0;color:#131313;font:inherit;font-weight:600;">The result</h2>
-            <span aria-hidden="true" style="width:1px;height:11px;background:#FDBB6F;"></span>
-            <p style="margin:0;color:#6E3B00;">What changed</p>
+            <span aria-hidden="true" style="width:1px;height:11px;background:#E1DDDC;"></span>
+            <p style="margin:0;color:#6F6F6F;">What changed</p>
           </div>
-          <div style="max-width:800px;color:#6E3B00;font-size:16px;font-weight:400;line-height:130%;letter-spacing:0.02em;">
+          <div style="max-width:800px;color:#6F6F6F;font-size:16px;font-weight:400;line-height:130%;letter-spacing:0.02em;">
             <p style="margin:0;">Mixpanel now has a strong foundation to build AI tooling on, and the team is putting the full power of AI production to work. Teams create high-quality, on-brand content independently, at a pace that simply wasn't possible before.</p>
           </div>
         </div>

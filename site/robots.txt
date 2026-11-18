@@ -2,5 +2,6 @@ User-agent: *
 Allow: /
 Disallow: /insights
 Disallow: /coach-walkthrough
+Disallow: /tools
 
 Sitemap: https://sheps.studio/sitemap.xml

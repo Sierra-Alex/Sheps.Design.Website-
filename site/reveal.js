@@ -1,5 +1,21 @@
 // Subtle load/scroll-in animation. Uses the Web Animations API so it never
 // fights React-managed inline styles; nothing persists after an element plays.
+// Pages always open at the top unless the link names an anchor (#work) or the
+// visitor came back with the Back button. Stops a refresh or a restored scroll
+// position from landing a case study halfway down. Gives way as soon as the
+// visitor scrolls, taps or presses a key.
+if (!window.__topOnLoad) {
+  window.__topOnLoad = true;
+  const nav = performance.getEntriesByType && performance.getEntriesByType('navigation')[0];
+  if (!location.hash && !(nav && nav.type === 'back_forward')) {
+    let touched = false;
+    const mark = () => { touched = true; };
+    ['wheel', 'touchstart', 'keydown', 'pointerdown'].forEach((ev) => addEventListener(ev, mark, { once: true, passive: true }));
+    const top = () => { if (!touched && window.scrollY) window.scrollTo(0, 0); };
+    top(); addEventListener('load', top, { once: true }); setTimeout(top, 400); setTimeout(top, 1200);
+  }
+}
+
 const seen = { has: (el) => !!el.__revealSeen, add: (el) => { el.__revealSeen = true; } };
 let io = window.__revealIO || null;
 
@@ -83,11 +99,20 @@ export function reveal(selector, root) {
   const MEDIA = 'img,video,canvas,picture,svg,iframe,[role="img"]';
   const LEAF = 'h1,h2,h3,h4,h5,h6,p,ul,ol,img,video,canvas,picture,svg,iframe,[role="img"],button,a[data-cta],[style*="patterns/plus"]';
   const out = [];
-  for (const el of scope.querySelectorAll(selector)) {
-    if (el.matches(LEAF) || !el.querySelector(MEDIA)) { out.push(el); continue; }
-    const leaves = Array.from(el.querySelectorAll(LEAF));
-    leaves.forEach((l) => { if (!leaves.some((o) => o !== l && o.contains(l))) out.push(l); });
-  }
+  // Split a container into pieces. Anything without media is one piece; a
+  // container with media is broken down child by child, so EVERY descendant
+  // lands in some piece (tags, labels, small rows), not only the known LEAF
+  // types. Containers with their own loose text stay whole so no text is missed.
+  const hasText = (el) => Array.from(el.childNodes).some((n) => n.nodeType === 3 && n.textContent.trim());
+  // Elements hidden at rest (tooltips, popovers: opacity 0, visibility hidden,
+  // display none) are never animated; the fade would show them.
+  const hiddenAtRest = (el) => { const cs = getComputedStyle(el); return cs.display === 'none' || cs.visibility === 'hidden' || cs.opacity === '0' || el.matches('.info-tip,[role="tooltip"]'); };
+  const pieces = (el) => {
+    if (hiddenAtRest(el)) return;
+    if (el.matches(LEAF) || el.hasAttribute('data-reveal-whole') || !el.querySelector(MEDIA) || hasText(el)) { out.push(el); return; }
+    for (const c of el.children) { if (c.tagName !== 'SCRIPT' && c.tagName !== 'STYLE') pieces(c); }
+  };
+  for (const el of scope.querySelectorAll(selector)) pieces(el);
   // the + pattern dividers sit between sections, outside any matched
   // container, so they're always picked up on their own
   scope.querySelectorAll('[style*="patterns/plus"]').forEach((p) => { if (!out.some((o) => o === p || o.contains(p))) out.push(p); });
@@ -136,6 +161,8 @@ if (typeof window !== 'undefined' && !window.__revealExitWired) {
     if (still || leaving || e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
     const a = e.target.closest && e.target.closest('a[href]');
     if (!a || a.target === '_blank' || a.hasAttribute('download') || a.hasAttribute('data-copy-email') || a.hasAttribute('data-about')) return;
+    const raw = a.getAttribute('href') || '';
+    if (raw.charAt(0) === '#') return; // same-page anchors (including a bare "#") never leave the page
     const url = new URL(a.href, location.href);
     if (url.origin !== location.origin || !/^https?:$/.test(url.protocol)) return;
     if (url.pathname === location.pathname && url.search === location.search && url.hash) return;
@@ -144,7 +171,19 @@ if (typeof window !== 'undefined' && !window.__revealExitWired) {
     const vh = window.innerHeight;
     // images/videos that never went through reveal (hero shots, tiles) exit too
     const media = Array.from(document.querySelectorAll('img,video,canvas,picture,[role="img"],image-slot')).filter((m) => !m.closest('[role="dialog"]'));
-    const els = Array.from(new Set([...allEls, ...media, ...document.querySelectorAll('nav[aria-label="Main"], footer')]))
+    // safety net: any visible text or graphic on screen that no revealed piece
+    // covers (e.g. something added later and never registered) exits too
+    const covered = (n) => { for (const x of allEls) if (x.contains(n)) return true; return false; };
+    const strays = [];
+    document.querySelectorAll('body *').forEach((n) => {
+      if (n.closest('[role="dialog"], script, style, svg defs') || n.tagName === 'SCRIPT' || n.tagName === 'STYLE') return;
+      if (!(n.matches('img,video,canvas,svg,picture,[role="img"],button,input') || Array.from(n.childNodes).some((c) => c.nodeType === 3 && c.textContent.trim()))) return;
+      if (covered(n) || n.closest('.info-tip,[role="tooltip"]')) return;
+      const cs = getComputedStyle(n);
+      if (cs.opacity === '0' || cs.visibility === 'hidden') return;
+      strays.push(n);
+    });
+    const els = Array.from(new Set([...allEls, ...media, ...strays, ...document.querySelectorAll('nav[aria-label="Main"], footer')]))
       .filter((el) => { const r = el.getBoundingClientRect(); return r.bottom > 0 && r.top < vh && r.width > 0; });
     const tops = els.filter((el) => !els.some((o) => o !== el && o.contains(el)));
     const D = 520;

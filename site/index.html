@@ -44,7 +44,11 @@ a:focus-visible,button:focus-visible{outline:2px solid #FDBB6F;outline-offset:2p
 @keyframes arrowIn{from{opacity:0;transform:translateY(-8px);filter:blur(6px);}to{opacity:1;transform:none;filter:none;}}
 @keyframes arrowBounce{0%,9%,100%{transform:translateY(0)}3%{transform:translateY(6px)}5.5%{transform:translateY(0)}7%{transform:translateY(3px)}}
 @media (prefers-reduced-motion: reduce){[data-bounce]{animation:none !important;}}
-::selection{background:#CAE9DF;color:#131313;}
+::selection{background:#DEF139;color:#131313;}
+@media (max-width:420px){nav[aria-label="Main"] > div{gap:10px !important;}}
+/* Button colour (#DEF139 fill, #E5F461 hover). Remove this rule and the data-btn attributes to revert. */
+[data-btn]{background:#DEF139 !important;color:#131313 !important;border-color:#DEF139 !important;transition:background-color .2s ease,color .2s ease,opacity .2s ease !important}
+[data-btn]:hover,[data-btn]:focus-visible{background:#E5F461 !important;color:#131313 !important;border-color:#E5F461 !important}
 </style>
 <script src="./analytics.js"></script>
 <script src="./about-popup.js"></script>
@@ -58,40 +62,31 @@ a:focus-visible,button:focus-visible{outline:2px solid #FDBB6F;outline-offset:2p
         <div style="display:flex;align-items:center;gap:16px;align-self:stretch;">
         <a href="#work" style="flex:none;min-width:32px;text-align:center;color:{{ navLink }};font-size:12px;font-weight:400;line-height:130%;letter-spacing:0.02em;text-decoration:none;white-space:nowrap;padding-bottom:2px;background:linear-gradient(currentColor, currentColor) no-repeat 50% 100% / 0% 1px;transition:color 0.2s ease, background-size 0.3s ease;" style-hover="color:{{ navLinkHover }};background-image:linear-gradient({{ navLinkHover }}, {{ navLinkHover }});background-size:100% 1px;">Work</a>
         <a href="/agentic-systems" style="flex:none;min-width:32px;text-align:center;color:{{ navLink }};font-size:12px;font-weight:400;line-height:130%;letter-spacing:0.02em;text-decoration:none;white-space:nowrap;padding-bottom:2px;background:linear-gradient(currentColor, currentColor) no-repeat 50% 100% / 0% 1px;transition:color 0.2s ease, background-size 0.3s ease;" style-hover="color:{{ navLinkHover }};background-image:linear-gradient({{ navLinkHover }}, {{ navLinkHover }});background-size:100% 1px;">Systems</a>
+        <a href="/tools" style="flex:none;min-width:32px;text-align:center;color:{{ navLink }};font-size:12px;font-weight:400;line-height:130%;letter-spacing:0.02em;text-decoration:none;white-space:nowrap;padding-bottom:2px;background:linear-gradient(currentColor, currentColor) no-repeat 50% 100% / 0% 1px;transition:color 0.2s ease, background-size 0.3s ease;" style-hover="color:{{ navLinkHover }};background-image:linear-gradient({{ navLinkHover }}, {{ navLinkHover }});background-size:100% 1px;">Tools</a>
         <a href="#about" data-about="" style="flex:none;min-width:32px;text-align:center;color:{{ navLink }};font-size:12px;font-weight:400;line-height:130%;letter-spacing:0.02em;text-decoration:none;white-space:nowrap;padding-bottom:2px;background:linear-gradient(currentColor, currentColor) no-repeat 50% 100% / 0% 1px;transition:color 0.2s ease, background-size 0.3s ease;" style-hover="color:{{ navLinkHover }};background-image:linear-gradient({{ navLinkHover }}, {{ navLinkHover }});background-size:100% 1px;">About</a>
-        <span style="position:relative;display:flex;flex:none;"><a data-cta="nav-lets-chat" data-cta-tier="primary" data-cta-location="nav" href="mailto:alex@sheps.studio" onClick="{{ copyEmailNav }}" title="Copy email address" style="display:inline-flex;align-items:center;justify-content:center;flex:none;padding:12px 16px;border:0;border-radius:4px;background:#E9E4E1;color:#131313;font-family:'Inter',sans-serif;font-size:14px;font-weight:500;line-height:130%;letter-spacing:0.02em;text-decoration:none;white-space:nowrap;cursor:pointer;" style-hover="background:#CAE9DF;color:#131313;" style-active="background:#CAE9DF;color:#131313;opacity:0.8;">Let's Chat</a><span role="status" aria-live="polite" style="position:absolute;left:50%;top:calc(100% + 12px);display:flex;align-items:center;gap:6px;padding:6px 10px 6px 6px;border-radius:4px;background:#E9E4E180;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);color:#131313;font-family:'Inter',sans-serif;font-size:12px;font-weight:500;line-height:130%;letter-spacing:0.02em;white-space:nowrap;pointer-events:none;opacity:{{ navTipOpacity }};transform:translate(-50%, {{ navTipY }});transition:opacity 0.2s ease, transform 0.2s ease;"><span aria-hidden="true" style="display:flex;align-items:center;justify-content:center;flex:none;width:16px;height:16px;border-radius:999px;background:#CAE9DF;transform:scale({{ navCheckScale }});transition:transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1) 0.05s;"><svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2 5.2 L4.1 7.2 L8 3" stroke="#131313" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="10" stroke-dashoffset="{{ navCheckDash }}" style="transition:stroke-dashoffset 0.35s ease-out 0.18s;"></path></svg></span><span>{{ emailTipText }}</span></span></span>
+        <span style="position:relative;display:flex;flex:none;"><a data-btn="" data-cta="nav-lets-chat" data-cta-tier="primary" data-cta-location="nav" href="mailto:alex@sheps.studio" onClick="{{ copyEmailNav }}" title="Copy email address" style="display:inline-flex;align-items:center;justify-content:center;flex:none;padding:12px 16px;border:0;border-radius:4px;background:#E9E4E1;color:#131313;font-family:'Inter',sans-serif;font-size:12px;font-weight:500;line-height:130%;letter-spacing:0.02em;text-decoration:none;white-space:nowrap;cursor:pointer;" style-hover="background:#CAE9DF;color:#131313;" style-active="background:#CAE9DF;color:#131313;opacity:0.8;">Let's Chat</a><span role="status" aria-live="polite" style="position:absolute;left:50%;top:calc(100% + 12px);display:flex;align-items:center;gap:6px;padding:6px 10px 6px 6px;border-radius:4px;background:#E9E4E180;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);color:#131313;font-family:'Inter',sans-serif;font-size:12px;font-weight:500;line-height:130%;letter-spacing:0.02em;white-space:nowrap;pointer-events:none;opacity:{{ navTipOpacity }};transform:translate(-50%, {{ navTipY }});transition:opacity 0.2s ease, transform 0.2s ease;"><span aria-hidden="true" style="display:flex;align-items:center;justify-content:center;flex:none;width:16px;height:16px;border-radius:999px;background:#DEF139;transform:scale({{ navCheckScale }});transition:transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1) 0.05s;"><svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2 5.2 L4.1 7.2 L8 3" stroke="#131313" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="10" stroke-dashoffset="{{ navCheckDash }}" style="transition:stroke-dashoffset 0.35s ease-out 0.18s;"></path></svg></span><span>{{ emailTipText }}</span></span></span>
       </div>
       </nav>
 <header ref="{{ heroRef }}" data-surface="cream" data-screen-label="Hero" style="background:#F7F3F1;box-shadow:0 0 0 100vmax #F7F3F1;clip-path:inset(0 -100vmax -2px);display:flex;flex-direction:column;gap:16px;align-items:center;">
   <div style="position:relative;width:100%;padding:8px;">
     <canvas ref="{{ fieldRef }}" aria-hidden="true" hidden="" style="position:absolute;top:8px;bottom:8px;left:calc(50% - 50vw);width:100vw;height:calc(100% - 16px);display:none;opacity:0.8;pointer-events:none;"></canvas>
-        <div ref="{{ heroBoxRef }}" style="position:relative;overflow:visible;min-height:clamp(0px, calc((100vw - 807px) * 999), max(600px, calc(min(100vh, 1200px) - 72px)));display:flex;flex-direction:column;gap:24px;padding:0 clamp(clamp(8px, calc((100vw - 807px) * 999), 24px), calc((100vw - 1439px) * 999), 40px) 40px;align-items:center;isolation:isolate;">
+        <div ref="{{ heroBoxRef }}" style="position:relative;overflow:visible;min-height:clamp(0px, calc((100vw - 807px) * 999), max(520px, calc(min(100vh, 1200px) - 152px)));display:flex;flex-direction:column;gap:24px;padding:0 clamp(clamp(8px, calc((100vw - 807px) * 999), 24px), calc((100vw - 1439px) * 999), 40px) 40px;align-items:center;isolation:isolate;">
       <div aria-hidden="true" style="flex:none;height:60px;"></div>
 
       <div style="position:relative;display:flex;flex:1 1 auto;flex-wrap:wrap;gap:24px;align-items:flex-start;width:100%;min-height:0;">
         <div ref="{{ heroTextRef }}" data-reveal-group="" style="position:relative;z-index:2;flex:1 1 min(100%, 420px);max-width:668px;pointer-events:none;display:flex;flex-direction:column;gap:16px;align-items:flex-start;isolation:isolate;">
                     <img src="assets/logo/word-mark-sm-slate.svg" alt="Sheps.Design" width="110" height="13" hidden="" style="display:none;"></img>
-          <div style="display:flex;flex-direction:column;gap:16px;align-items:flex-start;width:100%;min-height:calc(100svh - 132px);padding-top:clamp(64px, 16vh, 240px);">
+          <div style="display:flex;flex-direction:column;gap:16px;align-items:flex-start;width:100%;min-height:calc(100svh - 132px);padding-top:clamp(0px, calc(16vh - 120px), 120px);">
           <div style="display:flex;flex-direction:column;gap:24px;margin-top:auto;width:100%;max-width:600px;">
-            <p style="margin:0;color:#131313;font-size:18px;font-weight:600;line-height:160%;letter-spacing:0.01em;text-wrap:pretty;">I’m Alex Shepherd, an interactive designer and creative director. For the past 15 years I’ve worked across in-house teams and external projects, partnering with companies like <a href="/mixpanel" style="pointer-events:auto;color:#131313;text-decoration:underline dotted #131313;text-decoration-thickness:1.5px;text-underline-offset:5px;" style-hover="text-decoration-style:solid;">Mixpanel</a>, <a href="https://www.pagerduty.com" target="_blank" rel="noopener" style="pointer-events:auto;color:#131313;text-decoration:underline dotted #131313;text-decoration-thickness:1.5px;text-underline-offset:5px;" style-hover="text-decoration-style:solid;">PagerDuty</a>, <a href="https://www.mattel.com" target="_blank" rel="noopener" style="pointer-events:auto;color:#131313;text-decoration:underline dotted #131313;text-decoration-thickness:1.5px;text-underline-offset:5px;" style-hover="text-decoration-style:solid;">Mattel</a> and <a href="https://www.unilever.com" target="_blank" rel="noopener" style="pointer-events:auto;color:#131313;text-decoration:underline dotted #131313;text-decoration-thickness:1.5px;text-underline-offset:5px;" style-hover="text-decoration-style:solid;">Unilever</a>, and helping startups build and scale their brands and products.</p>
-            <p style="margin:0;color:#6F6F6F;font-size:18px;font-weight:400;line-height:160%;letter-spacing:0.01em;text-wrap:pretty;">I create memorable brand moments and build customer loyalty through consistent, meaningful engagement, and that starts with a&nbsp;strong foundation. In the age of AI, that foundation matters more than ever, which is why I founded <a href="https://sheps.studio" target="_blank" rel="noopener" style="pointer-events:auto;color:#131313;text-decoration:underline dotted #131313;text-decoration-thickness:1.5px;text-underline-offset:5px;" style-hover="text-decoration-style:solid;">Sheps.Studio</a> to build agentic design systems and AI tooling that help teams scale consistently. AI&nbsp;speeds up production, but design thinking and craft remain at the heart of my practice.</p>
-            <p style="margin:0;color:#6F6F6F;font-size:18px;font-weight:400;line-height:160%;letter-spacing:0.01em;text-wrap:pretty;">Let’s make something, reach me at <a href="mailto:alex@sheps.studio" data-copy-email="alex@sheps.studio" data-copy-tip="above" data-cta="hero-email" data-cta-location="hero" title="Copy email address" style="pointer-events:auto;color:#131313;text-decoration:underline dotted #131313;text-decoration-thickness:1.5px;text-underline-offset:5px;" style-hover="text-decoration-style:solid;">alex@sheps.studio</a>.</p>
+            <p style="margin:0;color:#131313;font-size:16px;font-weight:600;line-height:160%;letter-spacing:0.01em;text-wrap:pretty;">I’m Alex Shepherd, an interactive designer and creative director. For the past 15 years I’ve worked across in-house teams and external projects, partnering with companies like <a href="/mixpanel" style="pointer-events:auto;color:#131313;text-decoration:underline dotted #131313;text-decoration-thickness:1px;text-underline-offset:5px;" style-hover="text-decoration-style:solid;">Mixpanel</a>, <a href="https://www.pagerduty.com" target="_blank" rel="noopener" style="pointer-events:auto;color:#131313;text-decoration:underline dotted #131313;text-decoration-thickness:1px;text-underline-offset:5px;" style-hover="text-decoration-style:solid;">PagerDuty</a>, <a href="https://www.mattel.com" target="_blank" rel="noopener" style="pointer-events:auto;color:#131313;text-decoration:underline dotted #131313;text-decoration-thickness:1px;text-underline-offset:5px;" style-hover="text-decoration-style:solid;">Mattel</a> and <a href="https://www.unilever.com" target="_blank" rel="noopener" style="pointer-events:auto;color:#131313;text-decoration:underline dotted #131313;text-decoration-thickness:1px;text-underline-offset:5px;" style-hover="text-decoration-style:solid;">Unilever</a>, and helping startups build and scale their brands and products.</p>
+            <p style="margin:0;color:#6F6F6F;font-size:16px;font-weight:400;line-height:160%;letter-spacing:0.01em;text-wrap:pretty;">I create memorable brand moments and build customer loyalty through consistent, meaningful engagement, and that starts with a&nbsp;strong foundation. In the age of AI, that foundation matters more than ever, which is why I founded <a href="https://sheps.studio" target="_blank" rel="noopener" style="pointer-events:auto;color:#131313;text-decoration:underline dotted #131313;text-decoration-thickness:1px;text-underline-offset:5px;" style-hover="text-decoration-style:solid;">Sheps.Studio</a> to build agentic design systems and AI tooling that help teams scale consistently. AI&nbsp;speeds up production, but design thinking and craft remain at the heart of my practice.</p>
+            <p style="margin:0;color:#6F6F6F;font-size:16px;font-weight:400;line-height:160%;letter-spacing:0.01em;text-wrap:pretty;">Let’s make something, reach me at <a href="mailto:alex@sheps.studio" data-copy-email="alex@sheps.studio" data-copy-tip="above" data-cta="hero-email" data-cta-location="hero" title="Copy email address" style="pointer-events:auto;color:#131313;text-decoration:underline dotted #131313;text-decoration-thickness:1px;text-underline-offset:5px;" style-hover="text-decoration-style:solid;">alex@sheps.studio</a>.</p>
           </div>
-          <a data-cta="hero-view-work" data-cta-tier="secondary" data-cta-location="hero" href="#work" style="pointer-events:auto;display:inline-flex;align-items:center;justify-content:center;flex:none;margin-top:16px;padding:12px 16px;border:0;border-radius:4px;background:#E9E4E1;color:#131313;font-family:'Inter',sans-serif;font-size:14px;font-weight:500;line-height:130%;letter-spacing:0.02em;text-decoration:none;white-space:nowrap;cursor:pointer;" style-hover="background:#CAE9DF;">View Work</a>
-          <div style="display:flex;flex-direction:column;gap:4px;width:100%;max-width:600px;margin-top:auto;">
-            <p style="margin:0;color:#6F6F6F;font-size:18px;font-weight:400;line-height:160%;letter-spacing:0.01em;text-wrap:pretty;">Founder of <a href="https://sheps.studio" target="_blank" rel="noopener" style="pointer-events:auto;color:#131313;text-decoration:underline dotted #131313;text-decoration-thickness:1.5px;text-underline-offset:5px;" style-hover="text-decoration-style:solid;">Sheps.Studio</a>.</p>
-            <div style="display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:8px 16px;width:100%;"><p style="margin:0;color:#6F6F6F;font-size:18px;font-weight:400;line-height:160%;letter-spacing:0.01em;text-wrap:pretty;">Past work for <a href="/mixpanel" style="pointer-events:auto;color:#131313;text-decoration:underline dotted #131313;text-decoration-thickness:1.5px;text-underline-offset:5px;" style-hover="text-decoration-style:solid;">Mixpanel</a> and <a href="/highfive" style="pointer-events:auto;color:#131313;text-decoration:underline dotted #131313;text-decoration-thickness:1.5px;text-underline-offset:5px;" style-hover="text-decoration-style:solid;">Highfive</a>.</p><div ref="{{ scrollCueRef }}" style="display:flex;align-items:center;flex:none;gap:8px;transition:opacity 0.3s ease;color:#6F6F6F;font-size:14px;font-weight:500;line-height:130%;letter-spacing:0.02em;"><img data-bounce="" src="assets/icons/sys-down-arrow-slate-muted.svg" alt="" width="24" height="24" style="display:block;animation:arrowIn 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.6s both, arrowBounce 10s ease-in-out 2s infinite;"></img><span>Scroll</span></div></div>
+          <a data-btn="" data-cta="hero-view-work" data-cta-tier="secondary" data-cta-location="hero" href="#work" style="pointer-events:auto;display:inline-flex;align-items:center;justify-content:center;flex:none;margin-top:16px;padding:12px 16px;border:0;border-radius:4px;background:#E9E4E1;color:#131313;font-family:'Inter',sans-serif;font-size:14px;font-weight:500;line-height:130%;letter-spacing:0.02em;text-decoration:none;white-space:nowrap;cursor:pointer;" style-hover="background:#CAE9DF;">View Work</a>
+          <div style="display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:16px;width:100%;max-width:600px;margin-top:auto;">
+            <div style="display:flex;flex-direction:column;align-items:flex-start;gap:12px;flex:1 1 360px;min-width:0;"><div style="display:flex;flex-wrap:wrap;gap:8px;min-width:0;"><span style="display:inline-flex;padding:4px 8px;border-radius:4px;background:#F2ECE8B3;color:#131313;font-size:12px;font-weight:500;line-height:130%;letter-spacing:0.02em;white-space:nowrap;">Brand Experience</span><span style="display:inline-flex;padding:4px 8px;border-radius:4px;background:#F2ECE8B3;color:#131313;font-size:12px;font-weight:500;line-height:130%;letter-spacing:0.02em;white-space:nowrap;">Product Design</span><span style="display:inline-flex;padding:4px 8px;border-radius:4px;background:#F2ECE8B3;color:#131313;font-size:12px;font-weight:500;line-height:130%;letter-spacing:0.02em;white-space:nowrap;">Agentic Systems</span><span style="display:inline-flex;padding:4px 8px;border-radius:4px;background:#F2ECE8B3;color:#131313;font-size:12px;font-weight:500;line-height:130%;letter-spacing:0.02em;white-space:nowrap;">AI Tooling</span><span style="display:inline-flex;padding:4px 8px;border-radius:4px;background:#F2ECE8B3;color:#131313;font-size:12px;font-weight:500;line-height:130%;letter-spacing:0.02em;white-space:nowrap;">Creative Direction</span><span style="display:inline-flex;padding:4px 8px;border-radius:4px;background:#F2ECE8B3;color:#131313;font-size:12px;font-weight:500;line-height:130%;letter-spacing:0.02em;white-space:nowrap;">Building</span></div></div>
+            <div ref="{{ scrollCueRef }}" style="display:flex;align-items:center;flex:none;margin-left:auto;gap:8px;transition:opacity 0.3s ease;color:#6F6F6F;font-size:14px;font-weight:500;line-height:130%;letter-spacing:0.02em;"><img data-bounce="" src="assets/icons/sys-down-arrow-slate-muted.svg" alt="" width="24" height="24" style="display:block;animation:arrowIn 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.6s both, arrowBounce 10s ease-in-out 2s infinite;"></img><span>Scroll</span></div>
           </div>
-          </div>
-          <div aria-hidden="true" style="flex:none;width:100%;max-width:600px;margin-top:64px;height:30px;background:url('assets/patterns/plus-cream.svg') 0 0 / 8px 10px repeat;"></div>
-          <div style="display:flex;flex-direction:column;width:100%;max-width:600px;margin-top:64px;">
-            <div style="padding:0 0 16px;color:#131313;font-size:18px;font-weight:500;line-height:140%;">Focus</div>
-            <div style="display:flex;padding:16px 0;border-top:1px solid #E1DDDC;"><span style="color:#131313;font-size:18px;line-height:140%;">Brand Experience</span></div>
-            <div style="display:flex;padding:16px 0;border-top:1px solid #E1DDDC;"><span style="color:#131313;font-size:18px;line-height:140%;">Product Design</span></div>
-            <div style="display:flex;padding:16px 0;border-top:1px solid #E1DDDC;"><span style="color:#131313;font-size:18px;line-height:140%;">Agentic Systems</span></div>
-            <div style="display:flex;padding:16px 0;border-top:1px solid #E1DDDC;"><span style="color:#131313;font-size:18px;line-height:140%;">AI Tooling</span></div>
-            <div style="display:flex;padding:16px 0;border-top:1px solid #E1DDDC;"><span style="color:#131313;font-size:18px;line-height:140%;">Creative Direction</span></div>
-            <div style="display:flex;padding:16px 0;border-top:1px solid #E1DDDC;"><span style="color:#131313;font-size:18px;line-height:140%;">Building</span></div>
           </div>
         </div>
         <sc-if value="{{ showHeroArt }}" hint-placeholder-val="{{ true }}">
@@ -105,30 +100,20 @@ a:focus-visible,button:focus-visible{outline:2px solid #FDBB6F;outline-offset:2p
 </header>
 
 <section id="work" data-surface="cream" data-screen-label="Real systems" style="display:flex;flex-direction:column;gap:24px;padding:40px clamp(clamp(8px, calc((100vw - 807px) * 999), 24px), calc((100vw - 1439px) * 999), 40px);background:#F7F3F1;box-shadow:0 0 0 100vmax #F7F3F1;clip-path:inset(0 -100vmax);">
-  <div aria-hidden="true" style="height:1px;background:#E1DDDC;"></div>
-  <div style="display:flex;flex-direction:column;gap:16px;justify-content:flex-end;max-width:800px;min-height:113px;">
-    <h2 style="margin:0;color:#131313;font-family:'Inter',sans-serif;font-size:20px;font-weight:600;line-height:140%;letter-spacing:0.02em;">Examples of work.</h2>
-    <p style="margin:0;color:#6F6F6F;font-size:16px;font-weight:400;line-height:140%;letter-spacing:0.02em;text-wrap:pretty;">A handful of the brands and systems I've designed from the ground up or made AI-ready, from the visual identity and token architecture to the components and guardrails that keep AI-generated work on-brand.</p>
-  </div>
   <div style="display:flex;flex-direction:column;gap:24px;">
   <div aria-hidden="true" style="height:40px;background:url('assets/patterns/plus-cream.svg') 0 0 / 8px 10px repeat;"></div>
   <sc-for list="{{ workRows }}" as="row" hint-placeholder-count="2">
   <div style="display:grid;grid-template-columns:{{ workColumns }};gap:40px 16px;">
     <sc-for list="{{ row.items }}" as="w" hint-placeholder-count="2">
-      <a href="{{ w.href }}" style="display:flex;flex-direction:column;gap:16px;color:inherit;text-decoration:none;">
-        <div style="flex:1 1 auto;display:flex;flex-direction:column;gap:16px;">
-          <h3 style="margin:0;color:#131313;font-size:16px;font-weight:600;line-height:140%;letter-spacing:0.02em;text-wrap:pretty;"><span style="color:#131313;">{{ w.client }}</span> <span style="font-weight:400;color:#6F6F6F;">{{ w.summary }}</span></h3>
-          <div style="display:flex;align-items:flex-start;gap:8px;font-size:14px;line-height:130%;letter-spacing:0.02em;">
-            <p style="margin:3px 0 0;color:#131313;font-weight:600;">Role</p>
-            <span aria-hidden="true" style="flex:none;width:1px;height:11px;margin-top:6px;background:#E1DDDC;"></span>
-            <ul role="list" style="display:flex;flex-wrap:wrap;gap:8px;min-width:0;margin:0;padding:0;list-style:none;">
-              <sc-for list="{{ w.services }}" as="s" hint-placeholder-count="3">
-                <li><span style="display:inline-flex;align-items:center;padding:4px 8px;border-radius:4px;background:#FEE7CD;color:#131313;font-size:12px;font-weight:500;line-height:130%;letter-spacing:0.02em;white-space:nowrap;">{{ s }}</span></li>
-              </sc-for>
-            </ul>
+      <a href="{{ w.href }}" style="display:flex;flex-wrap:wrap;gap:16px 40px;align-items:flex-start;color:inherit;text-decoration:none;">
+        <div style="position:sticky;top:min(84px, calc((100vw - 807px) * 999));flex:1 1 257px;max-width:max(257px, calc((808px - 100vw) * 999));min-width:0;display:flex;flex-direction:column;gap:16px;">
+          <h3 style="margin:0;color:#131313;font-size:16px;font-weight:600;line-height:140%;letter-spacing:0.02em;text-wrap:pretty;"><span style="display:block;color:#131313;">{{ w.client }}</span><span style="display:block;margin-top:4px;font-size:14px;font-weight:400;line-height:130%;color:#6F6F6F;">{{ w.summary }}</span></h3>
+          <div style="display:flex;flex-direction:column;gap:6px;margin-top:8px;">
+            <div style="display:flex;align-items:center;gap:6px;font-size:12px;line-height:130%;letter-spacing:0.02em;"><img src="assets/icons/brand-client-cream.svg?v=3" alt="" width="12" height="12"></img><span style="color:#131313;font-weight:600;">Company</span><span aria-hidden="true" style="width:1px;height:9px;background:#E1DDDC;"></span><span style="color:#6F6F6F;">{{ w.company }}</span></div>
+            <div style="display:flex;align-items:center;gap:6px;font-size:12px;line-height:130%;letter-spacing:0.02em;"><img src="assets/icons/brand-year-cream.svg?v=3" alt="" width="12" height="12"></img><span style="color:#131313;font-weight:600;">Year</span><span aria-hidden="true" style="width:1px;height:9px;background:#E1DDDC;"></span><span style="color:#6F6F6F;">{{ w.year }}</span></div>
           </div>
         </div>
-        <div role="img" aria-label="{{ w.imgAlt }}" data-pixelate="" data-ascii-src="{{ w.pixelSrc }}" style="position:relative;overflow:hidden;aspect-ratio:16/9;border-radius:8px;filter:{{ cardFilter }};transition:filter 0.35s ease;cursor:none;background:{{ w.imgBg }};"><div data-eyes="" aria-hidden="true" style="position:absolute;top:16px;right:16px;display:flex;pointer-events:none;opacity:0;transform:scale(0.9);transform-origin:top right;transition:opacity 0.25s ease, transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);"><x-import component="EyeTracker" from="./components/EyeTracker.jsx" size="{{ 64 }}" shape="Cube" corner="{{ 16 }}" dots="{{ true }}" eye-scale="{{ 1.5 }}" hint-size="64px,64px"></x-import></div></div>
+        <div role="img" aria-label="{{ w.imgAlt }}" data-pixelate="" data-ascii-src="{{ w.pixelSrc }}" data-video="{{ w.video }}" style="flex:1 1 calc((808px - 100vw) * 999);min-width:0;position:relative;overflow:hidden;aspect-ratio:16/9;border-radius:8px;filter:{{ cardFilter }};transition:filter 0.35s ease;cursor:crosshair;background:{{ w.imgBg }};"></div>
       </a>
     </sc-for>
   </div>
@@ -146,7 +131,7 @@ a:focus-visible,button:focus-visible{outline:2px solid #FDBB6F;outline-offset:2p
     <div style="position:relative;z-index:1;display:flex;flex:1 1 min(100%, 420px);flex-direction:column;gap:16px;pointer-events:none;max-width:668px;">
       <h2 style="margin:0;color:#131313;font-family:'Inter',sans-serif;font-size:20px;font-weight:600;line-height:140%;letter-spacing:0.02em;">Why I love agentic systems.</h2>
       <p style="margin:0;color:#6F6F6F;font-size:16px;font-weight:400;line-height:140%;letter-spacing:0.02em;text-wrap:pretty;">Most design systems were built for humans to read. That was fine until AI started writing the code. An agentic design system is one where the tokens, components, and rules are structured so an AI can compose from them correctly, and get rejected when it doesn't. That distinction is what helps keep AI tooling on brand and speed up design production.</p>
-      <a data-cta="agentic-learn-more" data-cta-tier="primary" data-cta-location="agentic-section" href="/agentic-systems" style="pointer-events:auto;align-self:flex-start;display:inline-flex;align-items:center;justify-content:center;flex:none;padding:12px 16px;border:0;border-radius:4px;background:#E9E4E1;color:#131313;font-family:'Inter',sans-serif;font-size:14px;font-weight:500;line-height:130%;letter-spacing:0.02em;text-decoration:none;white-space:nowrap;cursor:pointer;" style-hover="background:#CAE9DF;color:#131313;" style-active="background:#CAE9DF;color:#131313;opacity:0.8;">Learn About Agentic Systems</a>
+      <a data-btn="" data-cta="agentic-learn-more" data-cta-tier="primary" data-cta-location="agentic-section" href="/agentic-systems" style="pointer-events:auto;align-self:flex-start;display:inline-flex;align-items:center;justify-content:center;flex:none;padding:12px 16px;border:0;border-radius:4px;background:#E9E4E1;color:#131313;font-family:'Inter',sans-serif;font-size:14px;font-weight:500;line-height:130%;letter-spacing:0.02em;text-decoration:none;white-space:nowrap;cursor:pointer;" style-hover="background:#CAE9DF;color:#131313;" style-active="background:#CAE9DF;color:#131313;opacity:0.8;">Agentic Systems</a>
     </div>
     <sc-if value="{{ showHeroArt }}" hint-placeholder-val="{{ true }}">
     <div style="position:relative;flex:1 1 min(100%, 306px);max-width:646px;aspect-ratio:1 / 1;margin:0 auto;">
@@ -166,7 +151,7 @@ a:focus-visible,button:focus-visible{outline:2px solid #FDBB6F;outline-offset:2p
 
 </div>
 </x-dc>
-<script type="text/x-dc" data-dc-script data-props="{&quot;workLayout&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;2 columns&quot;,&quot;4 columns&quot;],&quot;default&quot;:&quot;2 columns&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;heroTilt&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;min&quot;:0,&quot;max&quot;:30,&quot;step&quot;:1,&quot;unit&quot;:&quot;°&quot;,&quot;default&quot;:5,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Hero ASCII&quot;},&quot;heroParallax&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;min&quot;:0,&quot;max&quot;:40,&quot;step&quot;:1,&quot;unit&quot;:&quot;px&quot;,&quot;default&quot;:14,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Hero ASCII&quot;},&quot;heroRepel&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;min&quot;:0,&quot;max&quot;:40,&quot;step&quot;:0.1,&quot;unit&quot;:&quot;px&quot;,&quot;default&quot;:13.2,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Hero ASCII&quot;},&quot;heroRepelRadius&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;min&quot;:30,&quot;max&quot;:240,&quot;step&quot;:5,&quot;unit&quot;:&quot;px&quot;,&quot;default&quot;:90,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Hero ASCII&quot;},&quot;heroDensity&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;min&quot;:120,&quot;max&quot;:360,&quot;step&quot;:2,&quot;unit&quot;:&quot;cols&quot;,&quot;default&quot;:282,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Hero ASCII&quot;},&quot;heroFlares&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Hero ASCII&quot;},&quot;heroWindows&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Hero ASCII&quot;},&quot;asciiLetterSpacing&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:0.385,&quot;min&quot;:0,&quot;max&quot;:1.5,&quot;step&quot;:0.005,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Hero ASCII&quot;},&quot;heroLayerDepth&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:1,&quot;min&quot;:0,&quot;max&quot;:2,&quot;step&quot;:0.05,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Hero ASCII&quot;}}">
+<script type="text/x-dc" data-dc-script data-props="{&quot;workLayout&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;1 column&quot;,&quot;2 columns&quot;,&quot;4 columns&quot;],&quot;default&quot;:&quot;1 column&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;heroTilt&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;min&quot;:0,&quot;max&quot;:30,&quot;step&quot;:1,&quot;unit&quot;:&quot;°&quot;,&quot;default&quot;:5,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Hero ASCII&quot;},&quot;heroParallax&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;min&quot;:0,&quot;max&quot;:40,&quot;step&quot;:1,&quot;unit&quot;:&quot;px&quot;,&quot;default&quot;:14,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Hero ASCII&quot;},&quot;heroRepel&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;min&quot;:0,&quot;max&quot;:40,&quot;step&quot;:0.1,&quot;unit&quot;:&quot;px&quot;,&quot;default&quot;:13.2,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Hero ASCII&quot;},&quot;heroRepelRadius&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;min&quot;:30,&quot;max&quot;:240,&quot;step&quot;:5,&quot;unit&quot;:&quot;px&quot;,&quot;default&quot;:90,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Hero ASCII&quot;},&quot;heroDensity&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;min&quot;:120,&quot;max&quot;:360,&quot;step&quot;:2,&quot;unit&quot;:&quot;cols&quot;,&quot;default&quot;:282,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Hero ASCII&quot;},&quot;heroFlares&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Hero ASCII&quot;},&quot;heroWindows&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Hero ASCII&quot;},&quot;asciiLetterSpacing&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:0.385,&quot;min&quot;:0,&quot;max&quot;:1.5,&quot;step&quot;:0.005,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Hero ASCII&quot;},&quot;heroLayerDepth&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:1,&quot;min&quot;:0,&quot;max&quot;:2,&quot;step&quot;:0.05,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Hero ASCII&quot;}}">
 class Component extends DCLogic {
   state = { open: 0, sent: false, navCream: false };
   asciiRef = React.createRef();
@@ -514,7 +499,7 @@ class Component extends DCLogic {
     let src = el.getAttribute('data-ascii-src');
     if (!src) {
       const t = document.createElement('canvas'); t.width = 16; t.height = 9;
-      const tx = t.getContext('2d'); tx.fillStyle = getComputedStyle(el).backgroundColor || '#CAE9DF'; tx.fillRect(0, 0, 16, 9);
+      const tx = t.getContext('2d'); tx.fillStyle = getComputedStyle(el).backgroundColor || '#E9E4E1'; tx.fillRect(0, 0, 16, 9);
       src = t.toDataURL();
     }
     const c = el._ascii = document.createElement('canvas');
@@ -573,6 +558,26 @@ class Component extends DCLogic {
     window.mixpanel && window.mixpanel.track('Email copied', { page: location.pathname, location: key === 'navCopied' ? 'nav' : 'hero' });
   }
   componentDidMount() {
+    // Hero: line the crystal's centre up with the centre of the main copy beside it. Desktop only; on phones the art wraps below.
+    this.alignHeroArt = () => {
+      const g = this.heroTextRef.current, a = this.heroArtRef.current;
+      if (!g || !a) return;
+      if (window.innerWidth <= 807) { a.style.marginTop = ''; return; }
+      const blk = g.children[1];
+      if (!blk || !blk.children.length) return;
+      // the main copy: first paragraph down to the View Work button (the Founder lines sit apart, near the fold)
+      const endEl = blk.querySelector('[data-cta="hero-view-work"]') || blk.children[blk.children.length - 1];
+      // layout positions (offsetTop), so the load animation's transforms don't skew the measurement
+      const row = a.parentElement;
+      const topIn = (el) => { let y = 0; while (el && el !== row) { y += el.offsetTop; el = el.offsetParent; } return y; };
+      const firstEl = blk.children[0];
+      const mid = (topIn(firstEl) + topIn(endEl) + endEl.offsetHeight) / 2;
+      a.style.marginTop = Math.max(0, Math.round(mid - a.offsetHeight / 2)) + 'px';
+    };
+    window.addEventListener('resize', this.alignHeroArt);
+    if (window.ResizeObserver) { this.heroRO = new ResizeObserver(() => this.alignHeroArt()); if (this.heroTextRef.current) this.heroRO.observe(this.heroTextRef.current); }
+    requestAnimationFrame(this.alignHeroArt); setTimeout(this.alignHeroArt, 600);
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(this.alignHeroArt);
     this.onCueScroll = () => { const el = this.scrollCueRef.current; if (el) el.style.opacity = String(Math.max(0, 1 - window.scrollY / 120)); };
     window.addEventListener('scroll', this.onCueScroll, { passive: true });
     this.onCueScroll();
@@ -580,7 +585,7 @@ class Component extends DCLogic {
       if (this.state.isPhone) return;
       const a = e.target.closest && e.target.closest('a');
       const el = a && a.querySelector('[data-pixelate]');
-      const off = (p) => { p.style.filter = 'grayscale(1)'; const ey = p.querySelector('[data-eyes]'); if (ey) { ey.style.opacity = '0'; ey.style.transform = 'scale(0.9)'; } if (p._tag) { p._tag.style.opacity = '0'; } };
+      const off = (p) => { p.style.filter = 'none'; const ey = p.querySelector('[data-eyes]'); if (ey) { ey.style.opacity = '0'; ey.style.transform = 'scale(0.9)'; } if (p._tag) { p._tag.style.opacity = '0'; } };
       if (this._pxEl && this._pxEl !== el) off(this._pxEl);
       this._pxEl = el || null;
       if (!el) return;
@@ -592,10 +597,38 @@ class Component extends DCLogic {
       el.style.filter = 'none';
       const ey = el.querySelector('[data-eyes]'); if (ey) { ey.style.opacity = '1'; ey.style.transform = 'scale(1)'; }
       t.style.transform = 'translate(' + x + 'px,' + y + 'px) translate(-50%, -50%)';
-      t.style.opacity = '1';
+      t.style.opacity = '0'; // the hero's crosshair cursor is used instead of the square
     };
-    this.onPxOut = (e) => { if (!this.state.isPhone && !e.relatedTarget && this._pxEl) { this._pxEl.style.filter = 'grayscale(1)'; const ey = this._pxEl.querySelector('[data-eyes]'); if (ey) { ey.style.opacity = '0'; ey.style.transform = 'scale(0.9)'; } if (this._pxEl._tag) this._pxEl._tag.style.opacity = '0'; this._pxEl = null; } };
+    this.onPxOut = (e) => { if (!this.state.isPhone && !e.relatedTarget && this._pxEl) { this._pxEl.style.filter = 'none'; const ey = this._pxEl.querySelector('[data-eyes]'); if (ey) { ey.style.opacity = '0'; ey.style.transform = 'scale(0.9)'; } if (this._pxEl._tag) this._pxEl._tag.style.opacity = '0'; this._pxEl = null; } };
     document.addEventListener('pointermove', this.onPxMove);
+    // Work cards: the About photo's dot wake follows the hand across each image (desktop; about-popup.js provides it)
+    this.wireCardWake = () => {
+      if (!window.__dotWake || this.state.isPhone || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+      document.querySelectorAll('#work [data-pixelate]').forEach((el) => { if (el._wake) return; el._wake = true; window.__dotWake(el, el.getAttribute('data-ascii-src'), { floor: 0.5 }); });
+    };
+    [0, 600, 2000].forEach((t) => setTimeout(this.wireCardWake, t));
+    // Work cards with a sizzle reel (w.video): a muted loop sits over the still image and plays only while
+    // the card is on screen. Phones load -mobile, browsers without AV1 load -h264. Reduced motion keeps the still.
+    this.wireCardVideo = () => {
+      if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+      document.querySelectorAll('#work [data-video$=".mp4"]').forEach((el) => {
+        if (el._vid) return; el._vid = true;
+        const v = document.createElement('video');
+        const av1 = v.canPlayType('video/mp4; codecs="av01.0.08M.08"');
+        const alt = matchMedia('(max-width: 807px)').matches ? '-mobile' : (!av1 ? '-h264' : '');
+        v.muted = true; v.loop = true; v.playsInline = true; v.preload = 'none';
+        v.setAttribute('muted', ''); v.setAttribute('playsinline', ''); v.setAttribute('aria-hidden', 'true');
+        v.style.cssText = 'position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity 0.4s ease;pointer-events:none;';
+        v.addEventListener('playing', () => { v.style.opacity = '1'; }, { once: true });
+        el.prepend(v);
+        const src = el.getAttribute('data-video').replace(/\.mp4$/, alt + '.mp4');
+        new IntersectionObserver((es) => es.forEach((e) => {
+          if (e.isIntersecting) { if (!v.src) v.src = src; const p = v.play(); if (p && p.catch) p.catch(() => {}); }
+          else v.pause();
+        }), { threshold: 0.25 }).observe(el);
+      });
+    };
+    [0, 600, 2000].forEach((t) => setTimeout(this.wireCardVideo, t));
     document.addEventListener('pointerout', this.onPxOut);
     this._mqPhone = window.matchMedia('(max-width: 807px)');
     this._onPhone = () => this.setState({ isPhone: this._mqPhone.matches });
@@ -691,6 +724,8 @@ class Component extends DCLogic {
     document.addEventListener('pointerleave', this.onOut);
   }
   componentWillUnmount() {
+    window.removeEventListener('resize', this.alignHeroArt);
+    if (this.heroRO) this.heroRO.disconnect();
     window.removeEventListener('scroll', this.onCueScroll);
     document.removeEventListener('pointermove', this.onPxMove);
     document.removeEventListener('pointerout', this.onPxOut);
@@ -737,29 +772,29 @@ class Component extends DCLogic {
       "Mixpanel Spring/Summer '25 Road Cycling launch campaign. Establishing category dominance for a global cycling leader through elevated storytelling.",
       "Better Business Practice Spring/Summer '25 Road Cycling launch campaign. Establishing category dominance for a global cycling leader through elevated storytelling.",
     ];
-    const layout = this.props.workLayout ?? '2 columns';
+    const layout = this.props.workLayout ?? '1 column';
     const div = '1px solid #F7F3F11A';
     return {
       showHeroArt: !this.state.isPhone,
       isPhone: !!this.state.isPhone,
-      cardFilter: this.state.isPhone ? 'none' : 'grayscale(1)',
+      cardFilter: 'none',
       valueProps: [
         { icon: 'assets/icons/brand-speed-up-with-ai-slate.svg', title: 'Get your team working with AI', body: "I set your team up with the AI tools and workflows they'll actually use day to day." },
         { icon: 'assets/icons/brand-one-time-setup-slate.svg', title: 'One-time setup, built to last', body: 'I set the foundation once, and it scales with you as you grow.' },
         { icon: 'assets/icons/brand-meet-you-at-any-stage-slate.svg', title: "Meet you where you're at", body: "I work with your stack and jump in at whatever stage you're at." },
       ],
       workRows: (() => {
-        const mix = { client: 'Mixpanel design and agentic system.', summary: "Brand design, plus Heliograph, the agentic design system behind it. Taken from full audit through tokens and components to an AI tooling layer designers, engineers and agents all build from.", services: ['Creative direction', 'Design', 'Agentic design system', 'Agent contract', 'Build', 'AI tooling'], href: '/mixpanel' };
-        const coach = { client: 'Coach product design and agentic system.', summary: "A mood and journal tracker powered by AI insights. I designed the product and the system behind it, so every check-in and entry turns into patterns people can actually act on.", services: ['UX research', 'Product design', 'Agentic design system', 'Agent contract', 'Product build', 'AI tooling'], href: '/coach' };
-        mix.imgAlt = 'Mixpanel hero'; mix.pixelSrc = 'assets/case-study/mixpanel-hero.png?v=2'; mix.imgBg = "#CAE9DF url('assets/case-study/mixpanel-hero.png?v=2') center / cover no-repeat";
-        coach.imgAlt = 'Coach app hero'; coach.pixelSrc = 'assets/case-study/coach-hero.png'; coach.imgBg = "#CAE9DF url('assets/case-study/coach-hero.png') center / cover no-repeat";
-        const highfive = { client: 'Highfive design and agentic system.', summary: "A ground-up refresh of a dated brand, paired with a design system AI agents can build from.", services: ['Creative Direction', 'Design', 'Build'], href: '/highfive', imgAlt: 'Highfive hero', pixelSrc: 'assets/case-study/highfive-hero-logo.png', imgBg: "#CAE9DF url('assets/case-study/highfive-hero-logo.png') center / cover no-repeat" };
-        const rebrand = { client: 'Mixpanel rebrand.', summary: "Reimagining Mixpanel’s brand for its next chapter, from a new logo to the foundation everything else is built\u00a0on.", services: ['Brand design', 'Interactive design'], href: '/mixpanel-rebrand', imgAlt: 'Mixpanel rebrand hero', pixelSrc: 'assets/case-study/mixpanel-rebrand/hero.webp', imgBg: "#CAE9DF url('assets/case-study/mixpanel-rebrand/hero.webp') center / cover no-repeat" };
+        const mix = { company: 'Mixpanel', year: '2026', client: 'Mixpanel design and agentic system.', summary: "Brand design, plus Heliograph, the agentic design system behind it. Taken from full audit through tokens and components to an AI tooling layer designers, engineers and agents all build from.", services: ['Creative direction', 'Design', 'Agentic design system', 'Agent contract', 'Build', 'AI tooling'], href: '/mixpanel' };
+        const coach = { company: 'Coach App', year: '2026', client: 'Coach product design and agentic system.', summary: "A mood and journal tracker powered by AI insights. I designed the product and the system behind it, so every check-in and entry turns into patterns people can actually act on.", services: ['UX research', 'Product design', 'Agentic design system', 'Agent contract', 'Product build', 'AI tooling'], href: '/coach' };
+        mix.imgAlt = 'Mixpanel hero'; mix.pixelSrc = 'assets/case-study/mixpanel-hero.png?v=2'; mix.imgBg = "#E9E4E1 url('assets/case-study/mixpanel-hero.png?v=2') center / cover no-repeat";
+        coach.imgAlt = 'Coach app hero'; coach.pixelSrc = 'assets/case-study/coach-hero.png'; coach.imgBg = "#E9E4E1 url('assets/case-study/coach-hero.png') center / cover no-repeat";
+        const highfive = { company: 'Highfive', year: '2026 (revisited)', client: 'Highfive design.', summary: "A ground-up refresh of a dated brand, paired with a design system AI agents can build from.", services: ['Creative Direction', 'Design', 'Build'], href: '/highfive', imgAlt: 'Highfive hero', pixelSrc: 'assets/case-study/highfive-hero-logo.png', imgBg: "#E9E4E1 url('assets/case-study/highfive-hero-logo.png') center / cover no-repeat" };
+        const rebrand = { company: 'Mixpanel', year: '2024', client: 'Mixpanel rebrand.', summary: "Reimagining Mixpanel’s brand for its next chapter, from a new logo to the foundation everything else is built\u00a0on.", services: ['Brand design', 'Interactive design'], href: '/mixpanel-rebrand', imgAlt: 'Mixpanel rebrand hero', pixelSrc: 'assets/case-study/mixpanel-rebrand/hero.webp', imgBg: "#E9E4E1 url('assets/case-study/mixpanel-rebrand/hero.webp') center / cover no-repeat" };
         const work = [mix, coach, highfive, rebrand];
-        const rows = layout === '4 columns' ? [{ items: work }] : [{ items: work.slice(0, 2) }, { items: work.slice(2, 4) }];
+        const rows = layout === '4 columns' ? [{ items: work }] : layout === '1 column' ? work.map((w) => ({ items: [w] })) : [{ items: work.slice(0, 2) }, { items: work.slice(2, 4) }];
         return rows.map((r, i) => Object.assign(r, { divider: i < rows.length - 1 }));
       })(),
-      workColumns: layout === '4 columns' ? 'repeat(auto-fit,minmax(min(100%,16rem),1fr))' : 'repeat(auto-fit,minmax(min(100%,28rem),1fr))',
+      workColumns: layout === '4 columns' ? 'repeat(auto-fit,minmax(min(100%,16rem),1fr))' : layout === '1 column' ? 'minmax(0,1fr)' : 'repeat(auto-fit,minmax(min(100%,28rem),1fr))',
       whyImages: [
         { src: 'assets/figma/why-1.png', alt: 'Crystal cluster rendered in an ASCII texture' },
         { src: 'assets/figma/why-2.png', alt: 'Glass shards rendered in an ASCII texture' },

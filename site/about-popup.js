@@ -3,6 +3,8 @@
   if (window.__aboutWired) return;
   window.__aboutWired = true;
   const ROWS = [["Sheps.Studio","Founder / Creative Director"],["Mixpanel","Principal Designer / 2018 - 2026"],["Highfive","Senior Visual Designer / 2016 - 2018"],["PagerDuty","Interactive Designer / 2015 - 2016"],["Freelance","Designer / 2014 - 2015"],["Hot Pickle","Graphic Designer / 2012 - 2014"],["Protége","Design Teacher / Mentor / 2010 - 2011"],["The Hospital Club","Artist in Residence / 2010 - 2011"]];
+  // the photo resolves from this script's own URL, so the pop-up also works on pages in subfolders (/tools/...)
+  const PHOTO = new URL('assets/about/alex.jpg', (document.currentScript && document.currentScript.src) || location.href).href;
   let open = null, lastFocus = null;
   function close() {
     if (!open) return;
@@ -24,18 +26,35 @@
   }
   function onKey(e) { if (e.key === 'Escape') { e.preventDefault(); close(); } }
   // Hover: the photo turns into the hero's halftone dot field, and the pointer drags a glyph wake through it.
-  function dotWake(el, src) {
-    const RAMP = [' ', '.', ':', '-', '=', '+', '*', '#', '%', '@'], TOP = RAMP.length - 1, SIZE = 9;
-    const cw = SIZE * 0.62, ch = SIZE * 0.82, font = '500 ' + SIZE + 'px ui-monospace, "SF Mono", SFMono-Regular, Menlo, Consolas, monospace';
+  // opts.floor: minimum density for every cell, so light areas (a white glow) still carry the trail
+  function dotWake(el, src, opts) {
+    const FLOOR = (opts && opts.floor) || 0;
+    const RAMP = [' ', '.', ':', '-', '=', '+', '*', '#', '%', '@'], TOP = RAMP.length - 1;
+    // Match the home hero's dot crystal: the same 9-unit glyph and 41-unit wake, scaled the way the hero
+    // is scaled on screen (its canvas width over its 868-unit block; off the home page, the same formula)
+    const heroScale = () => {
+      const hc = document.querySelector('header [data-reveal] canvas');
+      const w = hc ? hc.getBoundingClientRect().width : 0;
+      if (w > 50) return w / 868;
+      return Math.min(1, Math.min(520, window.innerHeight * 0.44) * 1.6 / 868);
+    };
+    let SIZE = 9, cw = 0, ch = 0, font = '', rad = 41;
+    const setScale = () => {
+      const s = heroScale();
+      SIZE = 9 * s; cw = SIZE * 0.62; ch = SIZE * 0.82; rad = 41 * s;
+      font = '500 ' + SIZE.toFixed(2) + 'px ui-monospace, "SF Mono", SFMono-Regular, Menlo, Consolas, monospace';
+    };
+    setScale();
     const c = document.createElement('canvas');
     c.setAttribute('aria-hidden', 'true');
     c.style.cssText = 'position:absolute;inset:0;width:100%;height:100%;pointer-events:none;opacity:0;';
     el.appendChild(c);
-    const img = new Image(); let ok = false; img.onload = () => { ok = true; }; img.src = src;
+    const img = new Image(); let ok = false; img.onload = () => { ok = true; }; img.onerror = () => { ok = true; }; img.src = src;
     let W = 0, H = 0, cols = 0, rows = 0, mask = null, heat = null, ratio = 1;
     let hx = -999, hy = -999, lx = NaN, ly = NaN, near = 0, inside = false, raf = 0, deal = 0, tick = 0;
     const hash = (k, n) => { let h = (k * 374761393 + n * 668265263) | 0; h = Math.imul(h ^ (h >>> 13), 1274126177); return ((h ^ (h >>> 16)) >>> 0) / 4294967296; };
     const build = () => {
+      setScale();
       const r = el.getBoundingClientRect(); W = r.width; H = r.height;
       ratio = Math.min(2, window.devicePixelRatio || 1);
       c.width = Math.round(W * ratio); c.height = Math.round(H * ratio);
@@ -44,16 +63,21 @@
       const sw = cols * 2, sc = document.createElement('canvas'); sc.width = sw; sc.height = rows;
       const g = sc.getContext('2d', { willReadFrequently: true });
       const k = Math.max(W / img.width, H / img.height), pw = img.width * k, ph = img.height * k;
-      g.drawImage(img, (W - pw) * 0.52 * sw / W, (H - ph) * 0.4 * rows / H, pw * sw / W, ph * rows / H);
-      const px = g.getImageData(0, 0, sw, rows).data;
+      let px = null;
+      // if the photo can't be read back (a host serving it from another origin taints the
+      // canvas), fall back to an even mid density so the wake still shows instead of nothing
+      try {
+        g.drawImage(img, (W - pw) * 0.52 * sw / W, (H - ph) * 0.4 * rows / H, pw * sw / W, ph * rows / H);
+        px = g.getImageData(0, 0, sw, rows).data;
+      } catch (e) { px = null; }
+      if (!px) { mask.fill(Math.max(FLOOR, 0.6)); return; }
       for (let j = 0; j < rows; j++) for (let i = 0; i < cols; i++) {
         const p = (j * sw + Math.min(sw - 1, i * 2 + (j & 1))) * 4;
         const l = (px[p] * 0.299 + px[p + 1] * 0.587 + px[p + 2] * 0.114) / 255;
         const m = Math.min(1, Math.max(0, (1.05 - l) / 0.9));
-        mask[j * cols + i] = m < 0.08 ? 0 : 0.2 + 0.8 * Math.sqrt(m);
+        mask[j * cols + i] = Math.max(FLOOR, m < 0.08 ? 0 : 0.2 + 0.8 * Math.sqrt(m));
       }
     };
-    const rad = 41;
     const stamp = (x, y) => {
       const c0 = Math.max(0, Math.floor((x - rad) / cw)), c1 = Math.min(cols - 1, Math.ceil((x + rad) / cw));
       const r0 = Math.max(0, Math.floor((y - rad) / ch)), r1 = Math.min(rows - 1, Math.ceil((y + rad) / ch));
@@ -119,6 +143,8 @@
     el.addEventListener('pointermove', move);
     el.addEventListener('pointerleave', () => { inside = false; lx = NaN; run(); });
   }
+  // shared with the home page work cards, which use the same hover wake
+  window.__dotWake = dotWake;
   function show(trigger) {
     if (open) return;
     lastFocus = trigger;
@@ -126,8 +152,8 @@
     o.style.cssText = "position:fixed;inset:0;z-index:1000;display:flex;align-items:center;justify-content:center;padding:16px;background:rgba(19,19,19,0.4);backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);font-family:'Inter',sans-serif;";
     const P = "margin:0;color:#6F6F6F;font-size:16px;font-weight:400;line-height:150%;letter-spacing:0.01em;text-wrap:pretty;";
     const MP = /\.dc\.html$/.test(decodeURIComponent(location.pathname)) ? 'Case Study - Mixpanel.dc.html' : '/mixpanel';
-    const LNK = (href, txt, ext) => '<a href="' + href + '"' + (ext ? ' target="_blank" rel="noopener"' : '') + ' style="color:#131313;text-decoration:underline dotted #131313;text-decoration-thickness:1.5px;text-underline-offset:4px;" onmouseenter="this.style.textDecorationStyle=\'solid\'" onmouseleave="this.style.textDecorationStyle=\'dotted\'">' + txt + '</a>';
-    o.innerHTML = '<div role="dialog" aria-modal="true" aria-label="About Alex Shepherd" style="position:relative;width:100%;max-width:1200px;max-height:calc(100vh - 32px);overflow:auto;padding:40px;border-radius:8px;background:#F7F3F1;box-shadow:0 24px 64px rgba(19,19,19,0.2);">'
+    const LNK = (href, txt, ext) => '<a href="' + href + '"' + (ext ? ' target="_blank" rel="noopener"' : '') + ' style="color:#131313;text-decoration:underline dotted #131313;text-decoration-thickness:1px;text-underline-offset:4px;" onmouseenter="this.style.textDecorationStyle=\'solid\'" onmouseleave="this.style.textDecorationStyle=\'dotted\'">' + txt + '</a>';
+    o.innerHTML = '<div role="dialog" aria-modal="true" aria-label="About Alex Shepherd" style="position:relative;width:100%;max-width:1200px;max-height:calc(100vh - 32px);overflow:auto;padding:40px;border:1px solid #E1DDDC;border-radius:8px;background:#F7F3F1;box-shadow:0 24px 64px rgba(19,19,19,0.2);">'
       + '<button type="button" data-about-close aria-label="Close" style="position:absolute;z-index:2;top:6px;right:6px;display:flex;align-items:center;justify-content:center;width:32px;height:32px;padding:0;border:0;background:transparent;color:#6F6F6F;cursor:pointer;"><svg width="10" height="10" viewBox="0 0 14 14" fill="none"><path d="M1 1 L13 13 M13 1 L1 13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"></path></svg></button>'
       + '<div style="display:grid;grid-template-columns:repeat(auto-fit, minmax(min(100%, 340px), 1fr));gap:40px;align-items:stretch;">'
       + '<div data-about-copy style="display:flex;flex-direction:column;gap:16px;min-width:0;">'
@@ -138,9 +164,9 @@
       + '<div style="display:flex;flex-direction:column;margin-top:16px;"><div style="padding:0 0 8px;color:#131313;font-size:14px;font-weight:500;line-height:140%;">Experience</div>'
       + ROWS.map(([a, b]) => '<div style="display:flex;flex-wrap:wrap;justify-content:space-between;gap:2px 16px;padding:8px 0;border-top:1px solid #E1DDDC;"><span style="color:#131313;font-size:14px;line-height:140%;">' + a + '</span><span style="color:#6F6F6F;font-size:14px;line-height:140%;">' + b + '</span></div>').join('')
       + '</div>'
-      + '<a href="mailto:alex@sheps.studio" data-copy-email="alex@sheps.studio" data-copy-tip="above" data-cta-location="about" onmouseenter="this.style.background=\'#CAE9DF\'" onmouseleave="this.style.background=\'#E9E4E1\'" title="Copy email address" style="align-self:flex-start;margin-top:16px;display:inline-flex;align-items:center;justify-content:center;padding:12px 16px;border-radius:4px;background:#E9E4E1;color:#131313;cursor:pointer;transition:background-color 0.15s ease;font-size:14px;font-weight:500;line-height:130%;letter-spacing:0.02em;text-decoration:none;">Let\'s Chat</a>'
+      + '<a data-btn="" href="mailto:alex@sheps.studio" data-copy-email="alex@sheps.studio" data-copy-tip="above" data-cta-location="about" onmouseenter="this.style.background=\'#CAE9DF\'" onmouseleave="this.style.background=\'#E9E4E1\'" title="Copy email address" style="align-self:flex-start;margin-top:16px;display:inline-flex;align-items:center;justify-content:center;padding:12px 16px;border-radius:4px;background:#E9E4E1;color:#131313;cursor:pointer;transition:background-color 0.15s ease;font-size:14px;font-weight:500;line-height:130%;letter-spacing:0.02em;text-decoration:none;">Let\'s Chat</a>'
       + '</div>'
-      + '<div data-about-photo style="position:relative;min-width:0;min-height:360px;cursor:crosshair;border-radius:4px;overflow:hidden;"><img src="assets/about/alex.jpg" alt="Alex Shepherd" onerror="this.remove()" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:52% 40%;filter:grayscale(1) contrast(1.05);"></div>'
+      + '<div data-about-photo style="position:relative;min-width:0;min-height:360px;cursor:crosshair;border-radius:4px;overflow:hidden;"><img src="' + PHOTO + '" alt="Alex Shepherd" onerror="this.remove()" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:52% 40%;filter:grayscale(1) contrast(1.05);"></div>'
       + '</div></div>';
     document.body.appendChild(o);
     open = o;
@@ -201,7 +227,7 @@
       };
       if (pimg.complete && pimg.naturalWidth) swipe(); else pimg.addEventListener('load', swipe, { once: true });
     }
-    if (ph && !matchMedia('(prefers-reduced-motion: reduce)').matches) dotWake(ph, 'assets/about/alex.jpg');
+    if (ph && !matchMedia('(prefers-reduced-motion: reduce)').matches) dotWake(ph, PHOTO);
     document.addEventListener('keydown', onKey, true);
     o.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 200, easing: 'ease' });
     // the site's liquify load, piece by piece: copy, experience rows, button, photo

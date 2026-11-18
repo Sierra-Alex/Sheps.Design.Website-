@@ -22,8 +22,8 @@
           <span style="font-size:12px; font-weight:500; line-height:130%; letter-spacing:0.02em; color:#949191">{{ d.step }}</span>
           <h3 style="margin:0; font-family:'Space Grotesk', sans-serif; font-size:24px; font-weight:500; line-height:100%; letter-spacing:-0.04em; color:#CAE9DF">{{ d.piece }}</h3>
         </div>
-        <button type="button" onClick="{{ closePiece }}" aria-label="Close" style="appearance:none; flex:none; display:flex; align-items:center; justify-content:center; width:32px; height:32px; padding:0; border:1px solid #F7F3F11A; border-radius:4px; background:#F7F3F108; color:#F7F3F1; cursor:pointer; transition:background 200ms ease" style-hover="background:#F7F3F11A;">
-          <svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true" style="display:block"><path d="M4 4 L12 12 M12 4 L4 12" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" fill="none"></path></svg>
+        <button type="button" onClick="{{ closePiece }}" aria-label="Close" style="appearance:none; flex:none; display:flex;align-items:center;justify-content:center;width:32px;height:32px;padding:0;border:0;background:transparent;color:#F7F3F199;cursor:pointer;">
+          <svg width="10" height="10" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M1 1 L13 13 M13 1 L1 13" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"></path></svg>
         </button>
       </div>
       <p style="margin:0; font-size:16px; font-weight:600; line-height:130%; letter-spacing:0.02em; color:#F7F3F1; text-wrap:pretty">{{ d.what }}</p>
@@ -32,7 +32,7 @@
         <span style="font-size:12px; font-weight:600; line-height:130%; letter-spacing:0.02em; color:#F7F3F1">What's in it</span>
         <div style="display:flex; flex-wrap:wrap; gap:8px">
           <sc-for list="{{ d.items }}" as="it" hint-placeholder-count="0">
-            <span style="display:inline-flex; align-items:center; padding:4px 8px; border-radius:4px; background:#FEE7CD; color:#131313; font-size:12px; font-weight:500; line-height:130%; letter-spacing:0.02em; white-space:nowrap">{{ it }}</span>
+            <span style="display:inline-flex; align-items:center; padding:4px 8px; border-radius:4px; background:#F2ECE8B3; color:#131313; font-size:12px; font-weight:500; line-height:130%; letter-spacing:0.02em; white-space:nowrap">{{ it }}</span>
           </sc-for>
         </div>
       </div>
@@ -104,7 +104,7 @@ const PALETTES = [
   { id: 'slate',  name: 'Slate',  tint: '#9DB0BF1F', stroke: '#9DB0BF' },
   { id: 'sage',   name: 'Sage',   tint: '#9CC3B21F', stroke: '#9CC3B2' },
   { id: 'bold',   name: 'Bold',   tint: '#4FC0A11F', stroke: '#4FC0A1' },
-  { id: 'signal', name: 'Signal', tint: '#FDBB6F1F', stroke: '#FDBB6F' }
+  { id: 'signal', name: 'Signal', tint: '#DEF1391F', stroke: '#DEF139' }
 ];
 const GROUND = 'transparent';
 
