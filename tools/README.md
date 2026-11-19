@@ -14,7 +14,7 @@ Plain HTML, no build step. Source lives in `tools/`; `site/tools/` is the deploy
 | `/tools/inflate` | Inflate | X-ray pigeon image generator. |
 | `/tools/ascii-filter` | ASCII Filter | Images and video to live ASCII art. A self-contained bundle: the page lives in the `__bundler/template` JSON, so edit inside that, not the outer HTML. `?embed=1` hides the nav and sidebar. |
 | `/tools/dot-wake` | Dot Wake | The sheps.design hero dot effect as a tool: image/video to a halftone of dots with a cursor wake. Ported from `components/ASCIIWake.jsx` (Bencho, MIT). Default source is `/ascii/media/large-spot.mp4`. |
-| `/tools/bloom` | Bloom | An uploaded image builds up out of soft colour blooms, coarse to fine, then comes into focus out of a blur. A dreamy loading effect. Opens with a sample (`/tools/bloom/cube.webp`). Build time 3–120s (default 30), blur, grain, glow, start colour. Exports PNG and a video of the build. |
+| `/tools/bloom` | Bloom | An uploaded image builds up out of soft colour blooms, coarse to fine, then comes into focus out of a blur. A dreamy loading effect. Opens with a sample (`/tools/bloom/cube.webp`). Direction: Forward (blooms in), Reverse (dissolves out) or Both (in then out; reverse uses pre-rendered snapshots). Build time 3–120s (default 30), blur, grain, glow, start colour. Exports PNG and a video of the build. |
 
 ## Things that only work inside Claude
 
