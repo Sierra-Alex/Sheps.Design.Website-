@@ -4,4 +4,4 @@ Disallow: /insights
 Disallow: /coach-walkthrough
 Disallow: /tools
 
-Sitemap: https://sheps.design/sitemap.xml
+Sitemap: https://www.sheps.design/sitemap.xml
