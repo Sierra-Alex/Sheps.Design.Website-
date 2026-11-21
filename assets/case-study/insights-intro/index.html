@@ -262,11 +262,19 @@ gl_FragColor=vec4(col,1.);}`;
     // it comes back, and stop drawing while it's off screen. Reduced motion shows the finished mark.
     const calm = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     let on = false;
-    new IntersectionObserver((es) => es.forEach((en) => {
-      if (en.isIntersecting && en.intersectionRatio >= 0.35) {
-        if (!on) { on = true; this.t0 = calm ? performance.now() - 1e6 : performance.now(); last = performance.now(); this.raf = requestAnimationFrame(loop); }
-      } else if (!en.isIntersecting && on) { on = false; cancelAnimationFrame(this.raf); }
-    }), { threshold: [0, 0.35] }).observe(document.getElementById('stage'));
+    const play = () => { if (on) return; on = true; this.t0 = calm ? performance.now() - 1e6 : performance.now(); last = performance.now(); this.raf = requestAnimationFrame(loop); };
+    const stop = () => { if (!on) return; on = false; cancelAnimationFrame(this.raf); };
+    // Embedded: the host page tells us when the frame is on screen (an observer inside a frame can't always see the
+    // page's viewport, e.g. when the page itself sits in another site's frame, so it would play before anyone scrolls to it).
+    // Standalone: watch our own viewport.
+    if (window.parent !== window) {
+      window.addEventListener('message', (e) => { const t = e.data && e.data.type; if (t === 'insights-play') play(); else if (t === 'insights-stop') stop(); });
+      try { window.parent.postMessage({ type: 'insights-ready' }, '*'); } catch (e) {}
+    } else {
+      new IntersectionObserver((es) => es.forEach((en) => {
+        if (en.isIntersecting && en.intersectionRatio >= 0.35) play(); else if (!en.isIntersecting) stop();
+      }), { threshold: [0, 0.35] }).observe(document.getElementById('stage'));
+    }
 }).call(self);
 })();
 </script>

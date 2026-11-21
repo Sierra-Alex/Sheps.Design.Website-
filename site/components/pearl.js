@@ -90,7 +90,9 @@ const CSS = `
   .frost { position: absolute; left: 50%; top: 50%; border-radius: 50%; transform: translate(-50%, -50%);
     background: rgba(255,255,255,.22); -webkit-backdrop-filter: blur(8px) saturate(1.15); backdrop-filter: blur(8px) saturate(1.15); }
   canvas { position: absolute; display: block; }
-  :host(:not([shadow="off"])) canvas { filter: drop-shadow(0 4px 30px rgba(193,114,250,.5)) drop-shadow(-6px 4px 26px rgba(110,170,255,.32)); }
+  /* the lilac/blue shadow sits on its own circle behind the pearl: Safari won't draw a CSS drop-shadow filter on a WebGL canvas */
+  .glow { position: absolute; left: 50%; top: 50%; border-radius: 50%; transform: translate(-50%, -50%); pointer-events: none; }
+  :host(:not([shadow="off"])) .glow { box-shadow: 0 4px 30px rgba(193,114,250,.5), -6px 4px 26px rgba(110,170,255,.32); }
   .hit { position: absolute; left: 50%; top: 50%; border-radius: 50%; transform: translate(-50%, -50%); cursor: pointer; }
   .cam { position: absolute; left: 50%; transform: translateX(-50%); display: inline-flex; align-items: center; gap: 7px;
     height: 32px; padding: 0 14px 0 11px; border-radius: 999px; border: 1px solid rgba(225,221,220,.9); cursor: pointer;
@@ -126,6 +128,7 @@ class ShepsPearl extends HTMLElement {
     const root = this.attachShadow({ mode: 'open' });
     root.innerHTML = `<style>${CSS}</style>
       <div class="stage" part="stage">
+        <div class="glow" part="glow"></div>
         <div class="frost" part="frost"></div>
         <canvas part="canvas" role="img" aria-label="A glass pearl with a dot face that follows your cursor"></canvas>
         <div class="hit"></div>
@@ -252,7 +255,7 @@ class ShepsPearl extends HTMLElement {
       this.renderer.setSize(size, size, false);
       this.camera.aspect = 1; this.camera.zoom = 1; this.camera.updateProjectionMatrix();
       Object.assign(this.$('canvas').style, { width: size + 'px', height: size + 'px', left: cx - size / 2 + 'px', top: cy - size / 2 + 'px' });
-      for (const [sel, k] of [['.frost', 0.95], ['.hit', 1]]) Object.assign(this.$(sel).style, { width: d * k + 'px', height: d * k + 'px', left: cx + 'px', top: cy + 'px' });
+      for (const [sel, k] of [['.glow', 0.98], ['.frost', 0.95], ['.hit', 1]]) Object.assign(this.$(sel).style, { width: d * k + 'px', height: d * k + 'px', left: cx + 'px', top: cy + 'px' });
       this.$('.cam').style.top = h - 16 - BTN + 'px';
       this.$('.note').style.top = h - 16 - BTN - NOTE_GAP - NOTE + 'px';
       this.pearlY = cy;
@@ -264,7 +267,7 @@ class ShepsPearl extends HTMLElement {
     this.renderer.setSize(size, size, false);
     this.camera.aspect = 1; this.camera.zoom = 1; this.camera.updateProjectionMatrix();
     Object.assign(this.$('canvas').style, { width: size + 'px', height: size + 'px', left: cx - size / 2 + 'px', top: cy - size / 2 + 'px' });
-    for (const [sel, k] of [['.frost', 0.95], ['.hit', 1]]) Object.assign(this.$(sel).style, { width: d * k + 'px', height: d * k + 'px', left: cx + 'px', top: cy + 'px' });
+    for (const [sel, k] of [['.glow', 0.98], ['.frost', 0.95], ['.hit', 1]]) Object.assign(this.$(sel).style, { width: d * k + 'px', height: d * k + 'px', left: cx + 'px', top: cy + 'px' });
     this.$('.cam').style.top = top + d + GAP + 'px';
     this.$('.note').style.top = top + d + GAP + BTN + NOTE_GAP + 'px';
     this.pearlY = cy;                                                                    // where the eyes look from
