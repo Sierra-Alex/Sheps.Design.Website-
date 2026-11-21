@@ -110,11 +110,21 @@ A light teaser, not a deep dive: 2-3 project cards right after the hero so visit
 > Brand design, plus Heliograph, the agentic design system behind it. Taken from full audit through tokens and components to an AI tooling layer designers, engineers and agents all build from.
 - Company: Mixpanel · Year: 2026
 - Role: Creative direction · Design · Agentic design system · Agent contract · Build · AI tooling (same tags as the Mixpanel case study header)
+- Link: About (opens the dot-head explainer pop-up, one line at a time; the last line shows a View project button):
+  > Mixpanel’s teams were ready for AI, but output was slow and inconsistent: no shared source of truth, and old branding hanging on across touchpoints.
+  > I led it end to end. A full audit first, then a refreshed digital brand built web-first, so every team could ship on-brand pages faster.
+  > Underneath it sits Heliograph, an agentic design system: tokens mapped to purpose, components in Figma and code, and a contract that tells AI agents the rules.
+  > Then the tooling, like a landing page builder with its own image library, so designers, engineers and agents all build from the same system. Open the case study for the full story.
 
 **Live card — Coach product design and agentic system.**
 > A mood and journal tracker powered by AI insights. I designed the product and the system behind it, so every check-in and entry turns into patterns people can actually act on.
 - Company: Coach App · Year: 2026
 - Role: UX research · Product design · Agentic design system · Agent contract · Product build · AI tooling (same tags as the Coach case study header)
+- Link: About (opens the dot-head explainer pop-up, one line at a time; the last line shows a View project button):
+  > Most mood and journal apps tell half the story: what people log rarely connects to how they say they feel, so the patterns that matter stay hidden.
+  > I designed Coach end to end, starting with research into why people stop checking in, to make a daily check-in quick enough to become a ritual.
+  > Then the design system behind it, built so AI agents can build from it, and the way the AI insights are presented so they feel useful, not noisy.
+  > The result turns quick daily check-ins into patterns people can understand and act on.
 
 *(Note: needs at least 2 real examples. BBP and a Heliograph-adjacent one are the obvious candidates, pending the naming-rights question below.)*
 
@@ -123,12 +133,30 @@ A light teaser, not a deep dive: 2-3 project cards right after the hero so visit
 > Highfive design. A ground-up refresh of a dated brand, paired with a design system AI agents can build from.
 > Company: Highfive · Year: 2026 (revisited)
 > Role: Creative Direction · Design · Build (same tags as the Highfive case study header)
+> Link: About (opens the dot-head explainer pop-up, one line at a time; the last line shows a View project button):
+> Highfive made video meeting software and room hardware. Its brand had grown dated and no longer matched the premium product behind it.
+> I reimagined it for the AI age: creams, blacks and soft gradients that lean into the product’s cloud-based, crystal-clear feel.
+> Alongside the refresh I rebuilt the design system from the ground up, structured so AI agents can build from it.
+> That gives go-to-market teams skills to spin up custom web experiences quickly. Open the case study for the audit, the design and the system.
 
 
 **Card — Mixpanel Rebrand (row 2, right):** links to the Mixpanel Rebrand case study (draft).
 > Mixpanel Rebrand. Case study summary for the Mixpanel rebrand goes here.
 > Company: Mixpanel · Year: 2024
 > Role: Brand design · Interactive design (same tags as the Mixpanel Rebrand case study header)
+> Link: About (opens the dot-head explainer pop-up, one line at a time; the last line shows a View project button):
+> As Principal Designer, I helped reimagine Mixpanel’s brand alongside a remarkably talented in-house team.
+> We started from scratch: a new logo, fresh typography and a new colour system built with the product team, so brand and product work as one.
+> Then Earth+, a new illustration world where data takes shape, and a new website built for the launch.
+> Beyond the screen, the system scaled out to events and merch, so the brand shows up the same everywhere.
+
+**Card — Bits and Pieces (row 3, left; the last card):** links to the Bits and Pieces case study. The image is the Pearl head from the top of the case study on the dot pattern; it follows the cursor, and on hover the dot wake runs only through the background behind the head.
+> Bits and pieces. Swag, events, team building, freelance work, illustration and 3D models: the small projects made between the big ones, from 2016 to 2026.
+> Company: Assorted · Year: 2016–2026
+> Role: Design · Creative direction · Build · Illustration · Animation (same tags as the Bits and Pieces case study header)
+> Link: About (opens the dot-head explainer pop-up, one line at a time; the last line shows a View project button):
+> A page of the small projects that sat around the big ones: swag, event identities, team building, freelance jobs, illustration and 3D models.
+> Some shipped, some were just for fun. Most are interactive, so poke at them: the Pearl head follows your cursor, the books open, the logo pieces fall into place.
 
 **Mixpanel Rebrand case study (/mixpanel-rebrand), header headline:**
 > Building the Mixpanel brand, from logo to launch.
@@ -442,3 +470,67 @@ Page: `Case Study - Insights.dc.html`
 - Company: Insights
 - Year: 2026
 - Body: placeholder — currently mirrors the Mixpanel case study structure; copy to come.
+
+## Case Study: Bits and Pieces (/bits-and-pieces, published 2026-11-20, last card on the home page)
+
+**Header**
+> Bits and pieces: the small projects made between the big ones.
+> Swag, events, team building, freelance work, illustration and 3D models, collected from 2016 to 2026.
+> Company: Assorted · Year: 2016–2026
+> Role: Design · Creative direction · Build · Illustration · Animation
+
+**Pearl** (top of the page, full width) — a Pearl head on the dot pattern that follows the cursor, with a "Mirror my face" button bottom left.
+
+**Second row** (directly under the Pearl frame's plus-pattern divider) — two square photos: Mixpanel tote bag cut out on a flat blue backdrop, no arm (left), Mixpanel grid socks against a yellow wall (right).
+
+**Third row** (directly under the second, 16px gap) — a looping video of the blue Analytics cap turning a full circle, its backdrop recoloured to the panel yellow #DDBC23 (left), Mixpanel conference booth repeated (right).
+
+**About link** (small dotted text link under the third row, opens the tools' About explainer with the dot head; one line)
+> Swag and a conference booth I designed for Mixpanel, for key customers, prospects and the team: fun things people actually keep, not corporate filler.
+
+**Books row** (below a plus-pattern divider) — one full-width tile. Newsletter bookshelf (interactive), centred: three book spines on a shelf among outlined filler books. Hover lifts a book, click flies its cover forward inside the tile.
+> Product Analytics Series · 01 — The Fundamentals
+> Product Analytics Series · 02 — The Benchmarks
+> Product Analytics Series · 03 — The Maturity Model
+(Spines: small 01/02/03 at the top, title in ABC Arizona Text Light, Mixpanel wordmark at the foot. Covers: illustrated artwork with the Mixpanel wordmark and title (Arizona) in embossed silver in the black top band, no subhead; the shine moves as the cover tilts.)
+
+**About link** (small dotted text link under the books row, opens the tools' About explainer; draft copy)
+> A book series for Mixpanel. I illustrated each cover from the product’s own metrics and graphs, using 3D and glassy bubbles for depth.
+
+
+
+
+
+**Icons row** (below a plus-pattern divider) — left: a looping, muted video of eight glossy 3D coffee icons in blue and cream turning gently (takeaway cup, cezve, mug with tea bag, hand grinder, moka pot, French press, pour-over carafe, AeroPress) on a peach backdrop, framed square with breathing room on the sides, no controls. (The earlier animated line-icon grid is saved for later as "icons".) Right: a looping video of Meeper (a pale blue octopus character in a sailor hat with antlers and headphones) turning on a pink turntable, no controls.
+
+**About links** (one small dotted text link under each frame of the icons row, opening the tools' About explainer; draft copy)
+Coffee icons:
+> Fun 3D coffee icons I modelled for a freelance project: eight pieces sharing one palette, one light and a soft, toy-like shape.
+Meeper:
+> Meeper, a mascot I made for our internal team. Every odd detail, from the antlers to the wings, came from a mad-libs game the team played.
+
+**SlowTech** (below the icons row, after a plus-pattern divider) — two square frames side by side, 16px apart (stacking on phones). Right: a photo of a person carrying a natural canvas tote bag on their shoulder, printed across its lower half (about halfway up) with the SlowTech shapes, no lettering, piled up from the bottom and blended into the canvas texture; the wall is brightened so its left side matches the SlowTech frame's #FAFAFA, with a soft shadow kept on the right. Left: a #FAFAFA frame with the SlowTech logo centred as a square with white space around it: colourful circles, rounded squares and triangles packed around the word SLOWTECH, with an eye in the O. When the frame scrolls into view the pieces drop in from above into an invisible square container the size of the logo and settle into place with real physics (lowest first, bumping each other and the container walls on the way down); as soon as the O has landed, the eye starts following the cursor. It replays each time the frame comes back into view.
+
+**About link** (small dotted text link under the SlowTech row, opens the tools' About explainer; draft copy)
+- Label: About SlowTech
+- Branding for SlowTech, a freelance exhibition of physical tech that cuts screen time, with a fun, human take on tech and product design.
+
+**Insights intro** (below a plus-pattern divider) — one full-width dark (#161616) frame playing the Insights intro animation: a soft iridescent panel that ripples where the cursor moves, shrinks into a thin band and resolves into the Insights wordmark, which glitches slightly as it fades in and for about a second after it lands (small sideways jumps, a red and cyan RGB split pulling apart either side, the odd sliced flicker, and a little TV static over the black); last of all, once the glitch has finished, a small subhead fades up under it, left-aligned to the wordmark, in white at 60% opacity, set in Apercu Mono Pro capitals: A MIXPANEL EVENT. It plays when the frame scrolls into view and replays each time it comes back; click it to replay.
+
+**Name tags** (directly under the Insights intro, 16px below it) — one full-width frame on the black dot pattern (the same as the open books), up to 560px tall: two Insights name tags side by side, each with the Insights wordmark over an iridescent gradient, the name Max Cole and "Senior Designer, Mixpanel"; one is a speaker tag with a black and white portrait and the word Speaker, the other has a plain black band. Each tag has a 1px white border and 8px rounded corners. The iridescent top of each tag is drawn live with the same slowly drifting pattern as the Insights intro frame, and ripples where the cursor moves over it.
+
+**About link** (small dotted text link under the Insights name tags row, opens the tools' About explainer; draft copy)
+- Label: About Insights
+- Insights, a touring Mixpanel event series for top clients. The brief was elevated but fun: a sliced wordmark with an iridescent finish.
+
+## Page metadata (SEO)
+
+Not visible on the page: the `<title>`, meta description and social (Open Graph / Twitter) text each page sends to search engines, link previews and AI search. The home page also has a visually hidden H1: "Sheps.Design: Alex Shepherd, interactive designer and creative director".
+
+- Home: Sheps.Design · Alex Shepherd, interactive designer and creative director. Alex Shepherd is an interactive designer and creative director. Sheps.Design builds agentic design systems and AI tooling, alongside brand, product and interactive work for teams like Mixpanel.
+- Mixpanel: Mixpanel · Case study · Sheps.Design. Brand design for Mixpanel, plus Heliograph, the agentic design system behind it: from full audit through tokens and components to an AI tooling layer designers, engineers and agents all build from.
+- Coach: Coach App · Case study · Sheps.Design. Coach, a mood and journal tracker powered by AI insights. Product design and the agentic design system behind it, so every check-in and entry turns into patterns people can act on.
+- Highfive: Highfive · Case study · Sheps.Design. A ground-up refresh of Highfive’s dated brand, paired with a design system AI agents can build from, so go-to-market teams can ship custom web experiences quickly.
+- Mixpanel Rebrand: Mixpanel Rebrand · Case study · Sheps.Design. Reimagining Mixpanel’s brand for its next chapter: a new logo, typography and colour system, the Earth+ illustration world, and a new website built for the launch.
+- Bits and Pieces: Bits and Pieces · Case study · Sheps.Design. Swag, events, team building, freelance work, illustration and 3D models: the small projects Alex Shepherd made between the big ones, from 2016 to 2026.
+- Agentic systems: Agent-ready design systems · Sheps.Design. How an agent-ready design system works: primitives, semantic tokens, components, the agent contract, and the AI skills and tooling you can build on top.

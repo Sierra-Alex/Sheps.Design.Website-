@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Insights intro</title>
+<meta name="robots" content="noindex">
+<style>
+html,body{margin:0;height:100%;background:transparent}
+#stage{position:relative;width:100%;height:100%;overflow:hidden;background:#161616;cursor:pointer}
+#panel{position:absolute;inset:0;background:#161616}
+#stage canvas{position:relative;display:block;width:100%;height:100%;-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat;-webkit-mask-position:center;mask-position:center}
+#mark{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;pointer-events:none;opacity:0}
+#mark img{width:min(60vw,750px);height:auto;display:block}
+@font-face{font-family:"Inter";src:url("../../../src/assets/fonts/Inter-Variable.woff2") format("woff2");font-weight:100 900;font-display:swap}
+@font-face{font-family:"Apercu Mono Pro";src:url("apercu-mono-medium-pro.otf") format("opentype");font-weight:500;font-display:swap}
+#stage #static{position:absolute;inset:0;width:100%;height:100%;display:block;pointer-events:none;opacity:0;mix-blend-mode:screen;image-rendering:pixelated}
+.rgb{position:absolute;left:50%;top:50%;-webkit-mask:url(insights-outer-lines.svg) center / 100% 100% no-repeat;mask:url(insights-outer-lines.svg) center / 100% 100% no-repeat;mix-blend-mode:screen;opacity:0;pointer-events:none;will-change:transform,opacity}
+#rgbR{background:#FF2A55}
+#rgbC{background:#22E6FF}
+#sub{position:absolute;left:0;text-align:left;margin:0;color:#fff;font-family:"Apercu Mono Pro",ui-monospace,monospace;font-weight:500;text-transform:uppercase;letter-spacing:0.14em;line-height:1;opacity:0;pointer-events:none;will-change:opacity,transform}
+</style>
+</head>
+<body>
+<div id="stage">
+  <div id="panel"></div>
+  <canvas id="c"></canvas>
+  <canvas id="static" width="400" height="225" aria-hidden="true"></canvas>
+  <div id="mark"><img id="wm" src="insights-outer-lines.svg" alt="Insights"><div class="rgb" id="rgbR"></div><div class="rgb" id="rgbC"></div></div>
+  <p id="sub">a Mixpanel event</p>
+</div>
+<script>
+(function(){
+// Settings — edit these to tune the animation
+const P = {
+  "durationSec": 4,
+  "holdSec": 1.2,
+  "speed": 1,
+  "intensity": 0.2,
+  "bgSpeed": 3.9,
+  "frameSpeed": 1.2,
+  "frame": false,
+  "sheen": true,
+  "interactive": true,
+  "ripple": true,
+  "customBrush": true,
+  "distortionStrength": 0.06,
+  "waveCount": 21,
+  "waveSize": 29,
+  "waveRotationSpeed": 0.025,
+  "waveFadeMultiplier": 0.965,
+  "waveGrowth": 0.015,
+  "waveSpawnThreshold": 0.49,
+  "pixelate": false,
+  "pixelSize": 4,
+  "edgeDistortion": 0.35,
+  "invertPixels": true
+};
+const canvas = document.getElementById('c'), mark = document.getElementById('mark'), img0 = document.getElementById('wm');
+const self = { mouse: { x: .5, y: .5, tx: .5, ty: .5, s: 0 } };
+// Click anywhere to replay the intro
+document.getElementById('stage').addEventListener('click', () => { self.t0 = performance.now(); });
+(function(){
+    const c = canvas, gl = c.getContext('webgl', { antialias: false, preserveDrawingBuffer: true });
+    if (!gl) return;
+    const vs = `attribute vec2 p;void main(){gl_Position=vec4(p,0.,1.);}`;
+    const fs = `precision highp float;
+uniform sampler2D tex,disp,ltex;uniform float lOn,ps;uniform float rip,pix,edgeAmt,inv;uniform vec4 rect;uniform vec2 res,mouse;uniform float t,tb,amt,sheen,ia,ms,inkOn;uniform vec4 frect;uniform vec2 ft;uniform float fOn,tbf;
+float h(vec3 p){p=fract(p*.3183+.1);p*=17.;return fract(p.x*p.y*p.z*(p.x+p.y+p.z));}
+float n(vec3 x){vec3 i=floor(x),f=fract(x);f=f*f*(3.-2.*f);
+return mix(mix(mix(h(i),h(i+vec3(1,0,0)),f.x),mix(h(i+vec3(0,1,0)),h(i+vec3(1,1,0)),f.x),f.y),
+mix(mix(h(i+vec3(0,0,1)),h(i+vec3(1,0,1)),f.x),mix(h(i+vec3(0,1,1)),h(i+vec3(1,1,1)),f.x),f.y),f.z);}
+float fbm(vec3 p){float v=0.,a=.5;for(int i=0;i<4;i++){v+=a*n(p);p=p*2.02+vec3(1.7,9.2,3.1);a*=.5;}return v;}
+vec2 mir(vec2 u){return 1.-abs(1.-mod(u,2.));}
+void main(){
+float dr0=texture2D(disp,gl_FragCoord.xy/res).r;
+vec2 lcr=(gl_FragCoord.xy-rect.xy)/rect.zw;float edr=min(min(lcr.x,1.-lcr.x)*rect.z,min(lcr.y,1.-lcr.y)*rect.w);
+float pm=smoothstep(rect.w*.04,rect.w*.12,edr);
+float bs=exp2(floor(clamp(dr0*1.6,0.,1.)*pm*log2(max(pix,1.))+.5));
+float th0=dr0*6.2832;
+vec2 lc0=(gl_FragCoord.xy-rect.xy)/rect.zw;float ed=min(min(lc0.x,1.-lc0.x)*rect.z,min(lc0.y,1.-lc0.y)*rect.w);
+vec2 fo=gl_FragCoord.xy-frect.xy;float inF=step(0.,fo.x)*step(fo.x,frect.z)*step(0.,fo.y)*step(fo.y,frect.w)*(1.-step(ft.x,fo.x)*step(fo.x,frect.z-ft.x)*step(ft.y,fo.y)*step(fo.y,frect.w-ft.y));
+float eAtt=max(mix(edgeAmt,1.,smoothstep(0.,rect.w*.12,ed)),inF);
+vec2 fc=gl_FragCoord.xy+vec2(sin(th0),cos(th0))*dr0*rip*rect.zw*eAtt;vec2 lc=(fc-rect.xy)/rect.zw;
+float inR=clamp(min(min(lc.x,1.-lc.x)*rect.z,min(lc.y,1.-lc.y)*rect.w)+.5,0.,1.);
+vec2 cell=floor(lc*rect.zw/max(bs,1.));
+if(bs>1.5)lc=(cell+.5)*bs/rect.zw;
+vec3 p3=fract(vec3(cell+bs*7.,bs).xyx*.1031);p3+=dot(p3,p3.yzx+33.33);float hv0=fract((p3.x+p3.y)*p3.z);
+float stp=floor(t*5.+hv0*7.);vec3 p4=fract(vec3(cell+stp*17.3,stp).xyx*.1031);p4+=dot(p4,p4.yzx+33.33);
+float hv=fract((p4.x+p4.y)*p4.z)*.7+n(vec3(cell*.35,t*1.2))*.3;
+float fl=(bs>1.5&&inv>.5&&hv<clamp(dr0*1.3,0.,1.)*.55*pm)?1.:0.;
+vec2 uv=vec2(lc.x,1.-lc.y);vec2 suv=uv;
+float a=rect.z/rect.w;
+if(a>ia)uv.y=(uv.y-.5)*(ia/a)+.5;else uv.x=(uv.x-.5)*(a/ia)+.5;
+uv=(uv-.5)*.9+.5;
+vec2 p=uv*1.6;
+vec2 q=vec2(fbm(vec3(p,t*.08)),fbm(vec3(p+5.2,t*.08)));
+vec2 r=vec2(fbm(vec3(p+3.*q+1.7,t*.12)),fbm(vec3(p+3.*q+9.2,t*.12)));
+vec2 off=(r-.5)*.12*amt+(q-.5)*.04*amt;
+vec2 d=suv-mouse;d.x*=a;float fall=exp(-dot(d,d)*18.);
+off+=vec2(-d.y,d.x)*fall*.18*ms+d*fall*.05*ms;
+vec2 w=mir(uv+off);
+vec4 tA=texture2D(tex,w);float ink=(1.-smoothstep(.25,.6,dot(tA.rgb,vec3(.333))))*tA.a;
+vec4 tB=texture2D(tex,mir(w+vec2(.004,.003)));float inkL=(1.-smoothstep(.25,.6,dot(tB.rgb,vec3(.333))))*tB.a;
+float T=mix(tb,tbf,inF);vec2 bp=(lc-.5)*rect.zw/ps;
+vec2 bq=vec2(fbm(vec3(bp*.8-vec2(T*.05,0.),T*.07)),fbm(vec3(bp*.8+3.1,T*.07)));
+float th=fbm(vec3(bp+2.5*bq+vec2(0.,T*.04),T*.09))+fl*(.18+hv0*.2);
+th+=.35*sin(bp.x*1.3+bp.y*.7+T*.25+bq.y*4.);
+vec3 bg=vec3(.80,.93,.95)+vec3(.12,.06,.05)*cos(6.2832*(th*2.6+vec3(.08,.42,.72)));
+bg+=(fbm(vec3(bp*3.+bq*6.,T*.2))-.5)*.05;
+ink*=inkOn;inkL*=inkOn;
+float edge=clamp(inkL-ink,0.,1.)+clamp(ink-inkL,0.,1.)*.5;
+vec3 film=.5+.5*cos(6.2832*(th*3.+t*.05+vec3(0.,.33,.67)));
+vec3 inkC=vec3(.06)+film*.07*sheen*smoothstep(.6,1.,ink)*fbm(vec3(p*4.+off*10.,t*.15));
+vec3 col=mix(bg,inkC,ink);
+col+=edge*film*.35*sheen;
+float lt=texture2D(ltex,vec2(lc.x,1.-lc.y)).a*lOn*step(0.,lc.x)*step(lc.x,1.)*step(0.,lc.y)*step(lc.y,1.);col=mix(col,vec3(.086),lt);
+col=mix(vec3(.086),col,max(inR,inF*fOn));
+gl_FragColor=vec4(col,1.);}`;
+    const sh = (type, src) => { const s = gl.createShader(type); gl.shaderSource(s, src); gl.compileShader(s); if (!gl.getShaderParameter(s, gl.COMPILE_STATUS)) console.error(gl.getShaderInfoLog(s)); return s; };
+    const pr = gl.createProgram();
+    gl.attachShader(pr, sh(gl.VERTEX_SHADER, vs)); gl.attachShader(pr, sh(gl.FRAGMENT_SHADER, fs));
+    gl.linkProgram(pr); gl.useProgram(pr);
+    const qb = gl.createBuffer(); gl.bindBuffer(gl.ARRAY_BUFFER, qb);
+    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1,-1,1,-1,-1,1,1,1]), gl.STATIC_DRAW);
+    const loc = gl.getAttribLocation(pr, 'p'); gl.enableVertexAttribArray(loc); gl.vertexAttribPointer(loc, 2, gl.FLOAT, false, 0, 0);
+    const svs='attribute vec2 sp;attribute vec2 su;attribute float sa;varying vec2 vu;varying float va;void main(){vu=su;va=sa;gl_Position=vec4(sp,0.,1.);}';
+    const sfs='precision mediump float;uniform sampler2D bt;uniform float hb;varying vec2 vu;varying float va;void main(){float r=length(vu*2.-1.);float b=r<.65?mix(1.,.55,r/.65):mix(.55,0.,clamp((r-.65)/.35,0.,1.));vec4 tb=texture2D(bt,vec2(vu.x,1.-vu.y));b=mix(b,tb.a*tb.r,hb);gl_FragColor=vec4(1.,1.,1.,b*va);}';
+    const spr = gl.createProgram(); gl.attachShader(spr, sh(gl.VERTEX_SHADER, svs)); gl.attachShader(spr, sh(gl.FRAGMENT_SHADER, sfs)); gl.linkProgram(spr);
+    const btex = gl.createTexture(); let hasBrush = 0; const bimg = new Image();
+    bimg.onload = () => { gl.activeTexture(gl.TEXTURE2); gl.bindTexture(gl.TEXTURE_2D, btex); gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, bimg);
+      [gl.TEXTURE_WRAP_S, gl.TEXTURE_WRAP_T].forEach(k => gl.texParameteri(gl.TEXTURE_2D, k, gl.CLAMP_TO_EDGE)); gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR); gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR); gl.activeTexture(gl.TEXTURE0); hasBrush = 1; };
+    bimg.src = 'brush.png';
+    const SL = { bt: gl.getUniformLocation(spr, 'bt'), hb: gl.getUniformLocation(spr, 'hb'), p: gl.getAttribLocation(spr, 'sp'), u: gl.getAttribLocation(spr, 'su'), a: gl.getAttribLocation(spr, 'sa') };
+    const stampBuf = gl.createBuffer(), N = 300, WV = Array.from({ length: N }, () => ({ x: 0, y: 0, r: 0, s: 0, a: 0 })); let wi = 0, spx = -1, spy = -1;
+    const verts = new Float32Array(N * 30), dtex = gl.createTexture(), fbo = gl.createFramebuffer(); let fw = 0, fh = 0;
+    const sizeFbo = (w, h) => { fw = w; fh = h; gl.activeTexture(gl.TEXTURE1); gl.bindTexture(gl.TEXTURE_2D, dtex); gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, w, h, 0, gl.RGBA, gl.UNSIGNED_BYTE, null);
+      gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR); gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
+      gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE); gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+      gl.bindFramebuffer(gl.FRAMEBUFFER, fbo); gl.framebufferTexture2D(gl.FRAMEBUFFER, gl.COLOR_ATTACHMENT0, gl.TEXTURE_2D, dtex, 0); gl.bindFramebuffer(gl.FRAMEBUFFER, null); gl.activeTexture(gl.TEXTURE0); };
+    const U = {}; ['tex','disp','pix','edgeAmt','inv','rip','rect','res','mouse','t','tb','amt','sheen','ia','ms','inkOn','ltex','lOn','ps','frect','ft','fOn','tbf'].forEach(k => U[k] = gl.getUniformLocation(pr, k));
+    let ia = 1, ready = false;
+    const img = new Image();
+    img.onload = () => {
+      const tx = gl.createTexture(); gl.activeTexture(gl.TEXTURE0); gl.bindTexture(gl.TEXTURE_2D, tx);
+      const cap = Math.min(gl.getParameter(gl.MAX_TEXTURE_SIZE), 3072), sc = Math.min(1, cap / Math.max(img.width, img.height));
+      const cv = document.createElement('canvas'); cv.width = Math.round(img.width * sc); cv.height = Math.round(img.height * sc);
+      cv.getContext('2d').drawImage(img, 0, 0, cv.width, cv.height);
+      gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, cv);
+      [gl.TEXTURE_WRAP_S, gl.TEXTURE_WRAP_T].forEach(k => gl.texParameteri(gl.TEXTURE_2D, k, gl.CLAMP_TO_EDGE));
+      gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
+      gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
+      ia = img.width / img.height; ready = true;
+    };
+    img.src = 'pattern.webp';
+    const ltx = gl.createTexture(); let hasL = 0; const limg = new Image();
+    limg.onload = () => { const cv = document.createElement('canvas'); cv.width = 2100; cv.height = 152; cv.getContext('2d').drawImage(limg, 0, 0, 2100, 152);
+      gl.activeTexture(gl.TEXTURE3); gl.bindTexture(gl.TEXTURE_2D, ltx); gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, cv);
+      [gl.TEXTURE_WRAP_S, gl.TEXTURE_WRAP_T].forEach(k => gl.texParameteri(gl.TEXTURE_2D, k, gl.CLAMP_TO_EDGE)); gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR); gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR); gl.activeTexture(gl.TEXTURE0); hasL = 1; };
+    limg.src = 'insights-band-letters.svg';
+    let maskReady = false; const mimg = new Image(); mimg.onload = () => { maskReady = true; }; mimg.src = 'insights-band-mask.svg';
+    this.onMove = e => { const b = c.getBoundingClientRect(); this.mouse.tx = (e.clientX - b.left) / b.width; this.mouse.ty = (e.clientY - b.top) / b.height; this.mouse.s = Math.min(1, this.mouse.s + .08); };
+    window.addEventListener('pointermove', this.onMove);
+    let last = performance.now(), time = 0, btime = 0, ftime = 0;
+    const loop = now => {
+      this.raf = requestAnimationFrame(loop);
+      const dt = Math.min(.05, (now - last) / 1000); last = now;
+      time += dt * (P.speed ?? 1);
+      btime += dt * (P.bgSpeed ?? 2.6);
+      ftime += dt * (P.frameSpeed ?? 1.2);   // the outer frame drifts slower than the wordmark band
+      const dpr = Math.min(window.devicePixelRatio || 1, 2), W = c.clientWidth * dpr | 0, H = c.clientHeight * dpr | 0;
+      if (c.width !== W || c.height !== H || !fw) { c.width = W; c.height = H; sizeFbo(Math.max(1, W >> 1), Math.max(1, H >> 1)); }
+      if (!ready) return;
+      const m = this.mouse; m.x += (m.tx - m.x) * .08; m.y += (m.ty - m.y) * .08; m.s *= .97;
+      const cw = c.clientWidth, ch = c.clientHeight, rippleOn = (P.ripple ?? true);
+      if (this.t0 == null) this.t0 = performance.now(); const hold = (P.holdSec ?? 1.2) * 1000, dur = (P.durationSec ?? 4) * 1000, sp = Math.min(1, Math.max(0, (performance.now() - this.t0 - hold) / dur));
+      const ez = x => x < .5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2, ss = (a, b, x) => { const t = Math.min(1, Math.max(0, (x - a) / (b - a))); return t * t * (3 - 2 * t); };
+      const e = ez(Math.min(1, sp / .7)), wv = ss(.72, .95, sp), mq = ss(.85, 1, sp);
+      const rwA = Math.min(cw * .36, ch * .45), rhA = rwA * 1.25, rwB = Math.min(cw * .6, 750), rhB = rwB * 38 / 525;
+      const RW = rwA + (rwB - rwA) * e, RH = rhA + (rhB - rhA) * e;
+      if (mark) {
+        // a slight glitch while the wordmark fades in: brief sideways jumps, an RGB split and the odd sliced flicker
+        // runs through the fade-in and trails off for a second after the wordmark lands
+        const gAfter = performance.now() - this.t0 - hold - dur;
+        const g = sp < 1 ? (wv > 0 ? 1 - wv * .6 : 0) : (gAfter < 1100 ? .45 * (1 - gAfter / 1100) : 0), hit = g > 0 && Math.random() < .4;
+        // a bit of static over the black while the glitch runs
+        if (!this.stc) { this.stc = document.getElementById('static'); this.stx = this.stc.getContext('2d'); this.sti = this.stx.createImageData(400, 225); }
+        if (g > 0) { const d = this.sti.data, band = Math.random() < .3 ? (Math.random() * 225) | 0 : -99;
+          for (let y = 0; y < 225; y++) { const lift = Math.abs(y - band) < 4 ? 70 : 0; for (let x = 0; x < 400; x++) { const i = (y * 400 + x) * 4, v = Math.min(255, (Math.random() * Math.random() * 255 | 0) + lift); d[i] = d[i + 1] = d[i + 2] = v; d[i + 3] = 255; } }
+          this.stx.putImageData(this.sti, 0, 0); this.stc.style.opacity = (Math.min(1, g * 1.4) * (hit ? .24 : .15)).toFixed(3); this._st = 1;
+        } else if (this._st) { this.stc.style.opacity = '0'; this._st = 0; }
+        // RGB split: red and cyan copies of the wordmark pull apart either side while the glitch runs
+        if (!this.rgbR) { this.rgbR = document.getElementById('rgbR'); this.rgbC = document.getElementById('rgbC'); }
+        { const W = rwB, H = rwB * 100 / 525, sp2 = g > 0 ? rwB * (.006 + (hit ? Math.random() * .016 : 0)) * g : 0, vy = hit ? (Math.random() - .5) * H * .06 : 0;
+          for (const [el, sgn] of [[this.rgbR, 1], [this.rgbC, -1]]) { el.style.width = W + 'px'; el.style.height = H + 'px';
+            el.style.transform = 'translate(-50%,-50%) translate(' + (sgn * sp2).toFixed(1) + 'px,' + (sgn * vy).toFixed(1) + 'px)'; el.style.opacity = g > 0 ? (wv * .9).toFixed(3) : '0'; } }
+        if (hit) {
+          const dx = (Math.random() - .5) * rwB * .022 * g, rgb = Math.max(1, rwB * .005 * g);
+          img0.style.transform = 'translateX(' + dx.toFixed(1) + 'px)';
+          img0.style.filter = 'drop-shadow(' + rgb.toFixed(1) + 'px 0 rgba(255,40,120,.75)) drop-shadow(' + (-rgb).toFixed(1) + 'px 0 rgba(40,220,255,.75))';
+          if (Math.random() < .25) { const t0 = Math.random() * 70; img0.style.clipPath = 'inset(' + t0.toFixed(0) + '% 0 ' + Math.max(0, 100 - t0 - 10 - Math.random() * 30).toFixed(0) + '% 0)'; } else img0.style.clipPath = '';
+          mark.style.opacity = (wv * (Math.random() < .15 ? .35 : 1)).toFixed(3);
+        } else {
+          if (this._gl !== 0 || g > 0) { img0.style.transform = ''; img0.style.filter = ''; img0.style.clipPath = ''; }
+          mark.style.opacity = wv;
+        }
+        this._gl = hit ? 1 : 0;
+      }
+      // light behind the canvas only once the frame is fully in, so its rounded corners blend cleanly; dark until then
+      const sbg = (P.frame ?? false) && wv > .99 ? '#D6ECF1' : '#161616'; if (this._sbg !== sbg) { this._sbg = sbg; document.getElementById('stage').style.background = sbg; }
+      if (img0) img0.style.width = rwB + 'px';
+      // the subhead under the wordmark fades up last, once the intro has finished
+      if (!this.sub) this.sub = document.getElementById('sub');
+      { const after = performance.now() - this.t0 - hold - dur, so = Math.min(1, Math.max(0, (after - 1250) / 800)), se = 1 - Math.pow(1 - so, 3);   // waits until the glitch has finished (it trails off 1.1s after the wordmark lands)
+        const fz = Math.max(10, Math.round(rwB * .022)), top = ch / 2 + rwB * 100 / 525 / 2 + Math.max(9, rwB * .045 * .75);
+        this.sub.style.fontSize = fz + 'px'; this.sub.style.top = top + 'px'; this.sub.style.left = ((cw - rwB) / 2) + 'px'; this.sub.style.opacity = (se * .6).toFixed(3); this.sub.style.transform = 'translateY(' + ((1 - se) * 8).toFixed(2) + 'px)'; }
+      // the iridescent frame around the wordmark: runs out to the edges of the box, its inner edge about 7% in
+      // from the sides and 10% from the top and bottom; it fades in with the wordmark
+      const FT = Math.round(Math.max(6, Math.min(14, cw * .009))), FX = 0, FY = 0, FW = cw, FH = ch;
+      // the iridescent frame is switched off (P.frame): black runs to the edges; set P.frame to true to bring it back
+      const FR = P.frame ?? false, TX = FR ? Math.max(16, Math.round(cw * .072) + FT - 40) : 0, TY = FR ? Math.max(16, Math.round(ch * .102) + FT - 40) : 0;
+      const ma = (1 - mq).toFixed(3), sq = 'linear-gradient(#000,#000)';
+      const mi = maskReady ? 'url(insights-band-mask.svg), linear-gradient(rgba(0,0,0,' + ma + '),rgba(0,0,0,' + ma + ')), ' + [sq, sq, sq, sq].join(', ') : 'none';
+      const mk = mi + cw + 'x' + ch;
+      if (this._mi !== mk) { this._mi = mk; const S = c.style;
+        const sz = rwB + 'px auto, 100% 100%, ' + FW + 'px ' + TY + 'px, ' + FW + 'px ' + TY + 'px, ' + TX + 'px ' + FH + 'px, ' + TX + 'px ' + FH + 'px';
+        const ps = 'center, center, 0px 0px, 0px ' + (FH - TY) + 'px, 0px 0px, ' + (FW - TX) + 'px 0px';
+        document.getElementById('panel').style.inset = TY + 'px ' + TX + 'px';   // the dark panel inside the frame
+        S.maskImage = mi; S.webkitMaskImage = mi; S.maskSize = sz; S.webkitMaskSize = sz; S.maskPosition = ps; S.webkitMaskPosition = ps; }
+      const rw0 = RW, rh0 = RH, rx0 = (cw - rw0) / 2, ry0 = (ch - rh0) / 2, px0 = m.tx * cw, py0 = m.ty * ch;
+      const overImg = px0 > rx0 && px0 < rx0 + rw0 && py0 > ry0 && py0 < ry0 + rh0;
+      const nearF = FR && wv > .05 && !(px0 > TX + 30 && px0 < cw - TX - 30 && py0 > TY + 30 && py0 < ch - TY - 30);
+      if (rippleOn && Math.hypot((m.tx - spx) * cw, (m.ty - spy) * ch) > (P.waveSpawnThreshold ?? .1)) { if (spx >= 0 && (overImg || nearF)) { const w = WV[wi]; w.x = m.tx; w.y = m.ty; w.r = Math.random() * 6.283; w.s = 1.75; w.a = 1; wi = (wi + 1) % Math.max(1, Math.min(N, Math.round(P.waveCount ?? 100))); } spx = m.tx; spy = m.ty; }
+      let nv = 0;
+      for (const w of WV) { if (w.a < .01) continue; w.r += (P.waveRotationSpeed ?? .025); w.a *= (P.waveFadeMultiplier ?? .95); w.s = .98 * w.s + (P.waveGrowth ?? .155);
+        const hs = (P.waveSize ?? 60) / 2 * w.s, co = Math.cos(w.r) * hs, si = Math.sin(w.r) * hs, cx = w.x * 2 - 1, cy = 1 - w.y * 2;
+        for (const [qx, qy, u, v] of [[-1,-1,0,0],[1,-1,1,0],[1,1,1,1],[-1,-1,0,0],[1,1,1,1],[-1,1,0,1]]) { const px = qx * co - qy * si, py = qx * si + qy * co; verts.set([cx + px / cw * 2, cy + py / ch * 2, u, v, w.a], nv * 5); nv++; } }
+      gl.bindFramebuffer(gl.FRAMEBUFFER, fbo); gl.viewport(0, 0, fw, fh); gl.clearColor(0, 0, 0, 0); gl.clear(gl.COLOR_BUFFER_BIT);
+      if (nv) { gl.useProgram(spr); gl.activeTexture(gl.TEXTURE2); gl.bindTexture(gl.TEXTURE_2D, btex); gl.activeTexture(gl.TEXTURE0); gl.uniform1i(SL.bt, 2); gl.uniform1f(SL.hb, (P.customBrush ?? true) ? hasBrush : 0); gl.bindBuffer(gl.ARRAY_BUFFER, stampBuf); gl.bufferData(gl.ARRAY_BUFFER, verts.subarray(0, nv * 5), gl.DYNAMIC_DRAW);
+        gl.disableVertexAttribArray(loc);
+        [[SL.p, 2, 0], [SL.u, 2, 8], [SL.a, 1, 16]].forEach(([l, s, o]) => { gl.enableVertexAttribArray(l); gl.vertexAttribPointer(l, s, gl.FLOAT, false, 20, o); });
+        gl.enable(gl.BLEND); gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA); gl.drawArrays(gl.TRIANGLES, 0, nv); gl.disable(gl.BLEND);
+        [SL.p, SL.u, SL.a].forEach(l => gl.disableVertexAttribArray(l)); }
+      gl.bindFramebuffer(gl.FRAMEBUFFER, null); gl.viewport(0, 0, W, H);
+      gl.useProgram(pr); gl.bindBuffer(gl.ARRAY_BUFFER, qb); gl.enableVertexAttribArray(loc); gl.vertexAttribPointer(loc, 2, gl.FLOAT, false, 0, 0);
+      gl.uniform1i(U.tex, 0); gl.uniform1i(U.disp, 1); gl.activeTexture(gl.TEXTURE1); gl.bindTexture(gl.TEXTURE_2D, dtex); gl.activeTexture(gl.TEXTURE0);
+      gl.uniform1f(U.inv, (P.invertPixels ?? true) ? 1 : 0);
+      gl.activeTexture(gl.TEXTURE3); gl.bindTexture(gl.TEXTURE_2D, ltx); gl.activeTexture(gl.TEXTURE0); gl.uniform1i(U.ltex, 3); gl.uniform1f(U.lOn, hasL ? wv : 0); gl.uniform1f(U.ps, (156 + (64 - 156) * e) * dpr);
+      gl.uniform1f(U.edgeAmt, P.edgeDistortion ?? .2);
+      gl.uniform4f(U.frect, FX * dpr, (ch - FY - FH) * dpr, FW * dpr, FH * dpr); gl.uniform2f(U.ft, TX * dpr, TY * dpr); gl.uniform1f(U.fOn, wv);
+      gl.uniform1f(U.pix, (P.pixelate ?? true) ? (P.pixelSize ?? 6) * dpr : 1);
+      gl.uniform1f(U.rip, rippleOn ? (P.distortionStrength ?? .075) : 0);
+      const rw = RW, rh = RH, rx = (cw - rw) / 2, ry = (ch - rh) / 2;
+      gl.uniform4f(U.rect, rx * dpr, (ch - ry - rh) * dpr, rw * dpr, rh * dpr);
+      gl.uniform2f(U.res, W, H); gl.uniform2f(U.mouse, (m.x * cw - rx) / rw, (m.y * ch - ry) / rh);
+      gl.uniform1f(U.t, time); gl.uniform1f(U.tb, btime); gl.uniform1f(U.tbf, ftime); gl.uniform1f(U.amt, P.intensity ?? 1);
+      gl.uniform1f(U.sheen, (P.sheen ?? true) ? 1 : 0); gl.uniform1f(U.ia, ia); gl.uniform1f(U.inkOn, (P.showInk ?? false) ? 1 : 0);
+      gl.uniform1f(U.ms, (P.interactive ?? true) ? m.s : 0);
+      gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+    };
+    // Embedded in the Bits and Pieces case study: play when the frame scrolls into view, replay each time
+    // it comes back, and stop drawing while it's off screen. Reduced motion shows the finished mark.
+    const calm = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    let on = false;
+    new IntersectionObserver((es) => es.forEach((en) => {
+      if (en.isIntersecting && en.intersectionRatio >= 0.35) {
+        if (!on) { on = true; this.t0 = calm ? performance.now() - 1e6 : performance.now(); last = performance.now(); this.raf = requestAnimationFrame(loop); }
+      } else if (!en.isIntersecting && on) { on = false; cancelAnimationFrame(this.raf); }
+    }), { threshold: [0, 0.35] }).observe(document.getElementById('stage'));
+}).call(self);
+})();
+</script>
+</body>
+</html>

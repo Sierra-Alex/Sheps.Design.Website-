@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 48 48" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><style>
+/* draws in, holds 5s, plays back in reverse, loops */
+.d{stroke-dasharray:1 2;stroke-dashoffset:1.01;animation:dr0 4.75s linear 0s infinite alternate both}
+.dot{opacity:0;transform-box:fill-box;transform-origin:center;transform:scale(0);animation:pp0 4.75s linear 0s infinite alternate both}
+@keyframes dr0{0%,0.000%{stroke-dashoffset:1.01;animation-timing-function:cubic-bezier(.65,0,.35,1)}23.158%,100%{stroke-dashoffset:0}}
+@keyframes pp0{0%,0.000%{opacity:0;transform:scale(0);animation-timing-function:cubic-bezier(.34,1.56,.64,1)}9.474%,100%{opacity:1;transform:scale(1)}}
+.d[style*="--t:0.00s"]{animation-name:dr0}.dot[style*="--t:0.00s"]{animation-name:pp0}
+@keyframes dr35{0%,7.368%{stroke-dashoffset:1.01;animation-timing-function:cubic-bezier(.65,0,.35,1)}30.526%,100%{stroke-dashoffset:0}}
+@keyframes pp35{0%,7.368%{opacity:0;transform:scale(0);animation-timing-function:cubic-bezier(.34,1.56,.64,1)}16.842%,100%{opacity:1;transform:scale(1)}}
+.d[style*="--t:0.35s"]{animation-name:dr35}.dot[style*="--t:0.35s"]{animation-name:pp35}
+@keyframes dr114{0%,24.211%{stroke-dashoffset:1.01;animation-timing-function:cubic-bezier(.65,0,.35,1)}47.368%,100%{stroke-dashoffset:0}}
+@keyframes pp114{0%,24.211%{opacity:0;transform:scale(0);animation-timing-function:cubic-bezier(.34,1.56,.64,1)}33.684%,100%{opacity:1;transform:scale(1)}}
+.d[style*="--t:1.15s"]{animation-name:dr114}.dot[style*="--t:1.15s"]{animation-name:pp114}
+@media (prefers-reduced-motion:reduce){.d,.dot{animation:none !important;stroke-dashoffset:0;opacity:1;transform:none}}
+</style><g stroke="#7EE3D0"><path pathLength="1" class="d" style="--t:0.00s" d="M10 30l4-4c2-2 4-2.5 7-2.5h6a2 2 0 0 1 0 4h-6"/><path pathLength="1" class="d" style="--t:0.00s" d="M27 27.5l8-5.5a2.1 2.1 0 0 1 3 3l-8 8c-1.3 1.3-3 2-5 2h-9l-2 2"/><path pathLength="1" class="d" style="--t:0.00s" d="M4 34l3-3 9 9-3 3z"/></g><g stroke="#7B61FF"><path pathLength="1" class="d" style="--t:0.35s" d="M24 20c-4-3-7-5-7-8a3.5 3.5 0 0 1 7-1 3.5 3.5 0 0 1 7 1c0 3-3 5-7 8z"/></g></svg>

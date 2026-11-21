@@ -565,14 +565,14 @@ var EyeTrackerMod=(()=>{var zt=(f,e)=>()=>(e||f((e={exports:{}}).exports,e),e.ex
   .sa-say b{font:500 13px ui-monospace,'JetBrains Mono',Menlo,monospace;letter-spacing:0;color:var(--sa-ink);background:var(--sa-pill);border-radius:3px;padding:0 4px}
   .sa-foot{display:flex;align-items:center;justify-content:space-between}
   .sa-dots{display:flex;gap:5px}
-  .sa-dots i{width:5px;height:5px;border-radius:50%;background:var(--sa-line)}
+  .sa-dots i{width:5px;height:5px;border-radius:50%;background:var(--sa-dot)}
   .sa-dots i.on{background:var(--sa-ink)}
   .sa-next{display:inline-flex;align-items:center;justify-content:center;width:36px;height:36px;padding:0;border-radius:50%;border:1px solid var(--sa-pill);background:var(--sa-pill);color:var(--sa-ink);cursor:pointer}
   .sa-next:hover{border-color:var(--sa-ink)}
   .sa-next.typing{opacity:.35}
   @keyframes pet-caret{50%{opacity:0;}}`;
-  const LIGHT = '--sa-bg:rgba(251,250,247,0.68);--sa-ink:#131313;--sa-text:#6F6F6F;--sa-mute:#6F6F6F;--sa-line:rgba(255,255,255,0.6);--sa-pill:#E9E4E1;';
-  const DARK  = '--sa-bg:rgba(19,19,17,.9);--sa-ink:#EBE8DE;--sa-text:#B4B0A4;--sa-mute:#8E8B7E;--sa-line:#2A2924;--sa-pill:#24231F;';
+  const LIGHT = '--sa-bg:rgba(251,250,247,0.68);--sa-ink:#131313;--sa-text:#6F6F6F;--sa-mute:#6F6F6F;--sa-line:rgba(255,255,255,0.6);--sa-pill:#E9E4E1;--sa-dot:rgba(19,19,19,0.18);';
+  const DARK  = '--sa-bg:rgba(19,19,17,.9);--sa-ink:#EBE8DE;--sa-text:#B4B0A4;--sa-mute:#8E8B7E;--sa-line:#2A2924;--sa-pill:#24231F;--sa-dot:#4A483F;';
   const REACT = ['https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js','https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js'];
   function load(src){ return new Promise((res,rej)=>{ const s=document.createElement('script'); s.src=src; s.onload=res; s.onerror=rej; document.head.appendChild(s); }); }
   async function react(){ if(window.React && window.ReactDOM) return; for(const u of REACT) await load(u); }
@@ -599,7 +599,7 @@ var EyeTrackerMod=(()=>{var zt=(f,e)=>()=>(e||f((e={exports:{}}).exports,e),e.ex
     const last=()=>page===LINES.length-1;
     function finish(){ clearInterval(timer); timer=null; say.innerHTML=fmt(LINES[page]); next.classList.remove('typing'); next.setAttribute('aria-label', last()?'Done':'Next'); box.setAttribute('aria-label', last()?'Close':'Next'); }
     function type(){
-      clearInterval(timer); dots.innerHTML=LINES.map((_,i)=>`<i class="${i===page?'on':''}"></i>`).join(''); next.classList.add('typing');
+      clearInterval(timer); dots.innerHTML=LINES.length>1?LINES.map((_,i)=>`<i class="${i===page?'on':''}"></i>`).join(''):''; next.classList.add('typing');
       if(still){ finish(); return; }
       const total=plain(LINES[page]).length; let shown=0;
       timer=setInterval(()=>{ shown++; let out='', n=0;

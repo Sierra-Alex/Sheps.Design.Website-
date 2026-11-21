@@ -1,8 +1,23 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Coach App · Case study · Sheps.Design</title>
+<meta name="description" content="Coach, a mood and journal tracker powered by AI insights. Product design and the agentic design system behind it, so every check-in and entry turns into patterns people can act on.">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Sheps.Design">
+<meta property="og:title" content="Coach App · Case study · Sheps.Design">
+<meta property="og:description" content="Coach, a mood and journal tracker powered by AI insights. Product design and the agentic design system behind it, so every check-in and entry turns into patterns people can act on.">
+<link rel="canonical" href="https://sheps.design/coach">
+<meta property="og:url" content="https://sheps.design/coach">
+<meta property="og:image" content="https://sheps.design/assets/og/coach.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:image" content="https://sheps.design/assets/og/coach.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Coach App · Case study · Sheps.Design">
+<meta name="twitter:description" content="Coach, a mood and journal tracker powered by AI insights. Product design and the agentic design system behind it, so every check-in and entry turns into patterns people can act on.">
 <script src="./support.js"></script>
 </head>
 <body>
@@ -32,6 +47,7 @@ a:focus-visible,button:focus-visible{outline:2px solid #FDBB6F;outline-offset:2p
 /* Button colour (#DEEB2C fill, #E5EF56 hover). Remove this rule and the data-btn attributes to revert. */
 [data-btn]{background:#DEEB2C !important;color:#131313 !important;border-color:#DEEB2C !important;transition:background-color .2s ease,color .2s ease,opacity .2s ease !important}
 [data-btn]:hover,[data-btn]:focus-visible{background:#E5EF56 !important;color:#131313 !important;border-color:#E5EF56 !important}
+@media (max-width:807px){[data-hide-phone]{display:none !important;}}
 </style>
 <script src="./analytics.js"></script>
 <script src="./copy-email.js"></script>
@@ -44,7 +60,7 @@ a:focus-visible,button:focus-visible{outline:2px solid #FDBB6F;outline-offset:2p
     <div style="display:flex;align-items:center;gap:16px;align-self:stretch;">
         <a href="/#work" aria-current="page" style="flex:none;min-width:32px;text-align:center;color:#131313;font-size:12px;font-weight:400;line-height:130%;letter-spacing:0.02em;text-decoration:none;white-space:nowrap;padding-bottom:2px;background:linear-gradient(currentColor, currentColor) no-repeat 50% 100% / 0% 1px;transition:color 0.2s ease, background-size 0.3s ease;" style-hover="color:#131313;background-image:linear-gradient(#131313, #131313);background-size:100% 1px;">Work</a>
         <a href="/agentic-systems" style="flex:none;min-width:32px;text-align:center;color:#6F6F6F;font-size:12px;font-weight:400;line-height:130%;letter-spacing:0.02em;text-decoration:none;white-space:nowrap;padding-bottom:2px;background:linear-gradient(currentColor, currentColor) no-repeat 50% 100% / 0% 1px;transition:color 0.2s ease, background-size 0.3s ease;" style-hover="color:#131313;background-image:linear-gradient(#131313, #131313);background-size:100% 1px;">Systems</a>
-        <a href="/tools" style="flex:none;min-width:32px;text-align:center;color:#6F6F6F;font-size:12px;font-weight:400;line-height:130%;letter-spacing:0.02em;text-decoration:none;white-space:nowrap;padding-bottom:2px;background:linear-gradient(currentColor, currentColor) no-repeat 50% 100% / 0% 1px;transition:color 0.2s ease, background-size 0.3s ease;" style-hover="color:#131313;background-image:linear-gradient(#131313, #131313);background-size:100% 1px;">Tools</a>
+        <a data-hide-phone="" href="/tools" style="flex:none;min-width:32px;text-align:center;color:#6F6F6F;font-size:12px;font-weight:400;line-height:130%;letter-spacing:0.02em;text-decoration:none;white-space:nowrap;padding-bottom:2px;background:linear-gradient(currentColor, currentColor) no-repeat 50% 100% / 0% 1px;transition:color 0.2s ease, background-size 0.3s ease;" style-hover="color:#131313;background-image:linear-gradient(#131313, #131313);background-size:100% 1px;">Tools</a>
         <a href="#about" data-about="" style="flex:none;min-width:32px;text-align:center;color:#6F6F6F;font-size:12px;font-weight:400;line-height:130%;letter-spacing:0.02em;text-decoration:none;white-space:nowrap;padding-bottom:2px;background:linear-gradient(currentColor, currentColor) no-repeat 50% 100% / 0% 1px;transition:color 0.2s ease, background-size 0.3s ease;" style-hover="color:#131313;background-image:linear-gradient(#131313, #131313);background-size:100% 1px;">About</a>
         <a data-btn="" data-cta="nav-lets-chat" data-cta-tier="primary" data-cta-location="nav" href="mailto:alex@sheps.studio" data-copy-email="alex@sheps.studio" title="Copy email address" style="display:inline-flex;align-items:center;justify-content:center;flex:none;padding:12px 16px;border:0;border-radius:4px;background:#E9E4E1;color:#131313;font-family:'Inter',sans-serif;font-size:12px;font-weight:500;line-height:130%;letter-spacing:0.02em;text-decoration:none;white-space:nowrap;cursor:pointer;" style-hover="background:#CAE9DF;color:#131313;" style-active="background:#CAE9DF;color:#131313;opacity:0.8;">Let's Chat</a>
     </div>
@@ -109,14 +125,14 @@ a:focus-visible,button:focus-visible{outline:2px solid #FDBB6F;outline-offset:2p
     </nav>
 
     <article style="flex:1 1 calc((808px - 100vw) * 999);display:flex;flex-direction:column;gap:40px;min-width:0;">
-      <img src="assets/case-study/coach-hero.png" alt="Coach wordmark among clouds on a lilac-to-yellow gradient" style="display:block;width:100%;height:auto;aspect-ratio:3189 / 1595;border-radius:8px;object-fit:cover;"></img>
+      <img loading="lazy" decoding="async" src="assets/case-study/coach-hero.webp" alt="Coach wordmark among clouds on a lilac-to-yellow gradient" style="display:block;width:100%;height:auto;aspect-ratio:3189 / 1595;border-radius:8px;object-fit:cover;"></img>
       <section id="problem" data-screen-label="The problem" style="display:flex;flex-direction:column;gap:16px;width:100%;padding:24px;border:1px solid #E1DDDC;border-radius:8px;background:#F2ECE8B3;">
         <div style="display:flex;align-items:center;gap:8px;font-size:14px;line-height:130%;letter-spacing:0.02em;">
           <h2 style="margin:0;color:#131313;font:inherit;font-weight:600;">The problem</h2>
           <span aria-hidden="true" style="width:1px;height:11px;background:#E1DDDC;"></span>
           <p style="margin:0;color:#6F6F6F;">Where it started</p>
         </div>
-        <div style="max-width:800px;color:#6F6F6F;font-size:16px;font-weight:400;line-height:130%;letter-spacing:0.02em;">
+        <div style="max-width:800px;color:#6F6F6F;font-size:14px;font-weight:400;line-height:130%;letter-spacing:0.02em;">
           <p style="margin:0;">Most tracker and journal apps tell half the story. The data people log, like medication and daily habits, rarely connects to what they write about how they feel, so the patterns that matter stay hidden.</p>
           <p style="margin:21px 0 0;">My brief was to close that gap with a lightweight, focused product that surfaces only what's useful. Simple enough to become a daily ritual, and powerful enough to reveal insights and patterns that would otherwise go unnoticed.</p>
         </div>
@@ -131,7 +147,7 @@ a:focus-visible,button:focus-visible{outline:2px solid #FDBB6F;outline-offset:2p
               <span aria-hidden="true" style="width:1px;height:11px;background:#E1DDDC;"></span>
               <p style="margin:0;color:#6F6F6F;">{{ s.item }}</p>
             </div>
-            <p style="margin:0;color:#6F6F6F;font-size:16px;font-weight:400;line-height:140%;letter-spacing:0.02em;text-wrap:pretty;">{{ s.body }}</p>
+            <p style="margin:0;color:#6F6F6F;font-size:14px;font-weight:400;line-height:140%;letter-spacing:0.02em;text-wrap:pretty;">{{ s.body }}</p>
           </div>
           <div style="display:flex;flex-direction:column;gap:16px;">
             <sc-for list="{{ s.rows }}" as="row" hint-placeholder-count="2">
@@ -161,7 +177,7 @@ a:focus-visible,button:focus-visible{outline:2px solid #FDBB6F;outline-offset:2p
                                     <img src="coach-walkthrough-assets/coach-wordmark.svg" alt="Coach" style="display:block;width:50%;height:auto;"></img>
                                     <span style="color:#6F6F6F;font-size:clamp(9px, 4.5cqw, 24px);line-height:1.2;">Primitive Tokens</span>
                                   </div>
-                                  <div style="border-radius:clamp(3px, 0.8vw, 8px);background:url('coach-walkthrough-assets/background-clouds.webp') left center / cover no-repeat, url('assets/case-study/coach-token-card-bg.png') center / cover no-repeat;"></div>
+                                  <div style="border-radius:clamp(3px, 0.8vw, 8px);background:url('coach-walkthrough-assets/background-clouds.webp') left center / cover no-repeat, url('assets/case-study/coach-token-card-bg.webp') center / cover no-repeat;"></div>
                                 </div>
                               </sc-if>
                               <sc-if value="{{ flipPage }}" hint-placeholder-val="{{ false }}">
@@ -175,10 +191,10 @@ a:focus-visible,button:focus-visible{outline:2px solid #FDBB6F;outline-offset:2p
                           <div role="img" aria-label="{{ t.alt }}" style="width:100%;height:100%;background:url('{{ t.fill }}') center / cover no-repeat;"></div>
                         </sc-if>
                         <sc-if value="{{ t.appIcon }}" hint-placeholder-val="{{ false }}">
-                          <img src="assets/case-study/coach-app-icon.png" alt="Coach app icon" style="display:block;width:100%;height:100%;object-fit:cover;"></img>
+                          <img loading="lazy" decoding="async" src="assets/case-study/coach-app-icon.webp" alt="Coach app icon" style="display:block;width:100%;height:100%;object-fit:cover;"></img>
                         </sc-if>
                         <sc-if value="{{ t.researchArt }}" hint-placeholder-val="{{ false }}">
-                          <img src="assets/case-study/coach-user-flow.png" alt="{{ t.alt }}" style="display:block;width:100%;height:100%;object-fit:cover;"></img>
+                          <img loading="lazy" decoding="async" src="assets/case-study/coach-user-flow.webp" alt="{{ t.alt }}" style="display:block;width:100%;height:100%;object-fit:cover;"></img>
                         </sc-if>
                         <sc-if value="{{ t.walk }}" hint-placeholder-val="{{ false }}">
                           <div ref="{{ walkRef }}" style="position:relative;width:100%;aspect-ratio:1063 / 608;border-radius:4px;overflow:hidden;background:#E9E4E1;">
@@ -211,7 +227,7 @@ a:focus-visible,button:focus-visible{outline:2px solid #FDBB6F;outline-offset:2p
             <span aria-hidden="true" style="width:1px;height:11px;background:#E1DDDC;"></span>
             <p style="margin:0;color:#6F6F6F;">What changed</p>
           </div>
-          <div style="max-width:800px;color:#6F6F6F;font-size:16px;font-weight:400;line-height:130%;letter-spacing:0.02em;">
+          <div style="max-width:800px;color:#6F6F6F;font-size:14px;font-weight:400;line-height:130%;letter-spacing:0.02em;">
             <p style="margin:0;">Coach now runs on a fully agent-ready design system that makes on-brand product development straightforward. New features and iterations come together quickly, unlocking the speed of AI development while preserving the human creative decisions that make the brand and product distinct.</p>
           </div>
         </div>
@@ -250,7 +266,8 @@ class Component extends DCLogic {
       const s0 = v.getAttribute('src') || '';
       const phone = window.matchMedia('(max-width: 807px)').matches;
       const alt = phone ? '-mobile' : (!av1 ? '-h264' : '');
-      if (alt && /\.mp4(\?|$)/.test(s0) && !/-(h264|mobile)\.mp4/.test(s0)) v.src = s0.replace(/\.mp4(\?|$)/, alt + '.mp4$1');
+      const s1 = (alt && /\.mp4(\?|$)/.test(s0) && !/-(h264|mobile)\.mp4/.test(s0)) ? s0.replace(/\.mp4(\?|$)/, alt + '.mp4$1') : s0;
+      if (s1) { v.preload = 'none'; v.src = s1; }   // nothing downloads until the video scrolls into view (play() loads it)
       v.autoplay = false; v.removeAttribute('autoplay'); v.muted = true;
       const play = v.play.bind(v); v._origPause = v.pause.bind(v);
       v.play = () => (v._inView ? play() : Promise.resolve());
@@ -307,20 +324,20 @@ class Component extends DCLogic {
     const icon = (n) => `assets/icons/brand-${n}-cream.svg`;
     const sections = [
       { id: 'research', title: 'Research', item: 'Why people stop checking in', icon: icon('design-system'), body: "I started with a landscape audit: the best-in-class apps in the space, feature by feature, to map where the category already delivers and where it falls short. That audit set the scope for the product and gave me a clear foundation to plan from. From there, I built the first-stage user flow around only what the core experience needs.", rows: [
-        { cols: [{ basis: '100%', tiles: [Object.assign(tile('auto', '', '', '0'), { ratio: '2126 / 1217', bg: "url('assets/case-study/coach-research.png?v=2') center / 100% 100% no-repeat", alt: 'Coach research' })] }] }, { cols: [{ basis: '100%', tiles: [Object.assign(tile('auto', '', '', '0'), { ratio: '2126 / 1217', bg: "url('assets/case-study/coach-user-flow-v2.png') center / 100% 100% no-repeat", alt: 'Coach user flow' })] }] },
+        { cols: [{ basis: '100%', tiles: [Object.assign(tile('auto', '', '', '0'), { ratio: '2126 / 1217', bg: "url('assets/case-study/coach-research.webp?v=2') center / 100% 100% no-repeat", alt: 'Coach research' })] }] }, { cols: [{ basis: '100%', tiles: [Object.assign(tile('auto', '', '', '0'), { ratio: '2126 / 1217', bg: "url('assets/case-study/coach-user-flow-v2.webp') center / 100% 100% no-repeat", alt: 'Coach user flow' })] }] },
       ] },
       { id: 'checkins', title: 'Design', item: 'Brand and product, designed together', icon: icon('design-system'), body: "I designed Coach around simplicity and ease of use. As an AI-native product, it uses AI to keep the conversation going, nudging people to go deeper when an area of their journaling needs attention. Alongside the journal, Coach tracks the factors that shape mood: medication consistency, or moderating substances like cigarettes for anyone working to quit. Mood and energy act as markers for what's working and what isn't. Every entry feeds the AI coach, which reads across all the data to surface patterns and insights that would otherwise be missed. The AI steps in where it adds value, while journaling and tracking stay at the centre of the experience.", rows: [
         { cols: [{ basis: '100%', tiles: [Object.assign(tile('auto', '', '', '0'), { walk: true, alt: 'Coach app walkthrough' })] }] }, { cols: [{ basis: STACK, tiles: [Object.assign(tile('280.968px', '', '', '0'), { appIcon: true, ratio: 'auto', grow: '1 1 0', minH: '200px' }), Object.assign(tile('auto', '', '', '0'), { ratio: 'auto', grow: '1 1 0', minH: '200px', video: 'assets/case-study/coach-toggle-loop.mp4', alt: 'Coach toggle interaction' })] }, { basis: STACK, tiles: [Object.assign(tile('auto', '', '', '0'), { ratio: '1095 / 1164', grow: '1 0 auto', video: 'assets/case-study/coach-longpress.mp4', alt: 'Coach long-press interaction' })] }] }, { cols: [{ basis: '100%', tiles: [Object.assign(tile('auto', '', '', '0'), { ratio: '2126 / 1216', bg: "url('assets/case-study/coach-device-screens-v3.webp') center / 100% 100% no-repeat", alt: 'Coach app screens' })] }] },
       ] },
       { id: 'journal', title: 'Token system', item: 'Raw values, mapped to purpose', icon: icon('design-system'), body: "Token building is where the design starts becoming code. Primitives hold the raw values: color, type, spacing and radius. Semantic tokens reference those primitives and name their purpose.", rows: [
-        { cols: [{ basis: STACK, tiles: [Object.assign(tile('auto', '', '', '0'), { fill: 'assets/case-study/coach-token-flow.png', ratio: '1571 / 1669', alt: 'Token flow: primitive tokens to pages' })] }, { basis: STACK, tiles: [Object.assign(tile('auto', '', '', '0'), { fill: 'assets/case-study/coach-token-studio.png', ratio: '1571 / 1669', alt: 'Tokens Studio JSON' })] }] },
-        { cols: [{ basis: '100%', tiles: [Object.assign(tile('auto', '', '', '0'), { flip: true, ratio: '1490 / 844', bg: "url('assets/case-study/coach-token-card-bg.png') center / cover no-repeat" })] }] },
+        { cols: [{ basis: STACK, tiles: [Object.assign(tile('auto', '', '', '0'), { fill: 'assets/case-study/coach-token-flow.webp', ratio: '1571 / 1669', alt: 'Token flow: primitive tokens to pages' })] }, { basis: STACK, tiles: [Object.assign(tile('auto', '', '', '0'), { fill: 'assets/case-study/coach-token-studio.webp', ratio: '1571 / 1669', alt: 'Tokens Studio JSON' })] }] },
+        { cols: [{ basis: '100%', tiles: [Object.assign(tile('auto', '', '', '0'), { flip: true, ratio: '1490 / 844', bg: "url('assets/case-study/coach-token-card-bg.webp') center / cover no-repeat" })] }] },
       ] },
       { id: 'insights', title: 'Component building', item: 'Built on the tokens', icon: icon('design-system'), body: "From there, I built components, then patterns, then full pages: mood selectors, cards, inputs, buttons and navigation, each bound to tokens. Because every layer cascades from the one beneath it, the system stays easy to maintain: change a value once and it flows through the whole app. Components live in Figma for design and in code for engineering, so both stay in step.", rows: [
-        { cols: [{ basis: '100%', tiles: [Object.assign(tile('auto', '', '', '0'), { compVideo: true, ratio: '1490 / 820', bg: "url('assets/case-study/coach-token-card-bg.png') center / cover no-repeat" })] }] },
+        { cols: [{ basis: '100%', tiles: [Object.assign(tile('auto', '', '', '0'), { compVideo: true, ratio: '1490 / 820', bg: "url('assets/case-study/coach-token-card-bg.webp') center / cover no-repeat" })] }] },
       ] },
       { id: 'system', title: 'Stack and AI build', item: 'Built with AI, on the system', icon: icon('design-system'), body: "With the system in place, I moved into the build. AI tooling worked directly from the tokens, components and an agent contract, so generated screens matched the designs instead of drifting from them. The same setup lets the team keep shipping features that still feel like Coach, and extends to go-to-market resources built with AI that look and feel like the product. Everything stays on brand and consistent, so the team can focus on the work itself rather than the details of execution.", rows: [
-        { cols: [{ basis: '100%', tiles: [Object.assign(tile('auto', '', '', '0'), { ratio: '2126 / 1196', bg: "url('assets/case-study/coach-ai-stack.png') center / 100% 100% no-repeat", alt: 'Coach tech stack' })] }] }, { cols: [{ basis: STACK, tiles: [Object.assign(tile('auto', '', '', '0'), { ratio: '1047 / 1164', bg: "url('assets/case-study/coach-build-preview.png') center / cover no-repeat", alt: 'AI-built Coach login screen running in the iOS simulator' })] }, { basis: STACK, tiles: [Object.assign(tile('auto', '', '', '0'), { ratio: '1047 / 1164', bg: "url('assets/case-study/coach-agent-contract.png') center / cover no-repeat", alt: 'Agent contract: the CLAUDE.md directives file' })] }] },
+        { cols: [{ basis: '100%', tiles: [Object.assign(tile('auto', '', '', '0'), { ratio: '2126 / 1196', bg: "url('assets/case-study/coach-ai-stack.webp') center / 100% 100% no-repeat", alt: 'Coach tech stack' })] }] }, { cols: [{ basis: STACK, tiles: [Object.assign(tile('auto', '', '', '0'), { ratio: '1047 / 1164', bg: "url('assets/case-study/coach-build-preview.webp') center / cover no-repeat", alt: 'AI-built Coach login screen running in the iOS simulator' })] }, { basis: STACK, tiles: [Object.assign(tile('auto', '', '', '0'), { ratio: '1047 / 1164', bg: "url('assets/case-study/coach-agent-contract.webp') center / cover no-repeat", alt: 'Agent contract: the CLAUDE.md directives file' })] }] },
       ] },
       { id: 'designsystem', title: 'AI tooling', item: 'The system, put to work', icon: icon('design-system'), body: "With a solid, reliable agentic design system in place, I could build and iterate on the product quickly while keeping every screen consistent. The team now has a foundation that lets them take full advantage of the speed of AI, with output that is production-ready and on brand from the start.", rows: [
         full('596.632px', 'Claude skills'), { cols: [{ basis: STACK, tiles: [tile('280.968px', 'Asset generator')] }, { basis: STACK, tiles: [tile('280.968px', 'Feature prototyping')] }] },

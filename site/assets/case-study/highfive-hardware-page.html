@@ -150,7 +150,7 @@ body{background:var(--paper);color:var(--ink);font-family:var(--f-sans);font-wei
     <div class="stage" id="stage">
       <canvas id="cv" width="1440" height="420" role="img" aria-label="Rendered frame of the Highfive camera bar"></canvas>
       <div class="co" id="co" style="opacity:0" aria-hidden="true">
-        <div class="pt up" style="--x:50%;--y:42.1%;--len:64px"><b></b><span class="label">Speaker</span></div>
+        <div class="pt up" style="--x:50%;--y:42.1%;--len:110px"><b></b><span class="label">Speaker</span></div>
         <div class="pt up" style="--x:12.2%;--y:52%;--len:48px"><b></b><span class="label">Vents</span></div>
         <div class="pt up" style="--x:87.4%;--y:52%;--len:48px"><b></b><span class="label">Vents</span></div>
         <div class="pt" style="--x:31.7%;--y:54.8%;--len:84px"><b></b><span class="label">Audio</span></div>
@@ -337,7 +337,7 @@ setK(); addEventListener("resize", setK);
   const lim = Math.ceil(RMAX + FADE_OUT * SP + 6 * SH);
   const bx = Math.max(0, CENTER[0] - lim), by = Math.max(0, CENTER[1] - lim);
   const bw = Math.min(cv.width, CENTER[0] + lim) - bx, bh = Math.min(cv.height, CENTER[1] + lim) - by;
-  const phone = new Image(); phone.src = "highfive-dolby-side-cutout.png";
+  const phone = new Image(); phone.src = "highfive-dolby-side-cutout.webp";
   const frames = []; let topY = null;
   function buildMask() {
     const o = document.createElement("canvas"); o.width = cv.width; o.height = cv.height;

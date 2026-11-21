@@ -33,6 +33,7 @@ a:focus-visible,button:focus-visible{outline:2px solid #FDBB6F;outline-offset:2p
 /* Button colour (#DEEB2C fill, #E5EF56 hover). Remove this rule and the data-btn attributes to revert. */
 [data-btn]{background:#DEEB2C !important;color:#131313 !important;border-color:#DEEB2C !important;transition:background-color .2s ease,color .2s ease,opacity .2s ease !important}
 [data-btn]:hover,[data-btn]:focus-visible{background:#E5EF56 !important;color:#131313 !important;border-color:#E5EF56 !important}
+@media (max-width:807px){[data-hide-phone]{display:none !important;}}
 </style>
 </helmet>
 
@@ -42,7 +43,7 @@ a:focus-visible,button:focus-visible{outline:2px solid #FDBB6F;outline-offset:2p
     <div style="display:flex;align-items:center;gap:16px;align-self:stretch;">
         <a href="Sheps Design Home.dc.html#work" aria-current="page" style="flex:none;min-width:32px;text-align:center;color:#131313;font-size:12px;font-weight:400;line-height:130%;letter-spacing:0.02em;text-decoration:none;white-space:nowrap;transition:color 0.2s ease;" style-hover="color:#131313;">Work</a>
         <a href="Sheps Design Agentic Systems.dc.html" style="flex:none;min-width:32px;text-align:center;color:#6F6F6F;font-size:12px;font-weight:400;line-height:130%;letter-spacing:0.02em;text-decoration:none;white-space:nowrap;transition:color 0.2s ease;" style-hover="color:#131313;">Systems</a>
-        <a href="tools/index.html" style="flex:none;min-width:32px;text-align:center;color:#6F6F6F;font-size:12px;font-weight:400;line-height:130%;letter-spacing:0.02em;text-decoration:none;white-space:nowrap;transition:color 0.2s ease;" style-hover="color:#131313;">Tools</a>
+        <a data-hide-phone="" href="tools/index.html" style="flex:none;min-width:32px;text-align:center;color:#6F6F6F;font-size:12px;font-weight:400;line-height:130%;letter-spacing:0.02em;text-decoration:none;white-space:nowrap;transition:color 0.2s ease;" style-hover="color:#131313;">Tools</a>
         <a href="#about" data-about="" style="flex:none;min-width:32px;text-align:center;color:#6F6F6F;font-size:12px;font-weight:400;line-height:130%;letter-spacing:0.02em;text-decoration:none;white-space:nowrap;transition:color 0.2s ease;" style-hover="color:#131313;">About</a>
         <a data-btn="" data-cta="nav-lets-chat" data-cta-tier="primary" data-cta-location="nav" href="mailto:alex@sheps.studio" data-copy-email="alex@sheps.studio" title="Copy email address" style="display:inline-flex;align-items:center;justify-content:center;flex:none;padding:12px 16px;border:0;border-radius:4px;background:#E9E4E1;color:#131313;font-family:'Inter',sans-serif;font-size:12px;font-weight:500;line-height:130%;letter-spacing:0.02em;text-decoration:none;white-space:nowrap;cursor:pointer;" style-hover="background:#CAE9DF;color:#131313;" style-active="background:#CAE9DF;color:#131313;opacity:0.8;">Let's Chat</a>
     </div>
@@ -144,7 +145,7 @@ a:focus-visible,button:focus-visible{outline:2px solid #FDBB6F;outline-offset:2p
                         <sc-if value="{{ t.img }}" hint-placeholder-val="{{ true }}">
                           <div style="display:flex;flex:1 1 auto;min-height:0;padding:4px;border:1px solid #E1DDDC;border-radius:8px 8px 6px 8px;overflow:hidden;">
                             <div style="flex:1 1 auto;min-width:0;overflow:hidden;border:1px solid #E1DDDC;border-radius:4px;background:#E9E4E1;">
-                              <img src="{{ t.img }}" alt="{{ t.alt }}" style="display:block;width:1175px;max-width:none;height:586px;object-fit:cover;object-position:left top;"></img>
+                              <img loading="lazy" decoding="async" src="{{ t.img }}" alt="{{ t.alt }}" style="display:block;width:1175px;max-width:none;height:586px;object-fit:cover;object-position:left top;"></img>
                             </div>
                           </div>
                         </sc-if>
@@ -174,7 +175,7 @@ a:focus-visible,button:focus-visible{outline:2px solid #FDBB6F;outline-offset:2p
         <figure style="display:flex;flex-direction:column;height:600px;margin:0;padding:24px 2px 2px 24px;border-radius:8px;background:#E9E4E1;overflow:hidden;">
           <div style="display:flex;flex:1 1 auto;min-height:0;padding:4px;border:1px solid #E1DDDC;border-radius:8px 8px 6px 8px;overflow:hidden;">
             <div style="flex:1 1 auto;min-width:0;overflow:hidden;border:1px solid #E1DDDC;border-radius:4px;background:#E9E4E1;">
-              <img src="assets/case-study/placeholder.png" alt="Result image placeholder" style="display:block;width:1175px;max-width:none;height:586px;object-fit:cover;object-position:left top;"></img>
+              <img loading="lazy" decoding="async" src="assets/case-study/placeholder.png" alt="Result image placeholder" style="display:block;width:1175px;max-width:none;height:586px;object-fit:cover;object-position:left top;"></img>
             </div>
           </div>
         </figure>

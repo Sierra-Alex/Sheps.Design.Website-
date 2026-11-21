@@ -1,4 +1,4 @@
-# sheps.studio
+# sheps.design
 
 Static site, deployed on Vercel from the repo root (no build step).
 

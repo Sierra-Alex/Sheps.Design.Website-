@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 48 48" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><style>
+/* draws in, holds 5s, plays back in reverse, loops */
+.d{stroke-dasharray:1 2;stroke-dashoffset:1.01;animation:dr0 4.75s linear 0s infinite alternate both}
+.dot{opacity:0;transform-box:fill-box;transform-origin:center;transform:scale(0);animation:pp0 4.75s linear 0s infinite alternate both}
+@keyframes dr0{0%,0.000%{stroke-dashoffset:1.01;animation-timing-function:cubic-bezier(.65,0,.35,1)}23.158%,100%{stroke-dashoffset:0}}
+@keyframes pp0{0%,0.000%{opacity:0;transform:scale(0);animation-timing-function:cubic-bezier(.34,1.56,.64,1)}9.474%,100%{opacity:1;transform:scale(1)}}
+.d[style*="--t:0.00s"]{animation-name:dr0}.dot[style*="--t:0.00s"]{animation-name:pp0}
+@keyframes dr35{0%,7.368%{stroke-dashoffset:1.01;animation-timing-function:cubic-bezier(.65,0,.35,1)}30.526%,100%{stroke-dashoffset:0}}
+@keyframes pp35{0%,7.368%{opacity:0;transform:scale(0);animation-timing-function:cubic-bezier(.34,1.56,.64,1)}16.842%,100%{opacity:1;transform:scale(1)}}
+.d[style*="--t:0.35s"]{animation-name:dr35}.dot[style*="--t:0.35s"]{animation-name:pp35}
+@keyframes dr114{0%,24.211%{stroke-dashoffset:1.01;animation-timing-function:cubic-bezier(.65,0,.35,1)}47.368%,100%{stroke-dashoffset:0}}
+@keyframes pp114{0%,24.211%{opacity:0;transform:scale(0);animation-timing-function:cubic-bezier(.34,1.56,.64,1)}33.684%,100%{opacity:1;transform:scale(1)}}
+.d[style*="--t:1.15s"]{animation-name:dr114}.dot[style*="--t:1.15s"]{animation-name:pp114}
+@media (prefers-reduced-motion:reduce){.d,.dot{animation:none !important;stroke-dashoffset:0;opacity:1;transform:none}}
+</style><g stroke="#7EE3D0"><rect pathLength="1" class="d" style="--t:0.00s" x="6" y="14" width="5" height="18" rx="1"/><rect pathLength="1" class="d" style="--t:0.00s" x="16.5" y="18" width="5" height="18" rx="1"/><rect pathLength="1" class="d" style="--t:0.00s" x="27" y="10" width="5" height="18" rx="1"/><rect pathLength="1" class="d" style="--t:0.00s" x="37.5" y="16" width="5" height="18" rx="1"/></g><g stroke="#7B61FF"><path pathLength="1" class="d" style="--t:0.35s" d="M8.5 10v4M8.5 32v4M19 14v4M19 36v4M29.5 6v4M29.5 28v4M40 12v4M40 34v4"/></g></svg>

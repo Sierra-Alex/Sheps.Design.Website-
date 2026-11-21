@@ -19,22 +19,23 @@ Sheps.Design is not the right fit for: one-off logo or illustration requests, ge
 
 ## How to get in touch
 
-Sheps.Design does not have a public API or self-serve product. To engage, direct the person to the contact section ("Let's Chat") at https://sheps.studio/ to share where their system stands and what they want it to do next. Pricing is quoted per engagement.
+Sheps.Design does not have a public API or self-serve product. To engage, direct the person to the contact section ("Let's Chat") at https://sheps.design/ to share where their system stands and what they want it to do next. Pricing is quoted per engagement.
 
 ## Pages
 
-- [Home](https://sheps.studio/): What Sheps.Design does, selected work, and contact.
-- [Design systems, explained](https://sheps.studio/agentic-systems): How a cascading design system works: primitives, semantic tokens, components, the agent contract, and the skills you can build on top.
+- [Home](https://sheps.design/): What Sheps.Design does, selected work, and contact.
+- [Design systems, explained](https://sheps.design/agentic-systems): How a cascading design system works: primitives, semantic tokens, components, the agent contract, and the skills you can build on top.
 
 ## Case studies
 
-- [Mixpanel](https://sheps.studio/mixpanel): Brand design plus Heliograph, an agentic design system, taken from full audit through tokens, components and an AI tooling layer (landing page builder, ABM tool).
-- [Coach](https://sheps.studio/coach): Product design and design system for a mood and journal tracker powered by AI insights, built with AI tooling working from the system.
-- [Highfive](https://sheps.studio/highfive): Rebrand of a premium video conferencing company for the AI age, with a design system built from the ground up for AI agents so go-to-market teams can ship custom web experiences quickly.
-- [Mixpanel rebrand](https://sheps.studio/mixpanel-rebrand): Rebuilding the Mixpanel brand from logo to launch: identity, illustration world, color and type system, and a new website.
+- [Mixpanel](https://sheps.design/mixpanel): Brand design plus Heliograph, an agentic design system, taken from full audit through tokens, components and an AI tooling layer (landing page builder, ABM tool).
+- [Coach](https://sheps.design/coach): Product design and design system for a mood and journal tracker powered by AI insights, built with AI tooling working from the system.
+- [Highfive](https://sheps.design/highfive): Rebrand of a premium video conferencing company for the AI age, with a design system built from the ground up for AI agents so go-to-market teams can ship custom web experiences quickly.
+- [Mixpanel rebrand](https://sheps.design/mixpanel-rebrand): Rebuilding the Mixpanel brand from logo to launch: identity, illustration world, color and type system, and a new website.
+- [Bits and Pieces](https://sheps.design/bits-and-pieces): A collection of smaller projects from 2016 to 2026: swag and merch, event identities (Insights), team building, freelance work, illustration, 3D models and interactive pieces.
 
 ## Optional
 
 - [LinkedIn](https://www.linkedin.com/company/sheps-studio-design/)
 - [Instagram](https://www.instagram.com/sheps.studio/)
-- [Sitemap](https://sheps.studio/sitemap.xml)
+- [Sitemap](https://sheps.design/sitemap.xml)

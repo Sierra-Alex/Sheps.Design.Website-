@@ -1,8 +1,23 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Agent-ready design systems · Sheps.Design</title>
+<meta name="description" content="How an agent-ready design system works: primitives, semantic tokens, components, the agent contract, and the AI skills and tooling you can build on top.">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Sheps.Design">
+<meta property="og:title" content="Agent-ready design systems · Sheps.Design">
+<meta property="og:description" content="How an agent-ready design system works: primitives, semantic tokens, components, the agent contract, and the AI skills and tooling you can build on top.">
+<link rel="canonical" href="https://sheps.design/agentic-systems">
+<meta property="og:url" content="https://sheps.design/agentic-systems">
+<meta property="og:image" content="https://sheps.design/assets/og/agentic-systems.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:image" content="https://sheps.design/assets/og/agentic-systems.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Agent-ready design systems · Sheps.Design">
+<meta name="twitter:description" content="How an agent-ready design system works: primitives, semantic tokens, components, the agent contract, and the AI skills and tooling you can build on top.">
 <script src="./support.js"></script>
 </head>
 <body>
@@ -31,6 +46,7 @@ html{scrollbar-gutter:stable;}
 /* Button colour (#DEEB2C fill, #E5EF56 hover). Remove this rule and the data-btn attributes to revert. */
 [data-btn]{background:#DEEB2C !important;color:#131313 !important;border-color:#DEEB2C !important;transition:background-color .2s ease,color .2s ease,opacity .2s ease !important}
 [data-btn]:hover,[data-btn]:focus-visible{background:#E5EF56 !important;color:#131313 !important;border-color:#E5EF56 !important}
+@media (max-width:807px){[data-hide-phone]{display:none !important;}}
 </style>
 <script src="./analytics.js"></script>
 <script src="./copy-email.js"></script>
@@ -43,7 +59,7 @@ html{scrollbar-gutter:stable;}
     <div style="display:flex;align-items:center;gap:16px;align-self:stretch;">
         <a href="Sheps Design Home.dc.html#work" style="flex:none;min-width:32px;text-align:center;color:#949191;font-size:12px;font-weight:400;line-height:130%;letter-spacing:0.02em;text-decoration:none;white-space:nowrap;padding-bottom:2px;background:linear-gradient(currentColor, currentColor) no-repeat 50% 100% / 0% 1px;transition:color 0.2s ease, background-size 0.3s ease;" style-hover="color:#DEEB2C;background-image:linear-gradient(#DEEB2C, #DEEB2C);background-size:100% 1px;">Work</a>
         <a href="Sheps Design Agentic Systems.dc.html" aria-current="page" style="flex:none;min-width:32px;text-align:center;color:#DEEB2C;font-size:12px;font-weight:400;line-height:130%;letter-spacing:0.02em;text-decoration:none;white-space:nowrap;padding-bottom:2px;background:linear-gradient(currentColor, currentColor) no-repeat 50% 100% / 0% 1px;transition:color 0.2s ease, background-size 0.3s ease;" style-hover="color:#DEEB2C;background-image:linear-gradient(#DEEB2C, #DEEB2C);background-size:100% 1px;">Systems</a>
-        <a href="tools/index.html" style="flex:none;min-width:32px;text-align:center;color:#949191;font-size:12px;font-weight:400;line-height:130%;letter-spacing:0.02em;text-decoration:none;white-space:nowrap;padding-bottom:2px;background:linear-gradient(currentColor, currentColor) no-repeat 50% 100% / 0% 1px;transition:color 0.2s ease, background-size 0.3s ease;" style-hover="color:#DEEB2C;background-image:linear-gradient(#DEEB2C, #DEEB2C);background-size:100% 1px;">Tools</a>
+        <a data-hide-phone="" href="tools/index.html" style="flex:none;min-width:32px;text-align:center;color:#949191;font-size:12px;font-weight:400;line-height:130%;letter-spacing:0.02em;text-decoration:none;white-space:nowrap;padding-bottom:2px;background:linear-gradient(currentColor, currentColor) no-repeat 50% 100% / 0% 1px;transition:color 0.2s ease, background-size 0.3s ease;" style-hover="color:#DEEB2C;background-image:linear-gradient(#DEEB2C, #DEEB2C);background-size:100% 1px;">Tools</a>
         <a href="#about" data-about="" style="flex:none;min-width:32px;text-align:center;color:#949191;font-size:12px;font-weight:400;line-height:130%;letter-spacing:0.02em;text-decoration:none;white-space:nowrap;padding-bottom:2px;background:linear-gradient(currentColor, currentColor) no-repeat 50% 100% / 0% 1px;transition:color 0.2s ease, background-size 0.3s ease;" style-hover="color:#DEEB2C;background-image:linear-gradient(#DEEB2C, #DEEB2C);background-size:100% 1px;">About</a>
         <a data-btn="" data-cta="nav-lets-chat" data-cta-tier="primary" data-cta-location="nav" href="mailto:alex@sheps.studio" data-copy-email="alex@sheps.studio" data-copy-theme="dark" title="Copy email address" style="display:inline-flex;align-items:center;justify-content:center;flex:none;padding:12px 16px;border:0;border-radius:4px;background:#DEEB2C;color:#131313;font-family:'Inter',sans-serif;font-size:12px;font-weight:500;line-height:130%;letter-spacing:0.02em;text-decoration:none;white-space:nowrap;cursor:pointer;" style-hover="background:#CAE9DF;color:#131313;" style-active="background:#CAE9DF;color:#131313;opacity:0.8;">Let's Chat</a>
     </div>
